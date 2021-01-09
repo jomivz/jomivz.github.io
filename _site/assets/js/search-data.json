@@ -1,0 +1,68 @@
+{"0": {
+    "doc": "About",
+    "title": "About",
+    "content": "My name Jonathan. I am a cybersecurity consultant. This website is my IT notebook. Feel free send pull request through the github repository: [jomivz.github.io](https://github.com/jomivz/jomivz.github.io) Otherwise you can reach me on linkedin. Best regards ",
+    "url": "/about/",
+    "relUrl": "/about/"
+  },"1": {
+    "doc": "Development",
+    "title": "Development",
+    "content": " ",
+    "url": "/docs/development/development.html",
+    "relUrl": "/docs/development/development.html"
+  },"2": {
+    "doc": "docker",
+    "title": "docker",
+    "content": "# Docker QuickStart **Table of Contents** - [Images](#Images) - [Alpine](##Alpine) - [Ubuntu](##Ubuntu) - [The Docker Hub](#the-docker-hub) - [Configure Credential Help](#configure-credential-help) - [Building images](#building-images) - [Pushing images](#pushing-images) ## Images ### Alpine [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System) ```sh apk install openrc ``` ### Ubuntu ## The Docker Hub ``` docker login ``` ## Configure credential help (https://github.com/docker/docker-credential-helpers/) (https://docs.docker.com/engine/reference/commandline/login/#credentials-store) Docker requires the helper program to be in the client’s host `$PATH`. ```sh docker pull alpine ``` ## Building images Start by creating a Dockerfile to specify your application as shown below: ```sh cat > Dockerfile /my-first-repo ``` Test your docker image locally by running: ```sh docker run /my-first-repo. docker run -i --expose=9999 b5593e60c33b bash docker run -d -p 5801:5801 -p 9999:9999 ..... ``` To push your Docker image to Docker Hub, run ```sh docker push /my-first-repo ``` Now, in Docker Hub, your repository should have a new latest tag available under Tags: ",
+    "url": "/docs/system/docker-quickstart.html",
+    "relUrl": "/docs/system/docker-quickstart.html"
+  },"3": {
+    "doc": "Git Quickstart",
+    "title": "Git Quickstart",
+    "content": "# GIT CheatSheez **Table content** - [Generate SSH keypair](#generate-ssh-keypair) - [Introduction](#introduction) - [Configure Git settings](#configure-git-settings) - [Working with repos](#working-with-repos) - [Ignoring content](#ignoring-content) - [Branches](#branches) Generate SSH keypair --------------------- ``` ssh-keygen -t rsa -b 4096 -C \"john@smith.fr\" eval \"$(ssh-agent -s)\" ssh-add ~/.ssh/id_rsa sudo apt install xclip xclip -sel clip ``` Working with repos --------------------- To create a repo, use the command below. It creates a ```.git``` directory in the repository for git metadata: ``` git init ``` To clone an existing repository ``` git clone ssh://user@domain.com/repo.git ``` Making changes, tracking and commiting its like this: ``` touch blob1.txt blob2.txt git add blob2.txt git status Sur la branche master Votre branche est à jour avec 'origin/master'. Modifications qui seront validées : (utilisez \"git reset HEAD ...\" pour désindexer) nouveau fichier : blob2.txt git reset HEAD blob2.txt git rm -f blob2.txt git commit -m \"some comments here\" git push origin master ``` Ignoring content --------------------- Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file: ``` *.o src/ ``` Logging --------------------- ``` git log --oneline ``` Look at logs for a particular file ``` git log -- git log --oneline ``` Look at logs in a graphical way ``` git log --graph --decorate ``` Branches --------------------- Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch. Create a branch: ``` git branch foo ``` Begin working in a new branch: ``` git checkout foo ``` Do both at once ``` git checkout -b foo ``` Pushes and Merges --------------------- Push one or all branches to the origin: ``` git push origin git push origin --all ``` Merge a branch with HEAD on the master branch: ``` git checkout branch git merge foo ``` ",
+    "url": "/docs/development/git/",
+    "relUrl": "/docs/development/git/"
+  },"4": {
+    "doc": "gpg",
+    "title": "gpg",
+    "content": "Check using Repository GPG Keys (secure) -------------------------------------------- This method verifies the hashes published by Canonical are actually authentic. Unlike performing a quick checksum, the SHA256SUMS file is signed and only Ubuntu’s key can unlock the file to reveal the checksums exactly as Ubuntu published them. Ubuntu Download a copy of the SHA256SUMS and SHA256SUMS.gpg files from Canonical’s CD Images server for that particular version. Install the Ubuntu Keyring. This may already be present on your system. ``` sudo apt-get install ubuntu-keyring ``` Verify the keyring. ``` gpgv --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg SHA256SUMS.gpg SHA256SUMS ``` Verify the checksum of the downloaded image. ``` grep ubuntu-mate-18.04-desktop-amd64.iso SHA256SUMS | sha256sum --check ``` If you see “OK”, the image is in good condition. ``` ubuntu-mate-18.04-desktop-amd64.iso: OK ``` ",
+    "url": "/docs/system/gpg.html",
+    "relUrl": "/docs/system/gpg.html"
+  },"5": {
+    "doc": "Cheatsheets",
+    "title": "Cheatsheets",
+    "content": " ",
+    "url": "/docs/",
+    "relUrl": "/docs/"
+  },"6": {
+    "doc": "iptables",
+    "title": "iptables",
+    "content": "# IPTABLES cheatsheez 4 UBUNTU ## Pre-requisites Install the following package: ```sh apt install iptables-persistent ``` ## Saving & persistency Save the current config running this CLI: ```sh iptables-save > /etc/iptables.rules cd /etc/rc0.d; ln -s ../iptables.rules K01iptables ``` Execute the following command to restore the config ```iptables.rules``` after changes: ```sh iptables-restore ``` ",
+    "url": "/docs/networking/iptables.html",
+    "relUrl": "/docs/networking/iptables.html"
+  },"7": {
+    "doc": "Miscellaneous",
+    "title": "Miscellaneous",
+    "content": "ps -aux |pastebinit pandoc docker.md | lynx -stdin pdfunite infile1.pdf infile2.pdf outfile.pdf convert -resize 50% source.png dest.jpg convert -resize 512x512\\> secureelance_purple_484x512.png output.png file output.png output.png: PNG image data, 484 x 512, 8-bit/color RGBA, non-interlaced ",
+    "url": "/docs/system/miscellaneous.html",
+    "relUrl": "/docs/system/miscellaneous.html"
+  },"8": {
+    "doc": "Networking",
+    "title": "Networking",
+    "content": " ",
+    "url": "/docs/networking/networking.html",
+    "relUrl": "/docs/networking/networking.html"
+  },"9": {
+    "doc": "pfsense",
+    "title": "pfsense",
+    "content": "Check pfsense firmware version and the corresponding FreeBSD version here: https://docs.netgate.com/pfsense/en/latest/releases/versions-of-pfsense-and-freebsd.html After installing (setting vmx0 vlan and IP address + webconfigurator http protocol), log as admin and password pfsense: https://docs.netgate.com/pfsense/en/latest/usermanager/pfsense-default-username-and-password.html ",
+    "url": "/docs/networking/pfsense.html",
+    "relUrl": "/docs/networking/pfsense.html"
+  },"10": {
+    "doc": "System",
+    "title": "System",
+    "content": " ",
+    "url": "/docs/system/system.html",
+    "relUrl": "/docs/system/system.html"
+  }
+}

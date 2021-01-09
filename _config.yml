@@ -1,0 +1,21 @@
+title: JMVWORK
+lang: en
+description: my IT cybersecurity notebook
+logo: "assets/images/logo.png"
+
+## local method ##
+# theme: just-the-docs
+# debug:
+#   compress: false
+#   dist: true
+#   shortcodes: true
+
+## remote method ##
+theme: just-the-docs
+
+readme_index:
+  with_frontmatter: true
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
