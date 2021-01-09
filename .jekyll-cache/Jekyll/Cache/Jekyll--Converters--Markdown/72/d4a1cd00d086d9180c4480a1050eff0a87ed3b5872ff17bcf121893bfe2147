@@ -1,0 +1,134 @@
+I"<h1 id="git-cheatsheez">GIT CheatSheez</h1>
+
+<p><strong>Table content</strong></p>
+<ul>
+  <li><a href="#generate-ssh-keypair">Generate SSH keypair</a></li>
+  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#configure-git-settings">Configure Git settings</a></li>
+  <li><a href="#working-with-repos">Working with repos</a></li>
+  <li><a href="#ignoring-content">Ignoring content</a></li>
+  <li><a href="#branches">Branches</a></li>
+</ul>
+
+<h2 id="generate-ssh-keypair">Generate SSH keypair</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t rsa -b 4096 -C "john@smith.fr"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+sudo apt install xclip
+xclip -sel clip &lt; ~/.ssh/id_rsa.pub
+ssh -T git@github.com
+</code></pre></div></div>
+
+<h2 id="introduction">Introduction</h2>
+<p>Git is a source control tool created by Linus Torvald.
+Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.</p>
+
+<p>Some basics terminology:</p>
+<ul>
+  <li>each state is a commit</li>
+  <li>the current commit is called the HEAD</li>
+  <li>commits are affiliated with repositories and branches</li>
+  <li>the HEAD may be moved between commits</li>
+</ul>
+
+<h2 id="configure-git-settings">Configure git settings</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global user.email "john@smith.fr"
+git config --global user.name "john"
+git config --system core.editor vim
+</code></pre></div></div>
+
+<p>Alternatively, assign system-wide configuration in the config files:</p>
+<ul>
+  <li>/etc/gitconfig which correspond to –system</li>
+  <li>~/.gitconfig or ~/.config/git/config whci correspond to –global</li>
+  <li>.git/config in a directory which correspond to –local 
+Note: Files lower in the list override higher files.</li>
+</ul>
+
+<p>Files format:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[user]
+	name = john smith
+	email = john@smith.fr
+</code></pre></div></div>
+
+<p>Exclude certain paths:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config --global core.excludesfile &lt;path&gt;
+</code></pre></div></div>
+
+<h2 id="working-with-repos">Working with repos</h2>
+
+<p>To create a repo, use the command below. It creates a <code class="language-plaintext highlighter-rouge">.git</code> directory in the repository for git metadata:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+
+<p>To clone an existing repository</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://user@domain.com/repo.git
+</code></pre></div></div>
+
+<p>Making changes, tracking and commiting its like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch blob1.txt blob2.txt
+git add blob2.txt
+git status
+      
+	Sur la branche master
+	Votre branche est à jour avec 'origin/master'.
+
+	Modifications qui seront validées :
+	  (utilisez "git reset HEAD &lt;fichier&gt;..." pour désindexer)
+
+		nouveau fichier : blob2.txt
+
+git reset HEAD blob2.txt
+git rm -f blob2.txt
+git commit -m "some comments here"
+git push origin master
+</code></pre></div></div>
+
+<h2 id="ignoring-content">Ignoring content</h2>
+
+<p>Binaries, compiled files might be not versionned. Disregard those files creating a <code class="language-plaintext highlighter-rouge">.gitignore</code> file:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>*.o
+src/
+</code></pre></div></div>
+
+<h2 id="logging">Logging</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log --oneline
+</code></pre></div></div>
+<p>Look at logs for a particular file</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log -- &lt;filename&gt;
+git log --oneline &lt;filename&gt;
+</code></pre></div></div>
+
+<p>Look at logs in a graphical way</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log --graph --decorate
+</code></pre></div></div>
+
+<h2 id="branches">Branches</h2>
+
+<p>Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch.</p>
+
+<p>Create a branch:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch foo
+</code></pre></div></div>
+
+<p>Begin working in a new branch:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout foo
+</code></pre></div></div>
+
+<p>Do both at once</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout -b foo
+</code></pre></div></div>
+
+<h2 id="pushes-and-merges">Pushes and Merges</h2>
+
+<p>Push one or all branches to the origin:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push origin &lt;branchname&gt;
+git push origin --all
+</code></pre></div></div>
+
+<p>Merge a branch with HEAD on the master branch:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout branch
+git merge foo
+</code></pre></div></div>
+:ET
