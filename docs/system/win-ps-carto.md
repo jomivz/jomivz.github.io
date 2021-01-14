@@ -1,3 +1,12 @@
+---
+layout: default
+title: Windows sysadmin CLI
+parent: System
+grand_parent: Cheatsheets
+nav_order: 5
+has_children: true
+---
+
 PS sysadmin useful queries
 -----------------------------------------------
 
