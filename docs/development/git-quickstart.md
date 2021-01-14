@@ -15,6 +15,7 @@ nav_order: 4
  - [Working with repos](#working-with-repos)
  - [Ignoring content](#ignoring-content)
  - [Branches](#branches)
+ - [Cleaning Repo](#cleaning-repo)
 
 Generate SSH keypair
 ---------------------
@@ -104,6 +105,8 @@ Binaries, compiled files might be not versionned. Disregard those files creating
 ```
 *.o
 src/
+**.cache/
+**.jekyll-cache/
 ```
 
 Logging
@@ -156,4 +159,15 @@ Merge a branch with HEAD on the master branch:
 ```
 git checkout branch
 git merge foo
+```
+
+Cleaning repo 
+---------------------
+
+Steps to remove folder/directory only from git repository and not from the local  :
+
+```
+git rm -r --cached FolderName
+git commit -m "Removed folder from repository"
+git push origin master
 ```
