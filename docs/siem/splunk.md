@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Splunk Quickstart
-parent: System
+parent: SIEM
 grand_parent: Cheatsheets
 nav_order: 2
 has_children: true
@@ -19,7 +19,7 @@ has_children: true
 ## Platform health monitoring
 
 ![Splunk health monitoring](/docs/siem/splunk-health-monitoring.png)
-Format: ![Alt Splunk health monitoring](https://github.com/jomivz/jomivz.github.io/docs/siem/splunk-health-monitoring.png)
+Format: ![Alt Splunk health monitoring]({{%site.url%}}docs/siem/splunk-health-monitoring.png)
 
 ## Investigations 
 

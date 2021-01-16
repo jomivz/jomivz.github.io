@@ -19,50 +19,92 @@
   },"3": {
     "doc": "Git Quickstart",
     "title": "Git Quickstart",
-    "content": "# GIT CheatSheez **Table content** - [Generate SSH keypair](#generate-ssh-keypair) - [Introduction](#introduction) - [Configure Git settings](#configure-git-settings) - [Working with repos](#working-with-repos) - [Ignoring content](#ignoring-content) - [Branches](#branches) Generate SSH keypair --------------------- ``` ssh-keygen -t rsa -b 4096 -C \"john@smith.fr\" eval \"$(ssh-agent -s)\" ssh-add ~/.ssh/id_rsa sudo apt install xclip xclip -sel clip ``` Working with repos --------------------- To create a repo, use the command below. It creates a ```.git``` directory in the repository for git metadata: ``` git init ``` To clone an existing repository ``` git clone ssh://user@domain.com/repo.git ``` Making changes, tracking and commiting its like this: ``` touch blob1.txt blob2.txt git add blob2.txt git status Sur la branche master Votre branche est à jour avec 'origin/master'. Modifications qui seront validées : (utilisez \"git reset HEAD ...\" pour désindexer) nouveau fichier : blob2.txt git reset HEAD blob2.txt git rm -f blob2.txt git commit -m \"some comments here\" git push origin master ``` Ignoring content --------------------- Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file: ``` *.o src/ ``` Logging --------------------- ``` git log --oneline ``` Look at logs for a particular file ``` git log -- git log --oneline ``` Look at logs in a graphical way ``` git log --graph --decorate ``` Branches --------------------- Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch. Create a branch: ``` git branch foo ``` Begin working in a new branch: ``` git checkout foo ``` Do both at once ``` git checkout -b foo ``` Pushes and Merges --------------------- Push one or all branches to the origin: ``` git push origin git push origin --all ``` Merge a branch with HEAD on the master branch: ``` git checkout branch git merge foo ``` ",
+    "content": "# GIT CheatSheez **Table content** - [Generate SSH keypair](#generate-ssh-keypair) - [Introduction](#introduction) - [Configure Git settings](#configure-git-settings) - [Working with repos](#working-with-repos) - [Ignoring content](#ignoring-content) - [Branches](#branches) - [Cleaning Repo](#cleaning-repo) Generate SSH keypair --------------------- ``` ssh-keygen -t rsa -b 4096 -C \"john@smith.fr\" eval \"$(ssh-agent -s)\" ssh-add ~/.ssh/id_rsa sudo apt install xclip xclip -sel clip ``` Working with repos --------------------- To create a repo, use the command below. It creates a ```.git``` directory in the repository for git metadata: ``` git init ``` To clone an existing repository ``` git clone ssh://user@domain.com/repo.git ``` Making changes, tracking and commiting its like this: ``` touch blob1.txt blob2.txt git add blob2.txt git status Sur la branche master Votre branche est à jour avec 'origin/master'. Modifications qui seront validées : (utilisez \"git reset HEAD ...\" pour désindexer) nouveau fichier : blob2.txt git reset HEAD blob2.txt git rm -f blob2.txt git commit -m \"some comments here\" git push origin master ``` Ignoring content --------------------- Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file: ``` *.o src/ **.cache/ **.jekyll-cache/ ``` Logging --------------------- ``` git log --oneline ``` Look at logs for a particular file ``` git log -- git log --oneline ``` Look at logs in a graphical way ``` git log --graph --decorate ``` Branches --------------------- Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch. Create a branch: ``` git branch foo ``` Begin working in a new branch: ``` git checkout foo ``` Do both at once ``` git checkout -b foo ``` Pushes and Merges --------------------- Push one or all branches to the origin: ``` git push origin git push origin --all ``` Merge a branch with HEAD on the master branch: ``` git checkout branch git merge foo ``` Cleaning repo --------------------- Steps to remove folder/directory only from git repository and not from the local : ``` git rm -r --cached FolderName git commit -m \"Removed folder from repository\" git push origin master ``` ",
     "url": "/docs/development/git/",
     "relUrl": "/docs/development/git/"
   },"4": {
-    "doc": "gpg",
-    "title": "gpg",
-    "content": "Check using Repository GPG Keys (secure) -------------------------------------------- This method verifies the hashes published by Canonical are actually authentic. Unlike performing a quick checksum, the SHA256SUMS file is signed and only Ubuntu’s key can unlock the file to reveal the checksums exactly as Ubuntu published them. Ubuntu Download a copy of the SHA256SUMS and SHA256SUMS.gpg files from Canonical’s CD Images server for that particular version. Install the Ubuntu Keyring. This may already be present on your system. ``` sudo apt-get install ubuntu-keyring ``` Verify the keyring. ``` gpgv --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg SHA256SUMS.gpg SHA256SUMS ``` Verify the checksum of the downloaded image. ``` grep ubuntu-mate-18.04-desktop-amd64.iso SHA256SUMS | sha256sum --check ``` If you see “OK”, the image is in good condition. ``` ubuntu-mate-18.04-desktop-amd64.iso: OK ``` ",
-    "url": "/docs/system/gpg.html",
-    "relUrl": "/docs/system/gpg.html"
-  },"5": {
     "doc": "Cheatsheets",
     "title": "Cheatsheets",
     "content": " ",
     "url": "/docs/",
     "relUrl": "/docs/"
-  },"6": {
+  },"5": {
     "doc": "iptables",
     "title": "iptables",
     "content": "# IPTABLES cheatsheez 4 UBUNTU ## Pre-requisites Install the following package: ```sh apt install iptables-persistent ``` ## Saving & persistency Save the current config running this CLI: ```sh iptables-save > /etc/iptables.rules cd /etc/rc0.d; ln -s ../iptables.rules K01iptables ``` Execute the following command to restore the config ```iptables.rules``` after changes: ```sh iptables-restore ``` ",
     "url": "/docs/networking/iptables.html",
     "relUrl": "/docs/networking/iptables.html"
+  },"6": {
+    "doc": "gpg",
+    "title": "gpg",
+    "content": "Check using Repository GPG Keys (secure) -------------------------------------------- This method verifies the hashes published by Canonical are actually authentic. Unlike performing a quick checksum, the SHA256SUMS file is signed and only Ubuntu’s key can unlock the file to reveal the checksums exactly as Ubuntu published them. Ubuntu Download a copy of the SHA256SUMS and SHA256SUMS.gpg files from Canonical’s CD Images server for that particular version. Install the Ubuntu Keyring. This may already be present on your system. ``` sudo apt-get install ubuntu-keyring ``` Verify the keyring. ``` gpgv --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg SHA256SUMS.gpg SHA256SUMS ``` Verify the checksum of the downloaded image. ``` grep ubuntu-mate-18.04-desktop-amd64.iso SHA256SUMS | sha256sum --check ``` If you see “OK”, the image is in good condition. ``` ubuntu-mate-18.04-desktop-amd64.iso: OK ``` ",
+    "url": "/docs/system/lin-gpg.html",
+    "relUrl": "/docs/system/lin-gpg.html"
   },"7": {
-    "doc": "Miscellaneous",
-    "title": "Miscellaneous",
-    "content": "ps -aux |pastebinit pandoc docker.md | lynx -stdin pdfunite infile1.pdf infile2.pdf outfile.pdf convert -resize 50% source.png dest.jpg convert -resize 512x512\\> secureelance_purple_484x512.png output.png file output.png output.png: PNG image data, 484 x 512, 8-bit/color RGBA, non-interlaced ",
-    "url": "/docs/system/miscellaneous.html",
-    "relUrl": "/docs/system/miscellaneous.html"
+    "doc": "Useful daily linux CLI",
+    "title": "Useful daily linux CLI",
+    "content": "Useful daily linux CLI: Pushing a command output to pastebin (example here ```ps```): ``` ps -aux |pastebinit ``` Displaying a markdown to lynx: ``` pandoc docker.md | lynx -stdin ``` Aggregating multiple pdf files : ``` pdfunite infile1.pdf infile2.pdf outfile.pdf ``` Converting an image : ``` convert -resize 50% source.png dest.jpg convert -resize 512x512 > secureelance_purple_484x512.png output.png ``` ",
+    "url": "/docs/system/lin-misc-cli.html",
+    "relUrl": "/docs/system/lin-misc-cli.html"
   },"8": {
+    "doc": "Linux",
+    "title": "Linux",
+    "content": " ",
+    "url": "/docs/system/linux.html",
+    "relUrl": "/docs/system/linux.html"
+  },"9": {
+    "doc": "Mindmaps",
+    "title": "Mindmaps",
+    "content": "# Mindmaps **Table of Contents** - [Forensics Roadmap for NTFS](#forensics-roadmap-for-ntfs) - [Forensics Roadmap for Windows OS](#forensics-roadmap-for-windows-os) - [EnCE Encase v7](#ence-encase-v7) - [Encase v7 Enscripts](#encase-v7-enscripts) - [Encase v7 Products](#encase-v7-products) ## Forensics Roadmap for NTFS ![Forensics Roadmap for NTFS](/docs/mindmaps/svg/win-for-ntfs.svg) ## Forensics Roadmap for Windows OS ![Forensics Roadmap for Windows](/docs/mindmaps/svg/win-for-invest-roadmap.svg) ## EnCE Encase v7 ![EnCE Encase v7](/docs/mindmaps/svg/win-for-encase-v7-ence.svg) ## Encase v7 Enscripts ![Encase v7 EnScripts](/docs/mindmaps/svg/win-for-encase-v7-enscript.svg) ## Encase v7 Products ![Encase v7 Products](/docs/mindmaps/svg/win-for-encase-products-2016.svg) ",
+    "url": "/docs/mindmaps/mindmaps.html",
+    "relUrl": "/docs/mindmaps/mindmaps.html"
+  },"10": {
     "doc": "Networking",
     "title": "Networking",
     "content": " ",
     "url": "/docs/networking/networking.html",
     "relUrl": "/docs/networking/networking.html"
-  },"9": {
+  },"11": {
     "doc": "pfsense",
     "title": "pfsense",
     "content": "Check pfsense firmware version and the corresponding FreeBSD version here: https://docs.netgate.com/pfsense/en/latest/releases/versions-of-pfsense-and-freebsd.html After installing (setting vmx0 vlan and IP address + webconfigurator http protocol), log as admin and password pfsense: https://docs.netgate.com/pfsense/en/latest/usermanager/pfsense-default-username-and-password.html ",
     "url": "/docs/networking/pfsense.html",
     "relUrl": "/docs/networking/pfsense.html"
-  },"10": {
+  },"12": {
+    "doc": "SIEM",
+    "title": "SIEM",
+    "content": " ",
+    "url": "/docs/siem/siem.html",
+    "relUrl": "/docs/siem/siem.html"
+  },"13": {
+    "doc": "Splunk Quickstart",
+    "title": "Splunk Quickstart",
+    "content": "# Splunk QuickStart **Table of Contents** - [Platform health monitoring](#platform-health-monitoring) - [Investigations](#investigations) - [SQL queries](##sql-queries) - [Dashboards](##dashboards) ## Platform health monitoring ![Splunk health monitoring](/docs/siem/splunk-health-monitoring.png) Format: ![Alt Splunk health monitoring]({{%site.url%}}docs/siem/splunk-health-monitoring.png) ## Investigations ### SQL queries ### Dashboards [XXX](https://wiki.org/wiki/) ",
+    "url": "/docs/siem/splunk.html",
+    "relUrl": "/docs/siem/splunk.html"
+  },"14": {
     "doc": "System",
     "title": "System",
     "content": " ",
     "url": "/docs/system/system.html",
     "relUrl": "/docs/system/system.html"
+  },"15": {
+    "doc": "PS group listing to CSV",
+    "title": "PS group listing to CSV",
+    "content": "PS script for detailled listing of Group Members --------------------------------------------- ``` Get-ADgroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Members Get-ADgroup EMEA-PXY-Web-ReadWriteUpload -Property * | Select-Object -ExpandProperty Members import-module activeDirectory $GroupMember = \"EMEA-PXY-Web-ReadWriteUpload\" $ResultFileName = \"C:\\Users\\x123456\\Documents\\EMEA-PXY-Web-ReadWriteUpload.csv\" $Members=Get-ADGroupMember -identity $GroupMember -recursive $Result = @(); foreach ($Member in $Members){ $User = Get-ADObject $Member -Properties name,displayName,department; $result += New-object -TypeName psobject -Property @{ 'Compte AD'=$User.name; 'Nom Prenom'=$User.displayName; 'Direction-Service'=$User.department; } } $Result|Export-csv -path $ResultFileName -delimiter ';' -NoTypeInformation -Encoding UTF8 -Force; Type $ResultFileName ``` ",
+    "url": "/docs/system/win-ps-group-listing-to-csv.html",
+    "relUrl": "/docs/system/win-ps-group-listing-to-csv.html"
+  },"16": {
+    "doc": "PS useful queries",
+    "title": "PS useful queries",
+    "content": "PS sysadmin useful queries ----------------------------------------------- * Installing telnet clients : ``` Import-module servermanager Add-windowsfeature telnet-client ``` * ActiveDirectory module mandatory for the following commands : ``` Import-module ActiveDirectory ``` * Listing User Groups : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf ``` * Listing Group Members : ``` Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member ``` * PasswordLastSet : ``` Get-ADUser 'x123456' -properties PasswordLastSet | Format-List ``` * Matching Group Name for USB : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL' ``` * Matching Group Name for DA : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins' ``` * Matching Group Name 2 : ``` Get-ADPrincipalGroupMembership -Identity x123456 | Select-Object -ExpandProperty MemberOf | Where-Object {$_.name -like '*DEVICECONTROL*' } ``` * Listing Computer Info : ``` Get-ADComputer -Filter {Name -Like \"dell-xps*\"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemServicePack,OperatingSystemVersion -Wrap -Auto ``` * Listing Win > 6.1 : ``` Get-ADComputer -Filter {OperatingSystemVersion -ge \"6.1\"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto ``` ",
+    "url": "/docs/system/win-ps-useful-queries.html",
+    "relUrl": "/docs/system/win-ps-useful-queries.html"
+  },"17": {
+    "doc": "Windows",
+    "title": "Windows",
+    "content": " ",
+    "url": "/docs/system/windows.html",
+    "relUrl": "/docs/system/windows.html"
   }
 }

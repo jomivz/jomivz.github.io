@@ -2,7 +2,7 @@ title: JMVWORK
 lang: en
 description: my IT cybersecurity notebook
 baseurl: "/"
-url: "https://jomivz.github.io" #
+url: "" #
 logo: "assets/images/logo.png"
 
 
@@ -14,7 +14,7 @@ logo: "assets/images/logo.png"
 #   shortcodes: true
 
 ## remote method ##
-remote_theme: pmarsceill/just-the-docs
+theme: just-the-docs
 
 readme_index:
   with_frontmatter: true
