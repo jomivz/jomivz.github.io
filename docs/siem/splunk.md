@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Splunk Quickstart
+title: splunk quickstart
 parent: SIEM
 grand_parent: Cheatsheets
-nav_order: 2
+nav_order: 1
 has_children: true
 ---
 
@@ -12,18 +12,17 @@ has_children: true
 **Table of Contents**
 
 - [Platform health monitoring](#platform-health-monitoring)
-- [Investigations](#investigations)
- - [SQL queries](##sql-queries)
- - [Dashboards](##dashboards)
+- [Dashboards](##dashboards)
 
 ## Platform health monitoring
 
 ![Splunk health monitoring](/docs/siem/splunk-health-monitoring.png)
 Format: ![Alt Splunk health monitoring]({{%site.url%}}docs/siem/splunk-health-monitoring.png)
 
-## Investigations 
-
-### SQL queries
 ### Dashboards
+
+here:
+here:
+here:
 
 [XXX](https://wiki.org/wiki/)

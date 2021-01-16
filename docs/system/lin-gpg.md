@@ -1,13 +1,13 @@
 ---
 layout: default
-title: gpg
+title: linux command examples - gpgv
 parent: Linux
 grand_parent: System
 nav_order: 2
 has_children: true
 ---
 
-Check using Repository GPG Keys (secure)
+Linux command examples - gpgv
 --------------------------------------------
 
 This method verifies the hashes published by Canonical are actually authentic. Unlike performing a quick checksum, the SHA256SUMS file is signed and only Ubuntu’s key can unlock the file to reveal the checksums exactly as Ubuntu published them.
