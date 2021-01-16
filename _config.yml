@@ -14,7 +14,7 @@ logo: "assets/images/logo.png"
 #   shortcodes: true
 
 ## remote method ##
-theme: just-the-docs
+remote_theme: ipmarsceill/just-the-docs
 
 readme_index:
   with_frontmatter: true
