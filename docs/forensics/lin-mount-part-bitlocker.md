@@ -3,7 +3,6 @@ layout: default
 title: mounting bitlocker partition on Linux
 parent: Forensics
 grand_parent: Cheatsheets
-nav_order: 4
 has_children: true
 ---
 
