@@ -3,7 +3,6 @@ lang: en
 description: my IT cybersecurity notebook
 baseurl: "/"
 url: "" #
-#logo: "assets/images/logo2.png"
 favicon: "assets/images/favicon.ico"
 
 

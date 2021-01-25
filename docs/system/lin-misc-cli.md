@@ -46,3 +46,10 @@ To create a favicon with ```ImageMagick```, use the command:
 ```
 convert logo.png  -background white -clone 0 -resize 32x32 -extent 32x32  -delete 0 -alpha off -colors 256 favicon.ico
 ```
+
+To convert a bmp image to an svg, use the command:
+```
+potrace -s logo.bmp #replace the white zone with transparency"
+potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
+potrace -s logo.bmp --opaque #to keep white areas
+```

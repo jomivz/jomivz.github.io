@@ -1538,7 +1538,7 @@ figure.highlight pre, figure.highlight code { padding: 0; margin: 0; border: 0; 
 
 @media print { .site-footer, .site-button, #edit-this-page, #back-to-top, .site-nav, .main-header { display: none !important; } .side-bar { width: 100%; height: auto; border-right: 0 !important; } .site-header { border-bottom: 1px solid #44434d; } .site-title { font-size: 16px !important; font-weight: 700 !important; } .text-small { font-size: 8pt !important; } pre.highlight { border: 1px solid #44434d; } .main { max-width: none; margin-left: 0; } }
 
-.site-title { color: #ffffff; font-color: #ffffff; font-weight: 700; background-image: url(/assets/images/logo3.png); background-repeat: no-repeat; background-size: 55px; padding-left: 5rem; }
+.site-title { color: #ffffff; font-color: #ffffff; font-weight: 700; background-image: url(/assets/images/logo2.svg); background-repeat: no-repeat; background-size: 55px; padding-left: 5rem; }
 
 .site-title:hover { background-image: none; }
 
