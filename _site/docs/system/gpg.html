@@ -1,0 +1,23 @@
+<h2 id="check-using-repository-gpg-keys-secure">Check using Repository GPG Keys (secure)</h2>
+
+<p>This method verifies the hashes published by Canonical are actually authentic. Unlike performing a quick checksum, the SHA256SUMS file is signed and only Ubuntu’s key can unlock the file to reveal the checksums exactly as Ubuntu published them.
+Ubuntu</p>
+
+<p>Download a copy of the SHA256SUMS and SHA256SUMS.gpg files from Canonical’s CD Images server for that particular version.</p>
+
+<p>Install the Ubuntu Keyring. This may already be present on your system.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install ubuntu-keyring
+</code></pre></div></div>
+
+<p>Verify the keyring.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpgv --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg SHA256SUMS.gpg SHA256SUMS
+</code></pre></div></div>
+
+<p>Verify the checksum of the downloaded image.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep ubuntu-mate-18.04-desktop-amd64.iso SHA256SUMS | sha256sum --check
+</code></pre></div></div>
+
+<p>If you see “OK”, the image is in good condition.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ubuntu-mate-18.04-desktop-amd64.iso: OK
+</code></pre></div></div>
+
