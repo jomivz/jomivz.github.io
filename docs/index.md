@@ -22,14 +22,14 @@ Using markdown as notes allows to fetch commands (using ```grep``` plus keywords
 My notes will cover my training roadmap :
 * CRTP (Certified Red Team Professional) - [https://www.pentesteracademy.com/activedirectorylab](https://www.pentesteracademy.com/activedirectorylab)
 * [https://tryhackme.com](https://tryhackme.com)
-* [https://letsdefend.io](https://lets-defend.io)
-* [https://freetraining-dfirdiva.com](https://freetraining-dfirdiva.com)
-* [https://chiheb-chebbi.com](https://chiheb-chebbi.com)
+* [https://letsdefend.io](https://letsdefend.io)
+* [https://freetraining.dfirdiva.com](https://freetraining.dfirdiva.com)
+* [https://www.chiheb-chebbi.com](https://www.chiheb-chebbi.com)
 * OSCP (Offensive Security Certified Professional) - [https://www.offensive-security.com/pwk-oscp/](https://www.offensive-security.com/pwk-oscp/)
 * CCNP (Cisco Certified Network Professional) - passed in 2014
-* Encase Certiified Examinor - writing passed 2016
+* Encase Certified Examinor - writing passed 2016
 
-You may also be interested into my cybersecurity free PDF compilation at: [https://github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
+You may also be interested into my cybersecurity PDFs collection at: [https://github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
 
 This website is inspired by more advance projects I recommend you to have a look :
 * [https://ired.team] (https://ired.team): common offensive security techniques
