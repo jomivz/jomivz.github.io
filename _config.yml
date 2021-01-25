@@ -3,8 +3,8 @@ lang: en
 description: my IT cybersecurity notebook
 baseurl: "/"
 url: "" #
-logo: "assets/images/logo.png"
-favicon.ico: "assets/images/favicon.ico"
+#logo: "assets/images/logo2.png"
+favicon: "assets/images/favicon.ico"
 
 
 ## local method ##
@@ -57,7 +57,7 @@ heading_anchors: true
 
 # Aux links for the upper right navigation
 aux_links:
-  "JMVWORK GitHub repository":
+  "GitHub repository":
     - "//github.com/jomivz/jomivz.github.io"
 
 # Makes Aux links open in a new tab. Default is false

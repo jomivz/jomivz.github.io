@@ -12,12 +12,10 @@ This is publicly accessible personal mindmaps and notes at [https://jmvwork.xyz]
 
 Using markdown as notes allows to fetch commands (using ```grep``` plus keywords) in order to be the more efficient in several situations, like when maintaining, auditing, investigating, passing exam or participating to a CTF.
 
-{% hint style="warning" %}
 * Do not take everything or anything in these notes for **granted** 
 * Do not expect the notes to be exhaustive or covering the techniques or the artifacts they produce in full
 * Expect mistakes in the notes
 * Always consult additional resources
-{% endhint %}
 
 My notes will cover my training roadmap :
 * CRTP (Certified Red Team Professional) - [https://www.pentesteracademy.com/activedirectorylab](https://www.pentesteracademy.com/activedirectorylab)

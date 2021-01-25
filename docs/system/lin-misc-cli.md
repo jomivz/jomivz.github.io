@@ -23,19 +23,21 @@ Aggregating multiple pdf files :
 pdfunite infile1.pdf infile2.pdf outfile.pdf
 ```
 
-Converting an image :
+To resize an image, use the command:
 ```
 convert  -resize 50% source.png dest.jpg
-convert -resize 512x512 > secureelance_purple_484x512.png output.png
+convert logo.png -resize 512x512 output.png
 ```
+Check out [imagemagick resize examples](https://legacy.imagemagick.org/Usage/resize/) illustrated.
+
 Linux command examples : find
 
-Finding pdf files created last 24 hours in Donwloads diirectory:
+To find pdf files created last 24 hours in Donwloads diirectory, use the command:
 ```
 find ~/Downloads -iname *.pdf -a -ctime 1
 ```
 
-Converting all pdf files in current directory to ebooks:
+To convert all pdf files in current directory to ebooks, use the commannd:
 ```
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
