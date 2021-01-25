@@ -39,3 +39,8 @@ Converting all pdf files in current directory to ebooks:
 ```
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
+
+To create a favicon with ```ImageMagick```, use the command:
+```
+convert logo.png  -background white -clone 0 -resize 32x32 -extent 32x32  -delete 0 -alpha off -colors 256 favicon.ico
+```

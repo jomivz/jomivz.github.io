@@ -4,6 +4,7 @@ description: my IT cybersecurity notebook
 baseurl: "/"
 url: "" #
 logo: "assets/images/logo.png"
+favicon.ico: "assets/images/favicon.ico"
 
 
 ## local method ##
