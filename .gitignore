@@ -1,3 +1,7 @@
 src/
+objects/
+hooks/
+logs/
 _draft/
 .jekyll-cache
+.*.sw*
