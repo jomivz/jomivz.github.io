@@ -17,7 +17,7 @@ has_children: true
 ## Platform health monitoring
 
 ![Splunk health monitoring](/docs/siem/splunk-health-monitoring.png)
-Format: ![Alt Splunk health monitoring]({{%site.url%}}docs/siem/splunk-health-monitoring.png)
+Format: ![Alt Splunk health monitoring](/docs/siem/splunk-health-monitoring.png)
 
 ### Dashboards
 
