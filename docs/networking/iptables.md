@@ -7,15 +7,7 @@ nav_order: 4
 has_children: true
 ---
 
-# IPTABLES cheatsheez 4 UBUNTU
-
-## Pre-requisites 
-
-Install the following package:
-
-```sh
-apt install iptables-persistent
-```
+# IPTABLES cheatsheet
 
 ## Saving & persistency
 
@@ -30,4 +22,11 @@ Execute the following command to restore the config ```iptables.rules``` after c
 
 ```sh
 iptables-restore
+```
+
+## Common policies
+
+Use the REJECT jump for any TCP rule in order to not send back TCP RST when scanned:
+```
+iptables -I INPUT -p tcp --dport <port> -j REJECT --reject-with tcp-reset
 ```
