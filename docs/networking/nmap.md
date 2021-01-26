@@ -45,5 +45,6 @@ NMAP uses the following options for NSE scripts :
 * ```-mtu``` : use lower MTU to split packets than 1500 (standard value for ethernet LAN)
 * ```--scan-delay <:digit:>ms``` : avoiding time-based alerts.
 * ```--badsum```: behavior to test
+* ```-S <IP_Address>```: Spoof the source address 
 
-* 
+You may refer to the [nmap.org firewall evasion](https://nmap.org/book/man-bypass-firewalls-ids.html) page for futher information.
