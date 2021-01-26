@@ -26,3 +26,10 @@ has_children: true
   * Either TCP port are ```opened``` or ```closed```, Windows OS respond with a TCP RST. 
 
 You may refer to the [RFC 793](https://tools.ietf.org/html/rfc793) to get more information about the TCP protocol.
+
+## NSE scripts
+
+NMAP uses the following options for NSE scripts :
+* ```--script=<category>``` where category is one of the following values: ```safe```, ```intrusive```, ```vuln```, ```exploit```, ```brute```, ```auth```, ```discoevry```.
+* ```--script=<name> --script-args=<args>``` where you may refer to the [full list](https://nmap.org/nsedoc/).
+* ```--script-help=<name>``` for help on the script.
