@@ -33,3 +33,17 @@ NMAP uses the following options for NSE scripts :
 * ```--script=<category>``` where category is one of the following values: ```safe```, ```intrusive```, ```vuln```, ```exploit```, ```brute```, ```auth```, ```discoevry```.
 * ```--script=<name> --script-args=<arg1>, <arg2>``` where you may refer to the ```/usr/share/nmap/scripts/``` directory or [nmap.org](https://nmap.org/nsedoc/) to get the full list.
 * ```--script-help=<name>``` for help on the script.
+
+## NMAP Default behavior
+
+* By default, Windows firewall blocks all ICMP packets and NMAP does not scan hosts not answering to ```ping```.
+* Thus use the option ```-Pn``` as workaround
+
+## Firewall evasion
+
+* ```-f``` : use fragments
+* ```-mtu``` : use lower MTU to split packets than 1500 (standard value for ethernet LAN)
+* ```--scan-delay <:digit:>ms``` : avoiding time-based alerts.
+* ```--badsum```: behavior to test
+
+* 
