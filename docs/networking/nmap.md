@@ -31,5 +31,5 @@ You may refer to the [RFC 793](https://tools.ietf.org/html/rfc793) to get more i
 
 NMAP uses the following options for NSE scripts :
 * ```--script=<category>``` where category is one of the following values: ```safe```, ```intrusive```, ```vuln```, ```exploit```, ```brute```, ```auth```, ```discoevry```.
-* ```--script=<name> --script-args=<arg1>, <arg2>``` where you may refer to the [full list](https://nmap.org/nsedoc/).
+* ```--script=<name> --script-args=<arg1>, <arg2>``` where you may refer to the ```/usr/share/nmap/scripts/``` directory or [nmap.org](https://nmap.org/nsedoc/) to get the full list.
 * ```--script-help=<name>``` for help on the script.
