@@ -14,7 +14,7 @@ has_children: true
 * When the target's UDP port is open, (except for well-known port) there is no response from the target. NMAP refers the port as being ```open|filtered```.
 * When the target's UDP port is closed, the response expected is an ICMP port unreachable. NMAP refers the port as being ```closed```.
 * For well-knowned UDP port, NMAP will forge payload (instead of empty). In case of response, NMAP refers the port as being ```open```.
-* Due the slowness of scanning UDP connections, run Nmap with --top-ports <number> enabled.
+* Due the slowness of scanning UDP connections, run Nmap with the ```--top-ports <number>``` option.
 
 ## Keypoints scanning TCP connections
 
