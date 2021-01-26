@@ -13,7 +13,7 @@ has_children: true
 
 * When the target's UDP port is open, (except for well-known port) there is no response from the target. NMAP refers the port as being ```open|filtered```.
 * When the target's UDP port is closed, the response expected is an ICMP port unreachable. NMAP refers the port as being ```closed```.
-* For well-knowned UDP port, NMAP will forge payload (instead of empty). In case of response, NMAP refers the port as being ```open```.
+* For well-known UDP port, NMAP will forge payload (instead of empty). In case of response, NMAP refers the port as being ```opened```.
 * Due the slowness of scanning UDP connections, run Nmap with the ```--top-ports <number>``` option.
 
 ## Keypoints scanning TCP connections
@@ -21,7 +21,8 @@ has_children: true
 * Compare to TCP connect scans, ```SYN``` / ```NULL``` / ```Xmas``` scans have the following common points:
   * it is often not logged by applications listening on open ports.
   * it requires the ability to create raw packets (as opposed to the full TCP handshake), which is a root privilege by default. 
-  * When the target's TCP port is open, the response expected is an ICMP port unreachable.
+  * When the target's TCP port is open, there is usually no response. Firewall may also respond with no response or with an ICMP port unreachable when ```filtered```.
   * When the target's TCP port is closed, the response expected is an TCP RST if the port is closed.
+  * Either TCP port are ```opened``` or ```closed```, Windows OS respond with a TCP RST. 
 
 You may refer to the [RFC 793](https://tools.ietf.org/html/rfc793) to get more information about the TCP protocol.
