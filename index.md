@@ -20,11 +20,12 @@ Like administrating, deploying, maintaining, auditing, investigating, passing ex
 My notes will cover my training roadmap :
 * CRTP (Certified Red Team Professional) by [pentesteracademy.com](https://www.pentesteracademy.com/activedirectorylab)
 	* Good start to know Windows/Active Directory TTPs
+* DFIR free training at [dfirdiva.com](https://freetraining.dfirdiva.com)
+	* Referencement of DFIR sources (Youtube & Co) 
+* [https://cyberdefenders.org/](https://cyberdefenders.org/)
 * [tryhackme.com](https://tryhackme.com)
 	* Good start to practice cybersecurity classic topics
 * [letsdefend.io](https://letsdefend.io)
-	* Not tried yet - stay tuned
-* DFIR free training at [dfirdiva.com](https://freetraining.dfirdiva.com)
 	* Not tried yet - stay tuned
 * [chiheb-chebbi.com](https://www.chiheb-chebbi.com)
 	* Not tried yet - stay tuned
