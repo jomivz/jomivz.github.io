@@ -20,7 +20,7 @@ Like administrating, deploying, maintaining, auditing, investigating, passing ex
 
 Here is the training roadmap :
 
-| Reference     |  Content |  Certification / Badges / Distinctions |
+| **Reference** | **Content** | **Certification / Badges / Distinctions** |
 | [pentesteracademy.com](https://www.pentesteracademy.com/activedirectorylab) | Good start to know Windows/Active Directory TTPs | CRTP (Certified Red Team Professional) |
 | [dfirdiva.com](https://freetraining.dfirdiva.com) | Referencing DFIR sources (Youtube & Co) | None | 
 | [cyberdefenders.org](https://cyberdefenders.org/) | | Live Ranking |
