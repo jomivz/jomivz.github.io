@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+navi_order: 6
 ---
 
 My name Jonathan. I am a cybersecurity consultant. This website is my IT notebook. 

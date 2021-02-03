@@ -1,7 +1,22 @@
+---
+layout: default
+title: run github pages locally
+parent: Development
+grand_parent: Cheatsheets  
+permalink: /docs/development/git/
+nav_order: 4
+---
+
+# Run github pages locally
+
+Github Pages run with Jekyll. This markdown explains how tp install and run/test it.
+This is a way more efficient than markdown editors to preview your notes as it interprets/translates your code to HTML.
+
 ## Contents
 
 1. [Installation](#Installation)
 2. [Testing](#Testing)
+
 
 ## Installation
 

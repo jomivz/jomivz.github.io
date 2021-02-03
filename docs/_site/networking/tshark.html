@@ -1,0 +1,50 @@
+<h1 id="pcap-analysis-with-tshark">PCAP analysis with TSHARK</h1>
+
+<h2 id="extract-asset-ip-list-http-hotsnames">Extract asset: IP list, HTTP hotsnames</h2>
+
+<p>Extract of HTTP host to CSV :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tshark -nl -T fields -e ip.src -e ip.dst -e http.host -r request_1426258128.pcap | sort | uniq &gt; 2389_http_streams.csv
+</code></pre></div></div>
+
+<p>Extract of source and destination IP addresses to CSV :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tshark -nl -T fields -e ip.src -e ip.dst -r request_1426258128.pcap | sort | uniq &gt; 2389_ip_streams.csv
+</code></pre></div></div>
+<p>Extract in-addr.arpa in DNS PTR response to CSV :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tshark -nl -T fields -e dns.qry.name -r request_1426258128.pcap | sort | uniq &gt; 2389_dns_ptr_C2_response.csv
+139.253.2.195.in-addr.arpa
+166.119.19.193.in-addr.arpa
+</code></pre></div></div>
+
+<p>Cast in-addr.arpa to IPv4 :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat 2389_dns_ptr_C2_response.csv | arpa2ip
+195.2.253.139
+193.19.119.166
+</code></pre></div></div>
+
+<p>Cast IPv4 set to tcpdump list :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat 2389_DNS_ptr_C2_ip.csv | tcplist
+'( 195.88.208.131 or 195.2.253.139 or 193.19.119.166 or 195.88.209.169 or 195.2.253.204 or 195.88.208.250 or 193.19.118.27 or 195.2.252.44 or 195.88.208.56 or 195.88.209.6 or 193.19.118.94 )'
+</code></pre></div></div>
+
+<p>Match in wireshark packets with Sourcefire IOC strings</p>
+
+<p>In the example here, convert the string () { (shellshock) to hexadecimal value (NOTE: skip 0a which is the EOF)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[19:27:16] jomivz@sans-sift:1793 $ echo () { &gt; ioc.ascii
+[19:27:23] jomivz@sans-sift:1793 $ xxd ioc.ascii
+0000000: 2829 207b 0a                             () {.
+[19:27:28] jomivz@csirt-sans-sift:1793 $
+</code></pre></div></div>
+
+<p>Apply the related BFP filter in Wireshark :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tcp.segment_data contains 28:29:20:7b
+</code></pre></div></div>
+
+<p>Look for IP asset in CDA list</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat 1793_ip_streams_dstip_AL.csv| greplist | grep -f /assets/CDA_sorted_IP.txt
+</code></pre></div></div>
+
+<p>Tcpdump capture from IP asset</p>
+
+<p>Capture_on_IDS with the tcpdump list</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@SF-SENSOR:/Volume/home/admin# tcpdump -i nfe0.1.22 -c 1000 host '( 195.88.208.131 or 195.2.253.139 or 193.19.119.166 or 195.88.209.169 or 195.2.53.204 or 195.88.208.250 or 193.19.118.27 or 195.2.252.44 or 195.88.208.56 or 195.88.209.6 or 193.19.118.94 )' -w 2389_2.pcap
+</code></pre></div></div>

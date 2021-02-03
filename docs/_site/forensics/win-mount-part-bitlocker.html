@@ -1,0 +1,49 @@
+<p>Mounting BitLocker Encrypted Drive on Windows</p>
+
+<h1 id="convert-raw-image-files-to-vhd-compatible-file">Convert Raw Image Files to VHD Compatible File</h1>
+
+<p>Virtual Hard Disk (VHD) tool is an unmanaged code command-line tool which provides useful VHD manipulation functions including instant creation of large fixed-size VHDs.</p>
+
+<p>VHD Tool 2.0 tool can be obtained from either of the below sources: http://archive.msdn.microsoft.com/vhdtool/Release/ProjectReleases.aspx?ReleaseId=5344</p>
+
+<h1 id="vhd-tool-20-usage">VHD Tool 2.0 Usage</h1>
+
+<ol>
+  <li>Download the VhdTool.exe to D:.</li>
+  <li>Open an elevated command prompt and navigate to D:.</li>
+  <li>Execute the following command: VhdTool.exe /convert raw_disk_image_filename.ntfs.</li>
+</ol>
+
+<h1 id="mount-vhd-via-windows-disk-management-tool">Mount VHD via Windows Disk Management Tool</h1>
+<ol>
+  <li>Open Disk Management via Start &gt; Run &gt; diskmgmt.msc.</li>
+  <li>
+    <p>On the Menu bar, Action &gt; Attach VHD.</p>
+  </li>
+  <li>Browse to the location of the raw disk image folder. Ensure that All files (<em>.</em>) is selected.</li>
+</ol>
+
+<p>NOTE: Do not checked Read-only else even when the correct recovery key is entered later on, it will alert you that it is incorrect.[2]</p>
+
+<ol>
+  <li>
+    <p>Select Type the recovery key when prompted.</p>
+  </li>
+  <li>
+    <p>Enter the recovery key and click NEXT.</p>
+  </li>
+</ol>
+
+<p>NOTE: Every recovery key has a password ID. Ensure that the recovery key entered is for the password ID shown to you.</p>
+
+<h1 id="unmount-vhd-via-windows-disk-management-tool">Unmount VHD via Windows Disk Management Tool</h1>
+
+<ol>
+  <li>Right click on the mounted VHD and click on Detach VHD.</li>
+</ol>
+
+<p>On “acme.corp”, right click and choose “Find”</p>
+
+<p>Choose “Computer”, type the computer name, click on “Find Now”. On section “Search Results”, pick the computer.</p>
+
+<p>Go to “BitLocker Recovery” tab to retrieve BitLocker Recovery Password</p>

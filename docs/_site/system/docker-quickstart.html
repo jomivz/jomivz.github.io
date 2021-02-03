@@ -1,0 +1,69 @@
+<h1 id="docker-quickstart">Docker QuickStart</h1>
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+  <li><a href="#Images">Images</a></li>
+  <li><a href="##Alpine">Alpine</a></li>
+  <li><a href="##Ubuntu">Ubuntu</a></li>
+  <li><a href="#the-docker-hub">The Docker Hub</a></li>
+  <li><a href="#configure-credential-help">Configure Credential Help</a></li>
+  <li><a href="#building-images">Building images</a></li>
+  <li><a href="#pushing-images">Pushing images</a></li>
+</ul>
+
+<h2 id="images">Images</h2>
+
+<h3 id="alpine">Alpine</h3>
+
+<p><a href="https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System">Alpine</a></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apk <span class="nb">install </span>openrc
+</code></pre></div></div>
+<h3 id="ubuntu">Ubuntu</h3>
+
+<h2 id="the-docker-hub">The Docker Hub</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker login
+</code></pre></div></div>
+
+<h2 id="configure-credential-help">Configure credential help</h2>
+
+<p>(https://github.com/docker/docker-credential-helpers/)
+(https://docs.docker.com/engine/reference/commandline/login/#credentials-store)</p>
+
+<p>Docker requires the helper program to be in the client’s host <code class="language-plaintext highlighter-rouge">$PATH</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull alpine
+</code></pre></div></div>
+
+<h2 id="building-images">Building images</h2>
+
+<p>Start by creating a Dockerfile to specify your application as shown below:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span> Dockerfile <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+FROM ubuntu:16.04
+MAINTAINER obama@us.gouv
+RUN apt update
+RUN apt install -y git vim python3.8
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h3 id="pushing-images">Pushing images</h3>
+
+<p>To build your Docker image, run:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">-t</span> &lt;your_username&gt;/my-first-repo 
+</code></pre></div></div>
+
+<p>Test your docker image locally by running:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run &lt;your_username&gt;/my-first-repo.
+docker run <span class="nt">-i</span> <span class="nt">--expose</span><span class="o">=</span>9999 b5593e60c33b bash
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 5801:5801 <span class="nt">-p</span>  9999:9999 .....
+</code></pre></div></div>
+
+<p>To push your Docker image to Docker Hub, run</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker push &lt;your_username&gt;/my-first-repo 
+</code></pre></div></div>
+
+<p>Now, in Docker Hub, your repository should have a new latest tag available under Tags:</p>

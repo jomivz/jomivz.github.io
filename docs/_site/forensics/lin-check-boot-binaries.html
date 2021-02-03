@@ -1,0 +1,10 @@
+<ol>
+  <li>To create the checksum file, run the command:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find isolinux/ -type f -exec b2sum -b -l 256 {} \; &gt; isolinux.blake2sum_l256
+</code></pre></div>    </div>
+  </li>
+  <li>To check binaries against the checksum file, run the command:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>b2sum -c "${dirname}".blake2sum_l256
+</code></pre></div>    </div>
+  </li>
+</ol>

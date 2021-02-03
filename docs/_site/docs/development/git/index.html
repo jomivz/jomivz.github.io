@@ -1,0 +1,46 @@
+<h1 id="run-github-pages-locally">Run github pages locally</h1>
+
+<p>Github Pages run with Jekyll. This markdown explains how tp install and run/test it.
+This is a way more efficient than markdown editors to preview your notes as it interprets/translates your code to HTML.</p>
+
+<h2 id="contents">Contents</h2>
+
+<ol>
+  <li><a href="#Installation">Installation</a></li>
+  <li><a href="#Testing">Testing</a></li>
+</ol>
+
+<h2 id="installation">Installation</h2>
+
+<p>Check <a href="https://jekyllrb.com/docs/installation/">sofwares required</a> for installation on the Jekyll offical website.</p>
+
+<p>Here are the required packages installed, last tested on 2021/01/25 :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo dnf install ruby ruby-devel openssl-devel redhat-rpm-config @development-tools
+</code></pre></div></div>
+
+<p>To install Jekyll locally, copy/paste the following commands:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>jekyll bundler <span class="se">\</span>
+<span class="nb">sudo </span>yum <span class="nb">install </span>g++ <span class="se">\</span>
+gem <span class="nb">install </span>rake <span class="se">\</span>
+gem <span class="nb">install </span>listen <span class="nt">-v</span> 3.4.0 <span class="se">\</span>
+gem <span class="nb">install </span>jekyll-feed <span class="nt">-v</span> 0.13.0 <span class="se">\</span>
+gem <span class="nb">install </span>jekyll-seo-tag <span class="nt">-v</span> 2.6.1 <span class="se">\</span>
+gem <span class="nb">install </span>minima <span class="nt">-v</span> 2.5.1 <span class="se">\</span>
+gem <span class="nb">install </span>concurrent-ruby <span class="nt">-v</span> 1.1.7 <span class="se">\</span>
+gem <span class="nb">install </span>rexml <span class="nt">-v</span> 3.2.4
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>just-the-docs
+</code></pre></div></div>
+
+<h2 id="testing">Testing</h2>
+
+<p>Run a localhost webserver with the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--watch</span>
+</code></pre></div></div>
+<p>For shared directory in a VM or container, run</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--watch</span> <span class="nt">--force</span>
+</code></pre></div></div>
+
