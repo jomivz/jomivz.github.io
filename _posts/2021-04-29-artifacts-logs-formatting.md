@@ -2,7 +2,7 @@
 layout: default
 title: Logs and Artifacts Formatting
 parent: SIEM
-categories: SIEM forensics
+category: Forensics
 grand_parent: Cheatsheets
 ---
 
