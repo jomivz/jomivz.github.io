@@ -11,8 +11,8 @@ has_children: true
 # {{ page.title }}
 
 ## Pre-requisites
-- {https://splunkbase.splunk.com/app/3767/#/details}[parallel coordinates app]
-- {https://splunkbase.splunk.com/app/3137/}[force directed app] 
+- [https://splunkbase.splunk.com/app/3767/#/details]{parallel coordinates app}
+- [https://splunkbase.splunk.com/app/3137/]{force directed app} 
 
 ## IR queries over Network logs
 
