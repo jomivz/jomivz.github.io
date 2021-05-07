@@ -14,12 +14,35 @@ has_children: true
 ```powershell
 ```
 
+## LOCAL PRIVESC ENUM
+```powershell
+# get actively logged users on a computer
+Get-NetLoggedon -ComputerName <Computer> 
+```
+
 ## DOMAIN PRIVESC ENUM
 
 ```powershell
+Get-NetDomainController
+
+# get the domain policy settings for the passwords: history, complexicity, lockout, clear-text
+(Get-DomainPolicy)."system access"
+
 # get all the effective members of security users groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Admins" -Recurse
 Get-DomainGroupMember -Identity "Backup Operators" -Recurse
+
+# look for the keyword "pass" in the description attribute for each user in the domain
+Find-UserField -SearchField Description -SearchTerm "pass"
+
+# find share folders in the domain
+Invoke-ShareFinder
+
+# find userswho have local admin rights
+Find-GPOComputerAdmin -ComputerName <computer>
+
+# find userswho have local admin rights
+Find-GPOLocation -UserName <DA>
 
 # find linked DA accounts using name correlation
 Get-DomainGroupMember 'Domain Admins' | %{Get-DomainUser $_.membername -LDAPFilter '(displayname=*)'} | %{$a=$_.displayname.split(' ')[0..1] -join ' '; Get-DomainUser -LDAPFilter "(displayname=*$a*)" -Properties displayname,samaccountname}
@@ -32,6 +55,9 @@ Get-DomainOU -Identity *server* -Domain <domain> | %{Get-DomainComputer -SearchB
 
 # return the local *groups* of a remote server
 Get-NetLocalGroup SERVER.domain.local
+
+# Find admin groups based on "adm" keyword
+Get-NetGroup *adm* 
 
 # Find any machine accounts in privileged groups
 Get-DomainGroup -AdminCount | Get-DomainGroupMember -Recurse | ?{$_.MemberName -like '*$'}
@@ -89,6 +115,13 @@ Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=testlab,DC=lo
 ## FOREST PRIVESC ENUM
 
 ```powershell
+# get the trusts of the current domain/forest
+Get-NetDomainTrusts
+Get-NetForestTrusts
+
+# get information about an other forest
+Get-NetForest -Forest <Forest>
+
 # find users with sidHistory set
 Get-DomainUser -LDAPFilter '(sidHistory=*)'
 
@@ -124,11 +157,18 @@ $Users = Get-DomainUser -AllowDelegation -AdminCount
 # Find-DomainUserLocation == old Invoke-UserHunter
 # enumerate servers that allow unconstrained Kerberos delegation and show all users logged in
 Find-DomainUserLocation -ComputerUnconstrained -ShowAll
+
+# find all Win2008 R2 computers (likely servers) and IP/ICMP reachable
+Get-NetComputer -OperatingSystem "Windows 2008*" -Ping
+
 ```
 
 ## Kerberoasting, Password Spraying
 
 ```powershell
+# get the last password set of each user in the current domain
+Get-UserProperty -Properties pwdlastset
+
 # get all users with passwords changed > 1 year ago, returning sam account names and password last set times
 $Date = (Get-Date).AddYears(-1).ToFileTime()
 Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset
