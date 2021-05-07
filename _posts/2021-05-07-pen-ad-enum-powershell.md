@@ -14,10 +14,26 @@ has_children: true
 ```powershell
 ```
 
-## LOCAL PRIVESC ENUM
+## USER HUNTING
 ```powershell
+# find computers where the current user is local admin
+Find-LocalAdminAccess
+
+# find local admins on all computers of the domain
+Invoke-EnumerateLocalAdmin
+
+# find where DA has logged on / and current user has access
+Invoke-UserHunter
+Invoke-UserHunter -CheckAccess
+
+# find where a user has logged on
+Invoke-UserHunter -UserName <User>
+
 # get actively logged users on a computer
-Get-NetLoggedon -ComputerName <Computer> 
+Get-NetLoggedon -ComputerName <Computer>
+
+# get last logged users on a computer
+Get-LastLoggedon -ComputerName <Computer>
 ```
 
 ## DOMAIN PRIVESC ENUM
@@ -116,8 +132,8 @@ Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=testlab,DC=lo
 
 ```powershell
 # get the trusts of the current domain/forest
-Get-NetDomainTrusts
-Get-NetForestTrusts
+Get-NetDomainTrust
+Get-NetForestTrust
 
 # get information about an other forest
 Get-NetForest -Forest <Forest>
