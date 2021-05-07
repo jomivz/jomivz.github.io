@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Active Directory Enumeration with Powershell 
-parent: Forensics
+parent: Forensic
 categories: Forensics Windows
 grand_parent: Cheatsheets
 has_children: true
@@ -30,4 +30,11 @@ Invoke-SMBExec
 Invoke-PsExec
 Invoke-Command
 mstsc.exe
+```
+
+## TOKEN IMPERSONATION
+
+## ADD MEMBER
+```
+net group "Domain admins" dfm.a /add /domain  
 ```
