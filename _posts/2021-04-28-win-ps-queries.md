@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Windows Powershell Queries 
+title: Localhost Powershell Queries 
 parent: Forensics
 categories: Forensics Windows
 grand_parent: Cheatsheets
