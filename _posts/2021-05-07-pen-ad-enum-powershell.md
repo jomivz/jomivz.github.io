@@ -14,7 +14,7 @@ has_children: true
 ```powershell
 ```
 
-## USER HUNTING
+## HUNTING USER CREDS
 ```powershell
 # find computers where the current user is local admin
 Find-LocalAdminAccess
@@ -34,6 +34,21 @@ Get-NetLoggedon -ComputerName <Computer>
 
 # get last logged users on a computer
 Get-LastLoggedon -ComputerName <Computer>
+```
+
+## HUNTING USER RIGHTS
+
+```powershell
+
+# list users/groups ACLs
+# valuable attributes: IdentityReference, ObjectDN, ActiveDirectoryRights
+Get-ObjectAcl -SamAccountName <User>-ResolveGUIDs
+
+# list users and GPO he can modifiy
+Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name}
+
+# list users that can reset password
+Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -RightsFilter "ResetPassword"}
 ```
 
 ## DOMAIN PRIVESC ENUM
