@@ -9,7 +9,7 @@ has_children: true
 
 # {{ page.title}}
  
-## Registry hives
+## Registry hives - <REG>
 
 - HKLM\SYSTEM : %SystemRoot%\system32\config\system
 - HKLM\SAM :  %SystemRoot%\system32\config\sam
@@ -19,11 +19,18 @@ has_children: true
 - HKCU\UserProfile :  %UserProfile%\NTuser.dat
 - HKCU\Software\Classes : %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat
 
+*Live collection*
+```batch
+# batch: registry hive live collection
+reg save HKLM\SYSTEM system.reg
+```
+
+*Live CLI reading*
 ```powershell
-# Listing the hives with powershell:
+# powershell: listing the registry hives
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 
-# Browsing a hive with the interpreter
+# powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
 
