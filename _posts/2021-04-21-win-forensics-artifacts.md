@@ -9,7 +9,7 @@ has_children: true
 
 # {{ page.title}}
  
-## Registry hives - <REG>
+## Registry hives
 
 - HKLM\SYSTEM : %SystemRoot%\system32\config\system
 - HKLM\SAM :  %SystemRoot%\system32\config\sam
