@@ -13,9 +13,9 @@ has_children: true
 
 ### *Files / Evidences*
 
-Evidences to collect for the forensics. 
+**What is it ?** Files listed are the evidences to collect for the forensics. 
 
-Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
+**Note:** There is one NTuser.dat and one UsrClass.dat per user to collect.
 
 | **Hive** | **System Path** |
 |---------------|-------------|
@@ -29,11 +29,11 @@ Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
 
 ### *Forensics with RegRipper (credits: [heaxacorn](https://hexacorn.com/tools/3r.html))*
 
-Forensics comrpomise in registry hives.
+**What is it ?** In a forensics, the table below tend to help identify interesting [regripper](https://github.com/keydet89/RegRipper3.0) plugins to run on which evidences.
 
-Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
+**Note:** refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
 
-Note: Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.  
+**Note:** Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.  
 
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
@@ -56,7 +56,7 @@ Note: Run the plugins for ntuser.dat and userclass.dat, as many as the number of
 
 ### *Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*
 
-Forensics anti-forensics in registry hives.
+**What is it ?** System and registry hives can be tampered to hide compromise / make the forensics harder. The table below lists the evidences to figure out if anti-forensics happened.
 
 | **Evidence Type** | **User hives** | **System hives** |
 |-------------------------------------|-------------------------------------|-------------------------------------|
