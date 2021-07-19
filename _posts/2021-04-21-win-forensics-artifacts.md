@@ -35,6 +35,9 @@ has_children: true
 
 **Note:** Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.
 ```bash
+# Onliner to unarchive all ntuser_<username>.dat.zip collected to ntuser_<username>.dat
+for i in `ls ntuser_*.dat.zip`; do unzip $i > `echo $i | sed 's/\.[^.]*$//'`; done 
+
 # Loop example to run the autoruns plugins on all ntuser.dat, here renamed to ntuser_<username>.dat when collected
 for i in `ls ntuser_*.dat`; do regripper -r $i -p autoruns; done
 
