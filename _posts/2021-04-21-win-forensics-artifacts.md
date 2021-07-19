@@ -22,7 +22,7 @@ has_children: true
 
 *Backups*
 
-%SystemRoot%\System32\config\RegBack
+- %SystemRoot%\System32\config\RegBack
 
 *Live collection*
 ```batch
