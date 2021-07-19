@@ -12,25 +12,58 @@ has_children: true
 ## Registry hives
 
 *Files*
-- HKLM\SYSTEM : %SystemRoot%\system32\config\system
-- HKLM\SAM :  %SystemRoot%\system32\config\sam
-- HKLM\SECURITY :  %SystemRoot%\system32\config\security
-- HKLM\SOFTWARE :  %SystemRoot%\system32\config\software
-- HKLM\DEFAULT :  %SystemRoot%\system32\config\default
-- HKCU\UserProfile :  %UserProfile%\NTuser.dat
-- HKCU\Software\Classes : %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat
+| **Hive** | **System Path** |
+|---------------|-------------|
+| HKLM\SYSTEM | %SystemRoot%\system32\config\system |
+| HKLM\SAM | %SystemRoot%\system32\config\sam |
+| HKLM\SECURITY | %SystemRoot%\system32\config\security |
+| HKLM\SOFTWARE | %SystemRoot%\system32\config\software |
+| HKLM\DEFAULT | %SystemRoot%\system32\config\default |
+| HKCU\UserProfile | %UserProfile%\NTuser.dat |
+| HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-*Backups*
+*[Forensics with RegRipper by heaxacorn](https://hexacorn.com/tools/3r.html)*
 
-- %SystemRoot%\System32\config\RegBack
+| **Hive** | **Interesting Plugin** |
+|---------------|-------------|
+| ntuser.dat | autoruns |
+| ntuser.dat | startup |
+| ntuser.dat | rdphint |
+| ntuser.dat | recentdocs |
+| ntuser.dat | officedocs |
+| ntuser.dat | officedocs2010 |
+| ntuser.dat | run |
+| usrclass.dat | cmd_shell_u |
+| usrclass.dat | clsid |
+| software | cmd_shell |
+| software | run |
+| software | clsid |
+| software | inprocserver |
+| software | dcom |
+| system | usbstore |
+| all | sizes |
 
-*Live collection*
+Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
+
+*[Registry history data](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
+
+| **Evidence Type** | **Evidence System Path** |
+|---------------|-------------|
+| Registry transaction logs (.LOG) | %SystemRoot%\system32\config\ | 
+                                   | %UserProfile%  %UserProfile%\AppData\Local\Microsoft\Windows | 
+| Transactional registry transaction logs (.TxR) | | 
+| Deleted entries in registry hives | |
+| Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack |
+| Hives backed up with System Restore | |
+
+*Extra: Live collection*
 ```batch
+# useful when having remote access but system handle do not allow read/copy/download 
 # batch: registry hive live collection
 reg save HKLM\SYSTEM system.reg
 ```
 
-*Live CLI reading*
+*Extra: Live CLI reading*
 ```powershell
 # powershell: listing the registry hives
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
@@ -38,11 +71,6 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
-
-*References*
-- [regripper repo](https://github.com/keydet89/RegRipper3.0) : version 3.0
-- [heaxacorn](https://hexacorn.com/tools/3r.html) : listing/mapping of regripper plugins to hives
-- [Fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html) : finding deleted entries
 
 ## Eventlogs Files
 
