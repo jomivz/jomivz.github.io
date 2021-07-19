@@ -32,6 +32,7 @@ Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
 Forensics comrpomise in registry hives.
 
 Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
+Note: Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.  
 
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
