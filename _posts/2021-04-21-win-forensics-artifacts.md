@@ -47,10 +47,10 @@ Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full list
 
 *[Registry history data](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
 
-| **Evidence Type** | **Evidence System Path** |
-|---------------|-------------|
-| Registry transaction logs (.LOG) | %SystemRoot%\system32\config\ <br /> %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | 
-| Transactional registry transaction logs (.TxR) | |
+| **Evidence Type** | **User hives** | **System hives** |
+|---------------|-------------|--------------|
+| Registry transaction logs (.LOG) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\system32\config\ | 
+| Transactional registry transaction logs (.TxR) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\System32\config\TxR |
 | Deleted entries in registry hives | |
 | Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack |
 | Hives backed up with System Restore | |
