@@ -11,6 +11,7 @@ has_children: true
  
 ## Registry hives
 
+*Files*
 - HKLM\SYSTEM : %SystemRoot%\system32\config\system
 - HKLM\SAM :  %SystemRoot%\system32\config\sam
 - HKLM\SECURITY :  %SystemRoot%\system32\config\security
@@ -18,6 +19,9 @@ has_children: true
 - HKLM\DEFAULT :  %SystemRoot%\system32\config\default
 - HKCU\UserProfile :  %UserProfile%\NTuser.dat
 - HKCU\Software\Classes : %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat
+
+*Backups*
+%SystemRoot%\System32\config\RegBack
 
 *Live collection*
 ```batch
@@ -37,6 +41,7 @@ cd HKLM:
 *References*
 - [regripper repo](https://github.com/keydet89/RegRipper3.0) : version 3.0
 - [heaxacorn](https://hexacorn.com/tools/3r.html) : listing/mapping of regripper plugins to hives
+- [Fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html) : finding deleted entries
 
 ## Eventlogs Files
 
