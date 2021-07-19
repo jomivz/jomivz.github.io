@@ -21,6 +21,7 @@ has_children: true
 - HKCU\Software\Classes : %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat
 
 *Backups*
+
 %SystemRoot%\System32\config\RegBack
 
 *Live collection*
