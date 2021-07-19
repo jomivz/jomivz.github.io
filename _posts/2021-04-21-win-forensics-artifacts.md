@@ -33,7 +33,14 @@ has_children: true
 
 **Note:** refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
 
-**Note:** Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.  
+**Note:** Run the plugins for ntuser.dat and userclass.dat, as many as the number of evidences (two per users) collected.
+```bash
+# Loop example to run the autoruns plugins on all ntuser.dat, here renamed to ntuser_<username>.dat when collected
+for i in `ls ntuser_*.dat`; do regripper -r $i -p autoruns; done
+
+# Loop example to run the clsid plugins on all usrclass.dat, here renamed to usrclass_<username>.dat when collected
+for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
+```
 
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
