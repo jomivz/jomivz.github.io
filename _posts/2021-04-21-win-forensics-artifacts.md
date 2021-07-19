@@ -14,6 +14,7 @@ has_children: true
 *Files*
 
 Evidences to collect for the forensics. 
+
 Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
 
 | **Hive** | **System Path** |
@@ -29,6 +30,7 @@ Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
 *[Forensics with RegRipper (credits: heaxacorn)](https://hexacorn.com/tools/3r.html)*
 
 Forensics comrpomise in registry hives.
+
 Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
 
 | **Hive** | **Interesting Plugin** |
