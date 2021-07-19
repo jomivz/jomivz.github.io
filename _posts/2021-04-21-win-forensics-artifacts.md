@@ -38,19 +38,20 @@ has_children: true
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
 | ntuser.dat | autoruns |
-| ntuser.dat | startup |
-| ntuser.dat | rdphint |
-| ntuser.dat | recentdocs |
 | ntuser.dat | officedocs |
 | ntuser.dat | officedocs2010 |
+| ntuser.dat | rdphint |
+| ntuser.dat | recentdocs |
 | ntuser.dat | run |
-| usrclass.dat | cmd_shell_u |
+| ntuser.dat | startup |
 | usrclass.dat | clsid |
-| software | cmd_shell |
-| software | run |
+| usrclass.dat | cmd_shell_u |
 | software | clsid |
-| software | inprocserver |
+| software | cmd_shell |
 | software | dcom |
+| software | inprocserver |
+| software | run |
+| system | prefetch |
 | system | usbstore |
 | all | sizes |
 
