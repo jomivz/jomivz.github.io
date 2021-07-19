@@ -49,9 +49,8 @@ Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full list
 
 | **Evidence Type** | **Evidence System Path** |
 |---------------|-------------|
-| Registry transaction logs (.LOG) | %SystemRoot%\system32\config\ | 
-                                   | %UserProfile%  %UserProfile%\AppData\Local\Microsoft\Windows | 
-| Transactional registry transaction logs (.TxR) | | 
+| Registry transaction logs (.LOG) | %SystemRoot%\system32\config\ <br /> %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | 
+| Transactional registry transaction logs (.TxR) | |
 | Deleted entries in registry hives | |
 | Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack |
 | Hives backed up with System Restore | |
