@@ -50,4 +50,4 @@ cd HKLM:
 
 - Path: \\.\C:\[SYSTEM]
 - Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
-- [https://en.wikipedia.org/wiki/NTFS#Metafiles]{} : descriptions table of the metaflies
+- [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
