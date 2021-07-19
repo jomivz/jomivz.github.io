@@ -51,9 +51,9 @@ Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full list
 |---------------|-------------|--------------|
 | Registry transaction logs (.LOG) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\system32\config\ | 
 | Transactional registry transaction logs (.TxR) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\System32\config\TxR |
-| Deleted entries in registry hives | unallocated cells |
-| Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack |
-| Hives backed up with System Restore | \\\\.\\\"System Volume Information"  |
+| Deleted entries in registry hives | unallocated cells ||
+| Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack ||
+| Hives backed up with System Restore | \\\\.\\\"System Volume Information"  ||
 
 *Extra: Live collection*
 ```batch
