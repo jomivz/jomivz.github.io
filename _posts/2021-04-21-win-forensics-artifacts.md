@@ -12,6 +12,10 @@ has_children: true
 ## Registry hives
 
 *Files*
+
+Evidences to collect for the forensics. 
+Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
+
 | **Hive** | **System Path** |
 |---------------|-------------|
 | HKLM\SYSTEM | %SystemRoot%\system32\config\system |
@@ -23,6 +27,9 @@ has_children: true
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
 *[Forensics with RegRipper (credits: heaxacorn)](https://hexacorn.com/tools/3r.html)*
+
+Forensics comrpomise in registry hives.
+Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
 
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
@@ -43,9 +50,9 @@ has_children: true
 | system | usbstore |
 | all | sizes |
 
-Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
-
 *[Registry history data (credits: fireeye)](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
+
+Forensics anti-forensics in registry hives.
 
 | **Evidence Type** | **User hives** | **System hives** |
 |-------------------------------------|-------------------------------------|-------------------------------------|
