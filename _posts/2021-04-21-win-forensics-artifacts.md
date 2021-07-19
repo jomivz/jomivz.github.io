@@ -22,7 +22,7 @@ has_children: true
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-*[Forensics with RegRipper by heaxacorn](https://hexacorn.com/tools/3r.html)*
+*[Forensics with RegRipper (credits: heaxacorn)](https://hexacorn.com/tools/3r.html)*
 
 | **Hive** | **Interesting Plugin** |
 |---------------|-------------|
@@ -45,15 +45,15 @@ has_children: true
 
 Note: refer to [heaxacorn](https://hexacorn.com/tools/3r.html) for the full listing/mapping of regripper plugins to hives.
 
-*[Registry history data](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
+*[Registry history data (credits: fireeye)](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
 
 | **Evidence Type** | **User hives** | **System hives** |
 |---------------|-------------|--------------|
 | Registry transaction logs (.LOG) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\system32\config\ | 
 | Transactional registry transaction logs (.TxR) | %UserProfile% <br /> %UserProfile%\AppData\Local\Microsoft\Windows | %SystemRoot%\System32\config\TxR |
-| Deleted entries in registry hives | |
+| Deleted entries in registry hives | unallocated cells |
 | Backup system hives (REGBACK) | %SystemRoot%\System32\config\RegBack |
-| Hives backed up with System Restore | |
+| Hives backed up with System Restore | \\.\"System Volume Information"  |
 
 *Extra: Live collection*
 ```batch
