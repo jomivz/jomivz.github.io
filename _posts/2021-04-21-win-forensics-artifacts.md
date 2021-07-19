@@ -35,8 +35,8 @@ cd HKLM:
 ```
 
 *References*
-- [regripper repo]{https://github.com/keydet89/RegRipper3.0} : version 3.0
-- [heaxacorn]{https://hexacorn.com/tools/3r.html} : listing/mapping of regripper plugins to hives
+- [regripper repo](https://github.com/keydet89/RegRipper3.0) : version 3.0
+- [heaxacorn](https://hexacorn.com/tools/3r.html) : listing/mapping of regripper plugins to hives
 
 ## Eventlogs Files
 
