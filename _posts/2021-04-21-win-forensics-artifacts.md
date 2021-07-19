@@ -27,7 +27,7 @@ Note: There is one NTuser.dat and one UsrClass.dat per user to collect.
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-### *Forensics with RegRipper (credits: [heaxacorn)](https://hexacorn.com/tools/3r.html)*
+### *Forensics with RegRipper (credits: [heaxacorn](https://hexacorn.com/tools/3r.html))*
 
 Forensics comrpomise in registry hives.
 
@@ -54,7 +54,7 @@ Note: Run the plugins for ntuser.dat and userclass.dat, as many as the number of
 | system | usbstore |
 | all | sizes |
 
-### *Registry history data (credits: [fireeye)](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)*
+### *Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*
 
 Forensics anti-forensics in registry hives.
 
