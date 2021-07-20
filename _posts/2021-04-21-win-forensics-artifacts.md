@@ -9,6 +9,18 @@ has_children: true
 
 # {{ page.title}}
  
+## Amcache
+
+### *Files / Evidences*
+```
+C:\Windows\AppCompat\Programs\Amcache.hve
+C:\Windows\AppCompat\Programs\Amcache.hve.LOGS
+```
+
+**References**
+- ANSSI - CoRIIN_2019 - Analysis AmCache - 07/2019
+- ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
+
 ## Registry hives
 
 ### *Files / Evidences*
