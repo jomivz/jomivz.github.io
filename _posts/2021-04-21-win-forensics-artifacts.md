@@ -12,6 +12,9 @@ has_children: true
 ## Amcache
 
 ### *Files / Evidences*
+
+![Amcache Artifacts](/assets/images/amcache_artifacts.png)
+
 ```
 C:\Windows\AppCompat\Programs\Amcache.hve
 C:\Windows\AppCompat\Programs\Amcache.hve.LOGS
