@@ -39,6 +39,13 @@ C:\Windows\AppCompat\Programs\Amcache.hve.LOGS
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
+### *Confirming the asset & timezone*
+
+| **Hive** | **Plugin** |
+|---------------|-------------|
+| system | compname |
+| system | timezone |
+
 ### *Forensics with RegRipper (credits: [heaxacorn](https://hexacorn.com/tools/3r.html))*
 
 **What is it ?** In a forensics, the table below tend to help identify interesting [regripper](https://github.com/keydet89/RegRipper3.0) plugins to run on which evidences.
