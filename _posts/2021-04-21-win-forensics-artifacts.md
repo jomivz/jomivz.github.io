@@ -13,7 +13,7 @@ has_children: true
 
 ### *Files / Evidences*
 
-Files in colum of the table are in the directory `C:\Windows\AppCompat\Programs\Amcache.hve`
+Files in column of the table are in the directory `C:\Windows\AppCompat\Programs\Amcache.hve`
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
