@@ -13,7 +13,7 @@ has_children: true
 
 ### *Files / Evidences*
 
-![Amcache Artifacts](/assets/images/amcache_artifacts.png)
+![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
 ```
 C:\Windows\AppCompat\Programs\Amcache.hve
