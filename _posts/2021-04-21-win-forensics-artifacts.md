@@ -13,12 +13,9 @@ has_children: true
 
 ### *Files / Evidences*
 
-![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
+Files in colum of the table are in the directory `C:\Windows\AppCompat\Programs\Amcache.hve`
 
-```
-C:\Windows\AppCompat\Programs\Amcache.hve
-C:\Windows\AppCompat\Programs\Amcache.hve.LOGS
-```
+![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
 **References**
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
