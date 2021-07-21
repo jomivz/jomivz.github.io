@@ -116,11 +116,46 @@ cd HKLM:
 
 ## Eventlogs Files
 
+### All Windows Versions
+
 - %SystemRoot%\System32\winevt\logs\Application.evtx
 - %SystemRoot%\System32\winevt\logs\Security.evtx
 - %SystemRoot%\System32\winevt\logs\System.evtx
 - %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
- 
+
+### Windows DNS Server
+
+1/ Are the DNS debug logs activated ?
+
+Open a console (`cmd.exe`) and run the command: 
+```
+# check the parameter `dwDebugLevel`. It value must be `00006101`.
+dnscmd /Info
+```
+
+2/ Where are located the DNS debug logs ?
+
+By default, the locations for storing DNS logs are :
+- %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
+- %SystemRoot%\System32\Dns\Dns.log
+
+To verify it, open a console (`cmd.exe`) and run the commands:
+```batch
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
+```
+```powershell
+Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
+```
+
+3/ How to activate the DNS logs ? How to define logs location ?
+
+Open a console (`cmd.exe`) and run the commands:
+```batch
+# set the debug mode
+dnscmd.exe localhost /Config /LogLevel 0x6101
+# set the log file path
+dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
+```
 
 ## NTFS metafiles
 
