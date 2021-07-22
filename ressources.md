@@ -7,7 +7,13 @@ nav_order: 5
 
 ## Ressources
 
-> You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
+### Security Vulnerability & Exploit Assessment
+
+| **Website** |  **Description** |
+|----------------------|-------------------|
+[exploit-db.com](https://exploit-db.com) | look for public exploits | 
+[vulcom.com](https://vulmon.com) | look for public exploits |
+[opencve.io](https://opencve.io) | subscribe to feed by solution (cisco asa, fortinet, windows, etc.) |
 
 ### Binaries Security Assessment
 
@@ -21,16 +27,18 @@ nav_order: 5
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
 
-### Security Vulnerability & Exploit Assessment
+### Binaries Sandboxing
 
-| **Website** |  **Description** |
-|----------------------|-------------------|
-[exploit-db.com](https://exploit-db.com) | look for public exploits | 
-[vulcom.com](https://vulmon.com) | look for public exploits |
-[opencve.io](https://opencve.io) | subscribe to feed by solution (cisco asa, fortinet, windows, etc.) |
+- [hybrid-analysis.com](https://www.hybrid-analysis.com/)
+
+- [hatching.io](https://hatching.io)
 
 ###  Hunting for TTPs
 
-[ired.team](https://ired.team)
+- [ired.team](https://ired.team)
 
-[hacktricks.xyz](https://book.hacktricks.xyz/)
+- [hacktricks.xyz](https://book.hacktricks.xyz/)
+
+## MISC 
+
+> You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
