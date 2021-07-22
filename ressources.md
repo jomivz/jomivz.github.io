@@ -36,7 +36,7 @@ nav_order: 5
 
 - [Project Windows Events](https://evids.dfir.tips)
 
-- [ultimatewindowssecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
+- [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
 
 ###  Hunting for TTPs
 
