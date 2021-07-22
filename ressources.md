@@ -32,4 +32,5 @@ nav_order: 5
 ###  Hunting for TTPs
 
 [ired.team](https://ired.team)
+
 [hacktricks.xyz](https://book.hacktricks.xyz/)
