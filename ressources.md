@@ -9,7 +9,7 @@ nav_order: 5
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
 
-- Useful KB projets I use in DFIR to determine legitimate executables / that you may want to bookmark:
+### Binaries Security Assessment
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -21,6 +21,15 @@ nav_order: 5
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
 
-- Interesting and well-known pentesting KB I use in DFIR for hunting :
+### Security Vulnerability & Exploit Assessment
 
-[ired.team - misc redteam TTPs](https://ired.team): common offensive security techniques.
+| **Website** |  **Description** |
+|----------------------|-------------------|
+[exploit-db.com](https://exploit-db.com) | look for public exploits | 
+[vulcom.com](https://vulmon.com) | look for public exploits |
+[opencve.io](https://opencve.io) | subscribe to feed by solution (cisco asa, fortinet, windows, etc.) |
+
+###  Hunting for TTPs
+
+[ired.team](https://ired.team)
+[hacktricks.xyz](https://book.hacktricks.xyz/)
