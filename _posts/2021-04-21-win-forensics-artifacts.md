@@ -39,7 +39,7 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-### *Forensics with RegRipper (credits: [heaxacorn](https://hexacorn.com/tools/3r.html))*
+### *Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*
 
 #### Confirming the asset & timezone
 
