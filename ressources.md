@@ -22,7 +22,6 @@ nav_order: 5
 | Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
 | Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
 | Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
-| Windows              | [Project Windows Events](https://evids.dfir.tips) | Crucial informations regarding how Windows OS traces its activity.   |
 | Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
@@ -32,6 +31,12 @@ nav_order: 5
 - [hybrid-analysis.com](https://www.hybrid-analysis.com/)
 
 - [hatching.io](https://hatching.io)
+
+### Windows Security Logging
+
+- [Project Windows Events](https://evids.dfir.tips)
+
+- [ultimatewindowssecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
 
 ###  Hunting for TTPs
 
