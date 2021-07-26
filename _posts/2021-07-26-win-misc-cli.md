@@ -2,7 +2,7 @@
 layout: default
 title: Useful daily Windows CLI
 parent: Windows
-category: Windows Sysadmin
+categories: Windows Sysadmin
 grand_parent: Cheatsheets
 ---
 
