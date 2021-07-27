@@ -24,4 +24,4 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 # win10 tampering: PS activate SMBv1 OptionalFeatures
 Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
-Reference: [Microsoft DOCS: configuring SMB](https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3)
+Reference: [Docs Microsoft - configuring SMB](https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3)
