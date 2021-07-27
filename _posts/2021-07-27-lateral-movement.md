@@ -22,5 +22,5 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Par
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 
 
 # win10 tampering: PS activate SMBv1 OptionalFeatures
-Enable-WindowsOptionalFeature -Online -FeatureName "SMB1Protocol-Client" -All
+Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
