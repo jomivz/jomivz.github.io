@@ -22,7 +22,7 @@ powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobj
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
 ```
 
-## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via svchost
+## [IRED.TEAM](https://www.ired.team/offensive-security/persistence/persisting-in-svchost.exe-with-a-service-dll-servicemain) - Persistence via svchost
 
 - The process **svchost** loads services group via the **-k** parameter.
 - Services group are listed in the registry key `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SVCHOST`.
@@ -33,8 +33,8 @@ for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microso
 [H-worm](https://www.fireeye.com/blog/threat-research/2013/09/now-you-see-me-h-worm-by-houdini.html) uses a persistence like `C:\Windows\system32\svchost.exe -k LocalServiceNoNetwork` to run `C:\Windows\System32\wscript.exe" //B "C:\Users\JohnDoe\AppData\Local\Temp\139750_owned.vbs"`.
 
 ```
-# method 1: 
-for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\Parameters\SErviceDLL') 
+# method 1: Listing the parameters of each service in the group in arg of svchost with -k option
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i\Parameters') 
 ```
 
 
