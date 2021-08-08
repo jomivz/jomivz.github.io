@@ -32,7 +32,6 @@ category: Development
 - [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/)
 - [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0)
 - [AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf)
-- [](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/AD-ENU.pdf)
 - [BloodHound - DogWhispererHandbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf)
 
 ## DFIR 
