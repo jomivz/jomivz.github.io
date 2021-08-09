@@ -38,6 +38,14 @@ To list exhaustively the scheduled tasks, run the cmd:
 ```
 schtasks /query /fo LIST /v
 ```
+Autorunsc can also be used (computing the hashes and/or querying VT) as below : 
+```
+# method 1: compute hashes
+autorunsc /accepteula -a t -c -s -h > autorunsct.csv
+
+# method 1: query virustotal
+autorunsc /accepteula -a t -c -s -h -v -vt -u > autorunscvtt.csv
+```
 
 ## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
 
