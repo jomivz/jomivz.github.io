@@ -22,7 +22,6 @@ category: Development
 | [TTPs for AD - BH USA 2019](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf) | Presentation to demo Bloodhound. Really nice schemas. | specterops.io |
 | [Active Directory Kill Chain Attack & Defense](https://github.com/infosecn1nja/AD-Attack-Defense) | Well **classified compilation of articles** from the technet, adsecurity, stealthbits, specterops, youtube, github and other sources. Great room to deepdive a particluar topic. | infosecn1nja |
 | [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| In case of awarness duties, this is a good support. | Paramount |
-| [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf)| x | x |
 | [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)| x | x |
 
 ## Offensive Powershell
@@ -39,7 +38,10 @@ category: Development
 ## DFIR 
 ------------------------
 
-- [Hunting Windows PrivEsc](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Hunting%20for%20Privilege%20Escalation%20in%20Windows%20Environment..pdf)
+| **Cheatsheet**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Hunting Windows PrivEsc](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Hunting%20for%20Privilege%20Escalation%20in%20Windows%20Environment..pdf) | Awesome presentation covering how to hunt the named pipes and much more. | Kaspersky |
+| [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf) | Awesome schema sequencing the security event IDs for windows logon. | Andrei Miroshnikov |
 
 ## ATP / O365
 ------------------------
