@@ -11,14 +11,14 @@ has_children: true
 
 ## [T1547.001](https://attack.mitre.org/techniques/T1547/001/) - Persistence via Registry Run Keys / Start Up Folders
 
-- Dropping executables into Startup folders below.
+1- Dropping executables into Startup folders below.
 
 | **Account**    | **Startup Folder**                                                                   |
 |----------------|--------------------------------------------------------------------------------------|
 | User           | `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\` |
 | Administrator  | `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`                       |
 
-- Adding a registry subkey into the following keys.
+2- Adding a registry subkey into the following keys.
 
 | **Hive** | **Registry Run Keys**                                                       |
 |----------|-----------------------------------------------------------------------------|
@@ -31,7 +31,9 @@ has_children: true
 | HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices    |
 | HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce|
 
-- Adding a registry subkey into the following keys.
+3- Adding a `Depend` registry subkey into `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnceEx\*`
+
+4- Adding a registry subkey into the following keys.
 
 | **Hive** | **Shell Folder Registry keys**                                                           |
 |----------|------------------------------------------------------------------------------------------|
@@ -40,7 +42,25 @@ has_children: true
 | HKLM     | HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders      |
 | HKLM     | HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders |
 
-Source : [f-secure.com](https://labs.f-secure.com/blog/attack-detection-fundamentals-code-execution-and-persistence-lab-2/) article on windows persistence
+5- Start up folders declared into :
+
+| **Hive** | **Start Up folders Keys**                                                          |
+|----------|------------------------------------------------------------------------------------|
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run  |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run |
+
+6 - Winlogon
+
+| **Hive** | **Winlogon Keys**                                                                  |
+|----------|------------------------------------------------------------------------------------|
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows             |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit  |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell     |
+
+7 - Boot Execute
+
+- Adding an executable into the `BootExecute` value of the registry key `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session`.
+ 
 
 ## [T1546.003](https://attack.mitre.org/techniques/T1546/003/) - Persistence via svchost
 
