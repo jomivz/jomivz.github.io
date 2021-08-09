@@ -27,30 +27,32 @@ autorunsc /accepteula -a * -c -s -h > autorunsc.csv
 - Services group are listed in the registry key `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SVCHOST`.
 - Services declared in the groups have an entry in `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services`.
 
- - How-to investigate such abuse:
+1/ How-to investigate such abuse:
 
 ```
 # method 1: Listing the parameters of each service in the group in arg of svchost with -k option
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')" 
 ```
 
-To list exhaustively the scheduled tasks, run the cmd:
+2/ To list exhaustively the scheduled tasks, run the cmd:
 ```
 schtasks /query /fo LIST /v
 ```
-Autorunsc can also be used (computing the hashes and/or querying VT) as below : 
+
+3/ Autorunsc can also be used (computing the hashes and/or querying VT) as below : 
 ```
 # method 1: compute hashes
 autorunsc /accepteula -a t -c -s -h > autorunsct.csv
 
-# method 1: query virustotal
+# method 2: query virustotal
 autorunsc /accepteula -a t -c -s -h -v -vt -u > autorunscvtt.csv
 ```
 
 ## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
 
  - [How-To](https://pentestlab.blog/2019/10/29/persistence-netsh-helper-dll/) PoC this TTP with msfvenom and metasploit.
- - How-to investigate such abuse:
+ 
+ 1/ How-to investigate such abuse:
  
  ```
 # method 1: using the powershell cmd Get-AuthenticationCodeSignature to check the code signature of the DLLs in 'HKLM\Software\Microsoft\Netsh'
