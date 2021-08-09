@@ -15,7 +15,7 @@ category: Development
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
-| [[Red vs Blue: Modern AD Attacks, Detection, Protection | BH USA 2015](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| Really good **quickstart** (even 6 years later).  | Sean Metcalf |
+| [Red vs Blue: Modern AD Attacks, Detection, Protection | BH USA 2015](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| Really good **quickstart** (even 6 years later).  | Sean Metcalf |
 | [Fun with LDAP and Kerberos in AD env | ThotCon 2018](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | Second really good **quickstart**. | Ronnie Flathers |
 | [Attacking Active Directory: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
 | [Active Directory Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
