@@ -13,15 +13,17 @@ category: Development
 ## Best Cheatsheets
 ------------------------
 
-- [attacking-ad-zer1t0](https://zer1t0.gitlab.io/posts/attacking_ad/)
-- [github-s1ckB0y1337-AD-exploitation-cheatsheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet)
-- [gitHub-infosecn1nja-AD-Attack-Defense](https://github.com/infosecn1nja/AD-Attack-Defense)
-- [Kerberos Attacks](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf)
-- [AD attacks 1](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf)
-- [AD attacks 2](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)
-- [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)
-- [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf)
-- [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)
+| **Cheatsheet**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Attacking Active Directory: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The encyclopedia to start your journey in AD security. | Eloy Pérez González | 
+| [Active Directory Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains CLI of tools for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
+| [gitHub-infosecn1nja-AD-Attack-Defense](https://github.com/infosecn1nja/AD-Attack-Defense) | | |
+ [Kerberos Attacks](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | | |
+| [AD attacks 1](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf)| | |
+| [AD attacks 2](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| | |
+| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| | |
+| [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf)| | |
+| [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)| | |
 
 ## Offensive Powershell
 ------------------------
