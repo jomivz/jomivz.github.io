@@ -9,18 +9,38 @@ has_children: true
 
 # {{ page.title}}
 
-## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
+## [T1547.001](https://attack.mitre.org/techniques/T1547/001/) - Persistence via Registry Run Keys / Start Up Folders
 
- - [How-To](https://pentestlab.blog/2019/10/29/persistence-netsh-helper-dll/) PoC this TTP with msfvenom and metasploit.
- - How-to investigate such abuse:
- 
- ```
-# method 1: using the powershell cmd Get-AuthenticationCodeSignature to check the code signature of the DLLs in 'HKLM\Software\Microsoft\Netsh'
-powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll' | %{Get-AuthenticationCodeSignature $_}"
+- Dropping executables into Startup folders below.
 
-# method 2: if the DLL appears as 'notsigned' with the method 1, using sigcheck from sysinternals
-for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
-```
+| **Account**    | **Startup Folder**                                                                   |
+|----------------|--------------------------------------------------------------------------------------|
+| User           | `C:\Users\<username>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\` |
+| Administrator  | `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup`                       |
+
+- Adding a registry subkey into the following keys.
+
+| **Hive** | **Registry Run Keys**                                                       |
+|----------|-----------------------------------------------------------------------------|
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run             |
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce         |
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices     |
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run            |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce        |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices    |
+| HKLM     | HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce|
+
+- Adding a registry subkey into the following keys.
+
+| **Hive** | **Shell Folder Registry keys**                                                           |
+|----------|------------------------------------------------------------------------------------------|
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders  |
+| HKCU     | HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders       |
+| HKLM     | HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders      |
+| HKLM     | HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders |
+
+Source : [f-secure.com](https://labs.f-secure.com/blog/attack-detection-fundamentals-code-execution-and-persistence-lab-2/) article on windows persistence
 
 ## [T1546.003](https://attack.mitre.org/techniques/T1546/003/) - Persistence via svchost
 
@@ -35,11 +55,23 @@ for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microso
 
 ```
 # method 1: Listing the parameters of each service in the group in arg of svchost with -k option
-for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i\Parameters') 
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')" 
 ```
 
+To list exhaustively the scheduled tasks, run the cmd:
+```
+schtasks /query /fo LIST /v
+```
 
+## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
 
+ - [How-To](https://pentestlab.blog/2019/10/29/persistence-netsh-helper-dll/) PoC this TTP with msfvenom and metasploit.
+ - How-to investigate such abuse:
+ 
+ ```
+# method 1: using the powershell cmd Get-AuthenticationCodeSignature to check the code signature of the DLLs in 'HKLM\Software\Microsoft\Netsh'
+powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll' | %{Get-AuthenticationCodeSignature $_}"
 
-
-
+# method 2: if the DLL appears as 'notsigned' with the method 1, using sigcheck from sysinternals
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
+```
