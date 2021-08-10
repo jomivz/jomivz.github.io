@@ -35,6 +35,11 @@ Invoke-Command
 mstsc.exe
 ```
 
+## PRIVESC
+```
+Get-Hotfix
+```
+
 ## TOKEN IMPERSONATION
 
 ## ADD MEMBER
