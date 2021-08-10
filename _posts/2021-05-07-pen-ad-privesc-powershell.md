@@ -11,6 +11,9 @@ has_children: true
 
 ## PRE-REQUISITE: Installing PowerUp and PowerSploit
 
+- [PowerUp CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerUp.pdf)
+- [PowerSploit CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerSploit.pdf)
+
 ```powershell
 # ActiveDirectory Module
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
