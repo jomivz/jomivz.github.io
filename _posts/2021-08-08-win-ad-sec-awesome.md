@@ -4,6 +4,7 @@ title: Awesome AD Security
 parent: Pentesting
 grand_parent: Cheatsheets  
 categories: Pentesting Windows Forensics
+toc: true
 ---
 
 {:toc}
