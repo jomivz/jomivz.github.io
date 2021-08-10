@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Active Directory Enumeration with Powershell 
-parent: Forensics
-categories: Forensics Windows
+parent: Pentesting
+categories: Pentesting Windows
 grand_parent: Cheatsheets
 has_children: true
 ---
