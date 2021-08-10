@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Active Directory Enumeration with Powershell 
+title: Active Directory Privilege Escalation with Powershell
 parent: Forensic
 categories: Forensics Windows
 grand_parent: Cheatsheets
