@@ -225,7 +225,7 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping
 
 ```
 
-## ENUM: Kerberoasting, Password Spraying
+## ENUM: Kerberoasting
 
 ```powershell
 # get the last password set of each user in the current domain
