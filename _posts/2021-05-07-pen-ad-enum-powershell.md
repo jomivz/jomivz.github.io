@@ -46,7 +46,7 @@ https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-
 
 ## ENUM : DOMAIN ADMIN
 ```powershell
-# find where DA has logged on / and current user has access
+# PowerView: find where DA has logged on / and current user has access
 Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 
@@ -57,13 +57,13 @@ Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse
 
 ## ENUM : PRIVILEGED USERS
 ```powershell
-# find computers where the current user is local admin
+# PowerView: find computers where the current user is local admin
 Find-LocalAdminAccess
 
-# find local admins on all computers of the domain
+#  PowerView: find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin
 
-# gather info on security groups
+# PowerView: gather info on security groups
 Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
 Get-DomainGroupMember -Identity "Backup Operators" -Recurse
 Get-NetGroupMember -GroupName RDPUsers
@@ -72,17 +72,17 @@ Invoke-ACLScanner -ResolveGUIDs | ?{$_.IdentityReference -match "RDPUsers"}
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName <Computer>
 
-# find where a user has logged on
+# PowerView: find where a user has logged on
 Invoke-UserHunter -UserName <User>
 
 # get last logged users on a computer
 Get-LastLoggedon -ComputerName <Computer>
 
-# find users who have local admin rights
+# PowerSploit: find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName <computer>
 Get-NetOU Admins | %{Get-NetComputer -ADSPath $_}
 
-# find users who have local admin rights
+# PowerSploit: find users who have local admin rights
 Find-GPOLocation -UserName <DA>
 
 # AllExtendedRights privilege grants both the DS-Replication-Get-Changes and DS-Replication-Get-Changes-All privileges
