@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Active Directory Privilege Escalation with Powershell
-parent: Forensic
-categories: Forensics Windows
+parent: Pentesting
+categories: Pentesting Windows
 grand_parent: Cheatsheets
 has_children: true
 ---
