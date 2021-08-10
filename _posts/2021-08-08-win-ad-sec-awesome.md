@@ -7,6 +7,8 @@ categories: Pentesting Windows Forensics
 toc: true
 ---
 
+{{ content | toc }}
+
 {:toc}
 
 # {{ page.title }}
