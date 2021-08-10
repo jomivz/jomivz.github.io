@@ -34,7 +34,7 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\Powe
 
 On the error below when loading the AD module, ADWS must be reachable and running:
 - TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
-- 
+- Restart the service on the DC : ```Restart-Service –name ADWS –verbose```
 
 ```
 PS > iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
