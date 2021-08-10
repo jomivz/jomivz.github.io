@@ -9,7 +9,9 @@ has_children: true
 
 # {{ page.title}}
 
-## PRE-REQUISITE: Installing PowerView, PowerUp and PowerSploit
+## PRE-REQUISITE: Installing PowerView
+
+- [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
 ```powershell
 # Bypass powershell execution protection
