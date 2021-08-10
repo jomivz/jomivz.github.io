@@ -27,13 +27,16 @@ category: Development
 ## Offensive Powershell
 ------------------------
 
-- [github-specterops-at-ps](https://github.com/specterops/at-ps)
-- [ad-cheatsheets](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory)
-- [windows-AD-cheatsheet-crtp](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/)
-- [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/)
-- [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0)
-- [AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf)
-- [BloodHound - DogWhispererHandbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf)
+| **Cheatsheet**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Harmj0y CheatSheet](https://github.com/HarmJ0y/CheatSheets/) | PowerView, PowerUp, PowerSploit, and Empire cheatsheets. | HarmJ0y |
+| [Specterops PS tools](https://github.com/specterops/at-ps) | - | specterops.io |
+| [ad-cheatsheets](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | - |
+| [windows-AD-cheatsheet-crtp](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/) | The best CRTP + CRTO cheatsheet. | casvancooten |
+| [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/) | - | - |
+| [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | - | - |
+| [AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf) | - | - |
+| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | - | - |
 
 ## DFIR 
 ------------------------
