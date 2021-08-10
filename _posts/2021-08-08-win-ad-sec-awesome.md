@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Awesome AD Security
+toc: true
 parent: Pentesting
 grand_parent: Cheatsheets  
 categories: Pentesting Windows Forensics
-toc: true
 ---
 
 {:toc}
