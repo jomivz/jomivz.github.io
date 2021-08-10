@@ -15,8 +15,8 @@ category: Development
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
-| [Red vs Blue: AD Attacks - BH USA 2015](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| Really good **quickstart** (even 6 years later).  | Sean Metcalf |
-| [Fun with LDAP and Kerberos - ThotCon 2018](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | Second really good **quickstart**. | Ronnie Flathers |
+| [Red vs Blue: AD Attacks - BH USA 2015](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| Really good **quickstart** (even 6 years later). | Sean Metcalf |
+| [Fun with LDAP & Kerberos - ThotCon 2018](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | Second really good **quickstart**. | Ronnie Flathers |
 | [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
 | [AD Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
 | [TTPs for AD - BH USA 2019](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf) | Presentation to demo Bloodhound. Really nice schemas. | specterops.io |
@@ -33,10 +33,10 @@ category: Development
 | [Specterops PS tools](https://github.com/specterops/at-ps) | - | specterops.io |
 | [ad-cheatsheets](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | - |
 | [windows-AD-cheatsheet-crtp](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/) | The best CRTP + CRTO cheatsheet. | casvancooten |
-| [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/) | - | - |
-| [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | - | - |
+| [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/) | - | varonis |
+| [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | - | powershellgallery |
 | [AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf) | - | - |
-| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | - | - |
+| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | - | SadProcessor |
 
 ## DFIR 
 ------------------------
