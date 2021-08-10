@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Awesome AD Security
-parent: Development
+parent: Pentesting
 grand_parent: Cheatsheets  
-category: Development
+categories: Pentesting Windows Forensics
 ---
 
 {:toc}
