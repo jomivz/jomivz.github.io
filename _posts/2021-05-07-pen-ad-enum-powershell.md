@@ -314,7 +314,7 @@ $ForeignMemberships | fl
 
 # if running in -sta mode, impersonate another credential a la "runas /netonly"
 $SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('<Domain\dagreat', $SecPassword)
+$Cred = New-Object System.Management.Automation.PSCredential('<Domain>\dagreat', $SecPassword)
 Invoke-UserImpersonation -Credential $Cred
 # ... action
 Invoke-RevertToSelf
