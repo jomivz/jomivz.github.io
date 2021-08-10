@@ -10,8 +10,8 @@ category: Development
 
 # {{ page.title }}
 
-## Best Cheatsheets
-------------------------
+## Starting your journey & more
+--------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -25,7 +25,7 @@ category: Development
 | [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)| x | x |
 
 ## Offensive Powershell
-------------------------
+------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -39,7 +39,7 @@ category: Development
 | [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound. | SadProcessor |
 
 ## DFIR 
-------------------------
+------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -47,6 +47,9 @@ category: Development
 | [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf) | Awesome schema sequencing the security event IDs for windows logon. | Andrei Miroshnikov |
 
 ## ATP / O365
-------------------------
+------------------------------
 
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)
+
+## Github Feeds / Blogs 
+------------------------------
