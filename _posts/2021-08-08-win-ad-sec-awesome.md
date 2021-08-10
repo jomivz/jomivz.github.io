@@ -29,14 +29,14 @@ category: Development
 
 | **Cheatsheet**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
+| [Quickstart Cheatsheet](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | - |
+| [Complete AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf) | - | Haboob Team 
+| [CRTP CTRO Cheatsheets](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/) | The best CRTP + CRTO cheatsheet for lab certifications made by pentesteracademy. | casvancooten |
 | [Harmj0y CheatSheet](https://github.com/HarmJ0y/CheatSheets/) | PowerView, PowerUp, PowerSploit, and Empire cheatsheets. | HarmJ0y |
-| [Specterops PS tools](https://github.com/specterops/at-ps) | - | specterops.io |
-| [ad-cheatsheets](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | - |
-| [windows-AD-cheatsheet-crtp](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/) | The best CRTP + CRTO cheatsheet. | casvancooten |
-| [complete-powershell-tool](https://www.varonis.com/blog/powershell-tool-roundup/) | - | varonis |
-| [powershell-gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | - | powershellgallery |
-| [AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf) | - | - |
-| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | - | SadProcessor |
+| [Specterops PS tools](https://github.com/specterops/at-ps) | Tools used for the offensive powershell training provided by specterops. | specterops.io |
+| [Powershell Tools List](https://www.varonis.com/blog/powershell-tool-roundup/) | Collection of tools. | varonis |
+| [Powershell Snipets Gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | Snipets. | powershellgallery |
+| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound. | SadProcessor |
 
 ## DFIR 
 ------------------------
