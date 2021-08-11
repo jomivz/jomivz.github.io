@@ -45,6 +45,7 @@ https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-
 # PowerView: find where DA has logged on / and current user has access
 Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
+Invoke-UserHunter -CheckAccess | select username, computername, IPAddress
 
 # get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Computers" -Recurse | select membername, membersid
@@ -70,20 +71,20 @@ Get-DomainGroupMember -Identity "Backup Operators" -Recurse
 Get-NetGroupMember -GroupName RDPUsers
 Invoke-ACLScanner -ResolveGUIDs | ?{$_.IdentityReference -match "RDPUsers"} 
 
-# get actively logged users on a computer
+#  PowerView: get actively logged users on a computer
 Get-NetLoggedon -ComputerName <Computer>
 
 # PowerView: find where a user has logged on
 Invoke-UserHunter -UserName <User>
 
-# get last logged users on a computer
+#  PowerView: get last logged users on a computer
 Get-LastLoggedon -ComputerName <Computer>
 
-# PowerSploit: find users who have local admin rights
+# PowerView: find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName <Computer>
 Get-NetOU Admins | %{Get-NetComputer -ADSPath $_}
 
-# PowerSploit: find users who have local admin rights
+# PowerView: find users who have local admin rights
 Find-GPOLocation -UserName <DA>
 
 # AllExtendedRights privilege grants both the DS-Replication-Get-Changes and DS-Replication-Get-Changes-All privileges
@@ -210,14 +211,14 @@ Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegat
 
 ```powershell
 # find all users with an SPN set (likely service accounts)
-Get-DomainUser -SPN
+Get-DomainUser -SPN | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
 
 # find all service accounts in "Domain Admins"
 Get-DomainUser -SPN | ?{$_.memberof -match 'Domain Admins'}
 
 # find any users/computers with constrained delegation st
-Get-DomainUser -TrustedToAuth
-Get-DomainComputer -TrustedToAuth
+Get-DomainUser -TrustedToAuth | select samaccountname, msds-allowedtodelegateto, accountexpires
+Get-DomainComputer -TrustedToAuth | select samaccountname, msds-allowedtodelegateto, accountexpires
 
 # enumerate all servers that allow unconstrained delegation, and all privileged users that aren't marked as sensitive/not for delegation
 $Computers = Get-DomainComputer -Unconstrained
@@ -240,7 +241,7 @@ Get-UserProperty -Properties pwdlastset
 
 # get all users with passwords changed > 1 year ago, returning sam account names and password last set times
 $Date = (Get-Date).AddYears(-1).ToFileTime()
-Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset
+Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset,useraccountcontrol
 
 # check for users who don't have kerberos preauthentication set
 Get-DomainUser -PreauthNotRequired
