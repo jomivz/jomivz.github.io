@@ -47,8 +47,8 @@ Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 
 # get all the effective members of DA groups, 'recursing down'
-Get-DomainGroupMember -Identity "Domain Admins" -Recurse
-Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse
+Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername
+Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername
 ```
 
 ## ENUM : PRIVILEGED USERS
@@ -57,9 +57,10 @@ Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse
 Find-LocalAdminAccess
 
 #  PowerView: find local admins on all computers of the domain
-Invoke-EnumerateLocalAdmin
+Invoke-EnumerateLocalAdmin | select computername, membername
 
 # PowerView: gather info on security groups
+Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
 Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
 Get-DomainGroupMember -Identity "Backup Operators" -Recurse
 Get-NetGroupMember -GroupName RDPUsers
