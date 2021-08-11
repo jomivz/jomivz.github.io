@@ -27,6 +27,16 @@ autorunsc /accepteula -a t -c -s -h -v -vt -u > autorunscvtt.csv
 ```
 
 Also you can consult the [Mitre Autoruns List](https://attack.mitre.org/techniques/T1547/001/).
+```powershell
+# example: removal of the autorun for houdini RAT
+powershell -command "get-item 'hklm:\software\microsoft\Windows\CurrentVersion\Run' | Select-Object -ExpandProperty Property"
+´╗┐RtHDVCpl
+RtHDVBg_PushButton
+WavesSvc
+Windows Mobile Device Center
+139750_owned
+reg delete hklm\software\microsoft\Windows\CurrentVersion\Run /v 139750_owned
+```
 
 ## [T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost
 
