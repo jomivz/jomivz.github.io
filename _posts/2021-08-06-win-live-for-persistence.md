@@ -15,10 +15,18 @@ has_children: true
 
 Sysinternals autorunsc (CLI version of autoruns) covers a lot of TTPs (24/04/2021). 
 
-Supports options to focus on dedicated tecniques. For a CSV full-report, run it like below:
+Supports options to focus on dedicated tecniques. 
+Autorunsc can also be used (computing the hashes and/or querying VT).
+For a CSV full-report, run it as below : 
 ```
-autorunsc /accepteula -a * -c -s -h > autorunsc.csv
+# method 1: compute hashes
+autorunsc /accepteula -a t -c -s -h > autorunsct.csv
+
+# method 2: query virustotal
+autorunsc /accepteula -a t -c -s -h -v -vt -u > autorunscvtt.csv
 ```
+
+Also you can consult the [Mitre Autoruns List](https://attack.mitre.org/techniques/T1547/001/).
 
 ## [T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost
 
@@ -37,15 +45,6 @@ for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Micros
 2/ To list exhaustively the scheduled tasks, run the cmd:
 ```
 schtasks /query /fo LIST /v
-```
-
-3/ Autorunsc can also be used (computing the hashes and/or querying VT) as below : 
-```
-# method 1: compute hashes
-autorunsc /accepteula -a t -c -s -h > autorunsct.csv
-
-# method 2: query virustotal
-autorunsc /accepteula -a t -c -s -h -v -vt -u > autorunscvtt.csv
 ```
 
 ## [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
