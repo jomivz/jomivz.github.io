@@ -47,11 +47,15 @@ Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 
 # get all the effective members of DA groups, 'recursing down'
-Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername
-Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername
+Get-DomainGroupMember -Identity "Domain Computers" -Recurse | select membername, membersid
+Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername, membersid
+Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername, membersid
 ```
 
 ## ENUM : PRIVILEGED USERS
+
+- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
+
 ```powershell
 # PowerView: find computers where the current user is local admin
 Find-LocalAdminAccess
@@ -60,8 +64,8 @@ Find-LocalAdminAccess
 Invoke-EnumerateLocalAdmin | select computername, membername
 
 # PowerView: gather info on security groups
-Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
-Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose
+Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose| ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 Get-DomainGroupMember -Identity "Backup Operators" -Recurse
 Get-NetGroupMember -GroupName RDPUsers
 Invoke-ACLScanner -ResolveGUIDs | ?{$_.IdentityReference -match "RDPUsers"} 
