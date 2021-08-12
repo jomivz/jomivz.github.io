@@ -42,4 +42,7 @@ Get-WinEvent -FilterHashtable @{
   Data='iexplore.exe'
   StartTime=$StartTime
 }
+
+# list interactive logon
+Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
 ```
