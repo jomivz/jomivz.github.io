@@ -9,6 +9,9 @@ nav_order: 1
 
 This is publicly accessible personal [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps) available at [jmvwork.xyz](/),
 > - about IT experiments in networking and system administration, forensics and pentesting.
+> - Most of my notes are discovered by other security researchers and I do not claim their ownership.
+
+**DO IT, BETTER, FASTER, STRONGER**
 
 Using markdowns as notes allows to fetch commands (using ```grep``` plus keywords) in order to be the more efficient in several situations, like when maintaining, auditing, investigating, passing exam or participating to a CTF.
 
@@ -17,8 +20,11 @@ Using markdowns as notes allows to fetch commands (using ```grep``` plus keyword
 > * Expect mistakes in the notes
 > * Always consult additional resources
 
----------------------------------------------------------------------------------------
-This is propulsed by [github pages](https://pages.github.com/).
-Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
+# Can I do the same? Can I improve it?
 
-Most of my notes are discovered by other security researchers and I do not claim their ownership. I try to reference the sources I use the best I can, but if you think I've missed something, please get in touch and I will fix it immediately.
+This is propulsed by [github pages](https://pages.github.com/), using empowered jekyll to convert the markdowns into HTML.
+Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
+I try to reference the sources I use the best I can, but if you think I've missed something, please get in touch and I will fix it immediately.
+On your appreciation, feel free to pull requests.
+
+
