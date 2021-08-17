@@ -98,6 +98,10 @@ Get-NetGPO | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name}
 # list users/groups ACLs
 # valuable attributes: IdentityReference, ObjectDN, ActiveDirectoryRights
 Get-ObjectAcl -SamAccountName <User>-ResolveGUIDs
+
+# testing accounts with empty passwords 
+$mycreds = New-Object System.Management.Automation.PSCredential("<sogreat>", (new-object System.Security.SecureString))
+Invoke-Command -Credential $mycreds -ComputerName <Computer> -ScriptBlock {whoami; hostname}
 ```
 
 ## ENUM : DOMAIN
