@@ -10,6 +10,11 @@ grand_parent: Cheatsheets
 
 ## Splunk Queries by user 
 
+### Accessed Services (Successful TGS) 
+```
+source="WinEventLog:Security"  Account_Name="johndoe*" EventCode=4769 | table _time, ComputerName, Account_Name, Client_Address, Service_ID
+```
+
 ### O365: mails entrants bloqués
 
 ```
