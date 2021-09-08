@@ -46,7 +46,6 @@ https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-
 Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 Invoke-UserHunter -CheckAccess | select username, computername, IPAddress
-Invoke-UserHunter -UserIdentity johndoe
 
 # get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Computers" -Recurse | select membername, membersid
@@ -76,7 +75,7 @@ Invoke-ACLScanner -ResolveGUIDs | ?{$_.IdentityReference -match "RDPUsers"}
 Get-NetLoggedon -ComputerName <Computer>
 
 # PowerView: find where a user has logged on
-Invoke-UserHunter -UserName <User>
+Invoke-UserHunter -UserIdentity <User>
 
 #  PowerView: get last logged users on a computer
 Get-LastLoggedon -ComputerName <Computer>
