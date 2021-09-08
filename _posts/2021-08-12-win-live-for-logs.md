@@ -58,7 +58,7 @@ Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date
 - EID 1102
 ```
 
-## Abuse of Delegation
+## AD Abuse of Delegation
 
 ```
 # hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
@@ -69,6 +69,18 @@ Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountCont
 # hunting for a RBCD abuse 2
 Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
 Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
+```
+
+## AD DS Replication
+```
+# huntinfg for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
+| Entry | CN | Display-Name | Rights-GUID |
+|----------------|--------------|--------------|-----------------|
+| Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
+| Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
+
+# huntinfg for DCsync permission added to an account 2:
+(Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
 ## Logs activation
