@@ -9,6 +9,11 @@ has_children: true
 
 # {{ page.title}}
 
+## Potential logs tampering
+
+- EID 1100
+- EID 1102
+
 ## Fetching into the logs
 
 ```powershell
@@ -47,6 +52,10 @@ Get-WinEvent -FilterHashtable @{
 
 # list interactive logon
 Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
+
+# Privilege escalation
+- EID 47
+- EID 1102
 ```
 
 ## Logs activation
