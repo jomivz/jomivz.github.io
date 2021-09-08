@@ -58,6 +58,19 @@ Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date
 - EID 1102
 ```
 
+## Abuse of Delegation
+
+```
+# hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
+# hunting for a CD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
+
+# hunting for a RBCD abuse 1: pivot on GUID in theEID 4662 (Properties: Write Property) + 5136 (attribute: msDS-AllowedToActOnBehalfOfOtherIdentity)
+# hunting for a RBCD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
+Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
+```
+
 ## Logs activation
 
 ```
