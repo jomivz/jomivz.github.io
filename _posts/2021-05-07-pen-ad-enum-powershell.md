@@ -46,6 +46,7 @@ https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-
 Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 Invoke-UserHunter -CheckAccess | select username, computername, IPAddress
+Invoke-UserHunter -UserIdentity johndoe
 
 # get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Computers" -Recurse | select membername, membersid
