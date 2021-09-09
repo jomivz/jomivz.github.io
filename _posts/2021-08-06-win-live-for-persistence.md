@@ -71,7 +71,7 @@ powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobj
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
 ```
 
-##  - Persistence via msiexec
+## [T1218.007](https://attack.mitre.org/techniques/T1218/007/) - Scheduled task calling msiexec
 ```
 # look for a ProductCode
 wmic product where "IdenfyingNumber like '{400A01BF-E908-4393-BD39-31E386377BDA}'" get *
