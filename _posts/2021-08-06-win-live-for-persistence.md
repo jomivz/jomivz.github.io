@@ -70,3 +70,9 @@ powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobj
 # method 2: if the DLL appears as 'notsigned' with the method 1, using sigcheck from sysinternals
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
 ```
+
+##  - Persistence via msiexec
+```
+# look for a ProductCode
+wmic product where "IdenfyingNumber like '{400A01BF-E908-4393-BD39-31E386377BDA}'" get *
+```
