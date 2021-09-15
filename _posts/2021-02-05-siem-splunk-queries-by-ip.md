@@ -14,6 +14,12 @@ The idea to build queries with ```$addr_ip$``` as an argument IS to design inves
 Investigation dashboards ALLOW to launch multiple queries at once based on an IP address.
 For that an input field will set the ```$addr_ip$``` argument.
 
+## Index statistics
+
+```
+|tstats dc(host),values(host) where index=*
+```
+
 ## Windows queries
 
 Windows DC 1:
