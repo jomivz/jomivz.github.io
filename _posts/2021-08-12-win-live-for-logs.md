@@ -1,20 +1,68 @@
 ---
 layout: default
-title: Windows Logs Live Forensics
+title: Windows Logs Forensics
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
 ---
-
 # {{ page.title}}
 
-## Potential logs tampering
+<!-- vscode-markdown-toc -->
+* 1. [Windows Use-Cases](#WindowsUse-Cases)
+	* 1.1. [Potential logs tampering](#Potentiallogstampering)
+	* 1.2. [AD Abuse of Delegation](#ADAbuseofDelegation)
+	* 1.3. [AD DS Replication](#ADDSReplication)
+* 2. [Extras](#Extras)
+	* 2.1. [Fetching into the logs with PS](#FetchingintothelogswithPS)
+	* 2.2. [Logs activation](#Logsactivation)
 
-- EID 1100
-- EID 1102
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
-## Fetching into the logs
+##  1. <a name='WindowsUse-Cases'></a>Windows Use-Cases
+
+###  1.1. <a name='Potentiallogstampering'></a>Potential logs tampering
+
+- [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
+- [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
+- [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
+
+###  1.2. <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
+
+```
+# hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
+# hunting for a CD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
+
+# hunting for a RBCD abuse 1: pivot on GUID in theEID 4662 (Properties: Write Property) + 5136 (attribute: msDS-AllowedToActOnBehalfOfOtherIdentity)
+# hunting for a RBCD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
+Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
+```
+
+###  1.3. <a name='ADDSReplication'></a>AD DS Replication
+
+```
+# huntinfg for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
+```
+
+| Entry | CN | Display-Name | Rights-GUID |
+|----------------|--------------|--------------|-----------------|
+| Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
+| Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
+
+```
+# huntinfg for DCsync permission added to an account 2:
+(Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
+```
+
+##  2. <a name='Extras'></a>Extras
+
+###  2.1. <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
 
 ```powershell
 
@@ -52,42 +100,9 @@ Get-WinEvent -FilterHashtable @{
 
 # list interactive logon
 Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
-
-# Privilege escalation
-- EID 47
-- EID 1102
 ```
 
-## AD Abuse of Delegation
-
-```
-# hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
-# hunting for a CD abuse 2
-Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
-
-# hunting for a RBCD abuse 1: pivot on GUID in theEID 4662 (Properties: Write Property) + 5136 (attribute: msDS-AllowedToActOnBehalfOfOtherIdentity)
-# hunting for a RBCD abuse 2
-Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
-Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
-```
-
-## AD DS Replication
-
-```
-# huntinfg for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
-```
-
-| Entry | CN | Display-Name | Rights-GUID |
-|----------------|--------------|--------------|-----------------|
-| Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
-| Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
-
-```
-# huntinfg for DCsync permission added to an account 2:
-(Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
-```
-
-## Logs activation
+###  2.2. <a name='Logsactivation'></a>Logs activation
 
 ```
 # Enable AMSI logging

