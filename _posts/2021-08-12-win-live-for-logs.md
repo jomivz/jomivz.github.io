@@ -13,9 +13,12 @@ has_children: true
 	* 1.1. [Potential logs tampering](#Potentiallogstampering)
 	* 1.2. [AD Abuse of Delegation](#ADAbuseofDelegation)
 	* 1.3. [AD DS Replication](#ADDSReplication)
-* 2. [Extras](#Extras)
-	* 2.1. [Fetching into the logs with PS](#FetchingintothelogswithPS)
-	* 2.2. [Logs activation](#Logsactivation)
+* 2. [Logs activation](#Logsactivation)
+	* 2.1. [Activate AMSI logging](#ActivateAMSIlogging)
+	* 2.2. [Activate DNS debug logs](#ActivateDNSdebuglogs)
+	* 2.3. [Activate Firewall logs](#ActivateFirewalllogs)
+* 3. [Extras](#Extras)
+	* 3.1. [Fetching into the logs with PS](#FetchingintothelogswithPS)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -60,9 +63,56 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
-##  2. <a name='Extras'></a>Extras
+##  2. <a name='Logsactivation'></a>Logs activation
 
-###  2.1. <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
+
+###  2.1. <a name='ActivateAMSIlogging'></a>Activate AMSI logging
+```
+$AutoLoggerName = 'MyAMSILogger'
+$AutoLoggerGuid = "{$((New-Guid).Guid)}"
+New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
+Add-EtwTraceProvider -AutologgerName $AutoLoggerName -Guid '{2A576B87-09A7-520E-C21A-4942F0271D67}' -Level 0xff -MatchAnyKeyword ([UInt64] (0x8000000000000001 -band ([UInt64]::MaxValue))) -Property 0x41
+```
+
+###  2.2. <a name='ActivateDNSdebuglogs'></a>Activate DNS debug logs
+```
+# Default path:
+#  - %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
+#  - %SystemRoot%\System32\Dns\Dns.log
+
+# Enable DNS : check the parameter `dwDebugLevel`. It value must be `00006101`.
+dnscmd /Info
+
+# Enable DNS : verify log file location
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
+Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
+
+# Enable DNS : set the debug mode + log file location
+dnscmd.exe localhost /Config /LogLevel 0x6101
+dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
+```
+
+###  2.3. <a name='ActivateFirewalllogs'></a>Activate Firewall logs
+```
+# Run this command to check if the logging is enabled
+netsh advfirewall show allprofiles
+
+# Run this command to identify the logging file
+netsh advfirewall show allprofiles | Select-String Filename
+
+# Confirm %systemroot% is "C:\Windows"
+$env:SystemRoot
+
+# Set the logging into a variable
+$fwlog = “C:\Windows\system32\LogFiles\Firewall\pfirewall.log”
+
+# Check drop connections 
+Select-String -Path $fwlog -Pattern “drop”
+```
+
+##  3. <a name='Extras'></a>Extras
+
+###  3.1. <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
 
 ```powershell
 
@@ -100,30 +150,4 @@ Get-WinEvent -FilterHashtable @{
 
 # list interactive logon
 Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
-```
-
-###  2.2. <a name='Logsactivation'></a>Logs activation
-
-```
-# Enable AMSI logging
-$AutoLoggerName = 'MyAMSILogger'
-$AutoLoggerGuid = "{$((New-Guid).Guid)}"
-New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
-Add-EtwTraceProvider -AutologgerName $AutoLoggerName -Guid '{2A576B87-09A7-520E-C21A-4942F0271D67}' -Level 0xff -MatchAnyKeyword ([UInt64] (0x8000000000000001 -band ([UInt64]::MaxValue))) -Property 0x41
-
-# Enable DNS debug logs
-# Default path:
-#  - %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
-#  - %SystemRoot%\System32\Dns\Dns.log
-
-# Enable DNS : check the parameter `dwDebugLevel`. It value must be `00006101`.
-dnscmd /Info
-
-# Enable DNS : verify log file location
-reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
-Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
-
-# Enable DNS : set the debug mode + log file location
-dnscmd.exe localhost /Config /LogLevel 0x6101
-dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
