@@ -97,8 +97,17 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 # Run this command to check if the logging is enabled
 netsh advfirewall show allprofiles
 
-# Run this command to identify the logging file
+# Run this command to identify: the logging file
 netsh advfirewall show allprofiles | Select-String Filename
+
+# Enable the logging on drop for the firewall profiles: {Domain, Public, Private}
+Set-NetFirewallProfile -Name Domain -LogBlocked True
+Set-NetFirewallProfile -Name Public -LogBlocked True
+Set-NetFirewallProfile -Name Private -LogBlocked True
+
+# Check in between the logging status with the first command
+# Disable the logging on drop for the firewall profiles: {Domain, Public, Private}
+Set-NetFirewallProfile -Name Domain -LogBlocked False
 
 # Confirm %systemroot% is "C:\Windows"
 $env:SystemRoot
@@ -108,6 +117,9 @@ $fwlog = “C:\Windows\system32\LogFiles\Firewall\pfirewall.log”
 
 # Check drop connections 
 Select-String -Path $fwlog -Pattern “drop”
+
+# List all the logs
+Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
 ```
 
 ##  3. <a name='Extras'></a>Extras
