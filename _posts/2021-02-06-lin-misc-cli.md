@@ -5,10 +5,20 @@ parent: Linux
 category: Linux
 grand_parent: Cheatsheets
 ---
+<!-- vscode-markdown-toc -->
+* 1. [PDF & ebooks](#PDFebooks)
+* 2. [Images treatment](#Imagestreatment)
+* 3. [Miscellaneous](#Miscellaneous)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
 # {{ page.title }}
 
-## PDF & ebooks
+##  1. <a name='PDFebooks'></a>PDF & ebooks
 
 Aggregating multiple pdf files :
 ```
@@ -20,7 +30,7 @@ To convert all pdf files in current directory to ebooks, use the command:
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
 
-## Images treatment 
+##  2. <a name='Imagestreatment'></a>Images treatment 
 
 To resize an image, use the command:
 ```
@@ -40,7 +50,7 @@ potrace -s logo.bmp #replace the white zone with transparency"
 potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
 potrace -s logo.bmp --opaque #to keep white areas
 ```
-## Miscellaneous
+##  3. <a name='Miscellaneous'></a>Miscellaneous
 
 Pushing a command output to pastebin (example here ```ps```):
 ```

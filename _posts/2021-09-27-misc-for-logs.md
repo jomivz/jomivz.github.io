@@ -35,7 +35,7 @@ for i in `ls`; do grep "404\|403\|failed\|can't\|invalid\|denied" $i >> /tmp/hit
 341642
 
 # excluding source IP
-for i in `ls`; do grep -v "172.26.13.90\|172.26.19.106\|10.192.132.197\|10.192.128.223" $i; don
+for i in `ls`; do grep -v "10.0.0.1\|192.168.1.1" $i; don
 
 # SPLUNK logs
 |tstats dc(host),values(host)
@@ -50,13 +50,13 @@ awk -F'[]]|[[]' \
 awk -F'[]]|[[]' '$0 ~ /^\[/ && $2 >= "2021-09-13 01:55" { p=1 } $0 ~ /^\[/ && $2 >= "2021-09-13 02:00" { p=0 } p { print $0 }' lastlog
 
 # HTTP hits
-host=brs1139 sourcetype="apache:access" NOT "paessler" NOT na="/images*" AND status_code=200 | stats count by date_hour, date_mday
+host=acme123 sourcetype="apache:access" NOT na="/images*" AND status_code=200 | stats count by date_hour, date_mday
 
 #splunk 
-host=brs1139 sourcetype="apache:access" NOT na="/" NOT na="/images*" NOT na="/sys/bus*" NOT na="/icon*" AND status_code=200 | table _time, client_ip,url_new,uri
+host=acme123 sourcetype="apache:access" NOT na="/" NOT na="/images*" NOT na="/sys/bus*" NOT na="/icon*" AND status_code=200 | table _time, client_ip,url_new,uri
 
-sourcetype="aws:elb:accesslogs" Records{}.awsRegion="sa-east-1" "Records{}.eventSource"="elasticloadbalancing.amazonaws.com"
-"Records{}.resources{}.accountId"=018662686702
+sourcetype="aws:elb:accesslogs" Records{}.awsRegion="sa-east" "Records{}.eventSource"="elasticloadbalancing.amazonaws.com"
+"Records{}.resources{}.accountId"=123456789
 
 
 ###  1.1. <a name='Sudologandauditd'></a>Sudolog and auditd

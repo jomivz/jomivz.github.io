@@ -7,9 +7,21 @@ grand_parent: Cheatsheets
 has_children: true
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [Analysing XSS injection in MYD](#AnalysingXSSinjectioninMYD)
+* 2. [Starting MySQL server](#StartingMySQLserver)
+* 3. [Querying imported MYD files](#QueryingimportedMYDfiles)
+* 4. [Stopping MySQL server](#StoppingMySQLserver)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
 # Wordpress XSS injection
 
-## Analysing XSS injection in MYD
+##  1. <a name='AnalysingXSSinjectioninMYD'></a>Analysing XSS injection in MYD
 
 Copying the MYD files on csirt-sans-sift
  
@@ -23,7 +35,7 @@ sudo mkdir /var/lib/mysql/springfield
 sudo chown mysql:mysql  -r /var/lib/mysql/springfield/
 ```
 
-## Starting MySQL server
+##  2. <a name='StartingMySQLserver'></a>Starting MySQL server
 
     Run the command 
 ```
@@ -36,7 +48,7 @@ mysql > use acme;
 mysql > exit
 ```
 
-## Querying imported MYD files
+##  3. <a name='QueryingimportedMYDfiles'></a>Querying imported MYD files
 
 Based on timestamps of the XSS attack on the ACME website via WordPress, we had to check if the MySQL backups were sain.
 
@@ -48,7 +60,7 @@ mysql > SELECT option_value FROM wp_hbrhui_options WHERE CHAR_LENGTH(option_valu
 Greping for URL of redirection, we proof the backup is compromised.
 ![XSS in MYD](/assets/images/wordpress-xss-injection.png)
 
-## Stopping MySQL server
+##  4. <a name='StoppingMySQLserver'></a>Stopping MySQL server
 
 Run the command: 
 ```

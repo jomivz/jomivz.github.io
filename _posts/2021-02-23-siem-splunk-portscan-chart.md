@@ -7,6 +7,16 @@ grand_parent: Cheatsheets
 nav_order: 2
 has_children: true
 ---
+<!-- vscode-markdown-toc -->
+* 1. [Dashboard with dropdown location + timepicker](#Dashboardwithdropdownlocationtimepicker)
+* 2. [Search query to visualize Port Scans - without a DMZ subnet](#SearchquerytovisualizePortScans-withoutaDMZsubnet)
+* 3. [Search query to visualize Port Scans - with a DMZ subnet](#SearchquerytovisualizePortScans-withaDMZsubnet)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
 # {{ page.title }}
 
@@ -16,7 +26,7 @@ For this visualization use-case, here are few concerns about :
  * hardware ressources - as the parallel coordinate visualizer is CPU consuming, you might use it with a restricted ***timespan***.
  * network design - depending on your network design / IP plan, you may select the appropriate query below / change the IP subnets
 
-## Dashboard with dropdown location + timepicker 
+##  1. <a name='Dashboardwithdropdownlocationtimepicker'></a>Dashboard with dropdown location + timepicker 
 
 Find the **PortScanViz XML dashboard** [here](/docs/siem/siem-splunk-portscan-dashboard.xml) based on search queries below.
 
@@ -29,7 +39,7 @@ Note: this dashboard MAY be optimized to take in charge :
 - IPv6 subnets
 - instead of using the ```cidrmatch``` function, you may enrich IP fields with its location at the idex-time
 
-## Search query to visualize Port Scans - without a DMZ subnet 
+##  2. <a name='SearchquerytovisualizePortScans-withoutaDMZsubnet'></a>Search query to visualize Port Scans - without a DMZ subnet 
 
 ```
 sourcetype="stream:tcp" 
@@ -41,7 +51,7 @@ sourcetype="stream:tcp"
 | table src_ip, src_port, dest_ip, dest_port
 ```
 
-## Search query to visualize Port Scans - with a DMZ subnet 
+##  3. <a name='SearchquerytovisualizePortScans-withaDMZsubnet'></a>Search query to visualize Port Scans - with a DMZ subnet 
 
 ```
 sourcetype="stream:tcp" 

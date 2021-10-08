@@ -7,21 +7,33 @@ grand_parent: Cheatsheets
 has_children: true
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [Convert Raw Image Files to VHD Compatible File](#ConvertRawImageFilestoVHDCompatibleFile)
+* 2. [VHD Tool 2.0 Usage](#VHDTool2.0Usage)
+* 3. [Mount VHD via Windows Disk Management Tool](#MountVHDviaWindowsDiskManagementTool)
+* 4. [Unmount VHD via Windows Disk Management Tool](#UnmountVHDviaWindowsDiskManagementTool)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
 # {{ page.title}}
  
-## Convert Raw Image Files to VHD Compatible File 
+##  1. <a name='ConvertRawImageFilestoVHDCompatibleFile'></a>Convert Raw Image Files to VHD Compatible File 
 
 Virtual Hard Disk (VHD) tool is an unmanaged code command-line tool which provides useful VHD manipulation functions including instant creation of large fixed-size VHDs.
 
 VHD Tool 2.0 tool can be obtained [here](http://archive.msdn.microsoft.com/vhdtool/Release/ProjectReleases.aspx?ReleaseId=5344).
  
-## VHD Tool 2.0 Usage 
+##  2. <a name='VHDTool2.0Usage'></a>VHD Tool 2.0 Usage 
 
 1. Download the VhdTool.exe to D:\.
 2. Open an elevated command prompt and navigate to D:\.
 3. Execute the following command: VhdTool.exe /convert raw_disk_image_filename.ntfs.
 
-## Mount VHD via Windows Disk Management Tool
+##  3. <a name='MountVHDviaWindowsDiskManagementTool'></a>Mount VHD via Windows Disk Management Tool
 1. Open Disk Management via Start > Run > diskmgmt.msc. 
 2. On the Menu bar, Action > Attach VHD.
 3. Browse to the location of the raw disk image folder. Ensure that All files (*.*) is selected.  
@@ -33,7 +45,7 @@ NOTE: Do not checked Read-only else even when the correct recovery key is entere
  
 NOTE: Every recovery key has a password ID. Ensure that the recovery key entered is for the password ID shown to you.
  
-## Unmount VHD via Windows Disk Management Tool
+##  4. <a name='UnmountVHDviaWindowsDiskManagementTool'></a>Unmount VHD via Windows Disk Management Tool
  
 1. Right click on the mounted VHD and click on Detach VHD.
 

@@ -7,9 +7,20 @@ grand_parent: Cheatsheets
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
 
-## {{ page.title }}
+<!-- vscode-markdown-toc -->
+* 1. [{{ page.title }}](#page.title)
+* 2. [T1595.001: Active Scanning: Scanning IP Blocks](#T1595.001:ActiveScanning:ScanningIPBlocks)
+* 3. [T1046: Network Service Scanning](#T1046:NetworkServiceScanning)
+* 4. [References](#References)
 
-## T1595.001: Active Scanning: Scanning IP Blocks
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+##  1. <a name='page.title'></a>{{ page.title }}
+
+##  2. <a name='T1595.001:ActiveScanning:ScanningIPBlocks'></a>T1595.001: Active Scanning: Scanning IP Blocks
 
 **use-case**: discovering IP assets over a subnet.
 ```
@@ -28,7 +39,7 @@ fping -g 192.168.1.0/24
 nmap -PEPM -sP -n -oA hosts_up 192.168.1.0/24 
 ```
 
-## T1046: Network Service Scanning
+##  3. <a name='T1046:NetworkServiceScanning'></a>T1046: Network Service Scanning
 
 **use-case**: discovering services for assets into the input file ```hosts_up```.
 ```
@@ -48,7 +59,7 @@ nmap -sU -Pn -iL hosts_up -oA nmap_udp_top1000_scan 192.168.0.0/24
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -iL hosts_up -oA nmap_udp_fullscan 192.168.0.0/24
 ```
 
-## References
+##  4. <a name='References'></a>References
 
 - Mitre Att&ck Techniques: 
 > * [T1595 - Active Scanning: Scanning IP Blocks](https://attack.mitre.org/techniques/T1595/001/)

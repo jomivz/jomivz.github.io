@@ -8,13 +8,25 @@ nav_order: 2
 has_children: true
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [Pre-requisites](#Pre-requisites)
+* 2. [IR queries over Network logs](#IRqueriesoverNetworklogs)
+* 3. [IR queries over Windows logs](#IRqueriesoverWindowslogs)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
 # {{ page.title }}
 
-## Pre-requisites
+##  1. <a name='Pre-requisites'></a>Pre-requisites
 - [https://splunkbase.splunk.com/app/3767/#/details]{parallel coordinates app}
 - [https://splunkbase.splunk.com/app/3137/]{force directed app} 
 
-## IR queries over Network logs
+##  2. <a name='IRqueriesoverNetworklogs'></a>IR queries over Network logs
 
 ```
 # Incoming / Outcoming Traffic - Cisco Meraki - vizualization w/ parallel coordinates app
@@ -33,7 +45,7 @@ index=* "File Type"=* | stats sum("File Size") as bytes_uploaded by "Client IP",
   
 ```
 
-## IR queries over Windows logs
+##  3. <a name='IRqueriesoverWindowslogs'></a>IR queries over Windows logs
 
 ```
 # See [how to convert Windows EVTX log files to XML]{/}

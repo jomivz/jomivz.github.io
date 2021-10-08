@@ -6,11 +6,26 @@ grand_parent: Cheatsheets
 category: Development
 ---
 
-{:toc}
+<!-- vscode-markdown-toc -->
+* 1. [Generate SSH keypair](#GenerateSSHkeypair)
+* 2. [Introduction](#Introduction)
+* 3. [Configure git settings](#Configuregitsettings)
+* 4. [Working with repos](#Workingwithrepos)
+* 5. [Ignoring content](#Ignoringcontent)
+* 6. [Logging](#Logging)
+* 7. [Branches](#Branches)
+* 8. [Pushes and Merges](#PushesandMerges)
+* 9. [Cleaning repo](#Cleaningrepo)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
 # {{ page.title }}
 
-## Generate SSH keypair
+##  1. <a name='GenerateSSHkeypair'></a>Generate SSH keypair
 ---------------------
 ```
 ssh-keygen -t rsa -b 4096 -C "john@smith.fr"
@@ -21,7 +36,7 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 ```
 
-## Introduction
+##  2. <a name='Introduction'></a>Introduction
 ---------------------
 Git is a source control tool created by Linus Torvald.
 Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.
@@ -32,7 +47,7 @@ Some basics terminology:
 - commits are affiliated with repositories and branches
 - the HEAD may be moved between commits
 
-## Configure git settings
+##  3. <a name='Configuregitsettings'></a>Configure git settings
 ---------------------
 ```
 git config --global user.email "john@smith.fr"
@@ -58,7 +73,7 @@ Exclude certain paths:
 git config --global core.excludesfile <path>
 ```
 
-## Working with repos
+##  4. <a name='Workingwithrepos'></a>Working with repos
 ---------------------
 
 To create a repo, use the command below. It creates a ```.git``` directory in the repository for git metadata:
@@ -91,7 +106,7 @@ git commit -m "some comments here"
 git push origin master
 ```
 
-## Ignoring content
+##  5. <a name='Ignoringcontent'></a>Ignoring content
 ---------------------
 
 Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file:
@@ -102,7 +117,7 @@ src/
 **.jekyll-cache/
 ```
 
-## Logging
+##  6. <a name='Logging'></a>Logging
 ---------------------
 
 ```
@@ -119,7 +134,7 @@ Look at logs in a graphical way
 git log --graph --decorate
 ```
 
-## Branches 
+##  7. <a name='Branches'></a>Branches 
 ---------------------
 
 Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch.
@@ -139,7 +154,7 @@ Do both at once
 git checkout -b foo
 ```
 
-## Pushes and Merges
+##  8. <a name='PushesandMerges'></a>Pushes and Merges
 ---------------------
 
 Push one or all branches to the origin:
@@ -154,7 +169,7 @@ git checkout branch
 git merge foo
 ```
 
-## Cleaning repo 
+##  9. <a name='Cleaningrepo'></a>Cleaning repo 
 ---------------------
 
 Steps to remove folder/directory only from git repository and not from the local  :
