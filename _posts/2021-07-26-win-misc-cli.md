@@ -17,7 +17,9 @@ grand_parent: Cheatsheets
 	* 2.4. [windows uac: bypass](#windowsuac:bypass)
 	* 2.5. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
 	* 2.6. [Windows driver signature: disable](#Windowsdriversignature:disable)
+	* 2.7. [SMBv1: enable](#SMBv1:enable)
 * 3. [Windows DISM](#WindowsDISM)
+* 4. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -84,14 +86,49 @@ bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
+###  2.7. <a name='SMBv1:enable'></a>SMBv1: enable
+```batch
+DISM /online /enable-feature /featurename:SMB1Protocol
+DISM /online /enable-feature /featurename:SMB1Protocol-Client
+DISM /online /enable-feature /featurename:SMB1Protocol-Server
+DISM /online /enable-feature /featurename:SMB1Protocol-Deprecation
+```
+
 ##  3. <a name='WindowsDISM'></a>Windows DISM
 ```batch
-DISM /online /get-features /format:table | more
+# Pre requisites: Admin rights
+# get all windows feature and save to a txt file
+DISM /online /get-features /format:table > C:\Temp\dism_listing.txt
+get-windowsoptionalfeature -online | ft | more
+
+# get windows feature that are enable/disable
 DISM /online /get-features /format:table | find “Enabled” | more
 DISM /online /get-features /format:table | find “Disabled” | more
-DISM /online /get-featureinfo /featurename:
-get-windowsoptionalfeature -online | ft | more
-get-windowsoptionalfeature -online | where state -like disabled* | ft | more
-get-windowsoptionalfeature -online | where state -like enabled* | ft | more
-get-windowsoptionalfeature -online -featurename *media*
+
+# get windows feature by its name
+DISM /online /get-featureinfo /featurename:Microsoft-Windows-Subsystem-Linux
+DISM /online /get-featureinfo /featurename:TelnetClient
+get-windowsoptionalfeature -online -featurename SMB1Protocol*
+get-windowsoptionalfeature -online -featurename SMB1Protocol* |ft
+```
+
+##  4. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
+```
+# Note: By pass the GPO blocking the exec of the App Store app
+
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+New-Item C:\Ubuntu -ItemType Directory
+Set-Location C:\Ubuntu
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1604 -OutFile Ubuntu.appx -UseBasicParsing
+Invoke-WebRequest -Uri https://aka.ms/wslubuntu2004 -OutFile Ubuntu.appx -UseBasicParsing
+Invoke-WebRequest -Uri https://aka.ms/wsl-kali-linux-new -OutFile Kali.appx -UseBasicParsing
+ 
+# Extract and execute the EXE in the archive to install the distro
+Rename-Item .\Ubuntu.appx Ubuntu.zip
+Expand-Archive .\Ubuntu.zip -Verbose
+Ubuntu.exe
+
+# List the distributions installed
+wslconfig /list /all
+wsl -l
 ```

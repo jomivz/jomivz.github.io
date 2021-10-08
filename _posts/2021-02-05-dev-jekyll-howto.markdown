@@ -8,12 +8,22 @@ permalink: /docs/development/git/
 nav_order: 4
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [Installation](#Installation)
+* 2. [Testing](#Testing)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
 # {{ page.title }}
 
 Github Pages run with Jekyll. This markdown explains how tp install and run/test it.
 This is a way more efficient than markdown editors to preview your notes as it interprets/translates your code to HTML.
 
-## Installation
+##  1. <a name='Installation'></a>Installation
 
 Check [sofwares required](https://jekyllrb.com/docs/installation/) for installation on the Jekyll offical website.
 
@@ -40,7 +50,7 @@ gem install rexml -v 3.2.4
 gem install just-the-docs
 ```
 
-## Testing
+##  2. <a name='Testing'></a>Testing
 
 Run a localhost webserver with the following command:
 
