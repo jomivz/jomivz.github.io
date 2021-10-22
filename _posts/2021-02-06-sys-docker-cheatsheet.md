@@ -69,8 +69,15 @@ apk install openrc
 
 ```sh
 docker pull drwetter/testssl.sh
+docker run --rm -ti drwetter/testssl.sh https://jmvwork.xyz
 ```
 
+###  2.2. <a name='nuclei'></a>nuclei
+
+```sh
+docker pull projectdiscovery/nuclei
+docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz 
+```
 ##  3. <a name='TheDockerHub'></a>The Docker Hub
 
 ```
