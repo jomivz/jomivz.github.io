@@ -6,9 +6,10 @@ category: Linux
 grand_parent: Cheatsheets
 ---
 <!-- vscode-markdown-toc -->
-* 1. [PDF & ebooks](#PDFebooks)
-* 2. [Images treatment](#Imagestreatment)
-* 3. [Miscellaneous](#Miscellaneous)
+* 1. [SED commands](#SEDcommands)
+* 2. [PDF & ebooks](#PDFebooks)
+* 3. [Images treatment](#Imagestreatment)
+* 4. [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -18,7 +19,15 @@ grand_parent: Cheatsheets
 
 # {{ page.title }}
 
-##  1. <a name='PDFebooks'></a>PDF & ebooks
+
+##  1. <a name='SEDcommands'></a>SED commands
+
+```
+# insert a space between 2 IPs - solving copy/paste issue of nessus reports
+sed '%s/.([0-9]+)192./.\1 192./g' 
+```
+
+##  2. <a name='PDFebooks'></a>PDF & ebooks
 
 Aggregating multiple pdf files :
 ```
@@ -30,7 +39,7 @@ To convert all pdf files in current directory to ebooks, use the command:
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
 
-##  2. <a name='Imagestreatment'></a>Images treatment 
+##  3. <a name='Imagestreatment'></a>Images treatment 
 
 To resize an image, use the command:
 ```
@@ -50,7 +59,7 @@ potrace -s logo.bmp #replace the white zone with transparency"
 potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
 potrace -s logo.bmp --opaque #to keep white areas
 ```
-##  3. <a name='Miscellaneous'></a>Miscellaneous
+##  4. <a name='Miscellaneous'></a>Miscellaneous
 
 Pushing a command output to pastebin (example here ```ps```):
 ```
