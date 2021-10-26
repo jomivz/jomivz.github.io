@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Docker chetsheet
-parent: System
+title: Sysadmin CLI Docker
 parent: Sysadmin
+category: Sysadmin
 grand_parent: Cheatsheets
 ---
 

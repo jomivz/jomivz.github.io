@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Sysadmin CLI LIN
-parent: Sysadmin
+title: Sysadmin CLI Linux
+parent: Linux
 category: Sysadmin
 grand_parent: Cheatsheets
 ---

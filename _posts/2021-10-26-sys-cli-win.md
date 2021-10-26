@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sysadmin CLI WIN
-parent: Windows
+parent: Sysadmin
 categories: Sysadmin
 grand_parent: Cheatsheets
 ---
