@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Useful daily Windows CLI
+title: Sysadmin CLI WIN
 parent: Windows
-categories: Windows Sysadmin
+categories: Sysadmin
 grand_parent: Cheatsheets
 ---
 <!-- vscode-markdown-toc -->
