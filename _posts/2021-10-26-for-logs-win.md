@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Windows Logs Forensics
+title: FOR Logs WIN
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets

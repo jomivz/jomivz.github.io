@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Misc Logs Forensics
+title: FOR Logs MISC
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
