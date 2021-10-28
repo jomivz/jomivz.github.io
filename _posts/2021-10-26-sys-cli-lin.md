@@ -6,11 +6,12 @@ category: Sysadmin
 grand_parent: Cheatsheets
 ---
 <!-- vscode-markdown-toc -->
-* 1. [LVM resize vg-root](#LVMresizevg-root)
-* 2. [SED commands](#SEDcommands)
-* 3. [PDF & ebooks](#PDFebooks)
-* 4. [Images treatment](#Imagestreatment)
-* 5. [Miscellaneous](#Miscellaneous)
+* 1. [Open/check VPN settings](#OpencheckVPNsettings)
+* 2. [LVM resize vg-root](#LVMresizevg-root)
+* 3. [SED commands](#SEDcommands)
+* 4. [PDF & ebooks](#PDFebooks)
+* 5. [Images treatment](#Imagestreatment)
+* 6. [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -21,14 +22,14 @@ grand_parent: Cheatsheets
 # {{ page.title }}
 
 
-##  1. <a name='LVMresizevg-root'></a>Open/check VPN settings
+##  1. <a name='OpencheckVPNsettings'></a>Open/check VPN settings
 ```
 cd /etc/openvpn
 sudo openvpn --config xxx.opvn
 curl https://api.myip.com
 ```
 
-##  1. <a name='LVMresizevg-root'></a>LVM resize vg-root
+##  2. <a name='LVMresizevg-root'></a>LVM resize vg-root
 
 ```
 # Solve KALI 2021.1 LVM default install. VG-ROOT is 10GB. 
@@ -54,7 +55,7 @@ resize2fs /dev/mapper/vg-root
 mount /home
 ```
 
-##  2. <a name='SEDcommands'></a>SED commands
+##  3. <a name='SEDcommands'></a>SED commands
 
 ```
 # insert a space between 2 IPs - solving copy/paste issue of nessus reports
@@ -64,7 +65,7 @@ sed '%s/.([0-9]+)192./.\1 192./g'
 sed -n Xp toto.txt
 ```
 
-##  3. <a name='PDFebooks'></a>PDF & ebooks
+##  4. <a name='PDFebooks'></a>PDF & ebooks
 
 ```
 # Aggregating multiple pdf files :
@@ -74,7 +75,7 @@ pdfunite infile1.pdf infile2.pdf outfile.pdf
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
 
-##  4. <a name='Imagestreatment'></a>Images treatment 
+##  5. <a name='Imagestreatment'></a>Images treatment 
 
 ```
 # To resize an image, use the command:
@@ -91,7 +92,7 @@ potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
 potrace -s logo.bmp --opaque #to keep white areas
 ```
 
-##  5. <a name='Miscellaneous'></a>Miscellaneous
+##  6. <a name='Miscellaneous'></a>Miscellaneous
 
 ```
 # Pushing a command output to pastebin (example here ```ps```):
