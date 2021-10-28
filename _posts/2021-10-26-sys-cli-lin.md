@@ -21,6 +21,13 @@ grand_parent: Cheatsheets
 # {{ page.title }}
 
 
+##  1. <a name='LVMresizevg-root'></a>Open/check VPN settings
+```
+cd /etc/openvpn
+sudo openvpn --config xxx.opvn
+curl https://api.myip.com
+```
+
 ##  1. <a name='LVMresizevg-root'></a>LVM resize vg-root
 
 ```
