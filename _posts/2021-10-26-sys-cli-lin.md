@@ -52,6 +52,9 @@ mount /home
 ```
 # insert a space between 2 IPs - solving copy/paste issue of nessus reports
 sed '%s/.([0-9]+)192./.\1 192./g' 
+
+# output print the file's line X. 
+sed -n Xp toto.txt
 ```
 
 ##  3. <a name='PDFebooks'></a>PDF & ebooks
