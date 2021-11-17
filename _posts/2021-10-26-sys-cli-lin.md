@@ -4,14 +4,16 @@ title: Sysadmin CLI LIN
 parent: Sysadmin
 category: Sysadmin
 grand_parent: Cheatsheets
+last-modified: 2021-11-17
 ---
 <!-- vscode-markdown-toc -->
-* 1. [Open/check VPN settings](#OpencheckVPNsettings)
-* 2. [LVM resize vg-root](#LVMresizevg-root)
-* 3. [SED commands](#SEDcommands)
-* 4. [PDF & ebooks](#PDFebooks)
-* 5. [Images treatment](#Imagestreatment)
-* 6. [Miscellaneous](#Miscellaneous)
+* 1. [IPtables network filtering](#IPtablesnetworkfiltering)
+* 2. [Open/check VPN settings](#OpencheckVPNsettings)
+* 3. [LVM resize vg-root](#LVMresizevg-root)
+* 4. [SED commands](#SEDcommands)
+* 5. [PDF & ebooks](#PDFebooks)
+* 6. [Images treatment](#Imagestreatment)
+* 7. [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -22,14 +24,27 @@ grand_parent: Cheatsheets
 # {{ page.title }}
 
 
-##  1. <a name='OpencheckVPNsettings'></a>Open/check VPN settings
+##  1. <a name='IPtablesnetworkfiltering'></a>IPtables network filtering
+```
+#logging set 
+sudo iptables -A INPUT -j LOG --log-prefix DROP-IN
+
+#logging monitor
+sudo iptables -nvL 
+sudo tail -f /var/log/kern.log
+
+# iptables count reset 
+sudo iptables -A INPUT -j LOG --log-prefix DROPPED-INGRESS-
+```
+
+##  2. <a name='OpencheckVPNsettings'></a>Open/check VPN settings
 ```
 cd /etc/openvpn
 sudo openvpn --config xxx.opvn
 curl https://api.myip.com
 ```
 
-##  2. <a name='LVMresizevg-root'></a>LVM resize vg-root
+##  3. <a name='LVMresizevg-root'></a>LVM resize vg-root
 
 ```
 # Solve KALI 2021.1 LVM default install. VG-ROOT is 10GB. 
@@ -55,7 +70,7 @@ resize2fs /dev/mapper/vg-root
 mount /home
 ```
 
-##  3. <a name='SEDcommands'></a>SED commands
+##  4. <a name='SEDcommands'></a>SED commands
 
 ```
 # insert a space between 2 IPs - solving copy/paste issue of nessus reports
@@ -65,7 +80,7 @@ sed '%s/.([0-9]+)192./.\1 192./g'
 sed -n Xp toto.txt
 ```
 
-##  4. <a name='PDFebooks'></a>PDF & ebooks
+##  5. <a name='PDFebooks'></a>PDF & ebooks
 
 ```
 # Aggregating multiple pdf files :
@@ -75,7 +90,7 @@ pdfunite infile1.pdf infile2.pdf outfile.pdf
 for src in *.pdf; do sudo ebook-convert $src .mobi; done
 ```
 
-##  5. <a name='Imagestreatment'></a>Images treatment 
+##  6. <a name='Imagestreatment'></a>Images treatment 
 
 ```
 # To resize an image, use the command:
@@ -92,7 +107,7 @@ potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
 potrace -s logo.bmp --opaque #to keep white areas
 ```
 
-##  6. <a name='Miscellaneous'></a>Miscellaneous
+##  7. <a name='Miscellaneous'></a>Miscellaneous
 
 ```
 # Pushing a command output to pastebin (example here ```ps```):

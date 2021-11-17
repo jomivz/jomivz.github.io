@@ -37,3 +37,34 @@ permalink: /cheatsheets
     {% assign group = nil %}
   </ul>
 {% endfor %}
+
+<table>
+<col width="20%">
+<col width="80%">
+<tr>
+<th>Last updated</th>
+<th>Page</th>
+</tr>
+
+{% assign timeframe = 5184000 %}
+{% assign count = 0 %}
+
+{% for post in pages_list %}
+  {% assign post_in_seconds = post.last-modified | date: "%s" | plus: 0 %}
+  {% assign recent_posts = "now" | date: "%s" | minus: timeframe  %}
+
+  {% if post_in_seconds > recent_posts %}
+  {% assign count = count | plus:1 %}
+
+<tr>
+<td>{{post.last-modified | date: "%b %d, %Y" }}</td>
+<td><a href="{{ post.permalink }}">{{ post.title }}</a> </td>
+</tr>
+{% if count == 15 %}{% break %}{% endif %}
+{% endif %}
+{% endfor %}
+</table>
+
+{% comment %}
+details about the script logic above: https://idratherbewriting.com/blog/adding-last-modified-timestamps-to-documentation/
+{% endcomment %}
