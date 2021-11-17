@@ -38,6 +38,8 @@ permalink: /cheatsheets
   </ul>
 {% endfor %}
 
+<h2>Last Updates</h2>
+
 <table>
 <col width="20%">
 <col width="80%">
@@ -58,7 +60,7 @@ permalink: /cheatsheets
 
 <tr>
 <td>{{post.last-modified | date: "%b %d, %Y" }}</td>
-<td><a href="{{ post.permalink }}">{{ post.title }}</a> </td>
+<td><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a> </td>
 </tr>
 {% if count == 15 %}{% break %}{% endif %}
 {% endif %}
