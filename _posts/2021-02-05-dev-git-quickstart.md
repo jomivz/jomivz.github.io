@@ -1,31 +1,33 @@
 ---
-layout: default
-title: GIT Quickstart
+layout: post
+title: GIT Cheatsheet
 parent: Development
 grand_parent: Cheatsheets  
 category: Development
+modified_date: 2021-11-19
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Generate SSH keypair](#GenerateSSHkeypair)
-* 2. [Introduction](#Introduction)
-* 3. [Configure git settings](#Configuregitsettings)
-* 4. [Working with repos](#Workingwithrepos)
-* 5. [Ignoring content](#Ignoringcontent)
-* 6. [Logging](#Logging)
-* 7. [Branches](#Branches)
-* 8. [Pushes and Merges](#PushesandMerges)
-* 9. [Cleaning repo](#Cleaningrepo)
+* [Generate SSH keypair](#GenerateSSHkeypair)
+* [Introduction](#Introduction)
+* [Configure git settings](#Configuregitsettings)
+* [Working with repos](#Workingwithrepos)
+* [Ignoring content](#Ignoringcontent)
+* [Logging](#Logging)
+* [Branches](#Branches)
+* [Pushes and Merges](#PushesandMerges)
+* [Cleaning repo](#Cleaningrepo)
+* [Rollback on files](#Rollbackonfiles)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-# {{ page.title }}
+First if something missing here, [Atlassian GIT tutorials](https://www.atlassian.com/fr/git/tutorials).
 
-##  1. <a name='GenerateSSHkeypair'></a>Generate SSH keypair
+## <a name='GenerateSSHkeypair'></a>Generate SSH keypair
 ---------------------
 ```
 ssh-keygen -t rsa -b 4096 -C "john@smith.fr"
@@ -36,7 +38,7 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 ```
 
-##  2. <a name='Introduction'></a>Introduction
+## <a name='Introduction'></a>Introduction
 ---------------------
 Git is a source control tool created by Linus Torvald.
 Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.
@@ -47,7 +49,7 @@ Some basics terminology:
 - commits are affiliated with repositories and branches
 - the HEAD may be moved between commits
 
-##  3. <a name='Configuregitsettings'></a>Configure git settings
+## <a name='Configuregitsettings'></a>Configure git settings
 ---------------------
 ```
 git config --global user.email "john@smith.fr"
@@ -73,7 +75,7 @@ Exclude certain paths:
 git config --global core.excludesfile <path>
 ```
 
-##  4. <a name='Workingwithrepos'></a>Working with repos
+## <a name='Workingwithrepos'></a>Working with repos
 ---------------------
 
 To create a repo, use the command below. It creates a ```.git``` directory in the repository for git metadata:
@@ -106,7 +108,7 @@ git commit -m "some comments here"
 git push origin master
 ```
 
-##  5. <a name='Ignoringcontent'></a>Ignoring content
+## <a name='Ignoringcontent'></a>Ignoring content
 ---------------------
 
 Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file:
@@ -117,7 +119,7 @@ src/
 **.jekyll-cache/
 ```
 
-##  6. <a name='Logging'></a>Logging
+## <a name='Logging'></a>Logging
 ---------------------
 
 ```
@@ -134,7 +136,7 @@ Look at logs in a graphical way
 git log --graph --decorate
 ```
 
-##  7. <a name='Branches'></a>Branches 
+## <a name='Branches'></a>Branches 
 ---------------------
 
 Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch.
@@ -154,7 +156,7 @@ Do both at once
 git checkout -b foo
 ```
 
-##  8. <a name='PushesandMerges'></a>Pushes and Merges
+## <a name='PushesandMerges'></a>Pushes and Merges
 ---------------------
 
 Push one or all branches to the origin:
@@ -169,7 +171,7 @@ git checkout branch
 git merge foo
 ```
 
-##  9. <a name='Cleaningrepo'></a>Cleaning repo 
+## <a name='Cleaningrepo'></a>Cleaning repo 
 ---------------------
 
 Steps to remove folder/directory only from git repository and not from the local  :
@@ -178,4 +180,16 @@ Steps to remove folder/directory only from git repository and not from the local
 git rm -r --cached FolderName
 git commit -m "Removed folder from repository"
 git push origin master
+```
+
+## <a name='Rollbackonfiles'></a>Rollback on files
+---------------------
+
+```
+#Interesting when file was erased / nothing functioning anymore
+git checkout -- file.txt
+
+#Case of loop erasing a folder
+for i in `ls`; echo "" > $i; done
+git checkout -- *
 ```

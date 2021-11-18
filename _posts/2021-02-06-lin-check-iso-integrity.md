@@ -1,12 +1,11 @@
 ---
-layout: default
+layout: post
 title: Checking ISO files integrity
 category: Linux
 parent: Linux
 grand_parent: Cheatsheets
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }} 
 
 ## Checking Ubuntu ISO using repository GPG Keys (secure)
 

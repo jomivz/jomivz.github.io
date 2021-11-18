@@ -1,33 +1,32 @@
 ---
-layout: default
+layout: post
 title: TSHARK forensics cheatsheet
-categories: Forensics
+category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
+modified_date: 2021-02-06
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Extract assets info to CSV](#ExtractassetsinfotoCSV)
-* 2. [Fetching an IOC string in a PCAP](#FetchinganIOCstringinaPCAP)
-* 3. [TCP follow stream / Exporting objects](#TCPfollowstreamExportingobjects)
-	* 3.1. [SMTP - export emails :](#SMTP-exportemails:)
-	* 3.2. [FTP - export files](#FTP-exportfiles)
-	* 3.3. [SMB - export file transfered :](#SMB-exportfiletransfered:)
-	* 3.4. [HTTP - export file transfered :](#HTTP-exportfiletransfered:)
-* 4. [Decrypting HTTPS traffic](#DecryptingHTTPStraffic)
-* 5. [Tcpdump capture from IP asset](#TcpdumpcapturefromIPasset)
-* 6. [Look for IP asset in a list](#LookforIPassetinalist)
-* 7. [Casting output](#Castingoutput)
+* [Extract assets info to CSV](#ExtractassetsinfotoCSV)
+* [Fetching an IOC string in a PCAP](#FetchinganIOCstringinaPCAP)
+* [TCP follow stream / Exporting objects](#TCPfollowstreamExportingobjects)
+	* [SMTP - export emails :](#SMTP-exportemails:)
+	* [FTP - export files](#FTP-exportfiles)
+	* [SMB - export file transfered :](#SMB-exportfiletransfered:)
+	* [HTTP - export file transfered :](#HTTP-exportfiletransfered:)
+* [Decrypting HTTPS traffic](#DecryptingHTTPStraffic)
+* [Tcpdump capture from IP asset](#TcpdumpcapturefromIPasset)
+* [Look for IP asset in a list](#LookforIPassetinalist)
+* [Casting output](#Castingoutput)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-# {{ page.title }}
-
-##  1. <a name='ExtractassetsinfotoCSV'></a>Extract assets info to CSV 
+## <a name='ExtractassetsinfotoCSV'></a>Extract assets info to CSV 
      
 DHCP assets info - source and destination ethernet addresses :
  * bootp client mac address
@@ -63,7 +62,7 @@ SMTP assets info - header fields :
 TLS assets info - certificate issuers :
  * tls.handshake.type = 11
 
-##  2. <a name='FetchinganIOCstringinaPCAP'></a>Fetching an IOC string in a PCAP
+## <a name='FetchinganIOCstringinaPCAP'></a>Fetching an IOC string in a PCAP
 
 In the example here, convert the string ```() {``` (shellshock) to hexadecimal value (NOTE: skip 0a which is the EOF)
 ```
@@ -78,22 +77,22 @@ Apply the related BFP filter in Wireshark :
 tcp.segment_data contains 28:29:20:7b
 ```
 
-##  3. <a name='TCPfollowstreamExportingobjects'></a>TCP follow stream / Exporting objects
+## <a name='TCPfollowstreamExportingobjects'></a>TCP follow stream / Exporting objects
 
-###  3.1. <a name='SMTP-exportemails:'></a>SMTP - export emails :
+### <a name='SMTP-exportemails:'></a>SMTP - export emails :
 * Apply the filter ```smtp.data.fragment```
 * Using wireshark go to the menu "File \ Export Objects \ IMF..."
 
-###  3.2. <a name='FTP-exportfiles'></a>FTP - export files
+### <a name='FTP-exportfiles'></a>FTP - export files
 * Apply the filter ```ftp.request.command``` to check ```RETR``` and ```STOR``` commands
 * Apply the filter ```ftp-data``` the apply a "TCP follow stream"
 * Show and save data as Raw
 
-###  3.3. <a name='SMB-exportfiletransfered:'></a>SMB - export file transfered :
+### <a name='SMB-exportfiletransfered:'></a>SMB - export file transfered :
 
-###  3.4. <a name='HTTP-exportfiletransfered:'></a>HTTP - export file transfered :
+### <a name='HTTP-exportfiletransfered:'></a>HTTP - export file transfered :
 
-##  4. <a name='DecryptingHTTPStraffic'></a>Decrypting HTTPS traffic
+## <a name='DecryptingHTTPStraffic'></a>Decrypting HTTPS traffic
 
  * On linux, set the environment variable SSLKEYLOGFILE
 ```
@@ -103,19 +102,19 @@ export SSLKEYLOGFILE=$HOME/sslkey.log
  * Load the key log file via the menu "Edit \ Preferences \ Protocols \ TLS"
  * Browse the key log file from the field "(Pre)-Master-Secret log filename" 
 
-##  5. <a name='TcpdumpcapturefromIPasset'></a>Tcpdump capture from IP asset
+## <a name='TcpdumpcapturefromIPasset'></a>Tcpdump capture from IP asset
 
 Capture_on_IDS with the tcpdump list
 ``` 
 root@SF-SENSOR:/Volume/home/admin# tcpdump -i nfe0.1.22 -c 1000 host '( 195.88.208.131 or 195.2.253.139 or 193.19.119.166 or 195.88.209.169 or 195.2.53.204 or 195.88.208.250 or 193.19.118.27 or 195.2.252.44 or 195.88.208.56 or 195.88.209.6 or 193.19.118.94 )' -w 2389_2.pcap
 ``` 
 
-##  6. <a name='LookforIPassetinalist'></a>Look for IP asset in a list
+## <a name='LookforIPassetinalist'></a>Look for IP asset in a list
 ``` 
 cat 1793_ip_streams_dstip.csv | greplist | grep -f /assets/CA_sorted_IP.txt
 ``` 
 
-##  7. <a name='Castingoutput'></a>Casting output
+## <a name='Castingoutput'></a>Casting output
 
 Cast in-addr.arpa to IPv4 : 
 ```

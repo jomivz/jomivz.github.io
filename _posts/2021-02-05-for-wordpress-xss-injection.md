@@ -1,27 +1,26 @@
 ---
-layout: default
+layout: post
 title: Wordpress XSS injection
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-02-06
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Analysing XSS injection in MYD](#AnalysingXSSinjectioninMYD)
-* 2. [Starting MySQL server](#StartingMySQLserver)
-* 3. [Querying imported MYD files](#QueryingimportedMYDfiles)
-* 4. [Stopping MySQL server](#StoppingMySQLserver)
+* [Analysing XSS injection in MYD](#AnalysingXSSinjectioninMYD)
+* [Starting MySQL server](#StartingMySQLserver)
+* [Querying imported MYD files](#QueryingimportedMYDfiles)
+* [Stopping MySQL server](#StoppingMySQLserver)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-# Wordpress XSS injection
-
-##  1. <a name='AnalysingXSSinjectioninMYD'></a>Analysing XSS injection in MYD
+## <a name='AnalysingXSSinjectioninMYD'></a>Analysing XSS injection in MYD
 
 Copying the MYD files on csirt-sans-sift
  
@@ -35,7 +34,7 @@ sudo mkdir /var/lib/mysql/springfield
 sudo chown mysql:mysql  -r /var/lib/mysql/springfield/
 ```
 
-##  2. <a name='StartingMySQLserver'></a>Starting MySQL server
+## <a name='StartingMySQLserver'></a>Starting MySQL server
 
     Run the command 
 ```
@@ -48,7 +47,7 @@ mysql > use acme;
 mysql > exit
 ```
 
-##  3. <a name='QueryingimportedMYDfiles'></a>Querying imported MYD files
+## <a name='QueryingimportedMYDfiles'></a>Querying imported MYD files
 
 Based on timestamps of the XSS attack on the ACME website via WordPress, we had to check if the MySQL backups were sain.
 
@@ -60,7 +59,7 @@ mysql > SELECT option_value FROM wp_hbrhui_options WHERE CHAR_LENGTH(option_valu
 Greping for URL of redirection, we proof the backup is compromised.
 ![XSS in MYD](/assets/images/wordpress-xss-injection.png)
 
-##  4. <a name='StoppingMySQLserver'></a>Stopping MySQL server
+## <a name='StoppingMySQLserver'></a>Stopping MySQL server
 
 Run the command: 
 ```

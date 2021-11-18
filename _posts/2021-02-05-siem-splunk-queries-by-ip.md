@@ -1,43 +1,42 @@
 ---
-layout: default
+layout: post
 title: Splunk queries based on IP
 parent: SIEM
 category: SIEM
 grand_parent: Cheatsheets
 nav_order: 2
 has_children: true
+modified_date: 2021-09-15
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Index statistics](#Indexstatistics)
-* 2. [Windows queries](#Windowsqueries)
-* 3. [Suricata queries](#Suricataqueries)
-	* 3.1. [Suricata: Alertes IDS](#Suricata:AlertesIDS)
-	* 3.2. [Suricata: Alertes IDS par User-agents](#Suricata:AlertesIDSparUser-agents)
-	* 3.3. [Suricata: Alertes IDS par IP source et destination 1](#Suricata:AlertesIDSparIPsourceetdestination1)
-	* 3.4. [Suricata: Alertes IDS par IP source et destination 2](#Suricata:AlertesIDSparIPsourceetdestination2)
-	* 3.5. [Suricata: Répartition des User-agents HTTP dans le temps](#Suricata:RpartitiondesUser-agentsHTTPdansletemps)
-	* 3.6. [Suricata: Téléchargement de fichiers en HTTP dans le temps](#Suricata:TlchargementdefichiersenHTTPdansletemps)
+* [Index statistics](#Indexstatistics)
+* [Windows queries](#Windowsqueries)
+* [Suricata queries](#Suricataqueries)
+	* [Suricata: Alertes IDS](#Suricata:AlertesIDS)
+	* [Suricata: Alertes IDS par User-agents](#Suricata:AlertesIDSparUser-agents)
+	* [Suricata: Alertes IDS par IP source et destination 1](#Suricata:AlertesIDSparIPsourceetdestination1)
+	* [Suricata: Alertes IDS par IP source et destination 2](#Suricata:AlertesIDSparIPsourceetdestination2)
+	* [Suricata: Répartition des User-agents HTTP dans le temps](#Suricata:RpartitiondesUser-agentsHTTPdansletemps)
+	* [Suricata: Téléchargement de fichiers en HTTP dans le temps](#Suricata:TlchargementdefichiersenHTTPdansletemps)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-# {{ page.title }}
 
 The idea to build queries with ```$addr_ip$``` as an argument IS to design investigation dashboards.
 Investigation dashboards ALLOW to launch multiple queries at once based on an IP address.
 For that an input field will set the ```$addr_ip$``` argument.
 
-##  1. <a name='Indexstatistics'></a>Index statistics
+## <a name='Indexstatistics'></a>Index statistics
 
 ```
 |tstats dc(host),values(host) where index=*
 ```
 
-##  2. <a name='Windowsqueries'></a>Windows queries
+## <a name='Windowsqueries'></a>Windows queries
 
 Windows DC 1:
 ```
@@ -89,9 +88,9 @@ host=10.2.3.5 (Source_Address=$addr_ip$ OR Destination_Address=$addr_ip$) EventC
 | table  cluster_count Source_Port, Source_Address, EventCode, Destination_Address, Destination_Port
 ```
 
-##  3. <a name='Suricataqueries'></a>Suricata queries
+## <a name='Suricataqueries'></a>Suricata queries
 
-###  3.1. <a name='Suricata:AlertesIDS'></a>Suricata: Alertes IDS
+### <a name='Suricata:AlertesIDS'></a>Suricata: Alertes IDS
 ```
 index=suricata $addr_ip$
 | dedup src_ip dest_ip alert.signature
@@ -101,7 +100,7 @@ index=suricata $addr_ip$
 | table _time, src_ip, host_src, src_port, dest_ip, host_dst, dest_port, alert.signature
 | rename alert.signature as Signature, src_ip as "Source IP", dest_ip as "Destination IP", src_port as "Source port", dest_port as "Destination port", host_src as "Nom de l'hôte source", host_dst as "Nom de l'hôte destination"
 ```
-###  3.2. <a name='Suricata:AlertesIDSparUser-agents'></a>Suricata: Alertes IDS par User-agents
+### <a name='Suricata:AlertesIDSparUser-agents'></a>Suricata: Alertes IDS par User-agents
 ```
 index=suricata src_ip=$addr_ip$
 | fields http.http_user_agent, src_ip, flow_id, dest_ip
@@ -113,7 +112,7 @@ index=suricata src_ip=$addr_ip$
 | rename ua_family as Navigateurs, ua_os_family as OS, Flow as "Nb trafics", src_ip as "IP Sources", dest_ip as "IP Destinations"
 ```
 
-###  3.3. <a name='Suricata:AlertesIDSparIPsourceetdestination1'></a>Suricata: Alertes IDS par IP source et destination 1
+### <a name='Suricata:AlertesIDSparIPsourceetdestination1'></a>Suricata: Alertes IDS par IP source et destination 1
 ```
 index=suricata (src_ip=$addr_ip$)
 | fields  src_ip, dest_ip, alert.signature
@@ -123,7 +122,7 @@ index=suricata (src_ip=$addr_ip$)
 | table  cluster_count src_ip dest_ip signature
 ```
 
-###  3.4. <a name='Suricata:AlertesIDSparIPsourceetdestination2'></a>Suricata: Alertes IDS par IP source et destination 2
+### <a name='Suricata:AlertesIDSparIPsourceetdestination2'></a>Suricata: Alertes IDS par IP source et destination 2
 ```
 index=suricata $addr_ip$
 | search alert.signature!=""
@@ -134,7 +133,7 @@ index=suricata $addr_ip$
 | rename src_ip as "Source IP", dest_ip as "Destination IP", src_port as "Source port", dest_port as "Destination port", count as "Nb déclenchement signature"
 ```
 
-###  3.5. <a name='Suricata:RpartitiondesUser-agentsHTTPdansletemps'></a>Suricata: Répartition des User-agents HTTP dans le temps
+### <a name='Suricata:RpartitiondesUser-agentsHTTPdansletemps'></a>Suricata: Répartition des User-agents HTTP dans le temps
 ```
 index=suricata src_ip=$addr_ip$
 | fields http.http_user_agent, src_ip, flow_id, dest_ip
@@ -143,7 +142,7 @@ index=suricata src_ip=$addr_ip$
 | timechart count(flow_id) as "Flow" by http_user_agent
 ```
 
-###  3.6. <a name='Suricata:TlchargementdefichiersenHTTPdansletemps'></a>Suricata: Téléchargement de fichiers en HTTP dans le temps
+### <a name='Suricata:TlchargementdefichiersenHTTPdansletemps'></a>Suricata: Téléchargement de fichiers en HTTP dans le temps
 ```
 index=suricata event_type=fileinfo fileinfo.filename!=*/centreon/* fileinfo.filename!="/" fileinfo.filename!=*allmetrics* http.hostname!=*sophosupd.com http.hostname!=*.acme.fr http.hostname!=*.microsoft.com http.hostname!="dci.sophosupd.net" http.hostname!=*.zscaler.net http.hostname!=*.digicert.com http.hostname!=download.windowsupdate.com http.hostname!=*.firefox.com
 fileinfo.magic!="ASCII text, with no line terminators" $addr_ip$

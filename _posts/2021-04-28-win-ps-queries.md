@@ -1,14 +1,12 @@
 ---
-layout: default
+layout: post
 title: Localhost Powershell Queries 
-parent: Forensics
-categories: Forensics Windows
+category: Windows
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-04-28
 ---
 
-# {{ page.title}}
- 
 ```powershell
 PS C:\> get-psdrive -PSProvider registry
 

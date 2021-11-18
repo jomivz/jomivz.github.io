@@ -1,14 +1,12 @@
 ---
-layout: default
+layout: post
 title: Common REGEX for investigation
 parent: Forensics
-categories: Forensics
+category: Forensics
 grand_parent: Cheatsheets
-permalink: /docs/development/git/
 nav_order: 4
+modified_date: 2021-03-02
 ---
-
-# {{ page.title }}
 
 ```
 # Date 

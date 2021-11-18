@@ -1,13 +1,12 @@
 ---
-layout: default
+layout: post
 title: Checking linux boot binaries integrity
 parent: Linux
 category: Linux
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
 
 1. To create the checksum file, run the command:
 ```

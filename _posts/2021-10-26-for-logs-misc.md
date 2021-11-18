@@ -1,28 +1,27 @@
 ---
-layout: default
+layout: post
 title: FOR Logs MISC
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
-last-modified: 2021-11-17
+modified_date: 2021-10-26
 ---
-# {{ page.title}}
 
 <!-- vscode-markdown-toc -->
-* 1. [Linux](#Linux)
-	* 1.1. [Sudolog and auditd](#Sudologandauditd)
-* 2. [AWS](#AWS)
-	* 2.1. [AWS ALB](#AWSALB)
-	* 2.2. [ATHENA](#ATHENA)
+* [Linux](#Linux)
+	* [Sudolog and auditd](#Sudologandauditd)
+* [AWS](#AWS)
+	* [AWS ALB](#AWSALB)
+	* [ATHENA](#ATHENA)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='Linux'></a>Linux
+## <a name='Linux'></a>Linux
 
 # listing the first and last date of log files 
 for i in `ls logs`; do echo -n $i"; " >> backlog.csv; head -n1 logs/$i |awk -F '[]]|[[]' '{ print $2 }'| tr -d '\n' >> backlog.csv; echo -n "; " >> backlog.csv; tail -n1 logs/$i |awk -F '[]]|[[]' '{ print $2 }' |tr -d '\n' >> backlog.csv; echo "; " >> backlog.csv; done
@@ -60,10 +59,10 @@ sourcetype="aws:elb:accesslogs" Records{}.awsRegion="sa-east" "Records{}.eventSo
 "Records{}.resources{}.accountId"=123456789
 
 
-###  1.1. <a name='Sudologandauditd'></a>Sudolog and auditd
+### <a name='Sudologandauditd'></a>Sudolog and auditd
 
-##  2. <a name='AWS'></a>AWS
+## <a name='AWS'></a>AWS
 
-###  2.1. <a name='AWSALB'></a>AWS ALB
+### <a name='AWSALB'></a>AWS ALB
 
-###  2.2. <a name='ATHENA'></a>ATHENA
+### <a name='ATHENA'></a>ATHENA

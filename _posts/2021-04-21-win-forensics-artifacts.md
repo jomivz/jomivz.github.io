@@ -1,17 +1,37 @@
----
-layout: default
+layout: post
 title: Windows forensics Artifacts
 parent: Forensics
-categories: Forensics Windows
+category: Forensics
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-04-21
 ---
 
-# {{ page.title}}
- 
-## Amcache
+<!-- vscode-markdown-toc -->
+* [Amcache](#Amcache)
+	* [*Files / Evidences*](#FilesEvidences)
+* [Registry hives](#Registryhives)
+	* [*Files / Evidences*](#FilesEvidences-1)
+	* [*Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*](#ForensicswithRegRippercredits:hexacornhttps:hexacorn.comtools3r.html)
+		* [Confirming the asset & timezone](#Confirmingtheassettimezone)
+		* [Interesting findings](#Interestingfindings)
+	* [*Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*](#Registryhistorydatacredits:fireeyehttps:www.fireeye.comblogthreat-research201901digging-up-the-past-windows-registry-forensics-revisited.html)
+	* [*Extra: Live collection of a locked hive*](#Extra:Livecollectionofalockedhive)
+	* [*Extra: live browsing a hive in CLI*](#Extra:livebrowsingahiveinCLI)
+* [Eventlogs Files](#EventlogsFiles)
+	* [All Windows Versions](#AllWindowsVersions)
+	* [Windows DNS Server](#WindowsDNSServer)
+* [NTFS metafiles](#NTFSmetafiles)
 
-### *Files / Evidences*
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->---
+
+## <a name='Amcache'></a>Amcache
+
+### <a name='FilesEvidences'></a>*Files / Evidences*
 
 Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
 
@@ -21,9 +41,9 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
-## Registry hives
+## <a name='Registryhives'></a>Registry hives
 
-### *Files / Evidences*
+### <a name='FilesEvidences-1'></a>*Files / Evidences*
 
 **What is it ?** Files listed are the evidences to collect for the forensics. 
 
@@ -39,16 +59,16 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-### *Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*
+### <a name='ForensicswithRegRippercredits:hexacornhttps:hexacorn.comtools3r.html'></a>*Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*
 
-#### Confirming the asset & timezone
+#### <a name='Confirmingtheassettimezone'></a>Confirming the asset & timezone
 
 | **Hive** | **Plugin** |
 |---------------|-------------|
 | system | compname |
 | system | timezone |
 
-#### Interesting findings
+#### <a name='Interestingfindings'></a>Interesting findings
 
 **What is it ?** In a forensics, the table below tend to help identify interesting [regripper](https://github.com/keydet89/RegRipper3.0) plugins to run on which evidences.
 
@@ -86,7 +106,7 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | system | usbstore |
 | all | sizes |
 
-### *Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*
+### <a name='Registryhistorydatacredits:fireeyehttps:www.fireeye.comblogthreat-research201901digging-up-the-past-windows-registry-forensics-revisited.html'></a>*Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*
 
 **What is it ?** System and registry hives can be tampered to hide compromise / make the forensics harder. The table below lists the evidences to figure out if anti-forensics happened.
 
@@ -98,14 +118,14 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | Backup system hives (REGBACK)       | %SystemRoot%\System32\config\RegBack                                     ||
 | Hives backed up with System Restore | \\\\.\\\"System Volume Information"                                      ||
 
-### *Extra: Live collection of a locked hive*
+### <a name='Extra:Livecollectionofalockedhive'></a>*Extra: Live collection of a locked hive*
 ```batch
 # useful when having remote access but system handle do not allow read/copy/download 
 # batch: registry hive live collection
 reg save HKLM\SYSTEM system.reg
 ```
 
-### *Extra: live browsing a hive in CLI*
+### <a name='Extra:livebrowsingahiveinCLI'></a>*Extra: live browsing a hive in CLI*
 ```powershell
 # powershell: listing the registry hives
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
@@ -114,16 +134,16 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 cd HKLM:
 ```
 
-## Eventlogs Files
+## <a name='EventlogsFiles'></a>Eventlogs Files
 
-### All Windows Versions
+### <a name='AllWindowsVersions'></a>All Windows Versions
 
 - %SystemRoot%\System32\winevt\logs\Application.evtx
 - %SystemRoot%\System32\winevt\logs\Security.evtx
 - %SystemRoot%\System32\winevt\logs\System.evtx
 - %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
 
-### Windows DNS Server
+### <a name='WindowsDNSServer'></a>Windows DNS Server
 
 1/ Are the DNS debug logs activated ?
 
@@ -157,7 +177,7 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
-## NTFS metafiles
+## <a name='NTFSmetafiles'></a>NTFS metafiles
 
 - Path: \\.\C:\[SYSTEM]
 - Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend

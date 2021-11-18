@@ -1,13 +1,11 @@
 ---
-layout: default
+layout: post
 title:  Powershell useful queries
 parent: Windows
 category: Windows
 grand_parent: Cheatsheets
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
-
 
 ## PS sysadmin useful queries
 -----------------------------------------------

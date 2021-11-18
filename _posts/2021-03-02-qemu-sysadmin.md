@@ -1,16 +1,22 @@
----
-layout: default
+layout: post
 title: QEMU administration
 parent: Sysadmin
 grand_parent: Cheatsheets  
-categories: Sysadmin Linux
+category: Sysadmin
+modified_date: 2021-03-02
 ---
 
-{:toc}
+<!-- vscode-markdown-toc -->
+* [Converting OVA to QCOW for libvirtd](#ConvertingOVAtoQCOWforlibvirtd)
+* [ Accessing to the Virtual Machine (VM) from host](#AccessingtotheVirtualMachineVMfromhost)
 
-# {{ page.title }}
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->---
 
-## Converting OVA to QCOW for libvirtd
+## <a name='ConvertingOVAtoQCOWforlibvirtd'></a>Converting OVA to QCOW for libvirtd
 
 ```
 tar xvf anothertrainingbox64.ova
@@ -19,7 +25,7 @@ anothertrainingbox64.vmdk
 qemu-img convert anothertrainingbox64.vmdk xin-box-64.qemu2 -O qcow2
 ```
 
-##  Accessing to the Virtual Machine (VM) from host
+## <a name='AccessingtotheVirtualMachineVMfromhost'></a> Accessing to the Virtual Machine (VM) from host
 
 Set the network as per below:
 ![.](/assets/images/qemu-vm-network-settings.png)

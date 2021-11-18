@@ -1,42 +1,43 @@
 ---
-layout: default
+layout: post
 title: FOR Logs WIN
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
-last-modified: 2021-11-17
+modified_date: 2021-11-17
 ---
 # {{ page.title}}
 
 <!-- vscode-markdown-toc -->
-* 1. [Windows Use-Cases](#WindowsUse-Cases)
-	* 1.1. [Potential logs tampering](#Potentiallogstampering)
-	* 1.2. [AD Abuse of Delegation](#ADAbuseofDelegation)
-	* 1.3. [AD DS Replication](#ADDSReplication)
-* 2. [Logs activation](#Logsactivation)
-	* 2.1. [Activate AMSI logging](#ActivateAMSIlogging)
-	* 2.2. [Activate DNS debug logs](#ActivateDNSdebuglogs)
-	* 2.3. [Activate Firewall logs](#ActivateFirewalllogs)
-	* 2.4. [Windows Defender logs](#WindowsDefenderlogs)
-* 3. [Extras](#Extras)
-	* 3.1. [Fetching into the logs with PS](#FetchingintothelogswithPS)
+* [Windows Use-Cases](#WindowsUse-Cases)
+	* [Potential logs tampering](#Potentiallogstampering)
+	* [AD Abuse of Delegation](#ADAbuseofDelegation)
+	* [AD DS Replication](#ADDSReplication)
+* [Logs activation](#Logsactivation)
+	* [Activate AMSI logging](#ActivateAMSIlogging)
+	* [Activate DNS debug logs](#ActivateDNSdebuglogs)
+	* [Activate Firewall logs](#ActivateFirewalllogs)
+	* [Activate Firewall logs / Managed](#ActivateFirewalllogsManaged)
+	* [Windows Defender logs](#WindowsDefenderlogs)
+* [Extras](#Extras)
+	* [Fetching into the logs with PS](#FetchingintothelogswithPS)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='WindowsUse-Cases'></a>Windows Use-Cases
+## <a name='WindowsUse-Cases'></a>Windows Use-Cases
 
-###  1.1. <a name='Potentiallogstampering'></a>Potential logs tampering
+### <a name='Potentiallogstampering'></a>Potential logs tampering
 
 - [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
 - [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
 - [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
 
-###  1.2. <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
+### <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
 
 ```
 # hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
@@ -49,7 +50,7 @@ Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
 Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
 ```
 
-###  1.3. <a name='ADDSReplication'></a>AD DS Replication
+### <a name='ADDSReplication'></a>AD DS Replication
 
 ```
 # huntinfg for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
@@ -65,10 +66,10 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
-##  2. <a name='Logsactivation'></a>Logs activation
+## <a name='Logsactivation'></a>Logs activation
 
 
-###  2.1. <a name='ActivateAMSIlogging'></a>Activate AMSI logging
+### <a name='ActivateAMSIlogging'></a>Activate AMSI logging
 ```
 $AutoLoggerName = 'MyAMSILogger'
 $AutoLoggerGuid = "{$((New-Guid).Guid)}"
@@ -76,7 +77,7 @@ New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
 Add-EtwTraceProvider -AutologgerName $AutoLoggerName -Guid '{2A576B87-09A7-520E-C21A-4942F0271D67}' -Level 0xff -MatchAnyKeyword ([UInt64] (0x8000000000000001 -band ([UInt64]::MaxValue))) -Property 0x41
 ```
 
-###  2.2. <a name='ActivateDNSdebuglogs'></a>Activate DNS debug logs
+### <a name='ActivateDNSdebuglogs'></a>Activate DNS debug logs
 ```
 # Default path:
 #  - %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
@@ -94,7 +95,7 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
-###  2.3. <a name='ActivateFirewalllogs'></a>Activate Firewall logs
+### <a name='ActivateFirewalllogs'></a>Activate Firewall logs
 ```
 # Run this command to check if the logging is enabled
 netsh advfirewall show allprofiles
@@ -124,7 +125,7 @@ Select-String -Path $fwlog -Pattern “drop”
 Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
 ```
 
-###  2.3. <a name='ActivateFirewalllogs'></a>Activate Firewall logs / Managed 
+### <a name='ActivateFirewalllogsManaged'></a>Activate Firewall logs / Managed 
 ```
 # Prefer the GUID than the subcategory name / avoid OS language issues
 auditpol /list /subcategory:* /r > extract.txt
@@ -140,7 +141,7 @@ eventvwr.msc
 # Filter event IDs 5152,5156,5158
 [Firewall EIDs | 4949 to 4958](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
 
-###  2.4. <a name='WindowsDefenderlogs'></a>Windows Defender logs
+### <a name='WindowsDefenderlogs'></a>Windows Defender logs
 
 [windpws defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide)
 - [EID 1006 | The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
@@ -153,9 +154,9 @@ Get-WinEvent –FilterHashtable @{logname=’application’; id=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 ```
 
-##  3. <a name='Extras'></a>Extras
+## <a name='Extras'></a>Extras
 
-###  3.1. <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
+### <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
 
 ```powershell
 

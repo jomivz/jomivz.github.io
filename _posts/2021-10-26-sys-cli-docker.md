@@ -1,32 +1,34 @@
 ---
-layout: default
+layout: post
 title: Sysadmin CLI Docker
 parent: Sysadmin
 category: Sysadmin
 grand_parent: Cheatsheets
+modified_date: 2021-11-19
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Kali Linux 2020.1 install](#KaliLinux2020.1install)
-* 2. [Images](#Images)
-	* 2.1. [Alpine](#Alpine)
-	* 2.2. [testssl.sh](#testssl.sh)
-	* 2.3. [nuclei](#nuclei)
-	* 2.4. [SpiderFoot](#SpiderFoot)
-* 3. [The Docker Hub](#TheDockerHub)
-* 4. [Configure credential help](#Configurecredentialhelp)
-* 5. [Building images](#Buildingimages)
-	* 5.1. [Pushing images](#Pushingimages)
+* [Kali Linux 2020.1 install](#KaliLinux2020.1install)
+* [Images](#Images)
+	* [Alpine](#Alpine)
+	* [testssl.sh](#testssl.sh)
+	* [nuclei](#nuclei)
+	* [SpiderFoot](#SpiderFoot)
+	* [Jekyll](#Jekyll)
+* [The Docker Hub](#TheDockerHub)
+* [Configure credential help](#Configurecredentialhelp)
+* [Building images](#Buildingimages)
+	* [Pushing images](#Pushingimages)
+* [Troubleshooting](#Troubleshooting)
+	* [No space left on device error](#Nospaceleftondeviceerror)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-# {{ page.title }}
-
-##  1. <a name='KaliLinux2020.1install'></a>Kali Linux 2020.1 install
+## <a name='KaliLinux2020.1install'></a>Kali Linux 2020.1 install
 
 ```bash
 #Step 1: Configure APT Keys
@@ -58,28 +60,28 @@ sudo systemctl enable Docker
 sudo Docker run hello-world
 ```
 
-##  2. <a name='Images'></a>Images
+## <a name='Images'></a>Images
 
-###  2.1. <a name='Alpine'></a>Alpine
+### <a name='Alpine'></a>Alpine
 
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
 
 ```sh
 apk install openrc
 ```
-###  2.2. <a name='testssl.sh'></a>testssl.sh
+### <a name='testssl.sh'></a>testssl.sh
 ```sh
 docker pull drwetter/testssl.sh
 docker run --rm -ti drwetter/testssl.sh https://jmvwork.xyz
 ```
 
-###  2.3. <a name='nuclei'></a>nuclei
+### <a name='nuclei'></a>nuclei
 ```sh
 docker pull projectdiscovery/nuclei
 docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz 
 ```
 
-###  2.4. <a name='SpiderFoot'></a>SpiderFoot
+### <a name='SpiderFoot'></a>SpiderFoot
 ```sh
 # OPTIONAL: for Kali distrib embedding spiderfoot
 cd /usr/share
@@ -92,13 +94,23 @@ docker build -t spiderfoot .
 docker run -p 5002:5001 -d spiderfoot
 # open your browser https://127.0.0.1:5002
 ```
-##  3. <a name='TheDockerHub'></a>The Docker Hub
+
+### <a name='Jekyll'></a>Jekyll
+```sh
+# download / build the image
+docker pull jekyll/jekyll
+
+# execute
+sudo docker run --rm \\n  --volume="$HOME/git/jmvwork:/srv/jekyll" \\n  --publish 127.0.0.1:4000:4000 \\n  jekyll/jekyll \\n  jekyll serve
+```
+
+## <a name='TheDockerHub'></a>The Docker Hub
 
 ```
 docker login
 ```
 
-##  4. <a name='Configurecredentialhelp'></a>Configure credential help
+## <a name='Configurecredentialhelp'></a>Configure credential help
 
 [link 1](https://github.com/docker/docker-credential-helpers/)
 [link 2](https://docs.docker.com/engine/reference/commandline/login/#credentials-store)
@@ -109,7 +121,7 @@ Docker requires the helper program to be in the client’s host `$PATH`.
 docker pull alpine
 ```
 
-##  5. <a name='Buildingimages'></a>Building images
+## <a name='Buildingimages'></a>Building images
 
 Start by creating a Dockerfile to specify your application as shown below:
 
@@ -122,7 +134,7 @@ RUN apt install -y git vim python3.8
 EOF
 ```
 
-###  5.1. <a name='Pushingimages'></a>Pushing images
+### <a name='Pushingimages'></a>Pushing images
 
 To build your Docker image, run:
 
@@ -143,3 +155,15 @@ docker push <your_username>/my-first-repo
 ```
 
 Now, in Docker Hub, your repository should have a new latest tag available under Tags:
+
+## <a name='Troubleshooting'></a>Troubleshooting
+### <a name='Nospaceleftondeviceerror'></a>No space left on device error
+
+To build your Docker image, run:
+
+```sh
+docker build -t <your_username>/my-first-repo 
+sudo su
+docker rm $(docker ps -q -f 'status=exited')
+docker rm $(docker ps -q -f 'status=exited')
+```

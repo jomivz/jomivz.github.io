@@ -1,16 +1,14 @@
 ---
-layout: default
+layout: post
 title: T1003.001 LSASS dump methods 
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-07-28
 ---
 
-# {{ page.title}}
-
 Mitre Attack [T1003.001](https://attack.mitre.org/techniques/T1003/001/)
-
 
 ```
 # EXEC STEP 1

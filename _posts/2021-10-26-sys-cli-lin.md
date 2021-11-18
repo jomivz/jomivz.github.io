@@ -1,10 +1,10 @@
 ---
-layout: default
+layout: post
 title: Sysadmin CLI LIN
 parent: Sysadmin
 category: Sysadmin
 grand_parent: Cheatsheets
-last-modified: 2021-11-17
+modified_date: 2021-11-17
 ---
 <!-- vscode-markdown-toc -->
 * 1. [Open/check VPN settings](#OpencheckVPNsettings)
@@ -15,7 +15,7 @@ last-modified: 2021-11-17
 * 6. [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->

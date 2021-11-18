@@ -1,14 +1,13 @@
 ---
-layout: default
+layout: post
 title: WIRESHARK forensics cheatsheet
 parent: Forensics
-categories: Forensics
+category: Forensics
 grand_parent: Cheatsheets
 nav_order: 4
 has_children: true
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
 
 * Change time to UTC in the menu "View \ Time Display Format"
 * Change T0 by "Second since the beginning of the capture" in the same menu

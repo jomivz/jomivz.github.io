@@ -1,29 +1,27 @@
 ---
-layout: default
+layout: post
 title: Awesome AD Security
 toc: true
-parent: Pentesting
+parent: Windows
 grand_parent: Cheatsheets  
-categories: Pentesting Windows Forensics
+category: Windows
+modified_date: 2021-08-06
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Starting your journey & more](#Startingyourjourneymore)
-* 2. [Offensive Powershell](#OffensivePowershell)
-* 3. [DFIR](#DFIR)
-* 4. [ATP / O365](#ATPO365)
-* 5. [Github Feeds / Blogs](#GithubFeedsBlogs)
+* [Starting your journey & more](#Startingyourjourneymore)
+* [Offensive Powershell](#OffensivePowershell)
+* [DFIR](#DFIR)
+* [ATP / O365](#ATPO365)
+* [Github Feeds / Blogs](#GithubFeedsBlogs)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-
-# {{ page.title }}
-
-##  1. <a name='Startingyourjourneymore'></a>Starting your journey & more
+## <a name='Startingyourjourneymore'></a>Starting your journey & more
 --------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
@@ -37,7 +35,7 @@ categories: Pentesting Windows Forensics
 | [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| In case of awarness duties, this is a good support. | Paramount |
 | [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)| x | x |
 
-##  2. <a name='OffensivePowershell'></a>Offensive Powershell
+## <a name='OffensivePowershell'></a>Offensive Powershell
 ------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
@@ -51,7 +49,7 @@ categories: Pentesting Windows Forensics
 | [Powershell Snipets Gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | Snipets. | powershellgallery |
 | [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound. | SadProcessor |
 
-##  3. <a name='DFIR'></a>DFIR 
+## <a name='DFIR'></a>DFIR 
 ------------------------------
 
 | **Cheatsheet**  | **Description** |    **Author**    |
@@ -59,10 +57,10 @@ categories: Pentesting Windows Forensics
 | [Hunting Windows PrivEsc](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Hunting%20for%20Privilege%20Escalation%20in%20Windows%20Environment..pdf) | Awesome presentation covering how to hunt the named pipes and much more. | Kaspersky |
 | [Windows Logon workflow](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/windows_account_logon_flow_v0.1.pdf) | Awesome schema sequencing the security event IDs for windows logon. | Andrei Miroshnikov |
 
-##  4. <a name='ATPO365'></a>ATP / O365
+## <a name='ATPO365'></a>ATP / O365
 ------------------------------
 
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)
 
-##  5. <a name='GithubFeedsBlogs'></a>Github Feeds / Blogs 
+## <a name='GithubFeedsBlogs'></a>Github Feeds / Blogs 
 ------------------------------

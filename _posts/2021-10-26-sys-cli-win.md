@@ -1,10 +1,10 @@
 ---
-layout: default
+layout: post
 title: Sysadmin CLI WIN
 parent: Sysadmin
-categories: Sysadmin
+category: Sysadmin
 grand_parent: Cheatsheets
-last-modified: 2021-11-17
+modified_date: 2021-11-17
 ---
 <!-- vscode-markdown-toc -->
 * 1. [Security Checks](#SecurityChecks)

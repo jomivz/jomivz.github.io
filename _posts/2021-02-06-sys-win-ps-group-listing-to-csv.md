@@ -1,12 +1,11 @@
 ---
-layout: default
+layout: post
 title: Powershell group listing to CSV
 category: Windows
 parent: Windows
 grand_parent: Cheatsheets
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
 
 ## PS script for detailled listing of Group Members
 ---------------------------------------------

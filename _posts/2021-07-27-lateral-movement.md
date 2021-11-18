@@ -1,13 +1,12 @@
 ---
-layout: default
+layout: post
 title: Lateral movements
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-07-27
 ---
-
-# {{ page.title}}
 
 ## SMB v1
 

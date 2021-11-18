@@ -1,13 +1,12 @@
 ---
-layout: default
+layout: post
 title: Dumping memory cheatsheet
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
 
 ## Dumping Memory of a VirtualBox Machine
 

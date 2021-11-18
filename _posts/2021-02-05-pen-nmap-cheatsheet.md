@@ -1,8 +1,8 @@
 ---
-layout: default
+layout: post
 title: NMAP cheatsheet
 parent: Pentesting
-categories : Pentesting
+category : Pentesting
 grand_parent: Cheatsheets
 nav_order: 4
 has_children: true
@@ -16,7 +16,7 @@ has_children: true
 * 5. [Firewall evasion](#Firewallevasion)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->

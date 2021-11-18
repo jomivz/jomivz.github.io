@@ -1,18 +1,18 @@
 ---
-layout: default
+layout: post
 title: Splunk Search Queries based on BOTSv1
 parent: SIEM
 category: SIEM
 grand_parent: Cheatsheets
+modified_date: 2021-03-02
 ---
-# {{ page.title }}
 <!-- vscode-markdown-toc -->
-* 1. [Investigating HTTP logs](#InvestigatingHTTPlogs)
-* 2. [Investigating Windows registry logs](#InvestigatingWindowsregistrylogs)
-* 3. [Investigating Sysmon logs](#InvestigatingSysmonlogs)
+* [Investigating HTTP logs](#InvestigatingHTTPlogs)
+* [Investigating Windows registry logs](#InvestigatingWindowsregistrylogs)
+* [Investigating Sysmon logs](#InvestigatingSysmonlogs)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
@@ -21,7 +21,7 @@ Following use-cases can be replayed with the [Splunk BOTSv1 contest](https://git
 - Light dataset (< 500 MB) of BOTSv1 contest on [tryhackme.com](https://tryhackme.com/room/bpsplunk) (working with splunk free version).
 - Write-up available on [aldeid.com](https://www.aldeid.com/wiki/TryHackMe-BP-Splunk).
 
-##  1. <a name='InvestigatingHTTPlogs'></a>Investigating HTTP logs 
+## <a name='InvestigatingHTTPlogs'></a>Investigating HTTP logs 
 
 Q01. Timeline HTTP logs to show up a bruteforce authentication in ```Joomla 3.5.1```:
 ```
@@ -145,7 +145,7 @@ Q07. Quantify requests done by the cookies identified in the authentication brut
 ```
 ```
 
-##  2. <a name='InvestigatingWindowsregistrylogs'></a>Investigating Windows registry logs 
+## <a name='InvestigatingWindowsregistrylogs'></a>Investigating Windows registry logs 
 
 Q09. Look for USB keys (SetValue friendlyname) :
 ```
@@ -158,7 +158,7 @@ Q10. Look for mountpoints (fileshare connections):
 index=botsv1 host="we8105desk" sourcetype=WinRegistry registry_path="HKU\\*\\mountpoints*\\*"
 ```
 
-##  3. <a name='InvestigatingSysmonlogs'></a>Investigating Sysmon logs 
+## <a name='InvestigatingSysmonlogs'></a>Investigating Sysmon logs 
 
 You can visit the [olafhartong sysmon cheatsheet](https://github.com/olafhartong/sysmon-cheatsheet/blob/master/Sysmon-Cheatsheet.pdf) to search for tracing capabilities of sysmon.
 

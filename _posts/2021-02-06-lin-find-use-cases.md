@@ -1,12 +1,11 @@
 ---
-layout: default
+layout: post
 title: linux command examples - FIND
 parent: Linux
 category: Linux
 grand_parent: Cheatsheets
+modified_date: 2021-02-06
 ---
-
-# {{ page.title }}
 
 Finding pdf files created las 24 hours in Downloads directory:
 ```
