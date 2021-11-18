@@ -10,7 +10,9 @@ grand_parent: Cheatsheets
 * 1. [Kali Linux 2020.1 install](#KaliLinux2020.1install)
 * 2. [Images](#Images)
 	* 2.1. [Alpine](#Alpine)
-	* 2.2. [Ubuntu](#Ubuntu)
+	* 2.2. [testssl.sh](#testssl.sh)
+	* 2.3. [nuclei](#nuclei)
+	* 2.4. [SpiderFoot](#SpiderFoot)
 * 3. [The Docker Hub](#TheDockerHub)
 * 4. [Configure credential help](#Configurecredentialhelp)
 * 5. [Building images](#Buildingimages)
@@ -66,17 +68,29 @@ sudo Docker run hello-world
 apk install openrc
 ```
 ###  2.2. <a name='testssl.sh'></a>testssl.sh
-
 ```sh
 docker pull drwetter/testssl.sh
 docker run --rm -ti drwetter/testssl.sh https://jmvwork.xyz
 ```
 
-###  2.2. <a name='nuclei'></a>nuclei
-
+###  2.3. <a name='nuclei'></a>nuclei
 ```sh
 docker pull projectdiscovery/nuclei
 docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz 
+```
+
+###  2.4. <a name='SpiderFoot'></a>SpiderFoot
+```sh
+# OPTIONAL: for Kali distrib embedding spiderfoot
+cd /usr/share
+sudo mv spiderfoot spiderfoot.old
+# STEP 1 : Building the docker image
+cd /usr/share
+sudo git clone https://github.com/smicallef/spiderfoot.git
+docker build -t spiderfoot .
+# STEP 2 : Running the image / app
+docker run -p 5002:5001 -d spiderfoot
+# open your browser https://127.0.0.1:5002
 ```
 ##  3. <a name='TheDockerHub'></a>The Docker Hub
 
