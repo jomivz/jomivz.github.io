@@ -1,8 +1,8 @@
 ---
 layout: default
 title: NMAP cheatsheet
-parent: Networking
-categories : Networking Pentesting
+parent: Pentesting
+categories : Pentesting
 grand_parent: Cheatsheets
 nav_order: 4
 has_children: true

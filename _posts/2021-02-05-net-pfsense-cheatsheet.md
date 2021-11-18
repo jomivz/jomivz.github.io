@@ -2,7 +2,7 @@
 layout: default
 title: Pfsense cheatsheet
 parent: Networking
-categories: Networking Sysadmin
+categories: Networking
 grand_parent: Cheatsheets
 nav_order: 4
 has_children: true

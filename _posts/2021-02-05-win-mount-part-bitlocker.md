@@ -2,7 +2,7 @@
 layout: default
 title: Mounting bitlocker partition on Windows
 parent: Forensics
-categories: Forensics Windows
+categories: Forensics
 grand_parent: Cheatsheets
 has_children: true
 ---

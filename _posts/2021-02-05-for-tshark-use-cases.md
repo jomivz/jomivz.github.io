@@ -1,8 +1,8 @@
 ---
 layout: default
-title: TSHARK use-cases
-categories: Networking Forensics
-parent: Networking
+title: TSHARK forensics cheatsheet
+categories: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
 ---
 

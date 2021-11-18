@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Common REGEX for investigation
-parent: Development
-categories: Development Forensics
+parent: Forensics
+categories: Forensics
 grand_parent: Cheatsheets
 permalink: /docs/development/git/
 nav_order: 4

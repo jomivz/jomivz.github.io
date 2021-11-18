@@ -2,7 +2,7 @@
 layout: default
 title: Mounting bitlocker partition on Linux
 parent: Forensics
-categories: Forensics Linux
+category: Forensics
 grand_parent: Cheatsheets
 has_children: true
 ---

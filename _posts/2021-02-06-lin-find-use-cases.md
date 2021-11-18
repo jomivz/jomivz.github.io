@@ -2,7 +2,7 @@
 layout: default
 title: linux command examples - FIND
 parent: Linux
-categories: Sysadmin Linux
+category: Linux
 grand_parent: Cheatsheets
 ---
 

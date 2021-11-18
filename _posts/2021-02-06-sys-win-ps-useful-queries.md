@@ -2,7 +2,7 @@
 layout: default
 title:  Powershell useful queries
 parent: Windows
-categories: Sysadmin Windows
+category: Windows
 grand_parent: Cheatsheets
 ---
 

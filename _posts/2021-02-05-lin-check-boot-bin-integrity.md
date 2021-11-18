@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Checking linux boot binaries integrity
-parent: Forensics
-categories: Forensics Sysadmin Linux
+parent: Linux
+category: Linux
 grand_parent: Cheatsheets
 has_children: true
 ---

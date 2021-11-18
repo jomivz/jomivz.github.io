@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Active Directory Privilege Escalation with Powershell
+title: Offensive Powershell - Part 2 Privilege Escalation
 parent: Pentesting
-categories: Pentesting Windows
+category: Pentesting Windows
 grand_parent: Cheatsheets
 has_children: true
+last-modified: 2021-11-18
 ---
 # {{ page.title}}
 

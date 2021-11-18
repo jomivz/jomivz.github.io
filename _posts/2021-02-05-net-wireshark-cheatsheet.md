@@ -1,8 +1,8 @@
 ---
 layout: default
-title: WIRESHARK cheatsheet
-parent: Networking
-categories: Networking Forensics
+title: WIRESHARK forensics cheatsheet
+parent: Forensics
+categories: Forensics
 grand_parent: Cheatsheets
 nav_order: 4
 has_children: true

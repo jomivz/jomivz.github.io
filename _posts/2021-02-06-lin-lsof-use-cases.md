@@ -3,7 +3,7 @@ layout: default
 title: linux command examples - LSOF
 parent: Linux
 grand_parent: Cheatsheets
-categories: Linux Sysadmin
+category: Linux
 ---
 
 $ {{ page.title }}

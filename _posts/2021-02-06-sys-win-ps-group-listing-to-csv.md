@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Powershell group listing to CSV
-categories: Sysadmin Windows
+category: Windows
 parent: Windows
 grand_parent: Cheatsheets
 ---

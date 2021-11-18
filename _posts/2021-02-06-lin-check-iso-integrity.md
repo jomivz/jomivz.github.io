@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Checking ISO files integrity
-categories: Sysadmin Linux
+category: Linux
 parent: Linux
 grand_parent: Cheatsheets
 ---
