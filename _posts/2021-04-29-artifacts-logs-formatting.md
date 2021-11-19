@@ -1,3 +1,4 @@
+---
 layout: post
 title: Logs and Artifacts Formatting
 parent: SIEM

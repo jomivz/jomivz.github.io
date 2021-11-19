@@ -20,11 +20,16 @@ Using markdowns as notes allows to fetch commands (using ```grep``` plus keyword
 > * Expect mistakes in the notes
 > * Always consult additional resources
 
+Equivalent repositories that I grep before making a cheatsheet: 
+> * [ired.team](https://ired.team) 
+> * [hacktricks.xyz](https://book.hacktricks.xyz)
+> * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+
 # Can I do the same? Can I improve it?
 
 > * This website is propulsed by [github pages](https://pages.github.com/), empowering jekyll to convert the markdowns into HTML.
-> (it contents JS with a 2% ratio, )
 > * Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
+> * It relies on the [sortable javascript project](https://githubhelp.com/tofsjonas/sortable) to sort the cheatsheets
 > * I try to reference the sources I use the best I can, but if you think I've missed something, please get in touch and I will fix it immediately.
 > * On your appreciation, feel free to pull requests.
 

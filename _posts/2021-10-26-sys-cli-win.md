@@ -29,8 +29,6 @@ modified_date: 2021-11-17
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-# {{ page.title }}
-
 ##  1. <a name='SecurityChecks'></a>Security Checks
 
 ###  1.1. <a name='configureipaddress'></a>configure ip address

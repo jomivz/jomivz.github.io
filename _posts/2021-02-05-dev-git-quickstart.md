@@ -167,7 +167,8 @@ git push origin --all
 
 Merge a branch with HEAD on the master branch:
 ```
-git checkout branch
+git pull
+git checkout master
 git merge foo
 ```
 

@@ -1,3 +1,4 @@
+---
 layout: post
 title: QEMU administration
 parent: Sysadmin
