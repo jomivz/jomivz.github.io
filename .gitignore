@@ -3,5 +3,6 @@ objects/
 hooks/
 logs/
 _draft/
+_site/
 .jekyll-cache
 .*.sw*
