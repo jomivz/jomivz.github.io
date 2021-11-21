@@ -89,6 +89,7 @@ sudo mv spiderfoot spiderfoot.old
 # STEP 1 : Building the docker image
 cd /usr/share
 sudo git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
 docker build -t spiderfoot .
 # STEP 2 : Running the image / app
 docker run -p 5002:5001 -d spiderfoot
