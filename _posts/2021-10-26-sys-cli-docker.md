@@ -91,6 +91,7 @@ cd /usr/share
 sudo git clone https://github.com/smicallef/spiderfoot.git
 cd spiderfoot
 docker build -t spiderfoot .
+pip3 install -r requirements.txt
 # STEP 2 : Running the image / app
 docker run -p 5002:5001 -d spiderfoot
 # open your browser https://127.0.0.1:5002

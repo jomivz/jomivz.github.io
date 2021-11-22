@@ -48,5 +48,5 @@ permalink: /cheatsheets/
 </tbody>
 
 </table>
-<link href="/js/sortable/sortable.css" rel="stylesheet" />
-<script src="/js/sortable/sortable.js"></script>
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
