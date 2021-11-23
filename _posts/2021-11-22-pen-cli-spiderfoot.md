@@ -23,7 +23,7 @@ modified_date: 2021-11-23
 <!-- /vscode-markdown-toc -->
 
 ##  1. <a name='SpiderFootInstall'></a>SpiderFoot Install
-- [Sysadmin Docker Cheatsheet](/sysadmin/2021/10/26/2021-10-26-sys-cli-docker.html)
+- [Sysadmin Docker Cheatsheet](/sysadmin/2021/10/26/sys-cli-docker.html)
 
 ##  2. <a name='SFCLIExecution'></a>SFCLI \ Execution
 ```batch
