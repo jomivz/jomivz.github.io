@@ -4,8 +4,8 @@ title: Offensive Powershell - Part 2 Privilege Escalation
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-11-18
+permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITE: Installing PowerUp and PowerSploit](#PRE-REQUISITE:InstallingPowerUpandPowerSploit)

@@ -1,10 +1,11 @@
 ---
 layout: post
-title: Spiderfoot SPFCLI.PY cheatsheet 
+title: Spiderfoot Cheatsheet 
 parent: OSINT
 category: OSINT
 grand_parent: Cheatsheets
 modified_date: 2021-11-23
+permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * 1. [SpiderFoot Install](#SpiderFootInstall)
@@ -27,21 +28,27 @@ modified_date: 2021-11-23
 
 ##  2. <a name='SFCLIExecution'></a>SFCLI \ Execution
 ```batch
-# running the docker instance
+#? memo osint spiderfoot
+#
+#? run docker spiderfoot
 docker run -p 5002:5001 -d spiderfoot
 
-# listing the modules
+#? list sfcli modules
 python3 ./sp.py -M
 
-# run/connect SFCLI.PY with the docker instance
+#? run/connect sfcli with docker
 python3 ./sfcli.py -s http://localhost:5002
+
+# check memo osint sfcli
 ```
 
 ##  3. <a name='SFCLIGettingStarted'></a>SFCLI \ Getting Started
 
 Watch the tutorial video [HERE](https://asciinema.org/a/126064).
 ```batch
-# sfcli - test connectivity
+#? memo sfcli
+#
+# test connectivity
 sf> ping
 
 # sfcli - scan - start example 1
@@ -64,8 +71,8 @@ sf> scans
 
 # sfcli - scan - delete by its <sid>
 sf> delete <sid>
-```
 
+```
 ##  4. <a name='SFCLIModuleShodan'></a>SFCLI \ Module Shodan
 
 Watch the tutorial video [HERE](https://asciinema.org/a/127601).
@@ -90,23 +97,22 @@ sf> start elon@testla.com -m sfp_pwned -w
 # sfcli HIBP - scan - get data collected
 sf> data <sid> -t EMAILADDR_COMPROMISED
 ```
-
 ##  6. <a name='SFCLIModuleDNSrecon'></a>SFCLI \ Module DNSrecon
 
 Watch the tutorial video [HERE](https://asciinema.org/a/295912).
 ```batch
 # sfcli DNSRecon - start a scan
 sf> start elon@testla.com -m sfp_dnsbrute,sfp_dnsresolve -r
-```
 
+```
 ##  7. <a name='SFCLIModuleCRT'></a>SFCLI \ Module CRT
 
 Watch the tutorial video [HERE](https://asciinema.org/a/295946).
 ```batch
 # sfcli crt - start a scan
 sf> start tesla.com -m sfp_crt -q -F INTERNET_NAME
-```
 
+```
 ##  8. <a name='SFCLIModulewhatcms'></a>SFCLI \ Module whatcms
 
 ```batch
@@ -118,4 +124,5 @@ sf> set module.sfp_whatcms.api_key = <apikey>
 
 # sfcli whatcms - start a scan
 sf> start tesla.com -m sfp_whatcms
+
 ```

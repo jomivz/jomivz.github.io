@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Awesome AD Security
-toc: true
+category: Windows
 parent: Windows
 grand_parent: Cheatsheets  
-category: Windows
 modified_date: 2021-08-06
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

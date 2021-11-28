@@ -4,8 +4,8 @@ title: Offensive Powershell - Part 1 Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-11-17
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

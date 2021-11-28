@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Wordpress XSS injection
-parent: Forensics
+title: SYS Wordpress XSS injection
 category: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-02-06
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
@@ -42,7 +42,7 @@ sudo mysql start -u root -p
 ```
 
 Launch mysql client as per below :
-```
+```sh
 mysql > use acme;
 mysql > exit
 ```

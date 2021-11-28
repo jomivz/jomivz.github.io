@@ -5,12 +5,13 @@ category: Windows
 parent: Windows
 grand_parent: Cheatsheets
 modified_date: 2021-02-06
+permalink: /:categories/:title/
 ---
 
 ## PS script for detailled listing of Group Members
 ---------------------------------------------
 
-```
+```powershell
 Get-ADgroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Members
 Get-ADgroup EMEA-PXY-Web-ReadWriteUpload -Property * | Select-Object -ExpandProperty Members
 

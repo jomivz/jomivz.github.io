@@ -1,12 +1,11 @@
 ---
 layout: post
-title: NMAP cheatsheet
-parent: Pentesting
+title: NET NMAP cheatsheet
 category : Pentesting
+parent: Pentesting
 grand_parent: Cheatsheets
-nav_order: 4
-has_children: true
 modified_date: 2021-02-05
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
@@ -21,8 +20,6 @@ modified_date: 2021-02-05
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-# {{ page.title }}
 
 ##  1. <a name='KeypointsscanningUDPconnections'></a>Keypoints scanning UDP connections
 

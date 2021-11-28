@@ -1,12 +1,11 @@
 ---
 layout: post
 title: Pfsense cheatsheet
-parent: Networking
 category: Networking
+parent: Networking
 grand_parent: Cheatsheets
-nav_order: 4
-has_children: true
 modified_date: 2021-02-06
+permalink: /:categories/:title/
 ---
 
 ## Install

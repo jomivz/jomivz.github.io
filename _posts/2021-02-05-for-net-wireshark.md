@@ -1,12 +1,11 @@
 ---
 layout: post
-title: WIRESHARK forensics cheatsheet
-parent: Forensics
+title: NET WIRESHARK forensics
 category: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
-nav_order: 4
-has_children: true
 modified_date: 2021-02-06
+permalink: /:categories/:title/
 ---
 
 * Change time to UTC in the menu "View \ Time Display Format"
@@ -25,11 +24,14 @@ modified_date: 2021-02-06
 * SYN packets to the destination port 25, 465, 587 may refer to a spambot
 * In case of STARTTLS, SMTP traffic will likely be encrypted
 * Even if encrypted, header fields remain in clear-text, thus you can use the filters:
-```
+```sh
+#? filter smtp wireshark
+#
 smtp contains "From: "
 smtp contains "Message-ID: "
 smtp contains "Subject: "
 smtp contains "Date: "
+
 ```
 
 

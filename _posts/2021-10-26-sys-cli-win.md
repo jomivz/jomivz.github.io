@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Sysadmin CLI WIN
-parent: Sysadmin
 category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2021-11-17
+permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * 1. [Security Checks](#SecurityChecks)

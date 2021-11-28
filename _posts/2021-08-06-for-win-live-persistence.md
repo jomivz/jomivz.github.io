@@ -1,11 +1,12 @@
 ---
 layout: post
 title: Windows Live Forensics on Persistence
-parent: Forensics
 category: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
 has_children: true
 modified_date: 2021-08-06
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

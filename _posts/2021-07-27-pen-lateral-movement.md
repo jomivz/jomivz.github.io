@@ -1,16 +1,14 @@
 ---
 layout: post
 title: Lateral movements
-parent: Pentesting
 category: Pentesting
+parent: Cheatsheets
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-07-27
+permalink: /:categories/:title/
 ---
 
-
 ## SMB v1
-
 ```
 # connecting from kali to windows
 smbclient -U jomivz -L 1.2.3.4 -W testlab.local

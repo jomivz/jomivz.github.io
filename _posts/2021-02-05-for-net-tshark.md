@@ -1,10 +1,11 @@
 ---
 layout: post
-title: TSHARK forensics cheatsheet
+title: NET TSHARK forensics
 category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
 modified_date: 2021-02-06
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

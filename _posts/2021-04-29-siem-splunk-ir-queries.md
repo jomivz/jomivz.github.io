@@ -4,9 +4,8 @@ title: Incident response with Splunk
 parent: SIEM
 category: SIEM
 grand_parent: Cheatsheets
-nav_order: 2
-has_children: true
 modified_date: 2021-04-29
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
