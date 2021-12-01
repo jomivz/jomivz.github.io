@@ -4,9 +4,9 @@ title: TA0007 Discovery - Network scanning
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
-tags: discovery scan nmap TA0007 T1595 T1046
 modified_date: 2021-03-02
 permalink: /:categories/:title/
+tags: discovery scan nmap TA0007 T1595 T1046
 ---
 
 <!-- vscode-markdown-toc -->

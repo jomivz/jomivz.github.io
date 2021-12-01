@@ -2,7 +2,7 @@
 layout: post
 title: Lateral movements
 category: Pentesting
-parent: Cheatsheets
+parent: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2021-07-27
 permalink: /:categories/:title/
