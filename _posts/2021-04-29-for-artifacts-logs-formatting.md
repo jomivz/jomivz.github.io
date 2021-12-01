@@ -5,6 +5,7 @@ parent: SIEM
 category: Forensics
 grand_parent: Cheatsheets
 modified_date: 2021-04-29
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

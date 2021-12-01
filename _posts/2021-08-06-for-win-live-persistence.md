@@ -4,7 +4,6 @@ title: Windows Live Forensics on Persistence
 category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-08-06
 permalink: /:categories/:title/
 ---
