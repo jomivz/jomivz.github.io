@@ -1,10 +1,11 @@
 ---
 layout: post
 title: GIT Cheatsheet
+category: Development
 parent: Development
 grand_parent: Cheatsheets  
-category: Development
 modified_date: 2021-11-19
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
@@ -27,19 +28,7 @@ modified_date: 2021-11-19
 
 First if something missing here, [Atlassian GIT tutorials](https://www.atlassian.com/fr/git/tutorials).
 
-## <a name='GenerateSSHkeypair'></a>Generate SSH keypair
----------------------
-```
-ssh-keygen -t rsa -b 4096 -C "john@smith.fr"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
-sudo apt install xclip
-xclip -sel clip < ~/.ssh/id_rsa.pub
-ssh -T git@github.com
-```
-
 ## <a name='Introduction'></a>Introduction
----------------------
 Git is a source control tool created by Linus Torvald.
 Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.
 
@@ -50,29 +39,32 @@ Some basics terminology:
 - the HEAD may be moved between commits
 
 ## <a name='Configuregitsettings'></a>Configure git settings
----------------------
 ```
+#? getting-start git
+
+#? set mandatory settings 
 git config --global user.email "john@smith.fr"
 git config --global user.name "john"
-git config --system core.editor vim
+
+#? exclude paths
+git config --global core.excludesfile <path>
+
 ```
 
+### git config file
+#
 Alternatively, assign system-wide configuration in the config files:
 - /etc/gitconfig which correspond to --system
 - ~/.gitconfig or ~/.config/git/config whci correspond to --global
 - .git/config in a directory which correspond to --local 
 Note: Files lower in the list override higher files.
-
-Files format:
+#
+## git config file - format
 ```
 [user]
 	name = john smith
 	email = john@smith.fr
-```
-
-Exclude certain paths:
-```
-git config --global core.excludesfile <path>
+#
 ```
 
 ## <a name='Workingwithrepos'></a>Working with repos

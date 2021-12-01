@@ -1,12 +1,11 @@
 ---
 layout: post
 title: Splunk Visualization - Network Port Scanning
-parent: SIEM
 category: SIEM
+parent: SIEM
 grand_parent: Cheatsheets
-nav_order: 2
-has_children: true
 modified_date: 2021-03-02
+permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * [Dashboard with dropdown location + timepicker](#Dashboardwithdropdownlocationtimepicker)
@@ -40,7 +39,7 @@ Note: this dashboard MAY be optimized to take in charge :
 
 ## <a name='SearchquerytovisualizePortScans-withoutaDMZsubnet'></a>Search query to visualize Port Scans - without a DMZ subnet 
 
-```
+```spl
 sourcetype="stream:tcp" 
 | search src_ip=*
 | eval isSrcIP=if(cidrmatch("192.168.0.0/16",src_ip), "local", "external") 
@@ -52,7 +51,7 @@ sourcetype="stream:tcp"
 
 ## <a name='SearchquerytovisualizePortScans-withaDMZsubnet'></a>Search query to visualize Port Scans - with a DMZ subnet 
 
-```
+```spl
 sourcetype="stream:tcp" 
 | search src_ip=*
 | eval isSrcIP=if(cidrmatch("192.168.69.0/24",src_ip), "local", if(cidrmatch("192.168.250.0/24",src_ip), "dmz", "external")) 

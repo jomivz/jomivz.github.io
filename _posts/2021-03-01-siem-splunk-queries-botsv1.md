@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Splunk Search Queries based on BOTSv1
-parent: SIEM
 category: SIEM
+parent: SIEM
 grand_parent: Cheatsheets
 modified_date: 2021-03-02
+permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * [Investigating HTTP logs](#InvestigatingHTTPlogs)

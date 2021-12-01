@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Windows forensics Artifacts
+title: Windows Artifacts
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
 modified_date: 2021-04-21
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

@@ -2,9 +2,10 @@
 layout: post
 title: Localhost Powershell Queries 
 category: Windows
+parent: Cheatsheets
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-04-28
+permalink: /:categories/:title/
 ---
 
 ```powershell

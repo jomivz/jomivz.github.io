@@ -4,8 +4,8 @@ title: Critical Century's RCE
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-11-23
+permalink: /:categories/:title/
 ---
 
 <table class="sortable">

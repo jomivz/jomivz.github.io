@@ -1,11 +1,11 @@
 ---
 layout: post
 title: FOR Logs WIN
-parent: Forensics
 category: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-11-17
+permalink: /:categories/:title/
 ---
 # {{ page.title}}
 

@@ -1,12 +1,11 @@
 ---
 layout: post
 title: Splunk queries based on IP
-parent: SIEM
 category: SIEM
+parent: SIEM
 grand_parent: Cheatsheets
-nav_order: 2
-has_children: true
 modified_date: 2021-09-15
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->

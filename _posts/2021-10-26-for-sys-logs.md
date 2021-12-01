@@ -1,11 +1,11 @@
 ---
 layout: post
 title: FOR Logs MISC
-parent: Forensics
 category: Forensics
+parent: Forensics
 grand_parent: Cheatsheets
-has_children: true
 modified_date: 2021-10-26
+permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
