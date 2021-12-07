@@ -54,40 +54,6 @@ docker run -d -p 5801:5801 -p  9999:9999 .....
 docker push <your_username>/my-first-repo 
 
 ```
-## <a name='KaliLinux2020.1install'></a>Install for Kali Linux 2020.1
-
-```bash
-#? install docker for kali 2021.1
-#
-# step 1: Configure APT Keys
-sudo apt update
-#
-# step 2: Get PGP Key for official Docker
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-#
-# step 3: Configure APT to Download, Install, and Update Docker
-echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' |
-sudo tee /etc/apt/sources.list.d/docker.list
-#
-# step 5: Update the APT Again
-sudo apt update
-#
-# step 6: Terminate Outdated Versions Previously Installed
-sudo apt remove docker docker-engine docker.io
-#
-# step 7: Install Docker on Kali System
-sudo apt install docker-ce -y
-#
-# step 8: Start the Docker Container
-sudo systemctl start docker
-#
-# (OPTIONAL) step 9: Set up Docker to Start Automatically on Reboot
-sudo systemctl enable Docker
-#
-# step 10: Verify Installation
-sudo Docker run hello-world
-
-```
 ## <a name='Images'></a>Images
 
 ### <a name='Alpine'></a>Alpine
