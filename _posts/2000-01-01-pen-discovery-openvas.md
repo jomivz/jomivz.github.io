@@ -9,19 +9,8 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [Kali Linux 2020.1 install](#KaliLinux2020.1install)
-* [Images](#Images)
-	* [Alpine](#Alpine)
-	* [testssl.sh](#testssl.sh)
-	* [nuclei](#nuclei)
-	* [SpiderFoot](#SpiderFoot)
-	* [Jekyll](#Jekyll)
-* [The Docker Hub](#TheDockerHub)
-* [Configure credential help](#Configurecredentialhelp)
-* [Building images](#Buildingimages)
-	* [Pushing images](#Pushingimages)
-* [Troubleshooting](#Troubleshooting)
-	* [No space left on device error](#Nospaceleftondeviceerror)
+* 1. [Administration](#Administration)
+* 2. [Troubleshooting](#Troubleshooting)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -29,7 +18,7 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='KaliLinux2020.1install'></a>Administration
+##  1. <a name='Administration'></a>Administration
 
 ```bash
 #? memo pentesting discovery openvas admin
@@ -44,7 +33,7 @@ sudo gvm-stop
 sudo gvm-feed-update -h
 sudo runuser -u _gvm -- greenbone-nvt-sync
 ```
-## <a name='KaliLinux2020.1install'></a>Troubleshooting
+##  2. <a name='Troubleshooting'></a>Troubleshooting
 
 ```bash
 #? memo pentesting discovery openvas tshoot
