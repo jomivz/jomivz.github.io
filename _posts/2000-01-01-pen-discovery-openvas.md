@@ -32,7 +32,7 @@ permalink: /:categories/:title/
 ## <a name='KaliLinux2020.1install'></a>Administration
 
 ```bash
-#? memo admin openvas administration
+#? memo pentesting discovery openvas admin
 #
 # start the service 
 sudo gvm-start
@@ -47,7 +47,7 @@ sudo runuser -u _gvm -- greenbone-nvt-sync
 ## <a name='KaliLinux2020.1install'></a>Troubleshooting
 
 ```bash
-#? memo tshoot openvas troubleshooting
+#? memo pentesting discovery openvas tshoot
 #
 # check port is listening on localhost:9392
 ss -lnt4

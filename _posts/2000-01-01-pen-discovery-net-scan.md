@@ -45,7 +45,7 @@ nmap -PEPM -sP -n -oA hosts_up 192.168.1.0/24
 
 **use-case**: discovering services for assets into the input file ```hosts_up```.
 ```sh
-#? memo pentest discovery nmap
+#? memo pentesting discovery nmap
 
 #? NMAP TCP SYN/Top 100 ports scan
 nmap -F -sS -Pn -iL hosts_up -oA nmap_tcp_fastscan 192.168.0.0/24

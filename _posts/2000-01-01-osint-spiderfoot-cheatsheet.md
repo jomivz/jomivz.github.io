@@ -9,13 +9,13 @@ permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * 1. [SpiderFoot Install](#SpiderFootInstall)
-* 2. [SFCLI \ Execution](#SFCLIExecution)
-* 3. [SFCLI \ Getting Started](#SFCLIGettingStarted)
-* 4. [SFCLI \ Module Shodan](#SFCLIModuleShodan)
-* 5. [SFCLI \ Module HaveIBeenPwned](#SFCLIModuleHaveIBeenPwned)
-* 6. [SFCLI \ Module DNSrecon](#SFCLIModuleDNSrecon)
-* 7. [SFCLI \ Module CRT](#SFCLIModuleCRT)
-* 8. [SFCLI \ Module whatcms](#SFCLIModulewhatcms)
+* 2. [SFCLI \ Execution](#SFCLIExecution)
+* 3. [SFCLI \ Getting Started](#SFCLIGettingStarted)
+* 4. [SFCLI \ Module Shodan](#SFCLIModuleShodan)
+* 5. [SFCLI \ Module HaveIBeenPwned](#SFCLIModuleHaveIBeenPwned)
+* 6. [SFCLI \ Module DNSrecon](#SFCLIModuleDNSrecon)
+* 7. [SFCLI \ Module CRT](#SFCLIModuleCRT)
+* 8. [SFCLI \ Module whatcms](#SFCLIModulewhatcms)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -26,42 +26,50 @@ permalink: /:categories/:title/
 ##  1. <a name='SpiderFootInstall'></a>SpiderFoot Install
 - [Sysadmin Docker Cheatsheet](/sysadmin/2021/10/26/sys-cli-docker.html)
 
-##  2. <a name='SFCLIExecution'></a>SFCLI \ Execution
+##  2. <a name='SFCLIExecution'></a>SFCLI \ Execution
 ```batch
 #? memo osint spiderfoot
 #
 #? run docker spiderfoot
 docker run -p 5002:5001 -d spiderfoot
 
-#? list sfcli modules
-python3 ./sp.py -M
+#? list sfcli modules
+cd /usr/share/spiderfoot
+python3 ./sf.py -M |grep -i dns
 
 #? run/connect sfcli with docker
+cd /usr/share/spiderfoot
 python3 ./sfcli.py -s http://localhost:5002
 
 # check memo osint sfcli
 ```
 
-##  3. <a name='SFCLIGettingStarted'></a>SFCLI \ Getting Started
+##  3. <a name='SFCLIGettingStarted'></a>SFCLI \ Getting Started
 
 Watch the tutorial video [HERE](https://asciinema.org/a/126064).
 ```batch
-#? memo sfcli
+#? memo osint sfcli
 #
 # test connectivity
 sf> ping
 
-# sfcli - scan - start example 1
-sf> start jmvwork.xyz -m sfp_dns 
+#? scan dns
+sf> start jmvwork.xyz -m sfp_dnsgrep,sfp_dnsraw,sfp_dnsdumpster,sfp_dns_brute
+
+#? scan crt and dns #!VERBOSE
+sf> start jmvwork.xyz -m sfp_crt
+
+# sfcli - scan - start example 2
+sf> start jmvwork.xyz -m sfp_dns,sfp_spider,sfp_pwned -n "blabla"
+
+#? check typosquatting
+sf> start jmvwork.xyz -m sfp_similar
 
 # sfcli - scan - progression watch - with the scan ID <sid>
 sf> logs <sid> -w
 
 # sfcli - scan - information status
 sf> scaninfo <sid>
-
-# sfcli - scan - start example 2
-sf> start jmvwork.xyz -m sfp_dns,sfp_spider,sfp_pwned -n "blabla"
 
 # sfcli - scan - get data collected
 sf> data <sid> -t IP_ADDRESS
@@ -73,7 +81,7 @@ sf> scans
 sf> delete <sid>
 
 ```
-##  4. <a name='SFCLIModuleShodan'></a>SFCLI \ Module Shodan
+##  4. <a name='SFCLIModuleShodan'></a>SFCLI \ Module Shodan
 
 Watch the tutorial video [HERE](https://asciinema.org/a/127601).
 ```batch
@@ -87,7 +95,7 @@ sf> set module.sfp_shodan.api_key = <apikey>
 sf> start 1.2.3.4 -m spf_shodan
 ```
 
-##  5. <a name='SFCLIModuleHaveIBeenPwned'></a>SFCLI \ Module HaveIBeenPwned
+##  5. <a name='SFCLIModuleHaveIBeenPwned'></a>SFCLI \ Module HaveIBeenPwned
 
 Watch the tutorial video [HERE](https://asciinema.org/a/128731).
 ```batch
@@ -97,7 +105,7 @@ sf> start elon@testla.com -m sfp_pwned -w
 # sfcli HIBP - scan - get data collected
 sf> data <sid> -t EMAILADDR_COMPROMISED
 ```
-##  6. <a name='SFCLIModuleDNSrecon'></a>SFCLI \ Module DNSrecon
+##  6. <a name='SFCLIModuleDNSrecon'></a>SFCLI \ Module DNSrecon
 
 Watch the tutorial video [HERE](https://asciinema.org/a/295912).
 ```batch
@@ -105,7 +113,7 @@ Watch the tutorial video [HERE](https://asciinema.org/a/295912).
 sf> start elon@testla.com -m sfp_dnsbrute,sfp_dnsresolve -r
 
 ```
-##  7. <a name='SFCLIModuleCRT'></a>SFCLI \ Module CRT
+##  7. <a name='SFCLIModuleCRT'></a>SFCLI \ Module CRT
 
 Watch the tutorial video [HERE](https://asciinema.org/a/295946).
 ```batch
@@ -113,7 +121,7 @@ Watch the tutorial video [HERE](https://asciinema.org/a/295946).
 sf> start tesla.com -m sfp_crt -q -F INTERNET_NAME
 
 ```
-##  8. <a name='SFCLIModulewhatcms'></a>SFCLI \ Module whatcms
+##  8. <a name='SFCLIModulewhatcms'></a>SFCLI \ Module whatcms
 
 ```batch
 # sfcli whatcms - checking the settings 
@@ -126,3 +134,4 @@ sf> set module.sfp_whatcms.api_key = <apikey>
 sf> start tesla.com -m sfp_whatcms
 
 ```
+
