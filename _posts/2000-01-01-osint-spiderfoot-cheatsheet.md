@@ -4,7 +4,7 @@ title: Spiderfoot Cheatsheet
 parent: OSINT
 category: OSINT
 grand_parent: Cheatsheets
-modified_date: 2021-11-23
+modified_date: 2021-12-08
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
