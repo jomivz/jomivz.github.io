@@ -28,6 +28,7 @@ permalink: /:categories/:title/
 
 First if something missing here, [Atlassian GIT tutorials](https://www.atlassian.com/fr/git/tutorials).
 
+!! DRAFT HERE !!
 ## <a name='Introduction'></a>Introduction
 Git is a source control tool created by Linus Torvald.
 Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.

@@ -8,16 +8,18 @@ modified_date: 2021-11-17
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
-* [Security concern](#Securityconcern)
+* [Security concerns](#Securityconcerns)
 	* [Check ISO integrity](#CheckISOintegrity)
 	* [Check boot integrity](#Checkbootintegrity)
 	* [Run openvpn](#Runopenvpn)
 * [System concerns](#Systemconcerns)
 	* [LVM resize vg-root](#LVMresizevg-root)
-	* [Getting-start with SED](#Getting-startwithSED)
-* [resize image](#resizeimage)
-* [create favicon](#createfavicon)
-* [convert image](#convertimage)
+	* [SED examples](#SEDexamples)
+	* [FIND examples](#FINDexamples)
+* [Other concerns](#Otherconcerns)
+	* [PDF & ebooks](#PDFebooks)
+	* [Images treatment](#Imagestreatment)
+	* [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -25,7 +27,7 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Securityconcern'></a>Security concern
+## <a name='Securityconcerns'></a>Security concerns
 ### <a name='CheckISOintegrity'></a>Check ISO integrity
 
 ```sh
@@ -97,7 +99,7 @@ resize2fs /dev/mapper/vg-root
 mount /home
 
 ```
-### <a name='Getting-startwithSED'></a>SED examples
+### <a name='SEDexamples'></a>SED examples
 ```sh
 #? getting-start sed
 #
@@ -114,7 +116,6 @@ sed -n "X,/*/p" toto.txt
 sed '%s/.([0-9]+)192./.\1 192./g' 
 
 ### <a name='oneliners'></a>oneliners
-```bash
 # oneliner howto - grep into jmvwork.xyz cheatsheets
 # takes the pattern as first argument
 # takes the file as second argument
@@ -129,17 +130,17 @@ howto "docker install spiderfoot" 2021-10-26-sys-cli-docker.md
 howto "# oneliner .* ex" 2021-10-26-sys-cli-lin.md
 
 ```
-### <a name='OtherConcerns'></a>FIND examples
+### <a name='FINDexamples'></a>FIND examples
 ```sh
-#i? find pdf files created las 24 hours in Downloads directory:
+### <a name='findpdffilescreatedlas24hoursinDownloadsdirectory:'></a>find pdf files created las 24 hours in Downloads directory:
 find ~/Dowloads -iname *.pdf -a -ctime 1
 
-#? identify files with the suid, sgid permissions
+## <a name='identifyfileswiththesuidsgidpermissions'></a>identify files with the suid, sgid permissions
 find / -perm +6000 -type f -exec ls -ld {} \; > setuid.txt &
 find / -perm +4000 -user root -type f -
 
 ```
-## <a name='OtherConcerns'></a>Other concerns
+## <a name='Otherconcerns'></a>Other concerns
 
 ### <a name='PDFebooks'></a>PDF & ebooks
 ```sh
