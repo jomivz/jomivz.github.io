@@ -15,10 +15,13 @@ permalink: /:categories/:title/
 	* 2.2. [nuclei](#nuclei)
 	* 2.3. [SpiderFoot](#SpiderFoot)
 	* 2.4. [fox-it\BloodHound.py](#fox-itBloodHound.py)
+	* 2.5. [ropnop\kerbrute](#ropnopkerbrute)
+	* 2.6. [impacket](#impacket)
 * 3. [Other images](#Otherimages)
 	* 3.1. [Alpine](#Alpine)
 	* 3.2. [Jekyll](#Jekyll)
 	* 3.3. [frolvlad/alpine-python2](#frolvladalpine-python2)
+	* 3.4. [linuxserver\libreoffice](#linuxserverlibreoffice)
 * 4. [Troubleshooting](#Troubleshooting)
 	* 4.1. [No space left on device error](#Nospaceleftondeviceerror)
 
@@ -103,6 +106,42 @@ sudo git clone https://github.com/fox-it/BloodHound.py
 cd BloodHound.py
 sudo docker build -t bloodhound:1.1.1 .
 
+#? run docker bloodhound.py with data stored in $PWD
+docker run -v ${PWD}:/bloodhound-data -it bloodhound:1.1.1
+> bloodhound-python
+
+```
+###  2.5. <a name='ropnopkerbrute'></a>ropnop\kerbrute
+```sh
+#? pentest ad bruteforce auth kerbrute
+#? build docker kerbrute
+#
+cd /usr/share
+git clone https://github.com/ropnop/kerbrute.git
+cd kerbrute
+vi Dockerfile
+    FROM golang:alpine
+    RUN mkdir /app 
+    ADD . /app/
+    WORKDIR /app 
+    RUN go build -o main .
+    RUN adduser -S -D -H -h /app appuser
+    USER appuser
+    CMD ["./main"]
+docker build -t kerbrute:1.0.3 .
+#? run docker kerbrute
+# practice : https://tryhackme.com/room/attacktivedirectory
+curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
+curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
+
+docker run -v .:/mnt -it kerbrute:1.0.3 enumuser --dc spookysec.local userlist.txt -t 100
+
+```
+###  2.6. <a name='impacket'></a>impacket
+```sh
+#? pentest ad bruteforce auth kerbrute
+#? build docker kerbrute
+#
 ```
 ##  3. <a name='Otherimages'></a>Other images
 ###  3.1. <a name='Alpine'></a>Alpine
@@ -147,6 +186,13 @@ docker run --rm /tmp:/mnt frolvlad/alpine-python2 python -c 'u"Hello world!"'
 docker run --rm --volume /tmp:/mnt frolvlad/alpine-python2 python test.py
 
 ```
+###  3.4. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
+[Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
+```sh
+docker pull linuxserver/libreoffice:7.2.2
+docker run -d \\n  --name=libreoffice \\n  -e PUID=1000 \\n  -e PGID=1000 \\n  -e TZ=Europe/London \\n  -p 3000:3000 \\n  -v /home/jomivz/doc:/doc \\n  --restart unless-stopped \\n  linuxserver/libreoffice:7.2.2
+```
+
 ##  4. <a name='Troubleshooting'></a>Troubleshooting
 ###  4.1. <a name='Nospaceleftondeviceerror'></a>No space left on device error
 
