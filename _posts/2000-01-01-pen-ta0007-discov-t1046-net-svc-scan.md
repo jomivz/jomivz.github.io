@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - Network scanning
+title: TA0007 Discovery - T1046 Network scanning
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets

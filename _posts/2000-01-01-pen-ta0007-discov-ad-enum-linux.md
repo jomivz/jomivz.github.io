@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pentesting Active Directory   
+title: TA0007 Discovery - AD Enumeration with Linux System
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: OpenVAS cheatsheet
+title: TA0007 Discovery - T1046 OpenVAS cheatsheet
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets

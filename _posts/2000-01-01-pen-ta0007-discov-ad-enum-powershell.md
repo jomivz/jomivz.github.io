@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Offensive Powershell - Part 1 Enumeration  
+title: TA0007 Discovery - AD Enumeration with Powershell
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
