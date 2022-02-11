@@ -1,7 +1,7 @@
 ---
 layout: post
-title: NET NMAP cheatsheet
-category : Pentesting
+title: TA0007 Discovery - T1046 NMAP cheatsheet
+category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2021-02-05
