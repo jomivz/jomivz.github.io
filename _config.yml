@@ -13,6 +13,9 @@ favicon: "assets/images/favicon.ico"
 #   dist: true
 #   shortcodes: true
 
+## remote method ##
+remote_theme: pmarsceill/just-the-docs
+
 readme_index:
   with_frontmatter: true
 
