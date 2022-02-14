@@ -10,6 +10,7 @@ permalink: /:categories/:title/
 
 <!-- vscode-markdown-toc -->
 * [{{ page.title }}](#page.title)
+	* [Executing System Interpreters](#ExecutingSystemInterpreters)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -18,6 +19,9 @@ permalink: /:categories/:title/
 <!-- /vscode-markdown-toc -->
 ## <a name='page.title'></a>{{ page.title }}
 
+### <a name='ExecutingSystemInterpreters'></a>Executing System Interpreters 
+
 ```sh
+# run bash via python
 python -c 'import pty; pty.spawn("/bin/bash")'
 ```
