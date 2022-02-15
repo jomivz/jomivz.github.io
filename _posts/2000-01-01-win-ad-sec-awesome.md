@@ -9,11 +9,11 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [Starting your journey & more](#Startingyourjourneymore)
+* [Starting your journey](#Startingyourjourney)
+* [Offensive Cookbooks](#OffensiveCookbooks)
 * [Offensive Powershell](#OffensivePowershell)
 * [DFIR](#DFIR)
 * [ATP / O365](#ATPO365)
-* [Github Feeds / Blogs](#GithubFeedsBlogs)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -21,19 +21,25 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Startingyourjourneymore'></a>Starting your journey & more
+## <a name='Startingyourjourney'></a>Starting your journey
+--------------------------------
+| **Ressource**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
+| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| In case of awarness duties, this is a good support. | Paramount |
+
+## <a name='OffensiveCookbooks'></a>Offensive AD Cookbooks
 --------------------------------
 
-| **Cheatsheet**  | **Description** |    **Author**    |
+| **Ressource**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
-| [Red vs Blue: AD Attacks - BH USA 2015](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Modern%20Active%20Directory%20Attacks.pdf)| Really good **quickstart** (even 6 years later). [YT](https://www.youtube.com/watch?v=UaweX0G1k9k) | Sean Metcalf |
-| [Fun with LDAP & Kerberos - ThotCon 2018](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | Second really good **quickstart**. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) | Ronnie Flathers |
-| [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
-| [AD Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
+| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. My TOP 1. | SadProcessor |
+| [Mindmap Attacking AD](https://github.com/six2dez/pentest-book/blob/master/.gitbook/assets/pentest_ad-min.png) | Master Piece Mindmap. My TOP 2. | six2dez |
 | [TTPs for AD - BH USA 2019](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf) | Presentation to demo Bloodhound. Really nice schemas. | specterops.io |
+| [AD Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
 | [AD Kill Chain Attack & Defense](https://github.com/infosecn1nja/AD-Attack-Defense) | Well **classified compilation of articles** from the technet, adsecurity, stealthbits, specterops, youtube, github and other sources. Great room to deepdive a particluar topic. | infosecn1nja |
-| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| In case of awarness duties, this is a good support. | Paramount |
-| [AD Security Hardening](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20Assessment%20%5BADSA%5D.pdf)| x | x |
+| [Attacking Kerberos 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
+
 
 ## <a name='OffensivePowershell'></a>Offensive Powershell
 ------------------------------
@@ -47,7 +53,6 @@ permalink: /:categories/:title/
 | [Specterops PS tools](https://github.com/specterops/at-ps) | Tools used for the offensive powershell training provided by specterops. | specterops.io |
 | [Powershell Tools List](https://www.varonis.com/blog/powershell-tool-roundup/) | Collection of tools. | varonis |
 | [Powershell Snipets Gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | Snipets. | powershellgallery |
-| [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound. | SadProcessor |
 
 ## <a name='DFIR'></a>DFIR 
 ------------------------------
@@ -61,6 +66,3 @@ permalink: /:categories/:title/
 ------------------------------
 
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)
-
-## <a name='GithubFeedsBlogs'></a>Github Feeds / Blogs 
-------------------------------
