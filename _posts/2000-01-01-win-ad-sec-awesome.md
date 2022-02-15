@@ -23,10 +23,11 @@ permalink: /:categories/:title/
 
 ## <a name='Startingyourjourney'></a>Starting your journey
 --------------------------------
+
 | **Ressource**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
 | [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
-| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf)| In case of awarness duties, this is a good support. | Paramount |
+| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf) | In case of awarness duties, this is a good support. | Paramount |
 
 ## <a name='OffensiveCookbooks'></a>Offensive AD Cookbooks
 --------------------------------

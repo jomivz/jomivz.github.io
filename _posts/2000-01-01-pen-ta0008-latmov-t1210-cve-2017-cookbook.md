@@ -1,12 +1,22 @@
 ---
 layout: post
-title: LIN PRIVESC Sambacry PoC
+title: TA0008 Lateral Movement - T1210 Remote Services Exploits 2017 - Cookbook 
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2021-02-06
+modified_date: 2022-02-15
 permalink: /:categories/:title/
 ---
+<!-- vscode-markdown-toc -->
+* 1. [CVE-2017-7494 - Sambacry](#CVE-2017-7494-Sambacry)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='CVE-2017-7494-Sambacry'></a>CVE-2017-7494 - Sambacry
 
 * CVE ID : CVE-2017-7494
 * Date: 01/06/2017
