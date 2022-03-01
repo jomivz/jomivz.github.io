@@ -9,8 +9,12 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [Great ressources](#Greatressources)
 * [ENUM: DOMAIN AND IP PLAN](#ENUM:DOMAINANDIPPLAN)
 * [RELAY/POISON](#RELAYPOISON)
+* [SMBv2 SIGNING NOT REQUIRED](#SMBv2SIGNINGNOTREQUIRED)
+* [CRACKING HASHES](#CRACKINGHASHES)
+* [Docker Impacket RPCdump](#DockerImpacketRPCdump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -18,8 +22,19 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='ENUM:DOMAINANDIPPLAN'></a>ENUM: DOMAIN AND IP PLAN
+## <a name='Greatressources'></a>Great ressources
+```sh
+| **Ressource**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) | Ronnie Flathers |
+| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) | | |
+| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) | | |
+| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) | | specterops |
 
+
+```
+
+## <a name='ENUM:DOMAINANDIPPLAN'></a>ENUM: DOMAIN AND IP PLAN
 ```sh
 # OBJECTIVE 1: Identify the DHCP server 
 nmap --script broadcast-dhcp-discover
@@ -48,7 +63,7 @@ for i in `cat trusts_clean.txt`; do ping -a $i; done                            
 ```
 ## <a name='RELAYPOISON'></a>RELAY/POISON
 
-## <a name='RELAYPOISON'></a>SMBv2 SIGNING NOT REQUIRED
+## <a name='SMBv2SIGNINGNOTREQUIRED'></a>SMBv2 SIGNING NOT REQUIRED
 ```sh
 # STEP 1: find smb not signed
 nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
@@ -59,9 +74,14 @@ python3 ntlmrelayx.py -tf targets.txt -smb2support
 
 ```
 
-## <a name='RELAYPOISON'></a>CRACKING HASHES
+## <a name='CRACKINGHASHES'></a>CRACKING HASHES
 ```sh
 # Get the domain pasword policy
 rpcclient -U "johndoe" 10.1.1.1
 rpcclient> getdompwinfo
+```
+
+## <a name='DockerImpacketRPCdump'></a>Docker Impacket RPCdump
+```
+sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
 ```
