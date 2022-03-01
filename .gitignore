@@ -1,3 +1,4 @@
+playbook-draft/
 src/
 objects/
 hooks/
@@ -6,3 +7,4 @@ _draft/
 _site/
 .jekyll-cache
 .*.sw*
+.gitignore
