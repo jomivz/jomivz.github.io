@@ -11,11 +11,11 @@ permalink: /:categories/:title/
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITE: Installing PowerView](#PRE-REQUISITE:InstallingPowerView)
 * [PRE-REQUISITE: AD Web Services on the DC](#PRE-REQUISITE:ADWebServicesontheDC)
-* [[T1087.002](https://attack.mitre.org/techniques/T1087/002) Account Discovery - Domain Account](#T1087.002https:attack.mitre.orgtechniquesT1087002AccountDiscovery-DomainAccount)
+* [T1087.002 Account Discovery - Domain Account](#T1087.002AccountDiscovery-DomainAccount)
 	* [Domain Admin Account](#DomainAdminAccount)
 	* [Other Privileged Users](#OtherPrivilegedUsers)
-* [[T1615](https://attack.mitre.org/techniques/T1615) Group Policy Discovery](#T1615https:attack.mitre.orgtechniquesT1615GroupPolicyDiscovery)
-* [[T1135](https://attack.mitre.org/techniques/T1135) Network Shares](#T1135https:attack.mitre.orgtechniquesT1135NetworkShares)
+* [T1615 Group Policy Discovery](#T1615GroupPolicyDiscovery)
+* [T1135 Network Shares](#T1135NetworkShares)
 * [TXXXX ACL](#TXXXXACL)
 * [ENUM: DOMAIN](#ENUM:DOMAIN)
 * [ENUM: FOREST PRIVESC](#ENUM:FORESTPRIVESC)
@@ -68,20 +68,23 @@ AVERTISSEMENT : Error initializing default drive: 'Unable to find a default ser
 ```
 For more info, read the article from [theitbros.om](https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
-## <a name='T1087.002https:attack.mitre.orgtechniquesT1087002AccountDiscovery-DomainAccount'></a>[T1087.002](https://attack.mitre.org/techniques/T1087/002) Account Discovery - Domain Account
+## <a name='T1087.002AccountDiscovery-DomainAccount'></a>T1087.002 Account Discovery - Domain Account
 ### <a name='DomainAdminAccount'></a>Domain Admin Account
 ```powershell
 # PowerView: find where DA has logged on / and current user has access
+# can be long and noisy, does net share discovery over \\machine\IPC$
 Invoke-UserHunter
 Invoke-UserHunter -CheckAccess
 Invoke-UserHunter -CheckAccess | select username, computername, IPAddress
 
 # get all the effective members of DA groups, 'recursing down'
+. .\powerview_dev.ps1
 Get-DomainGroupMember -Identity "Domain Admins" -Recurse | select membername, membersid
 Get-DomainGroupMember -Identity "Enterprise Admins" -Recurse -Domain <Forest> | select membername, membersid
 
-# PowerView: gather info on the DA security groups
-Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose| ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+# gather info on the DA security groups
+Import-Module Recon.psm1
+Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs -Verbose| ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteProperty|WriteDacl|WriteOwner|ForceChangePassword')}
 
 # find linked DA accounts using name correlation
 Get-DomainGroupMember 'Domain Admins' | %{Get-DomainUser $_.membername -LDAPFilter '(displayname=*)'} | %{$a=$_.displayname.split(' ')[0..1] -join ' '; Get-DomainUser -LDAPFilter "(displayname=*$a*)" -Properties displayname,samaccountname}
@@ -105,7 +108,7 @@ Find-LocalAdminAccess
 # find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin | select computername, membername
 
-# get all the effective members of DA groups, 'recursing down'
+# powersploit: get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Computers" -Recurse | select membername, membersid
 
 # Find any machine accounts in privileged groups
@@ -140,7 +143,7 @@ Get-DomainOU -Identity *server* -Domain <Domain> | %{Get-DomainComputer -SearchB
 Get-NetLocalGroup <Server>.<FQDN>
 ```
 
-## <a name='T1615https:attack.mitre.orgtechniquesT1615GroupPolicyDiscovery'></a>[T1615](https://attack.mitre.org/techniques/T1615) Group Policy Discovery
+## <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
 ```powershell
 # find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName <Computer>
@@ -175,7 +178,7 @@ Get-DomainGPO -ComputerIdentity <Server>.<FQDN>
 Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 ```
 
-## <a name='T1135https:attack.mitre.orgtechniquesT1135NetworkShares'></a>[T1135](https://attack.mitre.org/techniques/T1135) Network Shares
+## <a name='T1135NetworkShares'></a>T1135 Network Shares
 ```powershell
 # find share folders in the domain
 Invoke-ShareFinder

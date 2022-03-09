@@ -175,4 +175,7 @@ ps -aux |pastebinit
 # Displaying a markdown to lynx: 
 pandoc docker.md | lynx -stdin
 
+# onliner to kill all tty related to jomivz
+# remove current tty 
+for i in `w|grep jomivz|cut -f2 -d" "`; do ps -ft $i >> /tmp/res.txt; done; sed '/UID.*$/d' /tmp/res.txt | cut -f2 -d" " | sort -u > /tmp/pids.txt; for j in `cat /tmp/pids.txt`; do kill -9 $j; done
 ```
