@@ -1,0 +1,2 @@
+ rex field=referer "\/\/(?:[^@\/\n]+@)?(?:www\.)?(?<refdomain>[^:\/\n]+)"| stats values(refdomain)
+https://regex101.com/r/iVrIlL/1

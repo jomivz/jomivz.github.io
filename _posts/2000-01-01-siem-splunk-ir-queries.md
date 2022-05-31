@@ -4,7 +4,7 @@ title: Incident response with Splunk
 parent: SIEM
 category: SIEM
 grand_parent: Cheatsheets
-modified_date: 2021-04-29
+modified_date: 2022-03-22
 permalink: /:categories/:title/
 ---
 
@@ -20,8 +20,8 @@ permalink: /:categories/:title/
 <!-- /vscode-markdown-toc -->
 
 ## <a name='Pre-requisites'></a>Pre-requisites
-- [https://splunkbase.splunk.com/app/3767/#/details]{parallel coordinates app}
-- [https://splunkbase.splunk.com/app/3137/]{force directed app} 
+-  [parallel coordinates app](https://splunkbase.splunk.com/app/3767/#/details)
+-  [force directed app](https://splunkbase.splunk.com/app/3137/)
 
 ## <a name='IRqueriesoverNetworklogs'></a>IR queries over Network logs
 

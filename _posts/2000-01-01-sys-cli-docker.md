@@ -4,7 +4,7 @@ title: Sysadmin CLI Docker
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2021-12-09
+modified_date: 2022-03-24
 permalink: /:categories/:title/
 ---
 
@@ -21,9 +21,7 @@ permalink: /:categories/:title/
 	* 3.1. [Alpine](#Alpine)
 	* 3.2. [Jekyll](#Jekyll)
 	* 3.3. [frolvlad/alpine-python2](#frolvladalpine-python2)
-	* 3.4. [linuxserver\libreoffice](#linuxserverlibreoffice)
-* 4. [Troubleshooting](#Troubleshooting)
-	* 4.1. [No space left on device error](#Nospaceleftondeviceerror)
+	* 3.4. [postgres](#postgres)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -184,13 +182,57 @@ docker run --rm /tmp:/mnt frolvlad/alpine-python2 python -c 'u"Hello world!"'
 
 #? execute python2 script
 docker run --rm --volume /tmp:/mnt frolvlad/alpine-python2 python test.py
-
 ```
-###  3.4. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
+
+###  3.4. <a name='postgres'></a>postgres
+
+IN 5 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
+
+1- MAKE sure you have ```docker```  and ```docker-compose``` installed
+
+2- MAKE sure you are member of the docker users group
+`
+3- COPY the Dockerfile below in your ```$HOME``` and TYPE in a terminal ```cd; docker-compose up``` 
+
+```sh
+version: '3.8'
+
+services:
+	db:
+	    container_name: pg_container
+	    image: postgres
+		restart: "no"
+	    environment:
+      		POSTGRES_USER: root
+      		POSTGRES_PASSWORD: root
+      		POSTGRES_DB: test_db
+    	volumes:
+      		- pg_data:/var/lib/postgresql/data/
+
+volumes:
+	pg_data:
+```
+4- MAKE sure the container is running then get a bash on it: 
+```
+docker container start pg_container
+docker exec -it pg_container bash
+ 
+5- LOG ON the postgres database created like so:
+```
+psql -U root -d test_db
+```
+
+###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
 ```sh
 docker pull linuxserver/libreoffice:7.2.2
-docker run -d \\n  --name=libreoffice \\n  -e PUID=1000 \\n  -e PGID=1000 \\n  -e TZ=Europe/London \\n  -p 3000:3000 \\n  -v /home/jomivz/doc:/doc \\n  --restart unless-stopped \\n  linuxserver/libreoffice:7.2.2
+docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 3000:3000 -v /home/jomivz/doc:/doc --restart unless-stopped linuxserver/libreoffice:7.2.2
+```
+
+###  3.6. <a name='splunksplunk'></a>splunk\splunk
+```sh
+docker pull splunk/splunk
+docker run -d -p 8000:8000 -e "SPLUNK_START_ARGS=--accept-license" -e "SPLUNK_PASSWORD=<password>" --name splunk splunk/splunk:latest
 ```
 
 ##  4. <a name='Troubleshooting'></a>Troubleshooting
@@ -203,4 +245,12 @@ sudo su
 docker rm $(docker ps -q -f 'status=exited')
 docker rm $(docker ps -q -f 'status=exited')
 
+```
+
+###  4.2. <a name='DockerDaemonConfigFile'></a>Docker Daemon Config File
+
+Edit the file ```/etc/docker/daemon.json```.
+
+```json
+#
 ```

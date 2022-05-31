@@ -4,14 +4,23 @@ title:  Powershell useful queries
 category: Windows
 parent: Windows
 grand_parent: Cheatsheets
-modified_date: 2022-02-18
+modified_date: 2022-05-31
 permalink: /:categories/:title/
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [Search in ActiveDirectory](#SearchinActiveDirectory)
+* 2. [CRUD in Registry Keys](#CRUDinRegistryKeys)
+	* 2.1. [CRUD MAC addresses](#CRUDMACaddresses)
+* 3. [Search for Hotfix](#SearchforHotfix)
 
-## PS sysadmin useful queries
------------------------------------------------
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
+##  1. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
 ```powershell
 #? Installing telnet clients 	
 Import-module servermanager
@@ -43,7 +52,10 @@ Get-ADComputer -Filter {Name -Like "dell-xps*"} -Property * | Format-Table Name,
 
 #? Listing Win > 6.1
 Get-ADComputer -Filter {OperatingSystemVersion -ge "6.1"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto
+```
 
+##  2. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
+```powershell
 #? Listing registry hives
 get-psdrive -PSProvider registry
 
@@ -69,7 +81,28 @@ HKEY_USERS\S-2-5-80-X_Classes
 HKEY_USERS\S-2-5-18             
 
 dir HKLM:\system\CurrentControlSet\Control\hivelist*
+```
+###  2.1. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
+```powershell
+#? Get the MAC address of the first network adapter
+get-item "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000"
+$thenic = Get-WMIObject -Query "select * from win32_networkadaptater wherer deviceid = 0000"
+$thenic.macaddress
+
+#? Disable the network adapter
+$thenic.disable()
+
+#? Enable the network adapter
+$thenic.enable()
+
+#? Set the network adapter MAC address
+set-itemproperty -path "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000" -name MACAddress -value 
+
+```
  
+##  3. <a name='SearchforHotfix'></a>Search for Hotfix 
+```powershell
+#? Listing registry hives
 #? ...
 Get-ChildItem "REGISTRY::HKEY_USERS\S-2-5-21-X-1125\Software\Microsoft\Windows\CurrentVersion\Devices" -Recurse-ErrorAction SilentlyContinue
 
