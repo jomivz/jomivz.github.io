@@ -135,11 +135,15 @@ bcdedit.exe /set testsigning on
 ```
 
 ###  3.8. <a name='SMBv1:enable'></a>SMBv1: enable
-```batch
+```powershell
+# DISM 
 DISM /online /enable-feature /featurename:SMB1Protocol
 DISM /online /enable-feature /featurename:SMB1Protocol-Client
 DISM /online /enable-feature /featurename:SMB1Protocol-Server
 DISM /online /enable-feature /featurename:SMB1Protocol-Deprecation
+
+# win10 tampering: PS activate SMBv1 OptionalFeatures
+Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
 
 ##  4. <a name='WindowsDISM'></a>Windows DISM
