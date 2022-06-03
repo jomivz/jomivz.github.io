@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 	* 1.1. [listing OS and KB config](#listingOSandKBconfig)
 	* 1.2. [listing network config & shares](#listingnetworkconfigshares)
 	* 1.3. [listing users](#listingusers)
+	* 1.4. [listing products, processes and services](#listingproductsprocessesandservices)
 * 2. [Security Checks](#SecurityChecks)
 	* 2.1. [windows firewall status](#windowsfirewallstatus)
 	* 2.2. [windows defender status](#windowsdefenderstatus)
@@ -38,6 +39,7 @@ permalink: /:categories/:title/
 ```powershell
 # listing OS version
 wmic os list brief
+wmic os get MUILanguages
 
 # listing KB wmi
 wmic qfe list full /format:table
@@ -54,6 +56,7 @@ wmic nic list brief
 ipconfig /all
 
 # listing network software 
+wmic nicconfig where IPEnabled='true' get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress
 ipconfig /all
 route -n
 netstat -ano
@@ -75,6 +78,17 @@ net localgroup
 net localgroup Administrators
 ```
 
+###  1.4. <a name='listingproductsprocessesandservices'></a>listing products, processes and services
+```powershell
+# listing windows product
+wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
+# listing windows processes
+wmic process get CSName,Description,ExecutablePath,ProcessId /format:csv
+# listing windows services 
+wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:csv
+```
+
+# listing local users
 ##  2. <a name='SecurityChecks'></a>Security Checks
 
 ###  2.1. <a name='windowsfirewallstatus'></a>windows firewall status
