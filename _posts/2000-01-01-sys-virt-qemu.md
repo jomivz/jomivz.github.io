@@ -1,6 +1,6 @@
 ---
 layout: post
-title: VIRT QEMU administration
+title: Sysadmin VIRT QEMU - Administration Cookbook
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets  
