@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  Powershell useful queries
-category: Windows
-parent: Windows
+title:  Sysadmin WIN Powershell - Useful queries
+category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2022-05-31
 permalink: /:categories/:title/

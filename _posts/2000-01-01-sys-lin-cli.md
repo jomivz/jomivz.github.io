@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin CLI LIN
+title: Sysadmin LIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets

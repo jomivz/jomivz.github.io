@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Powershell group listing to CSV
-category: Windows
-parent: Windows
+title: Sysadmin WIN Powershell - listing user groups
+category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2021-02-06
 permalink: /:categories/:title/

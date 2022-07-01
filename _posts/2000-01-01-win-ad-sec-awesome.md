@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Awesome AD Security
-category: Windows
-parent: Windows
+category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets  
 modified_date: 2021-08-06
 permalink: /:categories/:title/
