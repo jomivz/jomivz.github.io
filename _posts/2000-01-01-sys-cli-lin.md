@@ -4,7 +4,7 @@ title: Sysadmin CLI LIN
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2021-11-17
+modified_date: 2022-06-30
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 	* [Check ISO integrity](#CheckISOintegrity)
 	* [Check boot integrity](#Checkbootintegrity)
 	* [Run openvpn](#Runopenvpn)
+	* [Disable LLMNR (Ubuntu)](#DisableLLMNRUbuntu)
 * [System concerns](#Systemconcerns)
 	* [LVM resize vg-root](#LVMresizevg-root)
 	* [SED examples](#SEDexamples)
@@ -69,6 +70,11 @@ sudo openvpn --config xxx.opvn
 #? get public ip
 curl https://api.myip.com
 
+```
+### <a name='DisableLLMNRUbuntu'></a>Disable LLMNR (Ubuntu)
+```
+# Edit the line LLMNR=yes to LLMNR=no in /etc/systemd/resolved.conf
+nano /etc/systemd/resolved.conf
 ```
 ## <a name='Systemconcerns'></a>System concerns
 ### <a name='LVMresizevg-root'></a>LVM resize vg-root

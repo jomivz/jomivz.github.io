@@ -4,15 +4,15 @@ title: Sysadmin CLI WIN
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-06-03
+modified_date: 2022-06-30
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
 * 1. [listing system config](#listingsystemconfig)
-	* 1.1. [listing OS and KB config](#listingOSandKBconfig)
-	* 1.2. [listing network config & shares](#listingnetworkconfigshares)
-	* 1.3. [listing users](#listingusers)
-	* 1.4. [listing products, processes and services](#listingproductsprocessesandservices)
+	* 1.1. [OS and KB config](#OSandKBconfig)
+	* 1.2. [network config & file shares](#networkconfigfileshares)
+	* 1.3. [users & groups](#usersgroups)
+	* 1.4. [products, processes and services](#productsprocessesandservices)
 * 2. [Security Checks](#SecurityChecks)
 	* 2.1. [windows firewall status](#windowsfirewallstatus)
 	* 2.2. [windows defender status](#windowsdefenderstatus)
@@ -25,8 +25,10 @@ permalink: /:categories/:title/
 	* 3.6. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
 	* 3.7. [Windows driver signature: disable](#Windowsdriversignature:disable)
 	* 3.8. [SMBv1: enable](#SMBv1:enable)
-* 4. [Windows DISM](#WindowsDISM)
-* 5. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
+* 4. [Operating System Hardening](#OperatingSystemHardening)
+	* 4.1. [LLMNR: disable](#LLMNR:disable)
+* 5. [Windows DISM](#WindowsDISM)
+* 6. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -35,7 +37,7 @@ permalink: /:categories/:title/
 <!-- /vscode-markdown-toc -->
 
 ##  1. <a name='listingsystemconfig'></a>listing system config
-###  1.1. <a name='listingOSandKBconfig'></a>listing OS and KB config
+###  1.1. <a name='OSandKBconfig'></a>OS and KB config
 ```powershell
 # listing OS version
 wmic os list brief
@@ -49,7 +51,7 @@ powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.c
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-###  1.2. <a name='listingnetworkconfigshares'></a>listing network config & shares
+###  1.2. <a name='networkconfigfileshares'></a>network config & file shares
 ```powershell
 # listing network hardware
 wmic nic list brief
@@ -69,7 +71,7 @@ wmic share
 net share
 ```
 
-###  1.3. <a name='listingusers'></a>listing users
+###  1.3. <a name='usersgroups'></a>users & groups
 ```powershell
 # listing local users
 wmic netlogin list brief
@@ -78,7 +80,7 @@ net localgroup
 net localgroup Administrators
 ```
 
-###  1.4. <a name='listingproductsprocessesandservices'></a>listing products, processes and services
+###  1.4. <a name='productsprocessesandservices'></a>products, processes and services
 ```powershell
 # listing windows product
 wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
@@ -95,6 +97,7 @@ wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /
 ```batch
 # logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 netsh advfirewall show allprofiles
+netsh firewall show portopening
 ```
 
 ###  2.2. <a name='windowsdefenderstatus'></a>windows defender status
@@ -160,7 +163,14 @@ DISM /online /enable-feature /featurename:SMB1Protocol-Deprecation
 Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
 
-##  4. <a name='WindowsDISM'></a>Windows DISM
+##  4. <a name='OperatingSystemHardening'></a>Operating System Hardening
+###  4.1. <a name='LLMNR:disable'></a>LLMNR: disable
+```
+REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
+REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ”EnableMulticast” /t REG_DWORD /d “0” /f
+```
+
+##  5. <a name='WindowsDISM'></a>Windows DISM
 ```batch
 # Pre requisites: Admin rights
 # get all windows feature and save to a txt file
@@ -178,7 +188,7 @@ get-windowsoptionalfeature -online -featurename SMB1Protocol*
 get-windowsoptionalfeature -online -featurename SMB1Protocol* |ft
 ```
 
-##  5. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
+##  6. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
 ```
 # Note: By pass the GPO blocking the exec of the App Store app
 
