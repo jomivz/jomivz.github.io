@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Palo Alto XQL queries 
-parent: SIEM
+parent: EDR
 category: EDR
 grand_parent: Cheatsheets
 modified_date: 2022-06-30
