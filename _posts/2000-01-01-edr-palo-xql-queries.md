@@ -4,13 +4,13 @@ title: Palo Alto XQL queries
 parent: EDR
 category: EDR
 grand_parent: Cheatsheets
-modified_date: 2022-06-30
+modified_date: 2022-07-01
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [Pre-requisites](#Pre-requisites)
 * [practiced queries](#practicedqueries)
+	* [Get the public IP used by an endpoint](#GetthepublicIPusedbyanendpoint)
 	* [Spot SMB connections for IP 10.0.0.1](#SpotSMBconnectionsforIP10.0.0.1)
 	* [List of local open sessions sorted by descendant hits for PC001](#ListoflocalopensessionssortedbydescendanthitsforPC001)
 	* [List network sessions with processes for a set of endpoints](#Listnetworksessionswithprocessesforasetofendpoints)
@@ -32,11 +32,13 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Pre-requisites'></a>Pre-requisites
--  [parallel coordinates app](https://splunkbase.splunk.com/app/3767/#/details)
--  [force directed app](https://splunkbase.splunk.com/app/3137/)
-
 ## <a name='practicedqueries'></a>practiced queries
+
+### <a name='GetthepublicIPusedbyanendpoint'></a>Get the public IP used by an endpoint
+```
+dataset = endpoints
+| last_origin_ip = 8.8.8.8
+```
 
 ### <a name='SpotSMBconnectionsforIP10.0.0.1'></a>Spot SMB connections for IP 10.0.0.1
 ```
