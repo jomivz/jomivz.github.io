@@ -4,7 +4,7 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-07-01
+modified_date: 2022-07-06
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -69,6 +69,9 @@ net use
 
 wmic share
 net share
+
+# listing the domain controllers
+nltest /dclist:dom.corp
 ```
 
 ###  1.3. <a name='usersgroups'></a>users & groups
@@ -171,7 +174,7 @@ REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ”Enabl
 ```
 
 ##  5. <a name='WindowsDISM'></a>Windows DISM
-```batch
+```powershell
 # Pre requisites: Admin rights
 # get all windows feature and save to a txt file
 DISM /online /get-features /format:table > C:\Temp\dism_listing.txt
@@ -189,7 +192,7 @@ get-windowsoptionalfeature -online -featurename SMB1Protocol* |ft
 ```
 
 ##  6. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
-```
+```powershell
 # Note: By pass the GPO blocking the exec of the App Store app
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
