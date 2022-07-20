@@ -13,7 +13,10 @@ permalink: /:categories/:title/
 	* [Check boot integrity](#Checkbootintegrity)
 	* [Run openvpn](#Runopenvpn)
 	* [Disable LLMNR (Ubuntu)](#DisableLLMNRUbuntu)
+* [Network concerns](#Networkconcerns)
+	* [Change the MAC address](#ChangetheMACaddress)
 * [System concerns](#Systemconcerns)
+	* [Clean Shell history](#CleanShellhistory)
 	* [LVM resize vg-root](#LVMresizevg-root)
 	* [SED examples](#SEDexamples)
 	* [FIND examples](#FINDexamples)
@@ -76,7 +79,36 @@ curl https://api.myip.com
 # Edit the line LLMNR=yes to LLMNR=no in /etc/systemd/resolved.conf
 nano /etc/systemd/resolved.conf
 ```
+
+## <a name='Networkconcerns'></a>Network concerns
+### <a name='ChangetheMACaddress'></a>Change the MAC address
+```
+cat /usr/share/wireshark/manuf | grep -i Dell
+sudo ifconfig eth0 down
+sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
+sudo ifconfig eth0 up
+```
+### <a name='ChangetheMACaddress'></a>Loop exec over /24
+```
+# change echo with enum4linux, nmap, ... 
+for i in {1..254}; do echo 172.17.135.$i >> tt.txt; i=$i+1; done
+```
+
 ## <a name='Systemconcerns'></a>System concerns
+### <a name='Systemconcerns'></a>Sysinternals Procdump / Promon install 
+```
+wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
+sudo dpkg -i packages-microsoft-prod.deb
+sudo git clone https://github.com/Sysinternals/ProcMon-for-Linux.git
+sudo git clone https://github.com/Sysinternals/ProcDump-for-Linux.git
+```
+
+### <a name='CleanShellhistory'></a>Clean Shell history
+```
+echo "" > ~/.zsh_history
+echo "" > ~/.bash_history
+```
+
 ### <a name='LVMresizevg-root'></a>LVM resize vg-root
 ```sh
 #? resize lvm volume group

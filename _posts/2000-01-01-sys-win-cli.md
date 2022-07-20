@@ -27,6 +27,7 @@ permalink: /:categories/:title/
 	* 3.8. [SMBv1: enable](#SMBv1:enable)
 * 4. [Operating System Hardening](#OperatingSystemHardening)
 	* 4.1. [LLMNR: disable](#LLMNR:disable)
+	* 4.2. [MS-MSDT: disable](#MS-MSDT:disable)
 * 5. [Windows DISM](#WindowsDISM)
 * 6. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
 
@@ -168,6 +169,11 @@ Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
 REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
 REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ”EnableMulticast” /t REG_DWORD /d “0” /f
+```
+###  4.2. <a name='MS-MSDT:disable'></a>MS-MSDT: disable
+```
+# MS-MSDT protocol used by follina exploit, CVE-2022-30190
+RED DEL "HKEY_CLASSES_ROOT\ms-msdt" /f
 ```
 
 ##  5. <a name='WindowsDISM'></a>Windows DISM
