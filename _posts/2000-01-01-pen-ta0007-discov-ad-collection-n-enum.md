@@ -46,6 +46,7 @@ permalink: /:categories/:title/
 ### <a name='DownloadingSharpHound'></a>Downloading SharpHound
 
 - [SharpHound latest Scripts & Binary](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors)
+- [Python Alternative](https://github.com/fox-it/BloodHound.py)
 
 ### <a name='RunningPowershellTools'></a>Running Powershell Tools
 
