@@ -21,7 +21,7 @@ Using markdowns as notes allows to fetch commands (using ```grep``` plus keyword
 > * Always consult additional resources
 
 Equivalent repositories that I grep before making a cheatsheet: 
-> * [thehacker.recipes](https://thehacker.recipes)
+> * [thehacker.recipes](https://www.thehacker.recipes)
 > * [hacktricks.xyz](https://book.hacktricks.xyz)
 > * [ired.team](https://ired.team) 
 > * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
