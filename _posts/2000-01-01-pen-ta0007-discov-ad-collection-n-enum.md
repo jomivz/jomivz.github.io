@@ -1,34 +1,39 @@
 ---
 layout: post
-title: TA0007 Discovery - AD Enumeration
+title: TA0007 Discovery - AD Collection & Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-07-19
+modified_date: 2022-07-25
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITES](#PRE-REQUISITES)
+	* [Downloading SharpHound](#DownloadingSharpHound)
 	* [Running Powershell Tools](#RunningPowershellTools)
 		* [Spawn an AD account](#SpawnanADaccount)
 		* [Mandiant Commando VM](#MandiantCommandoVM)
 		* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
+		* [Handling console errors](#Handlingconsoleerrors)
 		* [Bypass AMSI](#BypassAMSI)
 	* [Running Bloodhound](#RunningBloodhound)
 	* [AD Web Services on the DC](#ADWebServicesontheDC)
-* [T1087.002 Account Discovery - Domain Account](#T1087.002AccountDiscovery-DomainAccount)
-	* [Domain Admin Account](#DomainAdminAccount)
-	* [Other Privileged Users](#OtherPrivilegedUsers)
-	* [Targeting a Computer](#TargetingaComputer)
-* [T1615 Group Policy Discovery](#T1615GroupPolicyDiscovery)
-* [T1135 Network Shares](#T1135NetworkShares)
-* [Txxx MSSQL servers](#TxxxMSSQLservers)
-* [TXXXX ACL](#TXXXXACL)
-* [ENUM: DOMAIN](#ENUM:DOMAIN)
-* [ENUM: FOREST PRIVESC](#ENUM:FORESTPRIVESC)
-* [T1046 SERVICES LOOTS](#T1046SERVICESLOOTS)
-* [MISC](#MISC)
+* [Data Collection with SharpHound](#DataCollectionwithSharpHound)
+* [Data Enumeration](#DataEnumeration)
+	* [Domain properties](#Domainproperties)
+	* [Forest properties](#Forestproperties)
+	* [T1087.002 Account Discovery - Domain Account](#T1087.002AccountDiscovery-DomainAccount)
+		* [Domain Admin Account](#DomainAdminAccount)
+		* [Other Privileged Users](#OtherPrivilegedUsers)
+		* [Targeting a Computer](#TargetingaComputer)
+	* [T1134.001 Token Impersonation via Delegations](#T1134.001TokenImpersonationviaDelegations)
+	* [T1615 Group Policy Discovery](#T1615GroupPolicyDiscovery)
+	* [T1135 Network Shares](#T1135NetworkShares)
+	* [Txxx MSSQL servers](#TxxxMSSQLservers)
+	* [TXXXX ACL](#TXXXXACL)
+	* [T1046 SERVICES LOOTS](#T1046SERVICESLOOTS)
+	* [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -37,6 +42,10 @@ permalink: /:categories/:title/
 <!-- /vscode-markdown-toc -->
 
 ## <a name='PRE-REQUISITES'></a>PRE-REQUISITES 
+
+### <a name='DownloadingSharpHound'></a>Downloading SharpHound
+
+- [SharpHound latest Scripts & Binary](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors)
 
 ### <a name='RunningPowershellTools'></a>Running Powershell Tools
 
@@ -67,6 +76,12 @@ $OU = "Admins"
 $forest ="corp"
 ```
 
+#### <a name='Handlingconsoleerrors'></a>Handling console errors
+```powershell
+$ErrorActionPreference = 'SilentlyContinue' # hide errors on out console
+$ErrorActionPreference = 'Continue' # set back the display of the errors
+```
+
 #### <a name='BypassAMSI'></a>Bypass AMSI 
 - [amsi.fails]('https://amsi.fails')
 - [S3cur3Th1sSh1t]('https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell')
@@ -87,8 +102,54 @@ On the error below when loading the AD module, ADWS must be reachable and runnin
 
 For more info, read the article from [theitbros.om](https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
 
-## <a name='T1087.002AccountDiscovery-DomainAccount'></a>T1087.002 Account Discovery - Domain Account
-### <a name='DomainAdminAccount'></a>Domain Admin Account
+## <a name='DataCollectionwithSharpHound'></a>Data Collection with SharpHound
+
+![SharpHound Cheatsheet](/assets/images/pen-win-ad-enum-sharphound-cheatsheet.png)
+
+Image credit: [https://twitter.com/SadProcessor](https://twitter.com/SadProcessor)
+
+## <a name='DataEnumeration'></a>Data Enumeration
+
+### <a name='Domainproperties'></a>Domain properties
+
+```powershell
+nltest /dclist:$dom
+Get-NetDomainController -Domain $dom
+
+# enumerate the current domain controller policy
+$DCPolicy = Get-DomainPolicy -Policy $dom_dc -Domain $dom -DomainController $dom_dc 
+$DCPolicy.PrivilegeRights # user privilege rights on the dc...
+
+# enumerate the current domain policy
+$DomainPolicy = Get-DomainPolicy -Policy $dom -Domain $dom -DomainController $dom_dc 
+$DomainPolicy.KerberosPolicy # useful for golden tickets
+$DomainPolicy.SystemAccess # password age/etc.
+
+# audit the permissions of AdminSDHolder, resolving GUIDs
+Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<domain>,DC=local' -ResolveGUIDs -Domain $dom -DomainController $dom_dc 
+```
+
+### <a name='Forestproperties'></a>Forest properties
+
+```powershell
+# get the trusts of the current domain/forest
+Get-NetDomainTrust -Domain $dom -DomainController $dom_dc 
+Get-NetForestTrust -Domain $dom -DomainController $dom_dc 
+
+# get information about an other forest
+Get-NetForest -Forest $forest -DomainController $dom_dc
+
+# find users with sidHistory set
+Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $dom -DomainController $dom_dc
+
+```
+
+### <a name='T1087.002AccountDiscovery-DomainAccount'></a>T1087.002 Account Discovery - Domain Account
+
+References:
+- [https://attack.mitre.org/techniques/T1087/002/](https://attack.mitre.org/techniques/T1087/002/)
+
+#### <a name='DomainAdminAccount'></a>Domain Admin Account
 ```powershell
 # PowerView: find where DA has logged on / and current user has access
 # can be long and noisy, does net share discovery over \\machine\IPC$
@@ -100,17 +161,11 @@ Invoke-UserHunter -CheckAccess -Domain $dom -DomainController $dom_dc | select u
 Get-NetGroupMember -Identity "Domain Admins" -Domain $dom -DomainController $dom_dc -Recurse | select membername, membersid
 Get-NetGroupMember -Identity "Enterprise Admins" -Domain $dom -DomainController $dom_dc -Recurse | select membername, membersid
 
-# gather info on the DA security groups
-Get-ObjectAcl -SamAccountName "Domain Admins" -Domain $dom -DomainController $dom_dc -ResolveGUIDs -Verbose| ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteProperty|WriteDacl|WriteOwner|ForceChangePassword')}
-
-# find linked DA accounts using name correlation
-Get-NetGroupMember 'Domain Admins' -Domain $dom -DomainController $dom_dc | %{Get-NetUser -Domain $dom -DomainController $dom_dc $_.membername -LDAPFilter '(displayname=*)'} | %{$a=$_.displayname.split(' ')[0..1] -join ' '; Get-NetUser -LDAPFilter "(displayname=*$a*)" -Domain $dom -DomainController $dom_dc -Properties displayname,samaccountname}
-
 # Find admin groups based on "adm" keyword
 Get-NetGroup -Domain $dom -DomainController $dom_dc *adm* 
 ```
 
-### <a name='OtherPrivilegedUsers'></a>Other Privileged Users
+#### <a name='OtherPrivilegedUsers'></a>Other Privileged Users
 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 
@@ -128,8 +183,11 @@ sharphound.exe -c All,LoggedOn
 # find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin -Domain $dom -DomainController $dom_dc | select computername, membername
 
-# powersploit: get all the effective members of DA groups, 'recursing down'
+# get all the effective members of DA groups, 'recursing down'
 Get-DomainGroupMember -Identity "Domain Computers" -Recurse -Domain $dom -DomainController $dom_dc | select membername, membersid
+
+# enumerate who has rights to the $user in $dom, resolving rights GUIDs to names
+Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $dom -DomainController $dom_dc 
 
 # Find any machine accounts in privileged groups
 Get-DomainGroup -AdminCount -Domain $dom -DomainController $dom_dc | Get-NetGroupMember -Recurse -Domain $dom -DomainController $dom_dc | ?{$_.MemberName -like '*$'}
@@ -143,12 +201,9 @@ Get-DomainGroupMember -Identity "Backup Operators" -Recurse -Domain $dom -Domain
 Get-NetGroupMember -GroupName "RDPUsers" -Domain $dom -DomainController $dom_dc 
 Invoke-ACLScanner -ResolveGUIDs -Domain $dom -DomainController $dom_dc | ?{$_.IdentityReference -match "RDPUsers"} 
 
-# Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
-# sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
-# get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
 ```
 
-### <a name='TargetingaComputer'></a>Targeting a Computer
+#### <a name='TargetingaComputer'></a>Targeting a Computer
 ```powershell
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName $computer -Domain $dom -DomainController $dom_dc
@@ -166,8 +221,27 @@ Get-DomainOU -Identity $computer -Domain $dom -DomainController $dom_dc | %{Get-
 # return the local *groups* of a remote server
 Get-NetLocalGroup $computer -Domain $dom -DomainController $dom_dc
 ```
+### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
 
-## <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
+References :
+- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
+
+```powershell
+# enumerate all computers that allow unconstrained delegation, and all privileged users that aren't marked as sensitive/not for delegation
+Get-DomainComputer -Unconstrained -Domain $dom -DomainController $dom_dc 
+Get-DomainUser -AllowDelegation -AdminCount -Domain $dom -DomainController $dom_dc 
+
+# Find-DomainUserLocation == old Invoke-UserHunter
+# enumerate servers that allow unconstrained Kerberos delegation and show all users logged in
+Find-DomainUserLocation -ComputerUnconstrained -ShowAll -Domain $dom -DomainController $dom_dc 
+
+# hunt for admin users that allow delegation, logged into servers that allow unconstrained delegation
+Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation -Domain $dom -DomainController $dom_dc 
+```
+
+### <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
+
+- [https://attack.mitre.org/techniques/T1615/](https://attack.mitre.org/techniques/T1615/)
 ```powershell
 # find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName $computer -Domain $dom -DomainController $dom_dc 
@@ -204,7 +278,11 @@ Get-DomainGPO -ComputerIdentity $computer -Domain $dom -DomainController $dom_dc
 Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $dom -DomainController $dom_dc  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 ```
 
-## <a name='T1135NetworkShares'></a>T1135 Network Shares
+### <a name='T1135NetworkShares'></a>T1135 Network Shares
+
+References:
+- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
+
 ```powershell
 # find share folders in the domain
 Invoke-ShareFinder -Domain $dom -DomainController $dom_dc
@@ -216,69 +294,58 @@ $Credential = New-Object System.Management.Automation.PSCredential("<Domain>\use
 Find-InterestingDomainShareFile -Domain $dom -DomainController $dom_dc -Credential $Credential
 ```
 
-## <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
+### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
+
+References:
+- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
+
+
 ```powershell
+# Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
+# sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
+# get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
+
  Get-SQLInstanceDomain -Verbose -DomainController DC.contoso.corp -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
 ```
 
-## <a name='TXXXXACL'></a>TXXXX ACL
+### <a name='TXXXXACL'></a>TXXXX ACL
+
+References:
+- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
+
 ```powershell
+
+# requirement : MAchineAccountQuota / possibility to create a new computer
+get-netuser | select-first 1 #get the domain's distinguisedname attribute 
+get-netobject -identity 'DC=contoso,DC,corp'
+# requirement : DC > win 2012
+get-domaincontroller | select name.osversion | fl
+# requirement  : check constraint delegation setting on the target computer 
+getnetcomputer $computer | select name,msds-allowedtoactonbehalfofotheridentity | fl
+
+# Target Computer Name : $computer
+# Admin on Target Computer : right click on the object in bloodhound
+# Fake Computer Name : fakecomputer
+# Fake Computer SID : get-netcomputer fakecomputer | select samaccountname,objectsid
+# Fake Computer password : Password123
+
+new-machineaccount MachineAccount fakecomputer -Password $(Convertto-securestring 'Password123' -AsPlainText -Force)
+
+
 # list users/groups ACLs
 # valuable attributes: IdentityReference, ObjectDN, ActiveDirectoryRights
 Get-ObjectAcl -SamAccountName <User>-ResolveGUIDs -Domain $dom -DomainController $dom_dc 
 
 # grant user 'will' the rights to change 'matt's password
 Add-DomainObjectAcl -TargetIdentity matt -PrincipalIdentity will -Rights ResetPassword -Domain $dom -DomainController $dom_dc  -Verbose
+
 ```
 
-## <a name='ENUM:DOMAIN'></a>ENUM: DOMAIN
+### <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS
 
-```powershell
-nltest /dclist:$dom
-Get-NetDomainController -Domain $dom
+References:
+- [https://attack.mitre.org/techniques/T1046](https://attack.mitre.org/techniques/T1046/)
 
-# enumerate the current domain controller policy
-$DCPolicy = Get-DomainPolicy -Policy $dom_dc -Domain $dom -DomainController $dom_dc 
-$DCPolicy.PrivilegeRights # user privilege rights on the dc...
-
-# enumerate the current domain policy
-$DomainPolicy = Get-DomainPolicy -Policy $dom -Domain $dom -DomainController $dom_dc 
-$DomainPolicy.KerberosPolicy # useful for golden tickets
-$DomainPolicy.SystemAccess # password age/etc.
-
-# enumerate who has rights to the 'matt' user in '<Domain>.local', resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $dom -DomainController $dom_dc 
-
-# audit the permissions of AdminSDHolder, resolving GUIDs
-Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<domain>,DC=local' -ResolveGUIDs -Domain $dom -DomainController $dom_dc 
-```
-
-## <a name='ENUM:FORESTPRIVESC'></a>ENUM: FOREST PRIVESC
-
-```powershell
-# get the trusts of the current domain/forest
-Get-NetDomainTrust -Domain $dom -DomainController $dom_dc 
-Get-NetForestTrust -Domain $dom -DomainController $dom_dc 
-
-# get information about an other forest
-Get-NetForest -Forest $forest -DomainController $dom_dc
-
-# find users with sidHistory set
-Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $dom -DomainController $dom_dc
-
-# enumerate all servers that allow unconstrained delegation, and all privileged users that aren't marked as sensitive/not for delegation
-Get-DomainComputer -Unconstrained -Domain $dom -DomainController $dom_dc 
-Get-DomainUser -AllowDelegation -AdminCount -Domain $dom -DomainController $dom_dc 
-
-# Find-DomainUserLocation == old Invoke-UserHunter
-# enumerate servers that allow unconstrained Kerberos delegation and show all users logged in
-Find-DomainUserLocation -ComputerUnconstrained -ShowAll -Domain $dom -DomainController $dom_dc 
-
-# hunt for admin users that allow delegation, logged into servers that allow unconstrained delegation
-Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation -Domain $dom -DomainController $dom_dc 
-```
-
-## <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS
 ```powershell
 # find all users with an SPN set (likely service accounts)
 Get-DomainUser -SPN -Domain $dom -DomainController $dom_dc | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
@@ -291,7 +358,7 @@ Get-DomainUser -SPN -Domain $dom -DomainController $dom_dc | ?{$_.memberof -matc
 Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $dom -DomainController $dom_dc 
 ```
 
-## <a name='MISC'></a>MISC
+### <a name='MISC'></a>MISC
 ```powershell
 # get all the groups a user is effectively a member of, 'recursing up' using tokenGroups
 Get-DomainGroup -MemberIdentity $user -Domain $dom -DomainController $dom_dc 
