@@ -25,7 +25,7 @@ permalink: /:categories/:title/
 
 ## <a name='NMAPCheatsheet'></a>NMAP Cheatsheet
 
-![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet)
+![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet.jpg)
 
 Image credit: Mohamed M. Aly
 

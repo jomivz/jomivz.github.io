@@ -242,6 +242,7 @@ Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegat
 ### <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
 
 - [https://attack.mitre.org/techniques/T1615/](https://attack.mitre.org/techniques/T1615/)
+
 ```powershell
 # find users who have local admin rights
 Find-GPOComputerAdmin -ComputerName $computer -Domain $dom -DomainController $dom_dc 
@@ -299,13 +300,12 @@ Find-InterestingDomainShareFile -Domain $dom -DomainController $dom_dc -Credenti
 References:
 - [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
 
-
 ```powershell
 # Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
 # sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
 # get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
 
- Get-SQLInstanceDomain -Verbose -DomainController DC.contoso.corp -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
+ Get-SQLInstanceDomain -Verbose -DomainController $dom_dc -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
 ```
 
 ### <a name='TXXXXACL'></a>TXXXX ACL
@@ -314,7 +314,6 @@ References:
 - [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
 
 ```powershell
-
 # requirement : MAchineAccountQuota / possibility to create a new computer
 get-netuser | select-first 1 #get the domain's distinguisedname attribute 
 get-netobject -identity 'DC=contoso,DC,corp'
