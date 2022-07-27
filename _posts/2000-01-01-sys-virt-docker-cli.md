@@ -4,7 +4,7 @@ title: Sysadmin VIRT Docker - Administration Cookbook
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-03-24
+modified_date: 2022-07-19
 permalink: /:categories/:title/
 ---
 
@@ -14,14 +14,18 @@ permalink: /:categories/:title/
 	* 2.1. [testssl.sh](#testssl.sh)
 	* 2.2. [nuclei](#nuclei)
 	* 2.3. [SpiderFoot](#SpiderFoot)
-	* 2.4. [fox-it\BloodHound.py](#fox-itBloodHound.py)
-	* 2.5. [ropnop\kerbrute](#ropnopkerbrute)
-	* 2.6. [impacket](#impacket)
+	* 2.4. [ropnop\kerbrute](#ropnopkerbrute)
+	* 2.5. [impacket](#impacket)
 * 3. [Other images](#Otherimages)
 	* 3.1. [Alpine](#Alpine)
 	* 3.2. [Jekyll](#Jekyll)
 	* 3.3. [frolvlad/alpine-python2](#frolvladalpine-python2)
 	* 3.4. [postgres](#postgres)
+	* 3.5. [linuxserver\libreoffice](#linuxserverlibreoffice)
+	* 3.6. [splunk\splunk](#splunksplunk)
+* 4. [Troubleshooting](#Troubleshooting)
+	* 4.1. [No space left on device error](#Nospaceleftondeviceerror)
+	* 4.2. [Docker Daemon Config File](#DockerDaemonConfigFile)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -95,21 +99,9 @@ docker run -p 5002:5001 -d spiderfoot
 # open your browser https://127.0.0.1:5002
 
 ```
-###  2.4. <a name='fox-itBloodHound.py'></a>fox-it\BloodHound.py
-```sh
-#? install docker bloodhound.py
-#
-cd /usr/share
-sudo git clone https://github.com/fox-it/BloodHound.py
-cd BloodHound.py
-sudo docker build -t bloodhound:1.1.1 .
+Go to the [spiderfoot cheatsheet](/_posts/2000-01-01-osint-spiderfoot-cheatsheet.md).
 
-#? run docker bloodhound.py with data stored in $PWD
-docker run -v ${PWD}:/bloodhound-data -it bloodhound:1.1.1
-> bloodhound-python
-
-```
-###  2.5. <a name='ropnopkerbrute'></a>ropnop\kerbrute
+###  2.4. <a name='ropnopkerbrute'></a>ropnop\kerbrute
 ```sh
 #? pentest ad bruteforce auth kerbrute
 #? build docker kerbrute
@@ -135,7 +127,7 @@ curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/
 docker run -v .:/mnt -it kerbrute:1.0.3 enumuser --dc spookysec.local userlist.txt -t 100
 
 ```
-###  2.6. <a name='impacket'></a>impacket
+###  2.5. <a name='impacket'></a>impacket
 ```sh
 #? pentest ad bruteforce auth kerbrute
 #? build docker kerbrute
@@ -191,7 +183,7 @@ IN 5 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
 1- MAKE sure you have ```docker```  and ```docker-compose``` installed
 
 2- MAKE sure you are member of the docker users group
-`
+
 3- COPY the Dockerfile below in your ```$HOME``` and TYPE in a terminal ```cd; docker-compose up``` 
 
 ```sh
@@ -212,10 +204,12 @@ services:
 volumes:
 	pg_data:
 ```
+
 4- MAKE sure the container is running then get a bash on it: 
 ```
 docker container start pg_container
 docker exec -it pg_container bash
+```
  
 5- LOG ON the postgres database created like so:
 ```

@@ -22,6 +22,15 @@ permalink: /:categories/:title/
 
 ##  1. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
 ```powershell
+$dom = "contoso"
+$user = "john_doe"
+Password = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
+$login = $dom + "\" + $user
+$Credential = New-Object System.Management.Automation.PSCredential($login,$Password)
+```
+
+##  1. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
+```powershell
 #? Installing telnet clients 	
 Import-module servermanager
   Add-windowsfeature telnet-client
