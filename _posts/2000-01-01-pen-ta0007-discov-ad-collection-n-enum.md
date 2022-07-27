@@ -71,12 +71,16 @@ $forest = "corp"
 $dom = "contoso"
 $dom_dc = "DC01"
 $dom_fqdn = $dom + "." + $forest
-$dom_fqdn_dc = $dom_dc "." + $dom_fqdn
+$dom_fqdn_dc = $dom_dc + "." + $dom_fqdn
 $dom_dc_san = $dom_dc + "$"
+$dom_dn = "DC=contoso,DC=corp"
+$dom_dc_ip = ""
+
 $dom_da_grp = "Domain Admins"
-$user = "admin"
-$computer = "PC001"
-$OU = "Admins"
+
+$target_user = "admin"
+$target_computer = "PC001"
+$target_OU = "Admins"
 ```
 
 #### <a name='Handlingconsoleerrors'></a>Handling console errors
@@ -116,6 +120,10 @@ Image credit: [https://twitter.com/SadProcessor](https://twitter.com/SadProcesso
 ### <a name='Domainproperties'></a>Domain properties
 
 ```powershell
+# check the domain object (fsmo, DCs, ntds replication, dns servers, machineaccountquota)
+Get-DomainObject -identity $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+
+# list the domain controllers
 nltest /dclist:$dom_fqdn
 Get-NetDomainController -Domain $dom_fqdn
 
@@ -128,16 +136,23 @@ $dom_fqdnainPolicy = Get-DomainPolicy -Policy $dom_fqdn -Domain $dom_fqdn -Domai
 $dom_fqdnainPolicy.KerberosPolicy
 $dom_fqdnainPolicy.SystemAccess # password age/etc.
 
-# audit the permissions of AdminSDHolder, resolving GUIDs
-Get-DomainObjectAcl -SearchBase 'CN=AdminSDHolder,CN=System,DC=<domain>,DC=local' -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-
 # who can dcsync
-get-netuser -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select-first 1 #get the domain's distinguisedname attribute
+get-netuser -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select -first 1 #get the domain's distinguisedname attribute
 $dom_dn = "DC=" + $dom + ",DC=" + $forest # only valid if 2 levels
+# TO DEBUG : get-forest error ...
 get-domainobjectacl $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc -ResolveGUIDs | ? {
 	($_.ObjectType -match 'replication-get') -or
 	($_.ActiveDirectoryRights -match 'GenericAll')
 } 
+
+# audit the permissions of AdminSDHolder, resolving GUIDs
+# TO DEBUG : get-forest error ...
+$search_base = "CN=AdminSDHolder,CN=System," + $dom_dn
+Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+
+# protected users / works with Win Server 2012 R2 and above
+Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select membername
+Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
 ```
 
 ### <a name='Forestproperties'></a>Forest properties
@@ -187,7 +202,9 @@ Find-UserField -SearchField Description -SearchTerm "pass" -Domain $dom_fqdn -Do
 
 # find where the backup operators are logged on
 Invoke-UserHunter -Group "Backup Operators" -Domain $dom_fqdn -DomainControler $dom_fqdn_dc | select computername, membername
-Get-NetGroupMember -Identity "RDPUsers" -Recurse -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-NetGroupMember "Backup Operators" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+Get-NetGroupMember "Remote Desktop Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+Get-NetGroupMember "DNSAdmins" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
 
 # find computers where the current user is local admin
 Find-LocalAdminAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc
@@ -292,8 +309,8 @@ Find-InterestingDomainShareFile -Domain $dom_fqdn -DomainController $dom_fqdn_dc
 ### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
 
 References:
+- [BloodHound Edge SQLAdmin](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#sqladmin)
 - [PowerUpSQL CheatSheet](https://github.com/NetSPI/PowerUpSQL/wiki/PowerUpSQL-Cheat-Sheet)
-- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
 
 ```powershell
 # Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
@@ -306,7 +323,9 @@ References:
 ### <a name='TXXXXACL'></a>TXXXX ACL
 
 References:
-- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
+- [BloodHound Edge GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall)
+- [BloodHound Edge WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl)
+- [BloodHound Edge GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
 ```powershell
 # Enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
@@ -321,12 +340,14 @@ Invoke-ACLScanner -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc
 ```
 - Prepare RBCD attack :
 ```powershell
-# requirement : MAchineAccountQuota / possibility to create a new computer
-get-netobject -identity 'DC=contoso,DC,corp'
 # requirement : DC > win 2012
-get-domaincontroller | select name.osversion | fl
+Get-DomainController -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select name.osversion | fl
+# requirement : target user is not a member of the "Protected Users" group
+Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+# requirement : MachineAccountQuota / possibility to create a new computer
+Get-DomainObject -identity $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select ms-ds-machineaccountquota
 # requirement  : check constraint delegation setting on the target computer 
-get-netcomputer $computer | select name,msds-allowedtoactonbehalfofotheridentity | fl
+Get-NetComputer $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select name,msds-allowedtoactonbehalfofotheridentity | fl
 # check targetuser is not part of protected users 
 
 # Target Computer Name : $computer
