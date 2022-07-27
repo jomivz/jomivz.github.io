@@ -124,18 +124,29 @@ powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-Mp
 ```
 
 ###  2.3. <a name='CredentialGuardstatus'></a>Credential Guard status
-Reference :
- - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
+
+Run the following powershell commands as local administrator:
+
 ```powershell
-# set DWORD value named LsaCfgFlags to 1 to enable Windows Defender Credential Guard with UEFI lock, set it to 2 to enable Windows Defender Credential Guard without lock, and set it to 0 to disable it.
+powershell -ep bypass
+# if DWORD value named LsaCfgFlags is set to :
+#  - 0 is disabled
+#  - 1 then Windows Defender Credential Guard is enabled with UEFI lock
+#  - 2 then Windows Defender Credential Guard enabled without lock
 dir HKLM:\SYSTEM\CurrentControlSet\Control\Lsa*
-# set DWORD value named EnableVirtualizationBasedSecurity to 1 to enable virtualization-based security and set it to 0 to disable it
-# set DWORD value named RequirePlatformSecurityFeatures to 1 to use Secure Boot only or set it to 3 to use Secure Boot and DMA protection
+# if DWORD value named EnableVirtualizationBasedSecurity is set to : 
+#  - 0 then virtualization-based security is disabled
+#  - 1 then virtualization-based security is enabled
+# if DWORD value named RequirePlatformSecurityFeatures is set to :
+#  - 1 then Secure Boot only 
+#  - 3 then Secure Boot and DMA protection
 dir HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard*
 ```
 
-###  2.4. <a name='PPLstatus'></a>PPL status
+Reference :
+ - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
 
+###  2.4. <a name='PPLstatus'></a>PPL status
 
 ##  3. <a name='OperatingSystemTampering'></a>Operating System Tampering
 
