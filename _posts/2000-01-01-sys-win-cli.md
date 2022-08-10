@@ -4,7 +4,7 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-07-06
+modified_date: 2022-07-27
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -42,7 +42,7 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='listingsystemconfig'></a>listing system config
+##  1. <a name='listingsystemconfig'></a>Listing System Config
 ###  1.1. <a name='OSandKBconfig'></a>OS and KB config
 ```powershell
 # listing OS version

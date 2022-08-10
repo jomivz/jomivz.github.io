@@ -98,7 +98,7 @@ $ErrorActionPreference = 'Continue' # set back the display of the errors
 ```powershell
 # Path for VM Mandiant Commando
 # Start the Neo4J database
-C:\Tools\neo4j-community\neo4j-community-3.5.1\bin>neo4j.bat console
+C:\Tools\neo4j-community\neo4j-community-3.5.1\bin>./neo4j.bat console
 ```
 
 ### <a name='ADWebServicesontheDC'></a>AD Web Services on the DC
@@ -114,6 +114,13 @@ For more info, read the article from [theitbros.om](https://theitbros.com/unable
 ![SharpHound Cheatsheet](/assets/images/pen-win-ad-enum-sharphound-cheatsheet.png)
 
 Image credit: [https://twitter.com/SadProcessor](https://twitter.com/SadProcessor)
+
+Refresh sessions:
+```powershell
+# STEP 1 : go to bloodhound GUI / database statistics / clear session data
+# STEP 2 : collect sessions again
+ ./sharphound.exe -c computeronly --domain $dom_fqdn --domaincontroller $dom_fqdn_dc
+```
 
 ## <a name='DataEnumeration'></a>Data Enumeration
 
@@ -190,6 +197,7 @@ Get-NetGroup -Domain $dom_fqdn -DomainController $dom_fqdn_dc *adm*
 Invoke-UserHunter -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
 Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
 Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select username, computername, IPAddress
+ ./sharphound.exe -c computeronly --domain $dom_fqdn --domaincontroller $dom_fqdn_dc
 ```
 
 #### <a name='OtherPrivilegedUsers'></a>Other Privileged Users
@@ -197,6 +205,10 @@ Invoke-UserHunter -CheckAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 
 ```powershell
+# look for a user from his objectsid
+$objectsid = 'S-1-5-21-123'
+get-netuser -domain $dom_fqdn -domaincontroller $dom_fqdn_dc | ?{$_.objectsid -eq $objectsid} | select -first 1
+
 # look for the keyword "pass" in the description attribute for each user in the domain
 Find-UserField -SearchField Description -SearchTerm "pass" -Domain $dom_fqdn -DomainController $dom_fqdn_dc
 
@@ -208,7 +220,6 @@ Get-NetGroupMember "DNSAdmins" -Domain $dom_fqdn -DomainController $dom_fqdn_dc 
 
 # find computers where the current user is local admin
 Find-LocalAdminAccess -Domain $dom_fqdn -DomainController $dom_fqdn_dc
-sharphound.exe -c All,LoggedOn
 
 # find local admins on all computers of the domain
 Invoke-EnumerateLocalAdmin -Domain $dom_fqdn -DomainController $dom_fqdn_dc | select computername, membername
