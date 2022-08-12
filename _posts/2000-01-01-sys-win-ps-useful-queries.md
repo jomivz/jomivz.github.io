@@ -32,7 +32,7 @@ $zlat_creds = New-Object System.Management.Automation.PSCredential($zlat_login,$
 ```
 
 ##  2. <a name='PSSessionInvoke-Command'></a>PSSession & Invoke-Command 
-!!! Verify (WinRM is running)[/sys-win-cli/#activatePSRemoting] !!!
+!!! Verify (WinRM is running)[/sysadmin/sys-win-cli/#activatePSRemoting] !!!
 ```powershell
 # create and enter a session
 $zs = New-PSSession -ComputerName $ztarg_computer_fqdn -Credential $zlat_creds

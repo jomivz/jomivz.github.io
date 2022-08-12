@@ -4,7 +4,7 @@ title: Awesome AD Security
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets  
-modified_date: 2021-08-06
+modified_date: 2022-08-12
 permalink: /:categories/:title/
 ---
 
@@ -29,7 +29,7 @@ permalink: /:categories/:title/
 | [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
 | [Bloodhound Nodes](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html) | Must-read to understand AD attack paths. | SperterOps | 
 | [Bloodhound Edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) | Must-read to understand AD attack paths. | SpecterOps | 
-| [Kerberos Ticketing & Delegations](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Constructing%20Kerberos%20Attacks%20with%20Delegation%20Primitives.pdf) | Elad Shamir, Matt Bush | Haboob Team 
+| [Kerberos Ticketing & Delegations](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Constructing%20Kerberos%20Attacks%20with%20Delegation%20Primitives.pdf) | Workshop at Defcon 27 using rollercoaster metaphor for pedagogy. Just awesome. | Elad Shamir, Matt Bush |
 
 ## <a name='OffensiveADCookbooks'></a>Offensive AD Cookbooks
 --------------------------------

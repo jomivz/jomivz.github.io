@@ -354,7 +354,9 @@ Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainCont
 Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match "RDPUsers"} 
 ```
+
 - Prepare RBCD attack :
+
 ```powershell
 # requirement : DC > win 2012
 Get-DomainController -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name.osversion | fl
