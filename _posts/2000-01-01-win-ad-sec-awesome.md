@@ -10,7 +10,7 @@ permalink: /:categories/:title/
 
 <!-- vscode-markdown-toc -->
 * [Starting your journey](#Startingyourjourney)
-* [Offensive Cookbooks](#OffensiveCookbooks)
+* [Offensive AD Cookbooks](#OffensiveADCookbooks)
 * [Offensive Powershell](#OffensivePowershell)
 * [DFIR](#DFIR)
 * [ATP / O365](#ATPO365)
@@ -27,17 +27,19 @@ permalink: /:categories/:title/
 | **Ressource**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
 | [Attacking AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. Good pedagogy illustrated with powershell commands. | Eloy Pérez González | 
-| [AD Security Awarness for CISO](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Security%20-%20An%20Executive%20Summary%20for%20CISOs.pdf) | In case of awarness duties, this is a good support. | Paramount |
+| [Bloodhound Nodes](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html) | Must-read to understand AD attack paths. | SperterOps | 
+| [Bloodhound Edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) | Must-read to understand AD attack paths. | SpecterOps | 
+| [Kerberos Ticketing & Delegations](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Constructing%20Kerberos%20Attacks%20with%20Delegation%20Primitives.pdf) | Elad Shamir, Matt Bush | Haboob Team 
 
-## <a name='OffensiveCookbooks'></a>Offensive AD Cookbooks
+## <a name='OffensiveADCookbooks'></a>Offensive AD Cookbooks
 --------------------------------
 
 | **Ressource**  | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
 | [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. My TOP 1. | SadProcessor |
 | [Mindmap Attacking AD](https://github.com/six2dez/pentest-book/blob/master/.gitbook/assets/pentest_ad-min.png) | Master Piece Mindmap. My TOP 2. | six2dez |
-| [TTPs for AD - BH USA 2019](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/TTPs%20to%20Attack%20Active%20Directory.pdf) | Presentation to demo Bloodhound. Really nice schemas. | specterops.io |
-| [AD Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
+| [Bloodhound Cypher Cheatsheet](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/) | Cypher queries for Bloodhound Neo4j DB | hausec |
+https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
 | [AD Kill Chain Attack & Defense](https://github.com/infosecn1nja/AD-Attack-Defense) | Well **classified compilation of articles** from the technet, adsecurity, stealthbits, specterops, youtube, github and other sources. Great room to deepdive a particluar topic. | infosecn1nja |
 | [Attacking Kerberos 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
 
@@ -49,6 +51,7 @@ permalink: /:categories/:title/
 |-----------------|-----------------|------------------|
 | [Quickstart Cheatsheet](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | - |
 | [Complete AD Powershell Enum](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/Active%20Directory%20Enumeration%20With%20PowerShell.pdf) | - | Haboob Team 
+| [AD Exploitation Cheat Sheet](https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet) | Contains the **CLI of the most well-known tools** for common enumeration and attack methods: Local PrivEsc, Lateral Movement, Domain PrivEsc, Domain Persistence, Cross Forests Attacks | S1ckB0y1337 |
 | [CRTP CTRO Cheatsheets](https://casvancooten.com/posts/2020/11/windows-active-directory-exploitation-cheat-sheet-and-command-reference/) | The best CRTP + CRTO cheatsheet for lab certifications made by pentesteracademy. | casvancooten |
 | [Harmj0y CheatSheet](https://github.com/HarmJ0y/CheatSheets/) | PowerView, PowerUp, PowerSploit, and Empire cheatsheets. | HarmJ0y |
 | [Specterops PS tools](https://github.com/specterops/at-ps) | Tools used for the offensive powershell training provided by specterops. | specterops.io |

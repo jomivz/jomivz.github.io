@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-08-10
+modified_date: 2022-08-12
 permalink: /:categories/:title/
 ---
 
@@ -40,6 +40,8 @@ permalink: /:categories/:title/
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+ !!! **Useful links** to [learn AD security](/sysadmin/win-ad-sec-awesome/#starting-your-journey) !!!
 
 ## <a name='PRE-REQUISITES'></a>PRE-REQUISITES 
 
@@ -109,14 +111,6 @@ $ErrorActionPreference = 'Continue' # set back the display of the errors
 C:\Tools\neo4j-community\neo4j-community-3.5.1\bin>./neo4j.bat console
 ```
 
-### <a name='ADWebServicesontheDC'></a>AD Web Services on the DC
-
-On the error below when loading the AD module, ADWS must be reachable and running:
-- TCP port 9389 reachable from your endpoint (and listening on the DC) : ```Test-NetConnection DC01 -port 9389```
-- Restart the service on the DC : ```Restart-Service –name ADWS –verbose```
-
-For more info, read the article from [theitbros.om](https://theitbros.com/unable-to-find-a-default-server-with-active-directory-web-services-running/).
-
 ## <a name='DataCollectionwithSharpHound'></a>Data Collection with SharpHound
 
 ![SharpHound Cheatsheet](/assets/images/pen-win-ad-enum-sharphound-cheatsheet.png)
@@ -131,6 +125,8 @@ Refresh sessions:
 ```
 
 ## <a name='DataEnumeration'></a>Data Enumeration
+
+Commands below inspired more various [cheatsheets](/sysadmin/win-ad-sec-awesome/#OffensivePowershell).
 
 ### <a name='Domainproperties'></a>Domain properties
 
