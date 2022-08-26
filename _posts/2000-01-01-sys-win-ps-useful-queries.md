@@ -34,6 +34,7 @@ $zlat_creds = New-Object System.Management.Automation.PSCredential($zlat_login,$
 
 ##  2. <a name='PSSessionInvoke-Command'></a>PSSession & Invoke-Command 
 !!! Verify (WinRM is running)[/sysadmin/sys-win-cli/#activatePSRemoting] !!!
+
 ```powershell
 # create and enter a session
 $zs = New-PSSession -ComputerName $ztarg_computer_fqdn -Credential $zlat_creds
@@ -47,16 +48,6 @@ Enter-PSSession -id 3
 # remote command execution
 Invoke-Command -Session $zs -ScriptBlock {systeminfo}
 
-# copy file between 2 hosts / shared folder required on source or destination
-# version 1 : shared folder on source / for VM set interface in bridge mode 
- Invoke-Command -Session $zs -ScriptBlock {New-SmbShare -name "hope" -path "c:\users\_adm_michelj\desktop" -FullAccess "EUROPE\_adm_michelj"}
-
-Invoke-Command -Session $zs -ScriptBlock {Get-Content \\\x$\test.txt >> c:\Windows\Temp\test.txt}
-cd c:\; Remove-PSDrive X
-# version 2 : shared folder on destination
-Invoke-Command -Session $zs -ScriptBlock {Copy-Item -Path \\$zxx\share\test.txt -Destination C:\Windows\Temp\}
-Invoke-Command -Session $zs -ScriptBlock {net share x /delete}
-
 # clean the current session
 Exit-PsSession
 
@@ -66,14 +57,31 @@ Get-PSSession | Disconnect-PSSession
 
 ##  3. <a name='SMBFilesharing'></a>SMB File sharing
 ```powershell
-# create a fileshare locally
 
-# create a fileshare remotely 
-Invoke-Command (New-SmbShare)
-dir \\
+# STEP 1: create a smb share on the remote machine
+$zshare = "hope"
+$zcmd = 'New-SmbShare -name ' + $zshare + ' -path "c:\windows\temp" -FullAccess ' + $zlat_login
+$zsb = [scriptblock]::create($zcmd)
+Invoke-Command -Session $zs -ScriptBlock $zsb
 
-# copy file from one location to another
-Copy-Item
+# OPTIONAL: check the share was created
+Invoke-Command -Session $zs -ScriptBlock {net share}
+
+# STEP 2.1: download a file to C:\windows\temp
+$zfile = 'test.txt'
+$zdl = '\\' + $ztarg_computer_fqdn + '\' + $zshare + '\' + $zfile + ' >> c:\windows\temp\' + $zfile
+Get-Content $zdl
+
+# STEP 2.2: upload a file
+$zfile = 'test.txt'
+$zfile_uri = 'c:\windows\temp\' + $zfile
+$zul = '\\' + $ztarg_computer_fqdn + '\' + $zshare + '\' + $zfile 
+Copy-Item -Path $zfile_uri -Destination $zul
+
+# STEP 3 : delete the shared folder on destination
+$zcmd = 'net share ' + $zshare + ' /delete'
+$zsb = [scriptblock]::create($zcmd)
+Invoke-Command -Session $zs -ScriptBlock $zsb
 ```
 
 ##  4. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
