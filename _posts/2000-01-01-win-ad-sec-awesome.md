@@ -39,7 +39,6 @@ permalink: /:categories/:title/
 | [The Dog Whisperer Handbook](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. My TOP 1. | SadProcessor |
 | [Mindmap Attacking AD](https://github.com/six2dez/pentest-book/blob/master/.gitbook/assets/pentest_ad-min.png) | Master Piece Mindmap. My TOP 2. | six2dez |
 | [Bloodhound Cypher Cheatsheet](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/) | Cypher queries for Bloodhound Neo4j DB | hausec |
-https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
 | [AD Kill Chain Attack & Defense](https://github.com/infosecn1nja/AD-Attack-Defense) | Well **classified compilation of articles** from the technet, adsecurity, stealthbits, specterops, youtube, github and other sources. Great room to deepdive a particluar topic. | infosecn1nja |
 | [Attacking Kerberos 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
 

@@ -81,6 +81,14 @@ nano /etc/systemd/resolved.conf
 ```
 
 ## <a name='Networkconcerns'></a>Network concerns
+### <a name='ChangetheMACaddress'></a>Set a static/dynamic IP address
+```
+sudo vim /etc/netplan/01-netcfg.yaml
+# set the DHCP option from true to false
+# save and exit
+sudo netplan apply
+sudo systemctl restart networking
+```
 ### <a name='ChangetheMACaddress'></a>Change the MAC address
 ```
 cat /usr/share/wireshark/manuf | grep -i Dell

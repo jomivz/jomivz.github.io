@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin VIRT QEMU - Administration Cookbook
+title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets  
@@ -9,8 +9,13 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [Converting OVA to QCOW for libvirtd](#ConvertingOVAtoQCOWforlibvirtd)
-* [ Accessing to the Virtual Machine (VM) from host](#AccessingtotheVirtualMachineVMfromhost)
+* [LibVirtd](#LibVirtd)
+	* [Converting OVA to QCOW](#ConvertingOVAtoQCOW)
+	* [ Network Settings](#NetworkSettings)
+	* [ netfilter](#netfilter)
+* [Proxmox](#Proxmox)
+	* [Converting to VMDK for ProxMox](#ConvertingtoVMDKforProxMox)
+	* [ VM config files](#VMconfigfiles)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -18,8 +23,13 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->---
 
-## <a name='ConvertingOVAtoQCOWforlibvirtd'></a>Converting OVA to QCOW for libvirtd
+## <a name='LibVirtd'></a>LibVirtd
 
+- (qemu.readthedocs.io)[https://qemu.readthedocs.io/en/latest/index.html]
+- (proxmox pve wiki)[https://pve.proxmox.com/wiki/Main_Page]
+- (promoxpve docs)[https://pve.proxmox.com/pve-docs/]
+
+### <a name='ConvertingOVAtoQCOW'></a>Converting OVA to QCOW
 ```sh
 tar xvf anothertrainingbox64.ova
 ls
@@ -27,7 +37,7 @@ anothertrainingbox64.vmdk
 qemu-img convert anothertrainingbox64.vmdk xin-box-64.qemu2 -O qcow2
 ```
 
-## <a name='AccessingtotheVirtualMachineVMfromhost'></a> Accessing to the Virtual Machine (VM) from host
+### <a name='NetworkSettings'></a> Network Settings
 
 Set the network as per below:
 ![.](/assets/images/qemu-vm-network-settings.png)
@@ -58,4 +68,26 @@ netplan apply
 systemctl restart systemd-networkd
 ```
 
+### <a name='netfilter'></a> netfilter
 
+## <a name='Proxmox'></a>Proxmox
+
+### <a name='ConvertingtoVMDKforProxMox'></a>Converting to VMDK for ProxMox
+```sh
+# sysinternals disk2vhd vms
+qemu-img convert -O vmdk /data/source.vhdx /data/output.vmdk
+
+# virtualbox vms
+qemu-img convert -O vmdk /data/source.vdi /data/output.vmdk
+```
+
+### <a name='ConvertingtoVMDKforProxMox'></a>Importing VMDK
+```
+qm importdisk 888 image-flat.vmdk local-storage --format vmdk
+```
+
+### <a name='VMconfigfiles'></a> VM config files 
+
+```
+/etc/pve/qemu-server/*.conf
+```

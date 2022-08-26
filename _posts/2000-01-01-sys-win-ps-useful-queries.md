@@ -11,10 +11,11 @@ permalink: /:categories/:title/
 <!-- vscode-markdown-toc -->
 * 1. [PSCredential initialization](#PSCredentialinitialization)
 * 2. [PSSession & Invoke-Command](#PSSessionInvoke-Command)
-* 3. [CRUD in Registry Keys](#CRUDinRegistryKeys)
-* 4. [CRUD MAC addresses](#CRUDMACaddresses)
-* 5. [Search for Hotfix](#SearchforHotfix)
-* 6. [Search in ActiveDirectory](#SearchinActiveDirectory)
+* 3. [SMB File sharing](#SMBFilesharing)
+* 4. [CRUD in Registry Keys](#CRUDinRegistryKeys)
+* 5. [CRUD MAC addresses](#CRUDMACaddresses)
+* 6. [Search for Hotfix](#SearchforHotfix)
+* 7. [Search in ActiveDirectory](#SearchinActiveDirectory)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -44,7 +45,17 @@ Get-PSSession
 Enter-PSSession -id 3
 
 # remote command execution
-Invoke-Command -Session $zs {systeminfo}
+Invoke-Command -Session $zs -ScriptBlock {systeminfo}
+
+# copy file between 2 hosts / shared folder required on source or destination
+# version 1 : shared folder on source / for VM set interface in bridge mode 
+ Invoke-Command -Session $zs -ScriptBlock {New-SmbShare -name "hope" -path "c:\users\_adm_michelj\desktop" -FullAccess "EUROPE\_adm_michelj"}
+
+Invoke-Command -Session $zs -ScriptBlock {Get-Content \\\x$\test.txt >> c:\Windows\Temp\test.txt}
+cd c:\; Remove-PSDrive X
+# version 2 : shared folder on destination
+Invoke-Command -Session $zs -ScriptBlock {Copy-Item -Path \\$zxx\share\test.txt -Destination C:\Windows\Temp\}
+Invoke-Command -Session $zs -ScriptBlock {net share x /delete}
 
 # clean the current session
 Exit-PsSession
@@ -53,21 +64,32 @@ Exit-PsSession
 Get-PSSession | Disconnect-PSSession 
 ```
 
-##  3. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
+##  3. <a name='SMBFilesharing'></a>SMB File sharing
+```powershell
+# create a fileshare locally
+
+# create a fileshare remotely 
+Invoke-Command (New-SmbShare)
+dir \\
+
+# copy file from one location to another
+Copy-Item
+```
+
+##  4. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
 ```powershell
 #? Listing registry hives
 get-psdrive -PSProvider registry
 
-Name           Used (GB)     Free (GB) Provider      Root                                               CurrentLocation
-----           ---------     --------- --------      ----                                               ---------------
+Name           Used (GB)     Free (GB) Provider   CurrentLocation
+----           ---------     --------- --------   ---------------
 HKCU                                   Registry      HKEY_CURRENT_USER                                                 
 HKLM                                   Registry      HKEY_LOCAL_MACHINE                                                
 
 #? Get registry key
 Get-ChildItem REGISTRY::HKEY_USERS | select name
 
-Name                                                                                                         
-----                                                                                                           
+Name                                                                                                    ----                                                                                                           
 HKEY_USERS\.DEFAULT                                                                                                               
 HKEY_USERS\S-2-5-19                                                                                                               
 HKEY_USERS\S-2-5-20                                                                                                               
@@ -81,7 +103,7 @@ HKEY_USERS\S-2-5-18
 
 dir HKLM:\system\CurrentControlSet\Control\hivelist*
 ```
-##  4. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
+##  5. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
 ```powershell
 #? Get the MAC address of the first network adapter
 get-item "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000"
@@ -99,7 +121,7 @@ set-itemproperty -path "hklm:\system\CurrentControlSet\control\class\{4D36E972-E
 
 ```
  
-##  5. <a name='SearchforHotfix'></a>Search for Hotfix 
+##  6. <a name='SearchforHotfix'></a>Search for Hotfix 
 ```powershell
 #? Listing registry hives
 #? ...
@@ -120,7 +142,7 @@ Get-HotFix
 (Get-HotFix -Description Security* | Sort-Object -Property InstalledOn)[-1,-2,-3]
 ```
 
-##  6. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
+##  7. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
 
 For Offensive AD enumeration, refer to ()[]. 
 
