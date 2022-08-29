@@ -4,7 +4,7 @@ title:  Sysadmin WIN Powershell - Useful queries
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-08-10
+modified_date: 2022-08-29
 permalink: /:categories/:title/
 ---
 
@@ -33,7 +33,8 @@ $zlat_creds = New-Object System.Management.Automation.PSCredential($zlat_login,$
 ```
 
 ##  2. <a name='PSSessionInvoke-Command'></a>PSSession & Invoke-Command 
-!!! Verify (WinRM is running)[/sysadmin/sys-win-cli/#activatePSRemoting] !!!
+
+!!! Verify [WinRM is running](/sysadmin/sys-win-cli/#activatePSRemoting) !!!
 
 ```powershell
 # create and enter a session
@@ -69,8 +70,9 @@ Invoke-Command -Session $zs -ScriptBlock {net share}
 
 # STEP 2.1: download a file to C:\windows\temp
 $zfile = 'test.txt'
-$zdl = '\\' + $ztarg_computer_fqdn + '\' + $zshare + '\' + $zfile + ' >> c:\windows\temp\' + $zfile
-Get-Content $zdl
+$zfile_uri = 'c:\windows\temp\' + $zfile
+$zdl = '\\' + $ztarg_computer_fqdn + '\' + $zshare + '\' + $zfile
+Copy-Item -Path $zdl -Destination $zfile_uri
 
 # STEP 2.2: upload a file
 $zfile = 'test.txt'
