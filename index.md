@@ -26,7 +26,7 @@ Equivalent repositories that I grep before making a cheatsheet:
 > * [ired.team](https://ired.team) 
 > * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
-**Can I do the same? Can I improve it?**
+**CAN I DO THE SAME? CAN I IMPROVE IT?**
 
 > * Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
 > * It relies on the [sortable javascript project](https://githubhelp.com/tofsjonas/sortable) to sort the cheatsheets

@@ -38,8 +38,11 @@ sudo apt install build-essential dkms linux-headers-$(uname -r)
 ```
 
 - STEP 2: **Mount** the guest additions ISO on the guest VM 
+
 ![/assets/images/sys-virt-vbox-linux-guest-additions_0.png]
+
 ![/assets/images/sys-virt-vbox-linux-guest-additions_1.png]
+
 ```sh
 sudo mount /dev/sr0 /mnt
 ```

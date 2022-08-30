@@ -55,8 +55,11 @@ permalink: /:categories/:title/
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
 #### <a name='SpawnanADaccount'></a>Spawn an AD account
+
+:link: Check the **readthedocs of sharphound** to [spawn an AD account](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound.html#running-sharphound-from-a-non-domain-joined-system).
+
 ```powershell
-runas /netonly /user:adm_x@dom.corp poweshell
+runas /netonly /user:adm_x@dom.corp powershell
 powershell -ep bypass
 ```
 
@@ -123,6 +126,7 @@ Refresh sessions:
 # STEP 2 : collect sessions again
  ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
+:link: Check the **readthedocs of sharphound** to [refresh the sessions](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound.html#the-session-loop-collection-method).
 
 ## <a name='DataEnumeration'></a>Data Enumeration
 
@@ -143,9 +147,9 @@ $DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainCon
 $DCPolicy.PrivilegeRights # user privilege rights on the dc...
 
 # enumerate the current domain policy
-$zdom_fqdnainPolicy = Get-DomainPolicy -Policy $zdom_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-$zdom_fqdnainPolicy.KerberosPolicy
-$zdom_fqdnainPolicy.SystemAccess # password age/etc.
+$zdom_fqdn_pos = Get-DomainPolicy -Policy $zdom_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+$zdom_fqdn_pos.KerberosPolicy
+$zdom_fqdn_pos.SystemAccess # password age/etc.
 
 # who can dcsync
 get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 #get the domain's distinguisedname attribute
