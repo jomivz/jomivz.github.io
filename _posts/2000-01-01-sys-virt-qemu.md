@@ -4,7 +4,7 @@ title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets  
-modified_date: 2021-03-02
+modified_date: 2021-08-31
 permalink: /:categories/:title/
 ---
 
@@ -37,7 +37,7 @@ anothertrainingbox64.vmdk
 qemu-img convert anothertrainingbox64.vmdk xin-box-64.qemu2 -O qcow2
 ```
 
-### <a name='NetworkSettings'></a> Network Settings
+### <a name='NetworkSettings'></a>Network Settings
 
 Set the network as per below:
 ![.](/assets/images/qemu-vm-network-settings.png)
@@ -68,7 +68,8 @@ netplan apply
 systemctl restart systemd-networkd
 ```
 
-### <a name='netfilter'></a> netfilter
+### <a name='netfilter'></a>netfilter
+
 
 ## <a name='Proxmox'></a>Proxmox
 
@@ -86,8 +87,28 @@ qemu-img convert -O vmdk /data/source.vdi /data/output.vmdk
 qm importdisk 888 image-flat.vmdk local-storage --format vmdk
 ```
 
-### <a name='VMconfigfiles'></a> VM config files 
+### <a name='VMconfigfiles'></a>VM config files 
 
 ```
 /etc/pve/qemu-server/*.conf
 ```
+
+### <a name='VMconfigfiles'></a>Guest additions (SPICE)
+
+Link to **SPICE** documentation :
+- [remote admin, copy/paste, video](https://pve.proxmox.com/wiki/SPICE)
+- [file sharing](https://pve.proxmox.com/pve-docs/pve-admin-guide.html#qm_spice_enhancements)
+
+... on **Windows VMs**, download / install the **SPICE Guest Tool** from the [offical page](https://www.spice-space.org/download/binaries/spice-guest-tools/). 
+
+... on **debian VMs**, install the packages below:
+```
+sudo apt install spice-vdagent spice-webdavd 
+```
+
+... on a **debian host**, install the package **virt-viewer**
+```
+sudo apt install virt-viewer
+```
+
+To access to a file share, go to http://localhost:9843

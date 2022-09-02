@@ -123,8 +123,8 @@ Image credit: [https://twitter.com/SadProcessor](https://twitter.com/SadProcesso
 Refresh sessions:
 ```powershell
 # STEP 1 : go to bloodhound GUI / database statistics / clear session data
-# STEP 2 : collect sessions again
- ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
+# STEP 2 : collect sessions again # e.g. every 15 minutes for 2 hours
+ ./sharphound.exe -c session --Loop --LoopDuration 2:00:00 --LoopInterval 00:15:00 --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
 :link: Check the **readthedocs of sharphound** to [refresh the sessions](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound.html#the-session-loop-collection-method).
 
@@ -261,19 +261,38 @@ Get-NetLocalGroup $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
 
 References :
+- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
+- Easy enumeration with **Impacket\FindDelegation.py**:
+
 ```powershell
-# enumerate all computers that allow unconstrained delegation, and all privileged users that aren't marked as sensitive/not for delegation
-Get-DomainComputer -Unconstrained -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Get-DomainUser -AllowDelegation -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+# with password in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
+.\findDelegation.py  $zz
+# with kerberos auth / password not in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user
+.\findDelegation.py  $zz -k -no-pass
+```
 
-# Find-DomainUserLocation == old Invoke-UserHunter
-# enumerate servers that allow unconstrained Kerberos delegation and show all users logged in
-Find-DomainUserLocation -ComputerUnconstrained -ShowAll -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+- Prepare RBCD attack :
 
-# hunt for admin accounts that allow delegation, logged into servers that allow unconstrained delegation
-Find-DomainUserLocation -ComputerUnconstrained -UserAdminCount -UserAllowDelegation -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+```powershell
+# requirement : DC > win 2012
+Get-DomainController -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name.osversion | fl
+# requirement : target user is not a member of the "Protected Users" group
+Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+# requirement : MachineAccountQuota / possibility to create a new computer
+Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select ms-ds-machineaccountquota
+# requirement  : check constraint delegation setting on the target computer 
+Get-NetComputer $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name,msds-allowedtoactonbehalfofotheridentity | fl
+# check targetuser is not part of protected users 
+
+# Target Computer Name : $computer
+# Admin on Target Computer : right click on the object in bloodhound
+# Fake Computer Name : fakecomputer
+# Fake Computer SID : get-netcomputer fakecomputer | select samaccountname,objectsid
+# Fake Computer password : Password123
 ```
 
 ### <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
@@ -357,26 +376,6 @@ Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainCont
 # gather info on security groups
 Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match "RDPUsers"} 
-```
-
-- Prepare RBCD attack :
-
-```powershell
-# requirement : DC > win 2012
-Get-DomainController -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name.osversion | fl
-# requirement : target user is not a member of the "Protected Users" group
-Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-# requirement : MachineAccountQuota / possibility to create a new computer
-Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select ms-ds-machineaccountquota
-# requirement  : check constraint delegation setting on the target computer 
-Get-NetComputer $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name,msds-allowedtoactonbehalfofotheridentity | fl
-# check targetuser is not part of protected users 
-
-# Target Computer Name : $computer
-# Admin on Target Computer : right click on the object in bloodhound
-# Fake Computer Name : fakecomputer
-# Fake Computer SID : get-netcomputer fakecomputer | select samaccountname,objectsid
-# Fake Computer password : Password123
 ```
 
 ### <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS

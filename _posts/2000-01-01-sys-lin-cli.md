@@ -4,7 +4,7 @@ title: Sysadmin LIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-06-30
+modified_date: 2022-08-30
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -103,6 +103,12 @@ for i in {1..254}; do echo 172.17.135.$i >> tt.txt; i=$i+1; done
 ```
 
 ## <a name='Systemconcerns'></a>System concerns
+
+### <a name='Systemconcerns'></a>Archive servers
+
+Look for packages to download:
+- [ubuntu](https://fr.archive.ubuntu.com/ubuntu/pool/universe/)
+
 ### <a name='Systemconcerns'></a>Sysinternals Procdump / Promon install 
 ```
 wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
