@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-08-12
+modified_date: 2022-09-06
 permalink: /:categories/:title/
 ---
 
@@ -18,22 +18,24 @@ permalink: /:categories/:title/
 		* [Handling console errors](#Handlingconsoleerrors)
 		* [Bypass AMSI](#BypassAMSI)
 	* [Running Bloodhound](#RunningBloodhound)
-	* [AD Web Services on the DC](#ADWebServicesontheDC)
 * [Data Collection with SharpHound](#DataCollectionwithSharpHound)
 * [Data Enumeration](#DataEnumeration)
-	* [Domain properties](#Domainproperties)
-	* [Forest properties](#Forestproperties)
-	* [T1087.002 Account Discovery - Domain Account](#T1087.002AccountDiscovery-DomainAccount)
-		* [Domain Admin Account](#DomainAdminAccount)
-		* [Other Privileged Users](#OtherPrivilegedUsers)
-		* [Targeting a Computer](#TargetingaComputer)
-	* [T1134.001 Token Impersonation via Delegations](#T1134.001TokenImpersonationviaDelegations)
-	* [T1615 Group Policy Discovery](#T1615GroupPolicyDiscovery)
-	* [T1135 Network Shares](#T1135NetworkShares)
-	* [Txxx MSSQL servers](#TxxxMSSQLservers)
-	* [TXXXX ACL](#TXXXXACL)
-	* [T1046 SERVICES LOOTS](#T1046SERVICESLOOTS)
-	* [MISC](#MISC)
+	* [SHOOT General Properties](#SHOOTGeneralProperties)
+		* [Domain properties](#Domainproperties)
+		* [Forest properties](#Forestproperties)
+		* [Kerberos Delegations](#KerberosDelegations)
+		* [Privileged Users](#PrivilegedUsers)
+	* [ITER(ated) Enumeration](#ITERatedEnumeration)
+	* [REFRESH(ed) Enumeration](#REFRESHedEnumeration)
+		* [Last Logons for DA, EA, ...](#LastLogonsforDAEA...)
+		* [Last logons on a computer](#Lastlogonsonacomputer)
+	* [Misc](#Misc)
+		* [T1134.001 Token Impersonation via Delegations](#T1134.001TokenImpersonationviaDelegations)
+		* [T1135 Network Shares](#T1135NetworkShares)
+		* [Txxx MSSQL servers](#TxxxMSSQLservers)
+		* [TXXXX ACL](#TXXXXACL)
+		* [T1046 SERVICES LOOTS](#T1046SERVICESLOOTS)
+		* [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -132,7 +134,13 @@ Refresh sessions:
 
 Commands below inspired more various [cheatsheets](/sysadmin/win-ad-sec-awesome/#OffensivePowershell).
 
-### <a name='Domainproperties'></a>Domain properties
+**CAUTION: WORK IN PROGRESS HERE!**
+
+![Enumeration Strategy][/assets/images/ad_enum_strat.png]
+
+### <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
+
+#### <a name='Domainproperties'></a>Domain properties
 
 ```powershell
 # check the domain object (fsmo, DCs, ntds replication, dns servers, machineaccountquota)
@@ -170,33 +178,80 @@ Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_
 Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 ```
 
-### <a name='Forestproperties'></a>Forest properties
+#### <a name='Forestproperties'></a>Forest properties
 
 ```powershell
 # get the trusts of the current domain/forest
 nltest /domain_trusts
 Get-NetDomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Get-NetForestTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-
-# get information about an other forest
-Get-NetForest -Forest $zforest -DomainController $zdom_dc_fqdn
+# TO DEBUG
+Get-NetForestTrust -Forest $zforest
 
 # find users with sidHistory set
 Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
-
 ```
 
-### <a name='T1087.002AccountDiscovery-DomainAccount'></a>T1087.002 Account Discovery - Domain Account
+#### <a name='KerberosDelegations'></a>Kerberos Delegations
 
-References:
-- [https://attack.mitre.org/techniques/T1087/002/](https://attack.mitre.org/techniques/T1087/002/)
+References :
+- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
+- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
-#### <a name='DomainAdminAccount'></a>Domain Admin Account
+- Easy enumeration with **Impacket\FindDelegation.py**:
+
 ```powershell
-# get the DA sorted by last logon
-Get-NetGroupMember "Domain Admins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
-# get the EA sorted by last logon
-Get-NetGroupMember "Enterprise Admins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
+# with password in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
+.\findDelegation.py  $zz
+# with kerberos auth / password not in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user
+.\findDelegation.py  $zz -k -no-pass
+```
+
+#### <a name='PrivilegedUsers'></a>Privileged Users
+
+- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
+
+```powershell
+$ztarg_grp="Domain Admins"
+#$ztarg_grp="Enterprise Admins"
+#$ztarg_grp="Backup Operators"
+#$ztarg_grp="Remote Desktop Users"
+#$ztarg_grp="DNSAdmins"
+Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+Invoke-UserHunter -Group $ztarg_grp -Domain $zdom_fqdn -DomainControler $zdom_dc_fqdn | select computername, membername
+```
+
+### <a name='ITERatedEnumeration'></a>ITER(ated) Enumeration
+
+To ITERate when owning new privileges (aka new account with new user groups): 
+- powershell: spawn a shell, (generate PS Credential object)[/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization], Rubeus PTT
+- impacket : PTH, PTT, clear password
+
+```powershell
+# identify if the new account is 'memberof' new groups 
+get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
+
+# if new groups, find where the account is local admin
+Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn >> .\owned_machines.csv
+
+# get the details of the owned machines with the OUs 
+get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property cn, dnshostname, distinguishedname | ft -autosize >> ;\owned_machines_w_ou.csv
+```
+
+### <a name='REFRESHedEnumeration'></a>REFRESH(ed) Enumeration
+
+#### <a name='LastLogonsforDAEA...'></a>Last Logons for DA, EA, ...
+
+```powershell
+$ztarg_grp="Domain Admins"
+#$ztarg_grp="Enterprise Admins"
+#$ztarg_grp="Backup Operators"
+#$ztarg_grp="Remote Desktop Users"
+#$ztarg_grp="DNSAdmins"
+
+# get the priviledge users (from above the DA) sorted by last logon
+Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
 
 # find admin groups based on "adm" keyword
 Get-NetGroup -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn *adm* 
@@ -209,35 +264,7 @@ Invoke-UserHunter -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqd
  ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
 
-#### <a name='OtherPrivilegedUsers'></a>Other Privileged Users
-
-- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
-
-```powershell
-# look for a user from his objectsid
-$objectsid = 'S-1-5-21-123'
-get-netuser -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | ?{$_.objectsid -eq $objectsid} | select -first 1
-
-# look for the keyword "pass" in the description attribute for each user in the domain
-Find-UserField -SearchField Description -SearchTerm "pass" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
-
-# find where the backup operators are logged on
-Invoke-UserHunter -Group "Backup Operators" -Domain $zdom_fqdn -DomainControler $zdom_dc_fqdn | select computername, membername
-Get-NetGroupMember "Backup Operators" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-Get-NetGroupMember "Remote Desktop Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-Get-NetGroupMember "DNSAdmins" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-
-# find computers where the current user is local admin
-Find-LocalAdminAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
-
-# find local admins on all computers of the domain
-Invoke-EnumerateLocalAdmin -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername, membername
-
-# return the local group *members* of a remote server using Win32 API methods (faster but less info)
-Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN> -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
-```
-
-#### <a name='TargetingaComputer'></a>Targeting a Computer
+#### <a name='Lastlogonsonacomputer'></a>Last logons on a computer
 ```powershell
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
@@ -258,23 +285,10 @@ Get-DomainOU -Identity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_f
 # return the local *groups* of a remote server
 Get-NetLocalGroup $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
-### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
 
-References :
-- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
-- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
+### <a name='Misc'></a>Misc
 
-- Easy enumeration with **Impacket\FindDelegation.py**:
-
-```powershell
-# with password in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
-.\findDelegation.py  $zz
-# with kerberos auth / password not in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user
-.\findDelegation.py  $zz -k -no-pass
-```
-
+#### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
 - Prepare RBCD attack :
 
 ```powershell
@@ -295,7 +309,24 @@ Get-NetComputer $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | s
 # Fake Computer password : Password123
 ```
 
-### <a name='T1615GroupPolicyDiscovery'></a>T1615 Group Policy Discovery
+
+References:
+- [https://attack.mitre.org/techniques/T1087/002/](https://attack.mitre.org/techniques/T1087/002/)
+
+
+```powershell
+# look for a user from his objectsid
+$objectsid = 'S-1-5-21-123'
+get-netuser -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | ?{$_.objectsid -eq $objectsid} | select -first 1
+
+# look for the keyword "pass" in the description attribute for each user in the domain
+Find-UserField -SearchField Description -SearchTerm "pass" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+
+# return the local group *members* of a remote server using Win32 API methods (faster but less info)
+Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN> -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+
+```
+
 
 - [https://attack.mitre.org/techniques/T1615/](https://attack.mitre.org/techniques/T1615/)
 
@@ -331,7 +362,8 @@ Get-DomainGPO -ComputerIdentity $computer -Domain $zdom_fqdn -DomainController $
 # find all policies applied to an user
 Find-GPOLocation -UserName $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
-### <a name='T1135NetworkShares'></a>T1135 Network Shares
+
+#### <a name='T1135NetworkShares'></a>T1135 Network Shares
 
 References:
 - [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
@@ -345,7 +377,7 @@ Invoke-ShareFinder -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 Find-InterestingDomainShareFile -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Credential $zlat_creds
 ```
 
-### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
+#### <a name='TxxxMSSQLservers'></a>Txxx MSSQL servers
 
 References:
 - [BloodHound Edge SQLAdmin](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#sqladmin)
@@ -359,7 +391,7 @@ References:
  Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
 ```
 
-### <a name='TXXXXACL'></a>TXXXX ACL
+#### <a name='TXXXXACL'></a>TXXXX ACL
 
 References:
 - [BloodHound Edge GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall)
@@ -378,7 +410,7 @@ Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain 
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match "RDPUsers"} 
 ```
 
-### <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS
+#### <a name='T1046SERVICESLOOTS'></a>T1046 SERVICES LOOTS
 
 References:
 - [https://attack.mitre.org/techniques/T1046](https://attack.mitre.org/techniques/T1046/)
@@ -398,7 +430,7 @@ Get-DomainUser -SPN -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.me
 Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
-### <a name='MISC'></a>MISC
+#### <a name='MISC'></a>MISC
 ```powershell
 # all disabled users
 Get-DomainUser -LDAPFilter "(userAccountControl:1.2.840.113556.1.4.803:=2)" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 

