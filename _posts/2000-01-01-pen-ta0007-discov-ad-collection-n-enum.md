@@ -136,7 +136,7 @@ Commands below inspired more various [cheatsheets](/sysadmin/win-ad-sec-awesome/
 
 **CAUTION: WORK IN PROGRESS HERE!**
 
-![Enumeration Strategy][/assets/images/ad_enum_strat.png]
+![Enumeration Strategy](/assets/images/ad_enum_strat.png)
 
 ### <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
 
