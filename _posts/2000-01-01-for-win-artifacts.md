@@ -5,7 +5,7 @@ parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
-modified_date: 2021-04-21
+modified_date: 2022-09-22
 permalink: /:categories/:title/
 ---
 
@@ -24,6 +24,7 @@ permalink: /:categories/:title/
 	* [All Windows Versions](#AllWindowsVersions)
 	* [Windows DNS Server](#WindowsDNSServer)
 * [NTFS metafiles](#NTFSmetafiles)
+* [NTDS.dit](#NTDS.dit)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -184,3 +185,7 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 - Path: \\.\C:\[SYSTEM]
 - Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
 - [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
+
+## <a name='NTDS.dit'></a>NTDS.dit
+
+systemroot\NTDS\Ntds.dit

@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-09-06
+modified_date: 2022-09-22
 permalink: /:categories/:title/
 ---
 
@@ -25,10 +25,17 @@ permalink: /:categories/:title/
 		* [Forest properties](#Forestproperties)
 		* [Kerberos Delegations](#KerberosDelegations)
 		* [Privileged Users](#PrivilegedUsers)
+		* [Privileged Machines](#PrivilegedMachines)
 	* [ITER(ated) Enumeration](#ITERatedEnumeration)
+		* [User groups](#Usergroups)
+		* [Admin & OU access](#AdminOUaccess)
+		* [RDP access](#RDPaccess)
+		* [PSRemote access](#PSRemoteaccess)
 	* [REFRESH(ed) Enumeration](#REFRESHedEnumeration)
 		* [Last Logons for DA, EA, ...](#LastLogonsforDAEA...)
 		* [Last logons on a computer](#Lastlogonsonacomputer)
+		* [Last logons on an OU](#LastlogonsonanOU)
+		* [Admin access to a computer](#Adminaccesstoacomputer)
 	* [Misc](#Misc)
 		* [T1134.001 Token Impersonation via Delegations](#T1134.001TokenImpersonationviaDelegations)
 		* [T1135 Network Shares](#T1135NetworkShares)
@@ -148,7 +155,7 @@ Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_d
 
 # list the domain controllers
 nltest /dclist:$zdom_fqdn
-Get-NetDomainController -Domain $zdom_fqdn
+Get-NetDomainController -Domain $zdom_fqdn -Server $zdom_dc_fqdn
 
 # enumerate the current domain controller policy
 $DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
@@ -183,7 +190,7 @@ Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_
 ```powershell
 # get the trusts of the current domain/forest
 nltest /domain_trusts
-Get-NetDomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-NetDomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ft -autosize TargetName, TrustDirection 
 # TO DEBUG
 Get-NetForestTrust -Forest $zforest
 
@@ -193,11 +200,7 @@ Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController
 
 #### <a name='KerberosDelegations'></a>Kerberos Delegations
 
-References :
-- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
-- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
-
-- Easy enumeration with **Impacket\FindDelegation.py**:
+Easy enumeration with **Impacket\FindDelegation.py**:
 
 ```powershell
 # with password in the CLI
@@ -207,6 +210,10 @@ $zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
 $zz = $zdom_fqdn + '/' + $zlat_user
 .\findDelegation.py  $zz -k -no-pass
 ```
+
+References :
+- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
+- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
 #### <a name='PrivilegedUsers'></a>Privileged Users
 
@@ -222,23 +229,47 @@ Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 Invoke-UserHunter -Group $ztarg_grp -Domain $zdom_fqdn -DomainControler $zdom_dc_fqdn | select computername, membername
 ```
 
+#### <a name='PrivilegedMachines'></a>Privileged Machines
+
+```powershell
+# find any machine accounts in privileged groups
+Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
+```
+
 ### <a name='ITERatedEnumeration'></a>ITER(ated) Enumeration
 
 To ITERate when owning new privileges (aka new account with new user groups): 
 - powershell: spawn a shell, (generate PS Credential object)[/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization], Rubeus PTT
 - impacket : PTH, PTT, clear password
 
+#### <a name='Usergroups'></a>User groups
 ```powershell
 # identify if the new account is 'memberof' new groups 
 get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
+```
 
+#### <a name='AdminOUaccess'></a>Admin & OU access 
+```powershell
 # if new groups, find where the account is local admin
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn >> .\owned_machines.csv
 
 # get the details of the owned machines with the OUs 
 get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property cn, dnshostname, distinguishedname | ft -autosize >> ;\owned_machines_w_ou.csv
+
 ```
 
+#### <a name='RDPaccess'></a>RDP access
+[Bloodhound readthedocs - edge canRDP ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp)
+```powershell
+```
+
+#### <a name='PSRemoteaccess'></a>PSRemote access
+[Bloodhound readthedocs - edge canPSRemote ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canpsremote)
+```powershell
+```
+
+
+# if new groups, find where the account is local admin
 ### <a name='REFRESHedEnumeration'></a>REFRESH(ed) Enumeration
 
 #### <a name='LastLogonsforDAEA...'></a>Last Logons for DA, EA, ...
@@ -272,19 +303,38 @@ Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
 # get last logged users on a computer / uses remote registry / can be blocked
 Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
 
-# find any machine accounts in privileged groups
-Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
-
 # testing account "john_doe" with empty passwords 
 $mycreds = New-Object System.Management.Automation.PSCredential("john_doe", (new-object System.Security.SecureString))
 Invoke-Command -Credential $mycreds -ComputerName $computer -ScriptBlock {whoami; hostname}
+```
 
+#### <a name='LastlogonsonanOU'></a>Last logons on an OU
+```powershell
 # Get the logged on users for all machines in any *server* OU in a particular domain
 Get-DomainOU -Identity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-DomainComputer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}}
-
-# return the local *groups* of a remote server
-Get-NetLocalGroup $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
+
+#### <a name='Adminaccesstoacomputer'></a>Admin access to a computer
+
+```powershell
+# check smb admin share access 
+dir \\$ztarg_computer_fqdn\c$
+
+# check local admin
+Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn -ComputerName $ztarg_computer_fqdn
+
+# ExecuteDCOM: check if rpc service is active / granted
+get-wmiobject -Class win32_operatingsystem -Computername $ztarg_computer_fqdn
+```
+
+ExecuteDCOM ressources:
+- [CobaltStrike remote shell via DCOM execution](https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/)
+- [Bloodhound readthedocs - edge ExecuteDCOM ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom)
+
+CanPSRemote ressources:
+- [JMVWORK Sysadmin - Create a PSSession](/sysadmin/sys-win-ps-useful-queries/#PSSessionInvoke-Command)
+- [Bloodhound readthedocs - edge canPSRemote ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom)
+
 
 ### <a name='Misc'></a>Misc
 
