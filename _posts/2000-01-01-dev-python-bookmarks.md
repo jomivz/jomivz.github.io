@@ -1,3 +1,4 @@
+---
 layout: post
 title: Python Snippets & Libraries
 category: Development
@@ -72,7 +73,9 @@ activate.bat //In CMD
 deactivate.bat
 ```
 ##  2. <a name='Libraries'></a>Libraries
+
 ###  2.1. <a name='Network'></a>Network
+
 ####  2.1.1. <a name='ipaddress'></a>ipaddress
 - [ipaddress](https://docs.python.org/3/library/ipaddress.html)
 ####  2.1.2. <a name='ldap3'></a>ldap3
@@ -85,7 +88,9 @@ deactivate.bat
 - [socket](https://docs.python.org/3/library/socket.html)
 ####  2.1.6. <a name='urllib'></a>urllib
 - [urllib](https://docs.python.org/3/library/urllib.html)
+
 ###  2.2. <a name='System'></a>System
+
 ####  2.2.1. <a name='datetime'></a>datetime
 - [datetime](https://docs.python.org/3/library/datetime.html)
 - [timestamp millisec conversion](https://stackoverflow.com/questions/59612665/convert-epoch-time-to-standard-datetime-from-json-python)
@@ -103,7 +108,9 @@ deactivate.bat
 - [tkinter](https://docs.python.org/3/library/tkinter.html)
 ####  2.2.8. <a name='time'></a>time
 - [requests](https://docs.python.org/3/library/time.html)
+
 ###  2.3. <a name='Data'></a>Data
+
 ####  2.3.1. <a name='jmespath'></a>jmespath
 - [jmespath tutorial](https://jmespath.org/tutorial.html)
 ####  2.3.2. <a name='json'></a>json
@@ -122,7 +129,9 @@ deactivate.bat
 - [plotly](https://plotly.com/python/)
 ####  2.3.7. <a name='sqlalchemy'></a>sqlalchemy
 - [sqlalchemy](https://sqlalchemy.readthedocs.io)
+
 ###  2.4. <a name='Security'></a>Security
+
 ####  2.4.1. <a name='impacketexamples'></a>impacket examples
 - [list](https://www.secureauth.com/labs/open-source-tools/impacket/)
 - [source](https://github.com/SecureAuthCorp/impacket/tree/master/examples)
