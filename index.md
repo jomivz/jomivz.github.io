@@ -4,6 +4,8 @@ title: Homepage
 description: JMVWORK IT notebook
 nav_order: 1
 ---
+# Homepage
+
 <!-- vscode-markdown-toc -->
 * [What's this website's content about?](#Whatsthiswebsitescontentabout)
 * [Why having a proper IT notebook?](#WhyhavingaproperITnotebook)
@@ -16,8 +18,6 @@ nav_order: 1
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-# Homepage
 
 ##  <a name='Whatsthiswebsitescontentabout'></a>What's this website's content about?
 
