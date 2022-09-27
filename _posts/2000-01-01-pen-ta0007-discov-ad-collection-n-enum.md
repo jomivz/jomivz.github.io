@@ -72,6 +72,8 @@ runas /netonly /user:adm_x@dom.corp powershell
 powershell -ep bypass
 ```
 
+![funny reminder](/assets/images/pen-win-sys-spawn-cmd.jpg)
+
 #### <a name='MandiantCommandoVM'></a>Mandiant Commando VM
 ```powershell
 cd C:\tools\PowerSploit\Recon
