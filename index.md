@@ -51,6 +51,7 @@ On your appreciation, feel free to pull requests through the github repository [
 * [hacktricks.xyz](https://book.hacktricks.xyz)
 * [thehacker.recipes](https://www.thehacker.recipes)
 * [ired.team](https://ired.team) 
+* [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)
 * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
 > Here are [other stunning ressources](/ressources) to dig for :

@@ -5,7 +5,7 @@ permalink: /training/
 nav_order: 4
 ---
 
-## Training
+# Training
 
 Along with security watch, training is part of the daily job in cybersecurity. Sharp your skills (tools and methodology) to get ready to invest.
 

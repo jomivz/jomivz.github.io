@@ -7,7 +7,7 @@ navi_order: 6
 
 # About
 
-About me and this website, my name Jonathan aka **jomivz**. I am a cybersecurity consultant. **This website is my selfish IT notebook.**
+About me and this website, my name Jonathan aka **j0mivz**. I work as Cybersecurity Specialist. **This website is my selfish IT notebook.**
 There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz).
 
 **If we are mates**, there is a chance I share you few **HOWTOs** via my cheatsheets(/).
@@ -23,4 +23,5 @@ Otherwise you can reach me on [linkedin](https://www.linkedin.com/in/jmichelvill
 Thanks you for reading! I wish you a nice journey.
 
 **Regards**
-**Jomivz**
+
+**j0mivz**
