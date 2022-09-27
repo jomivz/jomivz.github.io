@@ -1,5 +1,5 @@
 ---
-layout: .default
+layout: page
 title: Homepage
 description: JMVWORK IT notebook
 nav_order: 1

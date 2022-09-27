@@ -1,12 +1,11 @@
 ---
-layout: .default
+layout: page
 title: Awesome Ressources
 permalink: /ressources/
-nav_order: 5
+nav_order: 2
 ---
 
 # Awesome Ressources
-
 
 <!-- vscode-markdown-toc -->
 * 1. [Top Awesome Ressources](#TopAwesomeRessources)
