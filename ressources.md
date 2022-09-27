@@ -1,18 +1,19 @@
 ---
-layout: page
-title: Ressources
+layout: .default
+title: Awesome Ressources
 permalink: /ressources/
 nav_order: 5
 ---
 
-# Other Stunning Ressources
+# Awesome Ressources
 
-Please read the [homepage](/) to get my updated **Awesome Ressources**.
 
 <!-- vscode-markdown-toc -->
-* 1. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
-* 2. [Binaries Security Assessment](#BinariesSecurityAssessment)
-* 3. [MISC](#MISC)
+* 1. [Top Awesome Ressources](#TopAwesomeRessources)
+* 2. [Other Stunning Ressources](#OtherStunningRessources)
+	* 2.1. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
+	* 2.2. [Binaries Security Assessment](#BinariesSecurityAssessment)
+	* 2.3. [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -20,7 +21,13 @@ Please read the [homepage](/) to get my updated **Awesome Ressources**.
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='VulnerabilityExploitationSandboxing'></a>Vulnerability, Exploitation, Sandboxing
+##  1. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
+
+Please read the [homepage](/) to get my updated **Awesome Ressources**.
+
+##  2. <a name='OtherStunningRessources'></a>Other Stunning Ressources
+
+###  2.1. <a name='VulnerabilityExploitationSandboxing'></a>Vulnerability, Exploitation, Sandboxing
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -34,7 +41,7 @@ Please read the [homepage](/) to get my updated **Awesome Ressources**.
 | Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | Randy Smith |
 
-##  2. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
+###  2.2. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -45,6 +52,6 @@ Please read the [homepage](/) to get my updated **Awesome Ressources**.
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
 
-##  3. <a name='MISC'></a>MISC 
+###  2.3. <a name='MISC'></a>MISC 
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).

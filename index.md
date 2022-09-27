@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: .default
 title: Homepage
 description: JMVWORK IT notebook
 nav_order: 1
@@ -22,7 +22,7 @@ nav_order: 1
 ##  <a name='Whatsthiswebsitescontentabout'></a>What's this website's content about?
 
 
-> **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
+> **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps) (old ones for now).
 There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
 > There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/#AwesomeRessources).

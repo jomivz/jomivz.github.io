@@ -1,18 +1,11 @@
 ---
-layout: page
+layout: .default
 title: Mindmaps
 permalink: /mindmaps/
 nav_order: 3
 ---
 
-**Table of Contents**
-
-- [Forensics Roadmap for NTFS](#forensics-roadmap-for-ntfs)
-- [Forensics Roadmap for Windows OS](#forensics-roadmap-for-windows-os)
-- [EnCE Encase v7](#ence-encase-v7)
-- [Encase v7 Enscripts](#encase-v7-enscripts)
-- [Encase v7 Products](#encase-v7-products)
-
+# Mindmaps
 
 ### Forensics Roadmap for NTFS 
 
