@@ -21,40 +21,39 @@ nav_order: 1
 ##  <a name='Whatsthiswebsitescontentabout'></a>What's this website's content about?
 
 
-**This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
+> **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
 There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
-There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [equivalent repositories](/#equivalentrepositories).
-I recommend you to [refer to it first](/#equivalentrepositories) and **DO NOT TAKE MY NOTES FOR GRANTED**.
+> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/#AwesomeRessources).
+I recommend you to [refer to it first](/#AwesomeRessources) and **do not take my notes for granted**.
 
-**If we are mates**, there is a chance I share you my **HOWTO** howto through **jmvwork.xyz**.
+
+##  <a name='FAQWhythiswebsite'></a> Why having a proper IT notebook? 
+
+* If we are **mates**, there is a chance I share you my **HOWTO** through **jmvwork.xyz**.
 On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
 
+* As **Cybersecurity Recruiter / Talent Acquisition**, my cheatsheets will let you appreciate my technical skills.
 
-##  <a name='FAQWhythiswebsite'></a>FAQ / Why this website?
+* For O/B/B (BFS) reasons: Ordering stuffs / Building my own methodology (tables of content, variables) / Being BETTER, FASTER, STRONGER (BFS).
 
-
-* **Why having a proper IT notebook?** 
-
-> As Cybersecurity Recruiter / Talent Acquisition, my cheatsheets will let you appreciate my technical skills.
-
-> O/B/B (BFS) : Ordering stuffs / Building my own methodology (tables of content, variables) / Being **BETTER, FASTER, STRONGER** (BFS).
-
-* How can we **get in contact?** 
+## How can we **get in contact?** 
 
 > You are welcome to visit the [about](/about/) page where you can find my contact.  
 
 
-##  <a name='EquivalentRepositories'></a>Equivalent Repositories
+##  <a name='EquivalentRepositories'></a>Awesome Ressources
 
 
-Equivalent repositories that I grep / try to reference on my cheatsheets : 
+> Equivalent repositories that I grep / try to reference on my cheatsheets : 
+
 * [hacktricks.xyz](https://book.hacktricks.xyz)
 * [thehacker.recipes](https://www.thehacker.recipes)
 * [ired.team](https://ired.team) 
 * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
-Here are [other ressources](/ressources) to dig for :
+> Here are [other ressources](/ressources) to dig for :
+
 * Vulnerabilities & Exploit
 * Binaries Security Assessment
 * Miscellaneous
