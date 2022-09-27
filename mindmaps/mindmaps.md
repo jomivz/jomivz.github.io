@@ -5,7 +5,7 @@ permalink: /mindmaps/
 nav_order: 4
 ---
 
-# Mindmap>s
+# Mindmaps
 
 <!-- vscode-markdown-toc -->
 * 1. [Old Things](#OldThings)
