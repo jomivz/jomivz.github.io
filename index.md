@@ -24,8 +24,8 @@ nav_order: 1
 **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
 There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
-There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [equivalent repositories](#equivalentrepositories).
-I recommend you to [refer to it first](#equivalentrepositories) and **DO NOT TAKE MY NOTES FOR GRANTED**.
+There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [equivalent repositories](/#equivalentrepositories).
+I recommend you to [refer to it first](/#equivalentrepositories) and **DO NOT TAKE MY NOTES FOR GRANTED**.
 
 **If we are mates**, there is a chance I share you my **HOWTO** howto through **jmvwork.xyz**.
 On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
@@ -36,13 +36,13 @@ On your appreciation, feel free to pull requests through the github repository [
 
 * **Why having a proper IT notebook?** 
 
-* > As Cybersecurity Recruiter / Talent Acquisition, my cheatsheets will let you appreciate my technical skills.
+> As Cybersecurity Recruiter / Talent Acquisition, my cheatsheets will let you appreciate my technical skills.
 
-* > O/B/B (BFS) : Ordering stuffs / Building my own methodology (tables of content, variables) / Being **BETTER, FASTER, STRONGER** (BFS).
+> O/B/B (BFS) : Ordering stuffs / Building my own methodology (tables of content, variables) / Being **BETTER, FASTER, STRONGER** (BFS).
 
 * How can we **get in contact?** 
 
-You are welcome to visit the [about](/about/) page where you can find my contact.  
+> You are welcome to visit the [about](/about/) page where you can find my contact.  
 
 
 ##  <a name='EquivalentRepositories'></a>Equivalent Repositories
@@ -54,6 +54,10 @@ Equivalent repositories that I grep / try to reference on my cheatsheets :
 * [ired.team](https://ired.team) 
 * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
+Here are [other ressources](/ressources) to dig for :
+* Vulnerabilities & Exploit
+* Binaries Security Assessment
+* Miscellaneous
 
 ##  <a name='Copyleft'></a>Copyleft
 

@@ -18,8 +18,6 @@ nav_order: 5
 | Binaries Sandboxing | [hatching.io](https://hatching.io) | - |
 | Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | Randy Smith |
-| Hunting for TTPs | [ired.team](https://ired.team) | - |
-| Hunting for TTPs | [hacktricks.xyz](https://book.hacktricks.xyz/) | - |
 
 ##  1.3. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
 
