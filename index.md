@@ -1,37 +1,51 @@
 ---
 layout: default
-title: Home
-description: JMVWORK technical website
+title: Homepage
+description: JMVWORK IT notebook
 nav_order: 1
 ---
+<!-- vscode-markdown-toc -->
+* 1. [What is this?](#Whatisthis)
+* 2. [FAQ](#FAQ)
+* 3. [Equivalent Repositories](#EquivalentRepositories)
+* 4. [Copyleft](#Copyleft)
 
-# What is this?
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
 
-This is publicly accessible personal [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps) available at [jmvwork.xyz](/),
-> - about IT experiments in networking and system administration, forensics and pentesting.
-> - Most of my notes are discovered by other security researchers and I do not claim their ownership.
+# JMVWORK's Homepage
 
-**DO IT, BETTER, FASTER, STRONGER**
+##  1. <a name='Whatisthis'></a>What is this?
 
-Using markdowns as notes allows to fetch commands (using ```grep``` plus keywords) in order to be the more efficient in several situations, like when maintaining, auditing, investigating, passing exam or participating to a CTF.
+**This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
+There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
-> * DO NOT take everything or anything in these notes for **granted** 
-> * DO NOT expect the notes to be exhaustive
-> * Expect mistakes in the notes
-> * Always consult additional resources
+There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [equivalent repositories](#equivalentrepositories).
+I recommend you to [refer to it first](#equivalentrepositories) and **DO NOT TAKE MY NOTES FOR GRANTED**.
 
-Equivalent repositories that I grep before making a cheatsheet: 
-> * [thehacker.recipes](https://www.thehacker.recipes)
+**If we are mates**, there is a chance I share you my **HOWTO** howto through [jmvwork.xyz](/).
+On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
+
+##  2. <a name='FAQ'></a>FAQ
+
+> * **Why having a proper IT notebook?** There are 2 reasons: this website allows me to share the topics I practiced / what I can do;
+ordering stuffs / building my own methodology (tables of content, variables) / being **BETTER, FASTER, STRONGER**.
+> * How can we **get in contact?**. You can visit the [about](/about/).  
+
+##  3. <a name='EquivalentRepositories'></a>Equivalent Repositories
+
+Equivalent repositories that I grep / try to reference on my cheatsheets : 
 > * [hacktricks.xyz](https://book.hacktricks.xyz)
+> * [thehacker.recipes](https://www.thehacker.recipes)
 > * [ired.team](https://ired.team) 
 > * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
-**CAN I DO THE SAME? CAN I IMPROVE IT?**
+##  4. <a name='Copyleft'></a>Copyleft
 
 > * Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
 > * It relies on the [sortable javascript project](https://githubhelp.com/tofsjonas/sortable) to sort the cheatsheets
 > * This website is propulsed by [github pages](https://pages.github.com/), empowering jekyll to convert the markdowns into HTML.
-> * I try to reference the sources I use the best I can, but if you think I've missed something, please get in touch and I will fix it immediately.
-> * On your appreciation, feel free to pull requests.
-
-
+> * There is no copyright. Most of the content is aggregation of online sources. 
