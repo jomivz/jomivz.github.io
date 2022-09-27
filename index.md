@@ -18,7 +18,7 @@ nav_order: 1
 
 # Homepage
 
-##  <a name='Whatisthis'></a>What is this?
+##  <a name='Whatisthis'></a>What's this website's content about?
 
 
 **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
@@ -31,14 +31,17 @@ I recommend you to [refer to it first](#equivalentrepositories) and **DO NOT TAK
 On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
 
 
-##  <a name='FAQ'></a>FAQ
+##  <a name='FAQ'></a>FAQ / Why this website?
 
 
 * **Why having a proper IT notebook?** 
-There are 2 reasons: this website allows me to share the topics I practiced / what I can do;
-ordering stuffs / building my own methodology (tables of content, variables) / being **BETTER, FASTER, STRONGER**.
 
-* How can we **get in contact?**. 
+* > As Cybersecurity Recruiter / Talent Acquisition, my cheatsheets will let you appreciate my technical skills.
+
+* > O/B/B (BFS) : Ordering stuffs / Building my own methodology (tables of content, variables) / Being **BETTER, FASTER, STRONGER** (BFS).
+
+* How can we **get in contact?** 
+
 You are welcome to visit the [about](/about/) page where you can find my contact.  
 
 
