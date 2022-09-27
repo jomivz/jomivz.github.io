@@ -5,8 +5,8 @@ description: JMVWORK IT notebook
 nav_order: 1
 ---
 <!-- vscode-markdown-toc -->
-* [What is this?](#Whatisthis)
-* [FAQ](#FAQ)
+* [What's this website's content about?](#Whatsthiswebsitescontentabout)
+* [FAQ / Why this website?](#FAQWhythiswebsite)
 * [Equivalent Repositories](#EquivalentRepositories)
 * [Copyleft](#Copyleft)
 
@@ -18,7 +18,7 @@ nav_order: 1
 
 # Homepage
 
-##  <a name='Whatisthis'></a>What's this website's content about?
+##  <a name='Whatsthiswebsitescontentabout'></a>What's this website's content about?
 
 
 **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
@@ -31,7 +31,7 @@ I recommend you to [refer to it first](/#equivalentrepositories) and **DO NOT TA
 On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
 
 
-##  <a name='FAQ'></a>FAQ / Why this website?
+##  <a name='FAQWhythiswebsite'></a>FAQ / Why this website?
 
 
 * **Why having a proper IT notebook?** 

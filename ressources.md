@@ -19,7 +19,7 @@ nav_order: 5
 | Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | Randy Smith |
 
-##  1.3. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
+##  2. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -30,6 +30,6 @@ nav_order: 5
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
 
-##  2. <a name='MISC'></a>MISC 
+##  3. <a name='MISC'></a>MISC 
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
