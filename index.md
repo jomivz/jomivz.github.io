@@ -6,8 +6,9 @@ nav_order: 1
 ---
 <!-- vscode-markdown-toc -->
 * [What's this website's content about?](#Whatsthiswebsitescontentabout)
-* [FAQ / Why this website?](#FAQWhythiswebsite)
-* [Equivalent Repositories](#EquivalentRepositories)
+* [Why having a proper IT notebook?](#WhyhavingaproperITnotebook)
+* [How can we get in contact?](#Howcanwegetincontact)
+* [Awesome Ressources](#AwesomeRessources)
 * [Copyleft](#Copyleft)
 
 <!-- vscode-markdown-toc-config
@@ -28,7 +29,7 @@ There is mostly raw commands / without explanations. For all IT operational peop
 I recommend you to [refer to it first](/#AwesomeRessources) and **do not take my notes for granted**.
 
 
-##  <a name='FAQWhythiswebsite'></a> Why having a proper IT notebook? 
+##  <a name='WhyhavingaproperITnotebook'></a> Why having a proper IT notebook? 
 
 * If we are **mates**, there is a chance I share you my **HOWTO** through **jmvwork.xyz**.
 On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
@@ -37,22 +38,22 @@ On your appreciation, feel free to pull requests through the github repository [
 
 * For O/B/B (BFS) reasons: Ordering stuffs / Building my own methodology (tables of content, variables) / Being BETTER, FASTER, STRONGER (BFS).
 
-## How can we **get in contact?** 
+##  <a name='Howcanwegetincontact'></a>How can we get in contact? 
 
 > You are welcome to visit the [about](/about/) page where you can find my contact.  
 
 
-##  <a name='EquivalentRepositories'></a>Awesome Ressources
+##  <a name='AwesomeRessources'></a>Awesome Ressources
 
 
-> Equivalent repositories that I grep / try to reference on my cheatsheets : 
+> Below are the Awesome Ressources that I grep / try to reference on my cheatsheets : 
 
 * [hacktricks.xyz](https://book.hacktricks.xyz)
 * [thehacker.recipes](https://www.thehacker.recipes)
 * [ired.team](https://ired.team) 
 * [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
 
-> Here are [other ressources](/ressources) to dig for :
+> Here are [other stunning ressources](/ressources) to dig for :
 
 * Vulnerabilities & Exploit
 * Binaries Security Assessment
