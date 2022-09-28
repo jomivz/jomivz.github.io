@@ -1,12 +1,14 @@
 ---
 layout: post
-title: Common REGEX
+title: Common REGEX in Cybersecurity
 category: Development
 parent: Development
 grand_parent: Cheatsheets
 modified_date: 2021-03-02
 permalink: /:categories/:title/
 ---
+
+:link: [TEST YOUR REGEX ONLINE](https://regex101.com/r/iVrIlL/1)
 
 ```sh
 #? catch regex

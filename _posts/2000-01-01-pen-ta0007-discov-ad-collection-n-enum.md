@@ -248,7 +248,7 @@ Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn |
 ### <a name='ITERatedEnumeration'></a>ITER(ated) Enumeration
 
 To ITERate when owning new privileges (aka new account with new user groups): 
-- powershell: spawn a shell, (generate PS Credential object)[/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization], Rubeus PTT
+- powershell: spawn a shell, [generate PS Credential object](/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization), Rubeus PTT
 - impacket : PTH, PTT, clear password
 
 #### <a name='Usergroups'></a>User groups
@@ -273,16 +273,10 @@ get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -Doma
 
 #### <a name='RDPaccess'></a>RDP access
 [Bloodhound readthedocs - edge canRDP ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp)
-```powershell
-```
 
 #### <a name='PSRemoteaccess'></a>PSRemote access
 [Bloodhound readthedocs - edge canPSRemote ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canpsremote)
-```powershell
-```
 
-
-# if new groups, find where the account is local admin
 ### <a name='REFRESHedEnumeration'></a>REFRESH(ed) Enumeration
 
 #### <a name='LastLogonsforDAEA...'></a>Last Logons for DA, EA, ...

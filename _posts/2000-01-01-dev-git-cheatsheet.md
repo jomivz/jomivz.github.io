@@ -8,6 +8,8 @@ modified_date: 2021-11-19
 permalink: /:categories/:title/
 ---
 
+# GIT cheatsheet
+
 <!-- vscode-markdown-toc -->
 * [Generate SSH keypair](#GenerateSSHkeypair)
 * [Introduction](#Introduction)
