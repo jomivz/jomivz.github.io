@@ -8,11 +8,11 @@ nav_order: 2
 # Awesome Ressources
 
 <!-- vscode-markdown-toc -->
-* 1. [Top Awesome Ressources](#TopAwesomeRessources)
-* 2. [Other Stunning Ressources](#OtherStunningRessources)
-	* 2.1. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
-	* 2.2. [Binaries Security Assessment](#BinariesSecurityAssessment)
-	* 2.3. [MISC](#MISC)
+*  [Top Awesome Ressources](#TopAwesomeRessources)
+*  [Other Stunning Ressources](#OtherStunningRessources)
+	*  [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
+	*  [Binaries Security Assessment](#BinariesSecurityAssessment)
+	*  [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -22,7 +22,12 @@ nav_order: 2
 
 ##  1. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
 
-Please read the [homepage](/) to get my updated **Awesome Ressources**.
+> Below are the Awesome Ressources that I grep / try to reference on my cheatsheets : 
+
+* [hacktricks.xyz](https://book.hacktricks.xyz)
+* [thehacker.recipes](https://www.thehacker.recipes)
+* [ired.team](https://ired.team) 
+* [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)
 
 ##  2. <a name='OtherStunningRessources'></a>Other Stunning Ressources
 

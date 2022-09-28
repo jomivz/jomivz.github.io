@@ -10,7 +10,6 @@ nav_order: 1
 * [What's this website's content about?](#Whatsthiswebsitescontentabout)
 * [Why having a proper IT notebook?](#WhyhavingaproperITnotebook)
 * [How can we get in contact?](#Howcanwegetincontact)
-* [Awesome Ressources](#AwesomeRessources)
 * [Copyleft](#Copyleft)
 
 <!-- vscode-markdown-toc-config
@@ -25,8 +24,7 @@ nav_order: 1
 > **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps) (old ones for now).
 There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
-> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/#AwesomeRessources).
-I recommend you to [refer to it first](/#AwesomeRessources) and **do not take my notes for granted**.
+> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/#ressources).I recommend you to [refer to it first](/#ressources) and **do not take my notes for granted**.
 
 
 ##  <a name='WhyhavingaproperITnotebook'></a> Why having a proper IT notebook? 
@@ -42,23 +40,6 @@ On your appreciation, feel free to pull requests through the github repository [
 
 > You are welcome to visit the [about](/about/) page where you can find my contact.  
 
-
-##  <a name='AwesomeRessources'></a>Awesome Ressources
-
-
-> Below are the Awesome Ressources that I grep / try to reference on my cheatsheets : 
-
-* [hacktricks.xyz](https://book.hacktricks.xyz)
-* [thehacker.recipes](https://www.thehacker.recipes)
-* [ired.team](https://ired.team) 
-* [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)
-* [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
-
-> Here are [other stunning ressources](/ressources) to dig for :
-
-* Vulnerabilities & Exploit
-* Binaries Security Assessment
-* Miscellaneous
 
 ##  <a name='Copyleft'></a>Copyleft
 

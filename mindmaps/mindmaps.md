@@ -8,12 +8,12 @@ nav_order: 4
 # Mindmaps
 
 <!-- vscode-markdown-toc -->
-* 1. [Old Things](#OldThings)
-	* 1.1. [Forensics Roadmap for NTFS](#ForensicsRoadmapforNTFS)
-	* 1.2. [Forensics Roadmap for Windows OS](#ForensicsRoadmapforWindowsOS)
-	* 1.3. [EnCE Encase v7](#EnCEEncasev7)
-	* 1.4. [Encase v7 Enscripts](#Encasev7Enscripts)
-	* 1.5. [Encase v7 Products](#Encasev7Products)
+*  [Old Things](#OldThings)
+	*  [Forensics Roadmap for NTFS](#ForensicsRoadmapforNTFS)
+	*  [Forensics Roadmap for Windows OS](#ForensicsRoadmapforWindowsOS)
+	*  [EnCE Encase v7](#EnCEEncasev7)
+	*  [Encase v7 Enscripts](#Encasev7Enscripts)
+	*  [Encase v7 Products](#Encasev7Products)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
