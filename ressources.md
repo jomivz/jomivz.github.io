@@ -10,12 +10,11 @@ nav_order: 2
 <!-- vscode-markdown-toc -->
 * 1. [Online hunting services](#Onlinehuntingservices)
 * 2. [Top Awesome Ressources](#TopAwesomeRessources)
-* 3. [Top Video Channels](#TopVideoChannels)
-* 4. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
-	* 4.1. [Binaries Security Assessment](#BinariesSecurityAssessment)
-	* 4.2. [Malware stuffs](#Malwarestuffs)
-	* 4.3. [Training](#Training)
-	* 4.4. [MISC](#MISC)
+* 3. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
+	* 3.1. [Binaries Security Assessment](#BinariesSecurityAssessment)
+	* 3.2. [Malware stuffs](#Malwarestuffs)
+	* 3.3. [Training](#Training)
+	* 3.4. [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -25,7 +24,7 @@ nav_order: 2
 
 ##  1. <a name='Onlinehuntingservices'></a>Online hunting services
 
-| **Online Hunting Services**							| **CVEs and Exploits** 					| **Binaries and Sandboxing**								| **Attack Surface**						|
+| **IOC assessment**									| **CVEs and Exploits** 					| **Binaries and Sandboxing**								| **Attack Surface**						|
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
 | [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
 | [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://hatching.io)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
@@ -35,23 +34,16 @@ nav_order: 2
 | [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [networksdb.io](https://networksdb.io/)	|
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
+| **Top Awesome Repos** 																	| **Top Video Channels**|
+| [hacktricks.xyz](https://book.hacktricks.xyz)												| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
+| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)				| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
+| [hackingarticles.in](https://hackingarticles.in)											| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
+| [thehacker.recipes](https://www.thehacker.recipes)										| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
+| [ired.team](https://ired.team)															| [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
+| [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)	| |
+| [0xdf gitlab](https://0xdf.gitlab.io/)													| |
 
-* [hacktricks.xyz](https://book.hacktricks.xyz)
-* [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
-* [hackingarticles.in](https://hackingarticles.in)
-* [thehacker.recipes](https://www.thehacker.recipes)
-* [ired.team](https://ired.team)
-* [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)
-* [0xdf gitlab](https://0xdf.gitlab.io/)
-
-##  3. <a name='TopVideoChannels'></a>Top Video Channels
-
-* [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9)
-* [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA)
-* [John Hammond](https://www.youtube.com/@_JohnHammond)
-* [Les Tutos de Processus](https://www.youtube.com/@processusthief)
-
-##  4. <a name='VulnerabilityExploitationSandboxing'></a>Vulnerability, Exploitation, Sandboxing
+##  3. <a name='VulnerabilityExploitationSandboxing'></a>Vulnerability, Exploitation, Sandboxing
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -61,7 +53,7 @@ nav_order: 2
 | Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | Randy Smith |
 
-###  4.1. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
+###  3.1. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -73,14 +65,14 @@ nav_order: 2
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
 
-###  4.2. <a name='Malwarestuffs'></a>Malware stuffs
+###  3.2. <a name='Malwarestuffs'></a>Malware stuffs
 
 * [Malpedia](https://www.unprotect.it/https://malpedia.caad.fkie.fraunhofer.de/)
 * [theZoo](https://github.com/ytisf/theZoo)
 * [malapi](https://malapi.io)
 * [unprotect porject](https://www.unprotect.it/)
 
-###  4.3. <a name='Training'></a>Training
+###  3.3. <a name='Training'></a>Training
 
 Here are interesting cybersecurity training platforms :
 
@@ -97,6 +89,6 @@ Here are interesting cybersecurity training platforms :
 | [hacker.house](https://hacker.house/training/) | - | Advanced to Expert |
 | [ctf365.com](https://ctf365.com/) | - | Advanced to Expert |
 
-###  4.4. <a name='MISC'></a>MISC 
+###  3.4. <a name='MISC'></a>MISC 
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
