@@ -62,6 +62,7 @@ deactivate.bat
 - [ipywidgets](https://ipywidgets.readthedocs.io)
 - [os](https://docs.python.org/3/library/os.html)
 - [pillow](https://pillow.readthedocs.io/en/stable/)
+- [pty](https://docs.python.org/3/library/pty.html) / [process spawn](https://docs.python.org/3/library/pty.html#pty.spawn)
 - [string](https://docs.python.org/3/library/string.html)
 - [sys](https://docs.python.org/3/library/sys.html)
 - [tkinter](https://docs.python.org/3/library/tkinter.html)

