@@ -27,11 +27,12 @@ nav_order: 2
 | **IOC assessment**									| **CVEs and Exploits** 					| **Binaries and Sandboxing**								| **Attack Surface**						|
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
 | [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
-| [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://hatching.io)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/)		| [any.run trends](https://any.run/malware-trends/) 		| [shodan](https://shodan.io/)				|
+| [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
+| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run trends](https://any.run/malware-trends/) 🆔📈   | [shodan](https://shodan.io/)				|
 | [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 															| [natlas](https://natlas.io/)				|
-| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 															| [censys](https://censys.io/)				|
-| [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [networksdb.io](https://networksdb.io/)	|
+| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 															| [censys](https://search.censys.io/) 	|
+| [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [onyphe](https://onyphe.io/)				|
+| 														|					 						|      														| [networksdb.io](https://networksdb.io/)	|
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
 
@@ -41,7 +42,7 @@ nav_order: 2
 | [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)			| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
 | [hackingarticles.in](https://hackingarticles.in)										| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
 | [thehacker.recipes](https://www.thehacker.recipes)									| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
-| [ired.team](https://ired.team)														| [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
+| [ired.team](https://ired.team)														| [Les Tutos de Processus](https://www.youtube.com/@processusthief) 🇫🇷 |
 | [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)	| |
 | [0xdf gitlab](https://0xdf.gitlab.io/)													| |
 
