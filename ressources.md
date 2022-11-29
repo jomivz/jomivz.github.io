@@ -25,20 +25,14 @@ nav_order: 2
 
 ##  1. <a name='Onlinehuntingservices'></a>Online hunting services
 
-| **Online Hunting Services**							| **CVEs and Exploits** 					| **Binaries and Sandboxing**								|
-|-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|
-| [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	|
-| [urlscan](https://urlscan.io/)						| [cvetrends](https://cvetrends.com/)       | [hatching.io](https://hatching.io)						|
-| [shodan](https://shodan.io/)							| [opencve.io](https://opencve.io)			|															|
-| [natlas](https://natlas.io/)							| [vulcom.com](https://vulmon.com)			| 															|
-| [censys](https://censys.io/)							| [github.com](https://github.com)			| 															|
-| [haveibeenpwned](https://haveibeenpwned.com/)			|											|      														|
-| [virustotal](https://virustotal.com/)					|											|            												|
-| [centralops.net](https://centralops.net/)				|											|         													|
-| [lots-project](https://lots-project.com/)				|											|         													|
-| [networksdb.io](https://networksdb.io/)				|											|           												|
-| [cyberchef](https://gchq.github.io/CyberChef/)		|											|      														|
-| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)	|											| 															|
+| **Online Hunting Services**							| **CVEs and Exploits** 					| **Binaries and Sandboxing**								| **Attack Surface**						|
+|-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
+| [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
+| [urlscan](https://urlscan.io/)						| [cvetrends](https://cvetrends.com/)       | [hatching.io](https://hatching.io)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
+| [virustotal](https://virustotal.com/)					| [opencve.io](https://opencve.io)			|															| [shodan](https://shodan.io/)				|
+| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 															| [natlas](https://natlas.io/)				|
+| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 															| [censys](https://censys.io/)				|
+| [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [networksdb.io](https://networksdb.io/)	|
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
 
