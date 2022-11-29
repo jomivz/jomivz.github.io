@@ -24,11 +24,11 @@ nav_order: 2
 
 ##  1. <a name='Onlinehuntingservices'></a>Online hunting services
 
-| **IOC assessment**									| **CVEs and Exploits** 					| **Binaries and Sandboxing**								| **Attack Surface**						|
+| 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 					|  👾 **Binaries and Sandboxing**						| 🌎 **Attack Surface**						|
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
 | [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
 | [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run trends](https://any.run/malware-trends/) 🆔📈   | [shodan](https://shodan.io/)				|
+| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run trends](https://any.run/malware-trends/) 📈🆔  | [shodan](https://shodan.io/)				|
 | [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 															| [natlas](https://natlas.io/)				|
 | [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 															| [censys](https://search.censys.io/) 	|
 | [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [onyphe](https://onyphe.io/)				|
@@ -36,7 +36,7 @@ nav_order: 2
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
 
-| **Top Awesome Repos** 																| **Top Video Channels** |
+| 📚 **Top Awesome Repos** 																| 🎞️ **Top Video Channels** |
 |---------------------------------------------------------------------------------------|------------------------|
 | [hacktricks.xyz](https://book.hacktricks.xyz)											| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
 | [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)			| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
