@@ -9,11 +9,12 @@ nav_order: 2
 
 <!-- vscode-markdown-toc -->
 * 1. [Online hunting services](#Onlinehuntingservices)
-* 2. [Top Awesome Ressources](#TopAwesomeRessources)
+* 2. [Top Cheatsheets](#TopCheatsheets)
 * 3. [Processes, Logging and LOLBAS](#ProcessesLoggingandLOLBAS)
-* 4. [Training](#Training)
-* 5. [VMs](#VMs)
-* 6. [MISC](#MISC)
+* 4. [Awesomes Repositories in the WWW](#AwesomesRepositoriesintheWWW)
+* 5. [Training](#Training)
+* 6. [VMs](#VMs)
+* 7. [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -27,23 +28,23 @@ nav_order: 2
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
 | [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
 | [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | [shodan](https://shodan.io/)				|
+| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | [shodan](https://shodan.io/) 🥇			|
 | [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | [censys](https://search.censys.io/) 			|
 | [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | [onyphe](https://onyphe.io/) |
 | [haveibeenpwned](https://haveibeenpwned.com/) 📈		| [0day.today](https://0day.today) 📈💲	| [unprotect project](https://www.unprotect.it/) 		| [wayback machine](http://web.archive.org/) |
 | 														|					 						| [malapi](https://malapi.io)							| [networksdb.io](https://networksdb.io/) |
 
-##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
+##  2. <a name='TopCheatsheets'></a>Top Cheatsheets
 
-| 📚 **Top Awesome Repos** 																| 🎞️ **Top Video Channels** |
+| 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** |
 |---------------------------------------------------------------------------------------|------------------------|
-| [hacktricks.xyz](https://book.hacktricks.xyz)											| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
-| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)			| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
-| [hackingarticles.in](https://hackingarticles.in)										| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
-| [thehacker.recipes](https://www.thehacker.recipes)									| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
-| [ired.team](https://ired.team)														| 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
-| [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)	| 🇫🇷 [Pour 1nf0 - la Cyber expliquée](https://www.youtube.com/@Pour1nfo) |
-| [0xdf gitlab](https://0xdf.gitlab.io/)													| 🇫🇷 [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) |
+| [hacktricks.xyz](https://book.hacktricks.xyz) 📕 🥇 										| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
+| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) 📕		| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
+| [hackingarticles.in](https://hackingarticles.in) 📕									| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
+| [thehacker.recipes](https://www.thehacker.recipes) 📕									| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
+| [eyehatemalwares](https://eyehatemalwares.com/home/) 📘 🥇									| 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
+| [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 📕 🐶 | 🇫🇷 [Pour 1nf0 - la Cyber expliquée](https://www.youtube.com/@Pour1nfo) |
+| [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🧰 🥇												| 🇫🇷 [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) |
 
 ##  3. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
 
@@ -60,7 +61,15 @@ nav_order: 2
 | Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
 
-##  4. <a name='Training'></a>Training
+##  4. <a name='AwesomesRepositoriesintheWWW'></a>Awesomes Repositories in the WWW
+
+| 📚 **Top Awesome Repos**												|
+|-----------------------------------------------------------------------|
+| [cugu awesome forensics](https://github.com/cugu/awesome-forensics) 📘 |
+| [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) 📕 |
+| [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) 📕 |
+
+##  5. <a name='Training'></a>Training
 
 Here are interesting cybersecurity training platforms :
 
@@ -77,13 +86,13 @@ Here are interesting cybersecurity training platforms :
 | [hacker.house](https://hacker.house/training/) | - | Advanced to Expert |
 | [ctf365.com](https://ctf365.com/) | - | Advanced to Expert |
 
-##  5. <a name='VMs'></a>VMs
+##  6. <a name='VMs'></a>VMs
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS Institute |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | Mandiant |
 
-##  6. <a name='MISC'></a>MISC 
+##  7. <a name='MISC'></a>MISC 
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
