@@ -26,12 +26,12 @@ nav_order: 2
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 					|  👾 **Binaries and Sandboxing**						| 🌎 **Recon**						|
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
-| [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| 🛸 [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| 🕸️ [centralops.net](https://centralops.net/)	|
-| [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| 🛸 [hatching.io](https://tria.ge/login)						| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 📡 [shodan](https://shodan.io/) 🥇			|
-| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [censys](https://search.censys.io/) 			|
-| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
-| [haveibeenpwned](https://haveibeenpwned.com/) 📈		| [0day.today](https://0day.today) 📈💲	| 🇼 [unprotect project](https://www.unprotect.it/) 		| ⏳ [wayback machine](http://web.archive.org/) |
+| 🚦 [urlhaus](https://urlhaus.abuse.ch/browse/)		| 🔎 [exploit-db.com](https://exploit-db.com)	| 🛸 [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| 🕸️ [centralops.net](https://centralops.net/)	|
+| 🚦 [urlscan](https://urlscan.io/)						| 👁️‍🗨️ [opencve.io](https://opencve.io)			| 🛸 [hatching.io](https://tria.ge/login)						| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
+| 🚦 [virustotal](https://virustotal.com/)				| 👁️‍🗨️ [cvetrends](https://cvetrends.com/) 📈    | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 📡 [shodan](https://shodan.io/) 🥇			|
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	 | 🔎 [vulmon.com](https://vulmon.com)			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [censys](https://search.censys.io/) 			|
+| 🚦 [lots-project](https://lots-project.com/)				| 🔎 [github.com](https://github.com)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
+| 🚦 [haveibeenpwned](https://haveibeenpwned.com/) 📈	| 💲 [0day.today](https://0day.today) 📈	| 🇼 [unprotect project](https://www.unprotect.it/) 		| ⏳ [wayback machine](http://web.archive.org/) |
 | 														|					 						| 🇼 [malapi](https://malapi.io)							| 🕸️ [networksdb.io](https://networksdb.io/) |
 
 ##  2. <a name='TopCheatsheets'></a>Top Cheatsheets
@@ -50,15 +50,15 @@ nav_order: 2
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
-| Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
-| Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
-| Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
-| Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
-| Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
-| Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
-| Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
-| Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
-| Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
+| 🗑️ Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
+| 🗑️ Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
+| 🗑️ Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
+| 🗑️ Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
+| 🗑️ Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
+| 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
+| 🐧 Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
+| 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
+| 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
 
 ##  4. <a name='AwesomesRepositoriesintheWWW'></a>Awesomes Repositories in the WWW
