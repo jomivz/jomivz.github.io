@@ -26,13 +26,13 @@ nav_order: 2
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 					|  👾 **Binaries and Sandboxing**						| 🌎 **Recon**						|
 |-------------------------------------------------------|-------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
-| [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
-| [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | [shodan](https://shodan.io/) 🥇			|
-| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | [censys](https://search.censys.io/) 			|
-| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | [onyphe](https://onyphe.io/) |
-| [haveibeenpwned](https://haveibeenpwned.com/) 📈		| [0day.today](https://0day.today) 📈💲	| [unprotect project](https://www.unprotect.it/) 		| [wayback machine](http://web.archive.org/) |
-| 														|					 						| [malapi](https://malapi.io)							| [networksdb.io](https://networksdb.io/) |
+| [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| 🛸 [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| 🕸️ [centralops.net](https://centralops.net/)	|
+| [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| 🛸 [hatching.io](https://tria.ge/login)						| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
+| [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 📡 [shodan](https://shodan.io/) 🥇			|
+| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [censys](https://search.censys.io/) 			|
+| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
+| [haveibeenpwned](https://haveibeenpwned.com/) 📈		| [0day.today](https://0day.today) 📈💲	| 🇼 [unprotect project](https://www.unprotect.it/) 		| ⏳ [wayback machine](http://web.archive.org/) |
+| 														|					 						| 🇼 [malapi](https://malapi.io)							| 🕸️ [networksdb.io](https://networksdb.io/) |
 
 ##  2. <a name='TopCheatsheets'></a>Top Cheatsheets
 
@@ -65,9 +65,9 @@ nav_order: 2
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
-| [cugu awesome forensics](https://github.com/cugu/awesome-forensics) 📘 |
-| [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) 📕 |
-| [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) 📕 |
+| 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
+| 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
+| 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 ##  5. <a name='Training'></a>Training
 
