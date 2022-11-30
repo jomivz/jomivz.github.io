@@ -29,8 +29,8 @@ nav_order: 2
 | [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | [shodan](https://shodan.io/)				|
 | [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | [censys](https://search.censys.io/) 			|
-| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) | [onyphe](https://onyphe.io/) |
-| [haveibeenpwned](https://haveibeenpwned.com/) 📈		|					 						| [unprotect project](https://www.unprotect.it/) 		| [wayback machine](http://web.archive.org/) |
+| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | [onyphe](https://onyphe.io/) |
+| [haveibeenpwned](https://haveibeenpwned.com/) 📈		| [0day.today](https://0day.today) 📈💲	| [unprotect project](https://www.unprotect.it/) 		| [wayback machine](http://web.archive.org/) |
 | 														|					 						| [malapi](https://malapi.io)							| [networksdb.io](https://networksdb.io/) |
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
