@@ -19,11 +19,12 @@ nav_order: 4
 
 ##  1. <a name='BestontheWeb'></a>Best on the Web
 
-* [Pentest AD by OCD](https://github.com/Orange-Cyberdefense/arsenal/blob/master/mindmap/pentest_ad_dark.svg)
-* [Pentest API](https://dsopas.github.io/MindAPI/play/)
+* [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
+* [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 * [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 * [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
 * [DFIR nasbench](https://github.com/nasbench/MindMaps)
+* [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 
 ##  2. <a name='OldThings'></a>Old Things
 
