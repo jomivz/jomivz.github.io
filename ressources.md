@@ -24,15 +24,14 @@ nav_order: 2
 
 ##  1. <a name='Onlinehuntingservices'></a>Online hunting services
 
-| 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**						| 🌎 **Recon**						|
-|-------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------|-------------------------------------------|
-| 🚦 [urlhaus](https://urlhaus.abuse.ch/browse/)		| 👁️‍🗨️ [cvetrends](https://cvetrends.com/) 📈 		 | 🛸 [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| 🕸️ [centralops](https://centralops.net/)	|
-| 🚦 [urlscan](https://urlscan.io/)						| 👁️‍🗨 [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷   | 🛸 [hatching.io](https://tria.ge/login)						| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| 🚦 [virustotal](https://virustotal.com/)				| 👁️‍🗨 [opencve](https://opencve.io)  				| 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 📡 [shodan](https://shodan.io/) 🥇			|
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	   | 👁️‍🗨️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [censys](https://search.censys.io/) 			|
+| 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
+|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
+| 🚦 [urlhaus](https://urlhaus.abuse.ch/browse/)		| 👁️‍🗨️ [cvetrends](https://cvetrends.com/) 📈 		 | 🛸 [hybrid-analysis.com](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
+| 🚦 [urlscan](https://urlscan.io/)						| 👁️‍🗨 [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷   | 🛸 [hatching.io](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
+| 🚦 [virustotal](https://virustotal.com/)				| 👁️‍🗨 [opencve](https://opencve.io)  				| 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			|
+| 🚦 [haveibeenpwned](https://haveibeenpwned.com/) 📈 	| 👁️‍🗨️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog)			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
-| 🚦 [haveibeenpwned](https://haveibeenpwned.com/) 📈	| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect project](https://www.unprotect.it/) 		| ⏳ [wayback machine](http://web.archive.org/) |
-| 														| 💲 [0day.today](https://0day.today) 📈 | 🇼 [malapi](https://malapi.io)							| 🕸️ [networksdb](https://networksdb.io/) |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect project](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
 ##  2. <a name='TopCheatsheets'></a>Top Cheatsheets
 
