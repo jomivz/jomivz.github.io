@@ -38,13 +38,13 @@ nav_order: 2
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** |
 |---------------------------------------------------------------------------------------|------------------------|
-| [hacktricks.xyz](https://book.hacktricks.xyz) 📕 🥇 										| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
-| [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) 📕		| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
-| [hackingarticles.in](https://hackingarticles.in) 📕									| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
-| [thehacker.recipes](https://www.thehacker.recipes) 📕									| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
-| [eyehatemalwares](https://eyehatemalwares.com/home/) 📘 🥇									| 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
-| [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 📕 🐶 | 🇫🇷 [Pour 1nf0 - la Cyber expliquée](https://www.youtube.com/@Pour1nfo) |
-| [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🧰 🥇												| 🇫🇷 [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) |
+| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
+| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	| [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
+| 📕 [hackingarticles.in](https://hackingarticles.in)									| [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
+| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| [John Hammond](https://www.youtube.com/@_JohnHammond) | 
+| 📘 [eyehatemalwares](https://eyehatemalwares.com/home/) 🥇									| 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) |
+| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Pour 1nf0 - la Cyber expliquée](https://www.youtube.com/@Pour1nfo) |
+| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇												| 🇫🇷 [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) |
 
 ##  3. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
 
