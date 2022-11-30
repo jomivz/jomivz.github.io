@@ -10,11 +10,10 @@ nav_order: 2
 <!-- vscode-markdown-toc -->
 * 1. [Online hunting services](#Onlinehuntingservices)
 * 2. [Top Awesome Ressources](#TopAwesomeRessources)
-* 3. [Vulnerability, Exploitation, Sandboxing](#VulnerabilityExploitationSandboxing)
-	* 3.1. [Binaries Security Assessment](#BinariesSecurityAssessment)
-	* 3.2. [Malware stuffs](#Malwarestuffs)
-	* 3.3. [Training](#Training)
-	* 3.4. [MISC](#MISC)
+* 3. [Processes, Logging and LOLBAS](#ProcessesLoggingandLOLBAS)
+* 4. [Training](#Training)
+* 5. [VMs](#VMs)
+* 6. [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -29,11 +28,10 @@ nav_order: 2
 | [urlhaus](https://urlhaus.abuse.ch/browse/)			| [exploit-db.com](https://exploit-db.com)	| [hybrid-analysis.com](https://www.hybrid-analysis.com/)	| [centralops.net](https://centralops.net/)	|
 | [urlscan](https://urlscan.io/)						| [opencve.io](https://opencve.io)			| [hatching.io](https://tria.ge/login)						| [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | [virustotal](https://virustotal.com/)					| [cvetrends](https://cvetrends.com/) 📈    | [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | [shodan](https://shodan.io/)				|
-| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| 															| [natlas](https://natlas.io/)				|
-| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| 															| [censys](https://search.censys.io/) 	|
-| [haveibeenpwned](https://haveibeenpwned.com/)			|					 						|      														| [onyphe](https://onyphe.io/)				|
-| 														|					 						|      														| [networksdb.io](https://networksdb.io/)	|
-| 														|					 						|      														| [wayback machine](http://web.archive.org/) |
+| [cyberchef](https://gchq.github.io/CyberChef/)		| [vulcom.com](https://vulmon.com)			| [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | [censys](https://search.censys.io/) 			|
+| [lots-project](https://lots-project.com/)				| [github.com](https://github.com)			| [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) | [onyphe](https://onyphe.io/) |
+| [haveibeenpwned](https://haveibeenpwned.com/) 📈		|					 						| [unprotect project](https://www.unprotect.it/) 		| [wayback machine](http://web.archive.org/) |
+| 														|					 						| [malapi](https://malapi.io)							| [networksdb.io](https://networksdb.io/) |
 
 ##  2. <a name='TopAwesomeRessources'></a>Top Awesome Ressources
 
@@ -47,17 +45,7 @@ nav_order: 2
 | [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html)	| 🇫🇷 [Pour 1nf0 - la Cyber expliquée](https://www.youtube.com/@Pour1nfo) |
 | [0xdf gitlab](https://0xdf.gitlab.io/)													| 🇫🇷 [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) |
 
-##  3. <a name='VulnerabilityExploitationSandboxing'></a>Vulnerability, Exploitation, Sandboxing
-
-| **Category**    | **Description** |    **Author**    |
-|-----------------|-----------------|------------------|
-| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS Institute |
-| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | Mandiant |
-|  | [malapi.io](https://malapi.io) | - |
-| Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
-| Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | Randy Smith |
-
-###  3.1. <a name='BinariesSecurityAssessment'></a>Binaries Security Assessment
+##  3. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -68,15 +56,11 @@ nav_order: 2
 | Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
 | Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
+| Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
+| Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
-###  3.2. <a name='Malwarestuffs'></a>Malware stuffs
 
-* [Malpedia](https://www.unprotect.it/https://malpedia.caad.fkie.fraunhofer.de/)
-* [theZoo](https://github.com/ytisf/theZoo)
-* [malapi](https://malapi.io)
-* [unprotect porject](https://www.unprotect.it/)
-
-###  3.3. <a name='Training'></a>Training
+##  4. <a name='Training'></a>Training
 
 Here are interesting cybersecurity training platforms :
 
@@ -93,6 +77,13 @@ Here are interesting cybersecurity training platforms :
 | [hacker.house](https://hacker.house/training/) | - | Advanced to Expert |
 | [ctf365.com](https://ctf365.com/) | - | Advanced to Expert |
 
-###  3.4. <a name='MISC'></a>MISC 
+##  5. <a name='VMs'></a>VMs
+
+| **Category**    | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS Institute |
+| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | Mandiant |
+
+##  6. <a name='MISC'></a>MISC 
 
 > You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
