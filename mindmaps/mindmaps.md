@@ -9,8 +9,8 @@ modified_date: 2022-12-01
 # Mindmaps
 
 <!-- vscode-markdown-toc -->
-* 1. [Best on the Web](#BestontheWeb)
-* 2. [Old Things](#OldThings)
+* [Best on the Web](#BestontheWeb)
+* [Old Things](#OldThings)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -20,33 +20,26 @@ modified_date: 2022-12-01
 
 ##  1. <a name='BestontheWeb'></a>Best on the Web
 
-* [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
-* [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
-* [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
-* [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
-* [DFIR nasbench](https://github.com/nasbench/MindMaps)
-* [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
+![Pentes AD icon](/assets/images/icons-pen-ad.png)
+📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
+
+![Pentest Web API icon](/assets/images/icons-web-api.png)
+📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
+
+![DFIR icon](/assets/images/icons-dfir.png)
+📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
+📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
+📘🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
+
+![Sysadmin icon](/assets/images/icons-sysadmin.png)
+🛠️🗑️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 
 ##  2. <a name='OldThings'></a>Old Things
 
-* Forensics Roadmap for NTFS 
-
-![Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
-
-* Forensics Roadmap for Windows OS 
-
-![Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
-
-* EnCE Encase v7
-
-![EnCE Encase v7](/mindmaps/svg/win-for-encase-v7-ence.svg)
-
-* Encase v7 Enscripts
-
-![Encase v7 EnScripts](/mindmaps/svg/win-for-encase-v7-enscript.svg)
-
-* Encase v7 Products
-
-![Encase v7 Products](/mindmaps/svg/win-for-encase-products-2016.svg)
+* [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
+* [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
+* [EnCE Encase v7](/mindmaps/svg/win-for-encase-v7-ence.svg)
+* [Encase v7 EnScripts](/mindmaps/svg/win-for-encase-v7-enscript.svg)
+* [Encase v7 Products](/mindmaps/svg/win-for-encase-products-2016.svg)
 
 

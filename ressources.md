@@ -1,5 +1,5 @@
 ---
-layout: category
+layout: page
 title: Awesome Ressources
 permalink: /ressources/
 nav_order: 2
