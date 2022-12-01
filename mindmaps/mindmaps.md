@@ -8,7 +8,7 @@ modified_date: 2022-12-01
 
 ##  <a name='MENUcyberwowmindmap'></a>MENU #cyber 🔫 #wow 👀 #mindmap 🧠
 
-
+<br>
 <!-- vscode-markdown-toc -->
 * [AD______ (#mindmap 🧠 #cyber 🔫 #ad 🗑️)](#AD______mindmapcyberad)
 * [WEB_API_ (#mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️)](#WEB_API_mindmapcyberwebapi)
