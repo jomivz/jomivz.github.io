@@ -6,14 +6,14 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  1. <a name='MENUcyberwowmindmaps'></a>MENU #cyber 🔫 #wow 👀 #mindmaps 🧠
+##  <a name='MENUcyberwowmindmaps'></a>MENU #cyber 🔫 #wow 👀 #mindmaps 🧠
 
 
 <!-- vscode-markdown-toc -->
-* [AD______ #wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️](#ADwowmindmapscyberad)
-* [WEB API_ #wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#WEBAPIwowmindmapscyberwebapi)
-* [DFIR____ #wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#DFIRwowmindmapscyberdfir)
-* [SYSADMIN #wow 👀 #mindmaps 🧠 #sysadmin 🛠️](#SYSADMINwowmindmapssysadmin)
+* [AD______ #mindmaps 🧠 #cyber 🔫 #ad 🗑️](#ADwowmindmapscyberad)
+* [WEB API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#WEBAPIwowmindmapscyberwebapi)
+* [DFIR____ #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#DFIRwowmindmapscyberdfir)
+* [SYSADMIN #mindmaps 🧠 #sysadmin 🛠️](#SYSADMINwowmindmapssysadmin)
 * [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config

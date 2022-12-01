@@ -6,14 +6,14 @@ nav_order: 2
 modified_date: 2022-12-01
 ---
 
-##  1. <a name='MENUcyberwowressources'></a>MENU #cyber 🔫 #wow 👀 #ressources 📕📘🎙️
+##  <a name='MENUcyberwowressources'></a>MENU #cyber 🔫 #wow 👀 #ressources 📕📘🎙️
 
 
 <!-- vscode-markdown-toc -->
-* [SAAS   #wow 👀 #cyber 🔫 #saas 🌎🤝](#SAASwowcybersaas)
-* [MEDIAS #wow 👀 #cyber 🔫 #medias 📕📘🎙️](#MEDIASwowcybermedias)
-* [REPOS  #wow 👀 #cyber 🔫 #repositories 📚](#REPOSwowcyberrepositories)
-* [TOOLS  #wow 👀 #cyber 🔫 #tools 🛠️](#TOOLSwowcybertools)
+* [SAAS____ #cyber 🔫 #saas 🌎🤝](#SAASwowcybersaas)
+* [MEDIAS__ #cyber 🔫 #medias 📕📘🎙️](#MEDIASwowcybermedias)
+* [REPOS___ #cyber 🔫 #repositories 📚](#REPOSwowcyberrepositories)
+* [TOOLS___ #cyber 🔫 #tools 🛠️](#TOOLSwowcybertools)
 * [Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
 * [MISC](#MISC)
 
@@ -23,7 +23,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='SAASwowcybersaas'></a>SAAS   #wow 👀 #cyber 🔫 #saas 🌎🤝
+###  <a name='SAASwowcybersaas'></a>SAAS #wow 👀 #cyber 🔫 #saas 🌎🤝
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -48,7 +48,7 @@ modified_date: 2022-12-01
 
 
 
-###  <a name='REPOSwowcyberrepositories'></a>REPOS  #wow 👀 #cyber 🔫 #repositories 📚
+###  <a name='REPOSwowcyberrepositories'></a>REPOS #wow 👀 #cyber 🔫 #repositories 📚
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
@@ -59,7 +59,7 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-###  <a name='TOOLSwowcybertools'></a>TOOLS  #wow 👀 #cyber 🔫 #tools 🛠️
+###  <a name='TOOLSwowcybertools'></a>TOOLS #wow 👀 #cyber 🔫 #tools 🛠️
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
