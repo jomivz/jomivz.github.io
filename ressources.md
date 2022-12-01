@@ -6,14 +6,14 @@ nav_order: 2
 modified_date: 2022-12-01
 ---
 
-##  <a name='cyberwowressources'></a>#cyber 🔫 #wow 👀 #ressources 📕📘🎙️
+##  1. <a name='MENUcyberwowressources'></a>MENU #cyber 🔫 #wow 👀 #ressources 📕📘🎙️
 
 
 <!-- vscode-markdown-toc -->
-* [#wow 👀 #cyber 🔫 #saas 🌎🤝](#wowcybersaas)
-* [#wow 👀 #cyber 🔫 #medias 📕📘🎙️](#wowcybermedias)
-* [#wow 👀 #cyber 🔫 #repositories 📚](#wowcyberrepositories)
-* [#wow 👀 #cyber 🔫 #tools 🛠️](#wowcybertools)
+* [SAAS   #wow 👀 #cyber 🔫 #saas 🌎🤝](#SAASwowcybersaas)
+* [MEDIAS #wow 👀 #cyber 🔫 #medias 📕📘🎙️](#MEDIASwowcybermedias)
+* [REPOS  #wow 👀 #cyber 🔫 #repositories 📚](#REPOSwowcyberrepositories)
+* [TOOLS  #wow 👀 #cyber 🔫 #tools 🛠️](#TOOLSwowcybertools)
 * [Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
 * [MISC](#MISC)
 
@@ -23,7 +23,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='wowcybersaas'></a>#wow 👀 #cyber 🔫 #saas 🌎🤝
+###  <a name='SAASwowcybersaas'></a>SAAS   #wow 👀 #cyber 🔫 #saas 🌎🤝
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -34,7 +34,7 @@ modified_date: 2022-12-01
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-###  <a name='wowcybermedias'></a>#wow 👀 #cyber 🔫 #medias 📕📘🎙️
+###  <a name='MEDIASwowcybermedias'></a>MEDIAS #wow 👀 #cyber 🔫 #medias 📕📘🎙️
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
@@ -48,7 +48,7 @@ modified_date: 2022-12-01
 
 
 
-###  <a name='wowcyberrepositories'></a>#wow 👀 #cyber 🔫 #repositories 📚
+###  <a name='REPOSwowcyberrepositories'></a>REPOS  #wow 👀 #cyber 🔫 #repositories 📚
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
@@ -59,7 +59,7 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-###  <a name='wowcybertools'></a>#wow 👀 #cyber 🔫 #tools 🛠️
+###  <a name='TOOLSwowcybertools'></a>TOOLS  #wow 👀 #cyber 🔫 #tools 🛠️
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
