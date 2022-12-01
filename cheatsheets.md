@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Yet Cheatsheets
+title: Yet Cyber Cheatsheets
 nav_order: 5
 has_children: true
 permalink: /cheatsheets/

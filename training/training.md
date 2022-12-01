@@ -9,7 +9,9 @@ modified_date: 2022-12-01
 
 ## #cyber 🔫 #wow 👀 #trainings 🚲
 
+
 Here are interesting cybersecurity training platforms :
+
 
 | **Links** | **Helping Pipes** |
 |---------------|---------------|

@@ -6,11 +6,15 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-## #cyber 🔫 #wow 👀 #mindmaps 🧠
+##  1. <a name='cyberwowmindmaps'></a>#cyber 🔫 #wow 👀 #mindmaps 🧠
+
 
 <!-- vscode-markdown-toc -->
-* [Best on the Web](#BestontheWeb)
-* [Old Things](#OldThings)
+* [#wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️](#wowmindmapscyberad)
+* [#wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#wowmindmapscyberwebapi)
+* [#wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#wowmindmapscyberdfir)
+* [#wow 👀 #mindmaps 🧠 #sysadmin 🛠️](#wowmindmapssysadmin)
+* [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -18,33 +22,46 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='BestontheWeb'></a>Best on the Web
+##  2. <a name='wowmindmapscyberad'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
 
+<tr><td>
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
-
-
+</td>
+<td>
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
+</td></tr>
 
+##  3. <a name='wowmindmapscyberwebapi'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
+
+<tr><td>
 ![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
-
-
+</td>
+<td>
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
+</td></tr>
 
+
+##  4. <a name='wowmindmapscyberdfir'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
+
+<tr><td>
 ![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
-
-
+</td>
+<td>
 📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
-
 📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
+</td></tr>
 
+##  5. <a name='wowmindmapssysadmin'></a>#wow 👀 #mindmaps 🧠 #sysadmin 🛠️
+
+<tr><td>
 ![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
-
-
+</td>
+<td>
 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
-
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
+</td></tr>
 
-##  2. <a name='OldThings'></a>Old Things
+##  6. <a name='Oldpersonalstuffs'></a>Old personal stuffs
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
