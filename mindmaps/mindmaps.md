@@ -6,7 +6,7 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  1. <a name='cyberwowmindmaps'></a>#cyber 🔫 #wow 👀 #mindmaps 🧠
+##  <a name='cyberwowmindmaps'></a>#cyber 🔫 #wow 👀 #mindmaps 🧠
 
 
 <!-- vscode-markdown-toc -->

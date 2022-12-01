@@ -6,7 +6,7 @@ nav_order: 2
 modified_date: 2022-12-01
 ---
 
-##  1. <a name='cyberwowressources'></a>#cyber 🔫 #wow 👀 #ressources 📕📘🎙️
+##  <a name='cyberwowressources'></a>#cyber 🔫 #wow 👀 #ressources 📕📘🎙️
 
 
 <!-- vscode-markdown-toc -->
