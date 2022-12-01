@@ -6,7 +6,7 @@ has_children: true
 permalink: /cheatsheets/
 ---
 
-## #yet 🖱 #cheatsheets ↩️
+## #yet 🖱 #cyber 🔫 #cheatsheets ↩️
 
 <h2>Categories</h2>
 <ul>

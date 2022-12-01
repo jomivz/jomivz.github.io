@@ -6,7 +6,7 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-## #cyber #wow 👀 #mindmaps 🧠
+## #cyber 🔫 #wow 👀 #mindmaps 🧠
 
 <!-- vscode-markdown-toc -->
 * [Best on the Web](#BestontheWeb)

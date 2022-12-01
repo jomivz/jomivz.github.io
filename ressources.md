@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Wow Ressources
+title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
 modified_date: 2022-12-01
 ---
 
-# 👀 Wow Ressources 📕📘🎙️
+## #cyber 🔫 #wow 👀 #ressources 📕📘🎙️
 
 <!-- vscode-markdown-toc -->
 * [Online hunting services](#Onlinehuntingservices)
