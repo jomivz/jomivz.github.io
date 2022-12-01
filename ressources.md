@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Awesome Ressources
+title: Wow Ressources
 permalink: /ressources/
 nav_order: 2
 modified_date: 2022-12-01
 ---
 
-# Awesome Ressources
+# 👀 Wow Ressources 📕📘🎙️
 
 <!-- vscode-markdown-toc -->
 * [Online hunting services](#Onlinehuntingservices)
@@ -82,6 +82,4 @@ modified_date: 2022-12-01
 ##  7. <a name='MISC'></a>MISC 
 
 > You may be interested into my :
-* [mindmaps links](/mindmaps/)
-* [training links](/training/)
 * [cybersecurity PDFs collection (2y old)](https://github.com/jomivz/cybrary).

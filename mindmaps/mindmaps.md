@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Awesome Mindmaps
+title: Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
 modified_date: 2022-12-01
 ---
 
-# Mindmaps
+# 👀 Wow Mindmaps 🧠
 
 <!-- vscode-markdown-toc -->
 * [Best on the Web](#BestontheWeb)

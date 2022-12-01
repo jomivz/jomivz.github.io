@@ -1,25 +1,28 @@
 ---
 layout: page
-title: Training
+title: Wow Trainings
 permalink: /training/
-nav_order: 5
+nav_order: 4
 modified_date: 2022-12-01
+
 ---
 
-##  Training
+#  👀 Wow Trainings 🚲
 
 Here are interesting cybersecurity training platforms :
 
-| **Reference** | **Content** | **Level** |
-|---------------|-------------|---------------|
-| [tryhackme.com](https://tryhackme.com) | TOP 1 to start a DFIR journey. From zero to hero. OVA available. | Beginner to Advanced |
-| [dfir.training](https://www.dfir.training/training) | Updated board referencing training, tools, articles. | Beginner to Advanced | 
-| [cyberdefenders.org](https://cyberdefenders.org/) | Begineer courses for free. | Beginner |
-| [hackthebox.eu](https://hackthebox.eu/) | The best board for purple team challenges. | Beginner to Expert |
-| [cybrary.it](https://www.cybrary.it/) | Plenty of courses. No training here. | Beginner to Expert |
-| [vulnhub.com](https://www.vulnhub.com) | Plenty of vulnerable VMs to practice your skills, create lab, ... | Beginner to Expert |
-| [pentesteracademy.com](https://www.pentesteracademy.com/activedirectorylab) | Interesting bootcamps with lab and certification, like the CRTP. | Advanced to Expert |
-| [lab.inf0sec](https://lab.inf0sec.) | Active Directory Lab to test your offensive skills.  | Expert |
-| [hacker.house](https://hacker.house/training/) | - | Advanced to Expert |
-| [ctf365.com](https://ctf365.com/) | - | Advanced to Expert |
-
+| **Links** | **Helping Pipes** |
+|---------------|---------------|
+| 🧰 [hackthebox.eu](https://hackthebox.eu/) | 
+🧰📚[HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇 <br/> 
+🧰🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
+| 🧰 [rootme](https://hackthebox.eu/) |  |
+| 🧰 [tryhackme.com](https://tryhackme.com) | |
+| [dfir.training](https://www.dfir.training/training) |  | 
+| [cyberdefenders.org](https://cyberdefenders.org/) |  |
+| [cybrary.it](https://www.cybrary.it/) |  |
+| [vulnhub.com](https://www.vulnhub.com) |  |
+| [pentesteracademy.com](https://www.pentesteracademy.com/activedirectorylab) |  |
+| [lab.inf0sec](https://lab.inf0sec.) |  |
+| [hacker.house](https://hacker.house/training/) |  |
+| [ctf365.com](https://ctf365.com/) |  |
