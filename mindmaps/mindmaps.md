@@ -22,7 +22,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='ADwowmindmapscyberad'></a>AD #wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
+###  <a name='ADwowmindmapscyberad'></a>AD #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
 
 <table>
 <tr><td>
@@ -33,7 +33,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  <a name='WEBAPIwowmindmapscyberwebapi'></a>WEB API #wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
+###  <a name='WEBAPIwowmindmapscyberwebapi'></a>WEB API #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
 
 <table>
 <tr><td>
@@ -45,7 +45,7 @@ modified_date: 2022-12-01
 </table>
 
 
-###  <a name='DFIRwowmindmapscyberdfir'></a>DFIR #wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
+###  <a name='DFIRwowmindmapscyberdfir'></a>DFIR #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
 
 <table>
 <tr><td>
@@ -57,7 +57,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  <a name='SYSADMINwowmindmapssysadmin'></a>SYSADMIN #wow 👀 #mindmaps 🧠 #sysadmin 🛠️
+###  <a name='SYSADMINwowmindmapssysadmin'></a>SYSADMIN #mindmaps 🧠 #sysadmin 🛠️
 
 <table>
 <tr><td>
