@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: Wow Ressources
 permalink: /ressources/
 nav_order: 2
