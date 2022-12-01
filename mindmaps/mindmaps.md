@@ -6,7 +6,7 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-## <a name='cyberwowmindmap'></a> #cyber 🔫 #wow 👀 #mindmap 🧠
+## <a name='cyberwowmindmap'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
 
 ## <a name='MENU'></a>MENU
 

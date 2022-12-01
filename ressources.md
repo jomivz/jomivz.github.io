@@ -6,15 +6,15 @@ nav_order: 2
 modified_date: 2022-12-01
 ---
 
-## <a name='cyberwowressources'></a> #cyber 🔫 #wow 👀 #ressources 📚🎙️
+## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️
 
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [Dashboard SaaS](#DashboardSaaS)
-* [Wow List Medias](#WowListMedias)
-* [Wow List Repos](#WowListRepos)
-* [Wow List Tools](#WowListTools)
+* [👀🔫 Dashboard SaaS 🌎🤝](#DashboardSaaS)
+* [👀🔫 Wow List Medias 📚🎞️🎙️](#WowListMedias)
+* [👀🔫 Wow List Repos 📚](#WowListRepos)
+* [👀🔫 Wow List Tools 🛠️](#WowListTools)
 * [Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
 * [MISC](#MISC)
 
@@ -24,9 +24,8 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='DashboardSaaS'></a>Dashboard SaaS
+### <a name='DashboardSaaS'></a>👀🔫 Dashboard SaaS 🌎🤝
 
-#### <a name='cybersaas'></a>(#cyber 🔫 #saas 🌎🤝)
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -37,11 +36,10 @@ modified_date: 2022-12-01
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-### <a name='WowListMedias'></a>Wow List Medias
+### <a name='WowListMedias'></a>👀🔫 Wow List Medias 📚🎞️🎙️
 
-#### <a name='cybermedias'></a>(#cyber 🔫 #medias 📕📘🎙️)
 
-| 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
+| 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
 | 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ [hacknspeak](https://twitter.com/hacknspeak) 🇫🇷 | 
 | 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
@@ -53,11 +51,10 @@ modified_date: 2022-12-01
 
 
 
-### <a name='WowListRepos'></a>Wow List Repos
+### <a name='WowListRepos'></a>👀🔫 Wow List Repos 📚
 
-#### <a name='cyberrepositories'></a>(#cyber 🔫 #repositories 📚)
 
-| 📚 **Top Awesome Repos**												|
+| 📚 **Top Wow Repos**												|
 |-----------------------------------------------------------------------|
 | 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
@@ -66,9 +63,7 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-### <a name='WowToolsList'></a>Wow List Tools
-
-#### <a name='cybertools'></a>(#cyber 🔫 #tools 🛠️)
+### <a name='WowListTools'></a>👀🔫 Wow List Tools 🛠️
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
