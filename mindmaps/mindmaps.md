@@ -20,27 +20,29 @@ modified_date: 2022-12-01
 
 ##  1. <a name='BestontheWeb'></a>Best on the Web
 
-![AD icon](/assets/images/icons-ad.png){: width="50" }
+![AD icon](/assets/images/icons-ad.png){: width="90" }
 
 
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
 
-![Pentest Web API icon](/assets/images/icons-web-api.png){: width="50" }
+![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
 
 
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 
-![DFIR icon](/assets/images/icons-dfir.png){: width="50" }
+![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
 
 
 📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
+
 📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
-📘🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 
-![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="250" }
+![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
 
 
-🛠️🗑️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
+🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
+
+🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 
 ##  2. <a name='OldThings'></a>Old Things
 
