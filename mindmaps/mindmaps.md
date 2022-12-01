@@ -8,7 +8,7 @@ modified_date: 2022-12-01
 
 ##  #cyber 🔫 #wow 👀 #mindmap 🧠
 
-##  <a name='MENUcyberwowmindmap'></a>MENU
+##  <a name='MENU'></a>MENU
 
 <br>
 <!-- vscode-markdown-toc -->
