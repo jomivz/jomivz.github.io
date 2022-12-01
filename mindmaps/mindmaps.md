@@ -6,15 +6,15 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-## <a name='cyberwowmindmap'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
+## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
 
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [👀🧠🔫 AD 🗑️](#AD)
-* [👀🧠🔫 WEB_API 🌎⚙️](#WEB_API)
-* [👀🧠🔫 DFIR ⚔️](#DFIR)
-* [👀🧠🛠️ SYSADMIN](#SYSADMIN)
+* [👀🧠🔫 _AD_PENTEST_ 📕🗑️](#_AD_PENTEST_)
+* [👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️](#_WEB_API_PENTEST_)
+* [👀🧠🔫 _DFIR_ 📘⚔️](#_DFIR_)
+* [👀🧠🛠️ _SYSADMIN_ 🗑️️🐧](#_SYSADMIN_)
 * [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config
@@ -23,26 +23,26 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='AD'></a>👀🧠🔫 AD 🗑️
+### <a name='_AD_PENTEST_'></a>👀🧠🔫 _AD_PENTEST_ 📕🗑️
 
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
 
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
 
-### <a name='WEB_API'></a>👀🧠🔫 WEB_API 🌎⚙️
+### <a name='_WEB_API_PENTEST_'></a>👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️
 
 ![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
 
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 
-### <a name='DFIR'></a>👀🧠🔫 DFIR ⚔️
+### <a name='_DFIR_'></a>👀🧠🔫 _DFIR_ 📘⚔️
 
 ![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
 
-📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
-📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
+📘⚔️ [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
+📘⚔️ [DFIR nasbench](https://github.com/nasbench/MindMaps)
 
-### <a name='SYSADMIN'></a>👀🧠🛠️ SYSADMIN
+### <a name='_SYSADMIN_'></a>👀🧠🛠️ _SYSADMIN_ 🗑️️🐧
 
 
 ![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
