@@ -6,14 +6,14 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  <a name='MENUcyberwowmindmaps'></a>MENU #cyber 🔫 #wow 👀 #mindmaps 🧠
+##  1. <a name='MENUcyberwowmindmap'></a>MENU #cyber 🔫 #wow 👀 #mindmap 🧠
 
 
 <!-- vscode-markdown-toc -->
-* [AD______ #mindmaps 🧠 #cyber 🔫 #ad 🗑️](#ADwowmindmapscyberad)
-* [WEB_API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#WEBAPIwowmindmapscyberwebapi)
-* [DFIR____ #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#DFIRwowmindmapscyberdfir)
-* [SYSADMIN #mindmaps 🧠 #sysadmin 🛠️](#SYSADMINwowmindmapssysadmin)
+* [AD______ (#mindmap 🧠 #cyber 🔫 #ad 🗑️)](#AD______mindmapcyberad)
+* [WEB_API_ (#mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️)](#WEB_API_mindmapcyberwebapi)
+* [DFIR____ (#mindmap 🧠 #cyber 🔫 #dfir ⚔️)](#DFIR____mindmapcyberdfir)
+* [SYSADMIN (#mindmap 🧠 #sysadmin 🛠️)](#SYSADMINmindmapsysadmin)
 * [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config
@@ -22,7 +22,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='ADwowmindmapscyberad'></a>AD______ #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
+###  1.1. <a name='AD______mindmapcyberad'></a>AD______ #mindmap 🧠 #cyber 🔫 #ad 🗑️ 
 
 <table>
 <tr><td>
@@ -35,7 +35,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  <a name='WEBAPIwowmindmapscyberwebapi'></a>WEB_API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
+###  1.2. <a name='WEB_API_mindmapcyberwebapi'></a>WEB_API_ #mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️
 
 <table>
 <tr><td>
@@ -49,7 +49,7 @@ modified_date: 2022-12-01
 </table>
 
 
-###  <a name='DFIRwowmindmapscyberdfir'></a>DFIR____ #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
+###  1.3. <a name='DFIR____mindmapcyberdfir'></a>DFIR____ #mindmap 🧠 #cyber 🔫 #dfir ⚔️
 
 <table>
 <tr><td>
@@ -63,7 +63,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  <a name='SYSADMINwowmindmapssysadmin'></a>SYSADMIN #mindmaps 🧠 #sysadmin 🛠️
+###  1.4. <a name='SYSADMINmindmapsysadmin'></a>SYSADMIN #mindmap 🧠 #sysadmin 🛠️
 
 <table>
 <tr><td>
@@ -77,7 +77,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  <a name='Oldpersonalstuffs'></a>Old personal stuffs
+###  1.5. <a name='Oldpersonalstuffs'></a>Old personal stuffs
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
