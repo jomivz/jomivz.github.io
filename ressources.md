@@ -23,7 +23,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='SAASwowcybersaas'></a>SAAS #cyber 🔫 #saas 🌎🤝
+###  <a name='SAASwowcybersaas'></a>SAAS____ #cyber 🔫 #saas 🌎🤝
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -34,7 +34,7 @@ modified_date: 2022-12-01
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-###  <a name='MEDIASwowcybermedias'></a>MEDIAS #cyber 🔫 #medias 📕📘🎙️
+###  <a name='MEDIASwowcybermedias'></a>MEDIAS__ #cyber 🔫 #medias 📕📘🎙️
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
@@ -48,7 +48,7 @@ modified_date: 2022-12-01
 
 
 
-###  <a name='REPOSwowcyberrepositories'></a>REPOS #cyber 🔫 #repositories 📚
+###  <a name='REPOSwowcyberrepositories'></a>REPOS___ #cyber 🔫 #repositories 📚
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
@@ -59,7 +59,7 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-###  <a name='TOOLSwowcybertools'></a>TOOLS #cyber 🔫 #tools 🛠️
+###  <a name='TOOLSwowcybertools'></a>TOOLS___ #cyber 🔫 #tools 🛠️
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|

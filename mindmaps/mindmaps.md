@@ -11,7 +11,7 @@ modified_date: 2022-12-01
 
 <!-- vscode-markdown-toc -->
 * [AD______ #mindmaps 🧠 #cyber 🔫 #ad 🗑️](#ADwowmindmapscyberad)
-* [WEB API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#WEBAPIwowmindmapscyberwebapi)
+* [WEB_API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#WEBAPIwowmindmapscyberwebapi)
 * [DFIR____ #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#DFIRwowmindmapscyberdfir)
 * [SYSADMIN #mindmaps 🧠 #sysadmin 🛠️](#SYSADMINwowmindmapssysadmin)
 * [Old personal stuffs](#Oldpersonalstuffs)
@@ -22,36 +22,42 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='ADwowmindmapscyberad'></a>AD #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
+###  <a name='ADwowmindmapscyberad'></a>AD______ #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
 
 <table>
 <tr><td>
+
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
 </td>
 <td>
+
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
 </td></tr>
 </table>
 
-###  <a name='WEBAPIwowmindmapscyberwebapi'></a>WEB API #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
+###  <a name='WEBAPIwowmindmapscyberwebapi'></a>WEB_API_ #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
 
 <table>
 <tr><td>
+
 ![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
 </td>
 <td>
+
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 </td></tr>
 </table>
 
 
-###  <a name='DFIRwowmindmapscyberdfir'></a>DFIR #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
+###  <a name='DFIRwowmindmapscyberdfir'></a>DFIR____ #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
 
 <table>
 <tr><td>
+
 ![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
 </td>
 <td>
+
 📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
 📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
 </td></tr>
@@ -61,9 +67,11 @@ modified_date: 2022-12-01
 
 <table>
 <tr><td>
+
 ![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
 </td>
 <td>
+
 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 </td></tr>
