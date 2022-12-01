@@ -1,13 +1,13 @@
 ---
 layout: page
-title: Wow Trainings
+title: Cyber Wow Trainings
 permalink: /training/
 nav_order: 4
 modified_date: 2022-12-01
 
 ---
 
-#  👀 Wow Trainings 🚲
+## #cyber #wow 👀 #trainings 🚲
 
 Here are interesting cybersecurity training platforms :
 

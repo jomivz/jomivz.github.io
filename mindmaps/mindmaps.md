@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Wow Mindmaps
+title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
 modified_date: 2022-12-01
 ---
 
-# 👀 Wow Mindmaps 🧠
+## #cyber #wow 👀 #mindmaps 🧠
 
 <!-- vscode-markdown-toc -->
 * [Best on the Web](#BestontheWeb)
