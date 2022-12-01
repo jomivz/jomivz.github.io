@@ -6,7 +6,9 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  <a name='MENUcyberwowmindmap'></a>MENU #cyber 🔫 #wow 👀 #mindmap 🧠
+##  #cyber 🔫 #wow 👀 #mindmap 🧠
+
+##  <a name='MENUcyberwowmindmap'></a>MENU
 
 <br>
 <!-- vscode-markdown-toc -->

@@ -6,16 +6,18 @@ nav_order: 2
 modified_date: 2022-12-01
 ---
 
-##  <a name='MENUcyberwowressources'></a>MENU (#cyber 🔫 #wow 👀 #ressources 📚🎙️)
+##  <a name='cyberwowressources'></a> #cyber 🔫 #wow 👀 #ressources 📚🎙️
+
+##  <a name='MENU'></a>MENU
 
 <br>
 <!-- vscode-markdown-toc -->
-* [SAAS____ (#cyber 🔫 #saas 🌎🤝)](#SAAS____cybersaas)
-* [MEDIAS__ (#cyber 🔫 #medias 📕📘🎙️)](#MEDIAS__cybermedias)
-* [REPOS___ (#cyber 🔫 #repositories 📚)](#REPOS___cyberrepositories)
-* [TOOLS___ (#cyber 🔫 #tools 🛠️)](#TOOLS___cybertools)
+* [SAAS](#SAAS)
+* [MEDIAS](#MEDIAS)
+* [REPOS](#REPOS)
+* [TOOLS](#TOOLS)
 * [Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
-* [MISC____](#MISC____)
+* [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -23,7 +25,9 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='SAAS____cybersaas'></a>SAAS____ (#cyber 🔫 #saas 🌎🤝)
+###  <a name='SAAS'></a>SAAS
+
+#### <a name='cybersaas'></a>(#cyber 🔫 #saas 🌎🤝)
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -34,7 +38,9 @@ modified_date: 2022-12-01
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-###  <a name='MEDIAS__cybermedias'></a>MEDIAS__ (#cyber 🔫 #medias 📕📘🎙️)
+###  <a name='MEDIAS'></a>MEDIAS
+
+####  <a name='cybermedias'></a>(#cyber 🔫 #medias 📕📘🎙️)
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
@@ -48,7 +54,9 @@ modified_date: 2022-12-01
 
 
 
-###  <a name='REPOS___cyberrepositories'></a>REPOS___ (#cyber 🔫 #repositories 📚)
+###  <a name='REPOS'></a>REPOS
+
+####  <a name='cyberrepositories'></a>(#cyber 🔫 #repositories 📚)
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
@@ -59,7 +67,9 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-###  <a name='TOOLS___cybertools'></a>TOOLS___ (#cyber 🔫 #tools 🛠️)
+###  <a name='TOOLS'></a>TOOLS
+
+####  <a name='cybertools'></a>(#cyber 🔫 #tools 🛠️)
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
@@ -81,7 +91,7 @@ modified_date: 2022-12-01
 | 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
 
-###  <a name='MISC____'></a>MISC____ 
+###  <a name='MISC'></a>MISC
 
 > You may be interested into my :
 * [cybersecurity PDFs collection (2y old)](https://github.com/jomivz/cybrary).
