@@ -33,17 +33,17 @@ nav_order: 2
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-##  2. <a name='TopCheatsheets'></a>Top Cheatsheets
+##  2. <a name='TopCheatsheets'></a>Top Medias
 
-| 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** |
-|---------------------------------------------------------------------------------------|------------------------|
-| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) |
-| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) |
-| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) |
-| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | 
-| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) |
-| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	|  |
-| 📘 [eyehatemalwares](https://eyehatemalwares.com/home/) 🥇											| |
+| 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
+|---------------------------------------------------------------------------------------|------------------------|------------------------|
+| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ https://twitter.com/hacknspeak 🇫🇷 | 
+| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) | 🎙️ https://www.nolimitsecu.fr/ 🇫🇷 | 
+| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ https://www.comptoirsecu.fr/categories/emission/ 🇫🇷 | 
+| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | |
+| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) | |
+| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	|  ||
+| 📘 [eyehatemalwares](https://eyehatemalwares.com/home/) 🥇											| | |
 
 ##  3. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
 
