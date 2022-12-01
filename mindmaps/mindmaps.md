@@ -6,80 +6,51 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  #cyber 🔫 #wow 👀 #mindmap 🧠
+## <a name='cyberwowmindmap'></a> #cyber 🔫 #wow 👀 #mindmap 🧠
 
-##  <a name='MENU'></a>MENU
+## <a name='MENU'></a>MENU
 
-<br>
 <!-- vscode-markdown-toc -->
-* [AD______ (#mindmap 🧠 #cyber 🔫 #ad 🗑️)](#AD______mindmapcyberad)
-* [WEB_API_ (#mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️)](#WEB_API_mindmapcyberwebapi)
-* [DFIR____ (#mindmap 🧠 #cyber 🔫 #dfir ⚔️)](#DFIR____mindmapcyberdfir)
-* [SYSADMIN (#mindmap 🧠 #sysadmin 🛠️)](#SYSADMINmindmapsysadmin)
+* [👀🧠🔫 AD 🗑️](#AD)
+* [👀🧠🔫 WEB_API 🌎⚙️](#WEB_API)
+* [👀🧠🔫 DFIR ⚔️](#DFIR)
+* [👀🧠🛠️ SYSADMIN](#SYSADMIN)
 * [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  <a name='AD______mindmapcyberad'></a>AD______ (#mindmap 🧠 #cyber 🔫 #ad 🗑️)
-
-<table>
-<tr><td>
+### <a name='AD'></a>👀🧠🔫 AD 🗑️
 
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
-</td>
-<td>
 
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
-</td></tr>
-</table>
 
-###  <a name='WEB_API_mindmapcyberwebapi'></a>WEB_API_ (#mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️)
-
-<table>
-<tr><td>
+### <a name='WEB_API'></a>👀🧠🔫 WEB_API 🌎⚙️
 
 ![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
-</td>
-<td>
 
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
-</td></tr>
-</table>
 
-
-###  <a name='DFIR____mindmapcyberdfir'></a>DFIR____ (#mindmap 🧠 #cyber 🔫 #dfir ⚔️)
-
-<table>
-<tr><td>
+### <a name='DFIR'></a>👀🧠🔫 DFIR ⚔️
 
 ![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
-</td>
-<td>
 
 📘 [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
 📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
-</td></tr>
-</table>
 
-###  <a name='SYSADMINmindmapsysadmin'></a>SYSADMIN (#mindmap 🧠 #sysadmin 🛠️)
+### <a name='SYSADMIN'></a>👀🧠🛠️ SYSADMIN
 
-<table>
-<tr><td>
 
 ![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
-</td>
-<td>
 
 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
-</td></tr>
-</table>
 
-###  <a name='Oldpersonalstuffs'></a>Old personal stuffs
+### <a name='Oldpersonalstuffs'></a>Old personal stuffs
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
