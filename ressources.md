@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: category
 title: Awesome Ressources
 permalink: /ressources/
 nav_order: 2
@@ -38,12 +38,12 @@ modified_date: 2022-12-01
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
-| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ https://twitter.com/hacknspeak 🇫🇷 | 
-| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) | 🎙️ https://www.nolimitsecu.fr/ 🇫🇷 | 
-| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ https://www.comptoirsecu.fr/categories/emission/ 🇫🇷 | 
-| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | |
-| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) | |
-| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	|  ||
+| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ [hacknspeak](https://twitter.com/hacknspeak) 🇫🇷 | 
+| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
+| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ [comptoirsecu](https://www.comptoirsecu.fr/categories/emission/) 🇫🇷 | 
+| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | 🎙️ []() 🇫🇷 |
+| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
+| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	|  | |
 | 📘 [eyehatemalwares](https://eyehatemalwares.com/home/) 🥇											| | |
 
 ##  3. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
@@ -71,22 +71,6 @@ modified_date: 2022-12-01
 | 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
-##  5. <a name='Training'></a>Training
-
-Here are interesting cybersecurity training platforms :
-
-| **Reference** | **Content** | **Level** |
-|---------------|-------------|---------------|
-| [tryhackme.com](https://tryhackme.com) | TOP 1 to start a DFIR journey. From zero to hero. OVA available. | Beginner to Advanced |
-| [dfir.training](https://www.dfir.training/training) | Updated board referencing training, tools, articles. | Beginner to Advanced | 
-| [cyberdefenders.org](https://cyberdefenders.org/) | Begineer courses for free. | Beginner |
-| [hackthebox.eu](https://hackthebox.eu/) | The best board for purple team challenges. | Beginner to Expert |
-| [cybrary.it](https://www.cybrary.it/) | Plenty of courses. No training here. | Beginner to Expert |
-| [vulnhub.com](https://www.vulnhub.com) | Plenty of vulnerable VMs to practice your skills, create lab, ... | Beginner to Expert |
-| [pentesteracademy.com](https://www.pentesteracademy.com/activedirectorylab) | Interesting bootcamps with lab and certification, like the CRTP. | Advanced to Expert |
-| [lab.inf0sec](https://lab.inf0sec.) | Active Directory Lab to test your offensive skills.  | Expert |
-| [hacker.house](https://hacker.house/training/) | - | Advanced to Expert |
-| [ctf365.com](https://ctf365.com/) | - | Advanced to Expert |
 
 ##  6. <a name='VMs'></a>VMs
 
@@ -97,4 +81,7 @@ Here are interesting cybersecurity training platforms :
 
 ##  7. <a name='MISC'></a>MISC 
 
-> You may be interested into my cybersecurity PDFs collection at: [github.com/jomivz/cybrary](https://github.com/jomivz/cybrary).
+> You may be interested into my :
+* [mindmaps links](/mindmaps/)
+* [training links](/training/)
+* [cybersecurity PDFs collection (2y old)](https://github.com/jomivz/cybrary).

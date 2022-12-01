@@ -3,6 +3,7 @@ layout: page
 title: Mindmaps
 permalink: /mindmaps/
 nav_order: 4
+modified_date: 2022-12-01
 ---
 
 # Mindmaps
