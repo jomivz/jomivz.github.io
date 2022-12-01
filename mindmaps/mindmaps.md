@@ -14,7 +14,6 @@ modified_date: 2022-12-01
 * [#wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️](#wowmindmapscyberwebapi)
 * [#wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️](#wowmindmapscyberdfir)
 * [#wow 👀 #mindmaps 🧠 #sysadmin 🛠️](#wowmindmapssysadmin)
-* [Old personal stuffs](#Oldpersonalstuffs)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -22,7 +21,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  2. <a name='wowmindmapscyberad'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
+###  <a name='wowmindmapscyberad'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #ad 🗑️ 
 
 <tr><td>
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
@@ -31,7 +30,7 @@ modified_date: 2022-12-01
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
 </td></tr>
 
-##  3. <a name='wowmindmapscyberwebapi'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
+###  <a name='wowmindmapscyberwebapi'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #web 🌎 #api ⚙️
 
 <tr><td>
 ![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
@@ -41,7 +40,7 @@ modified_date: 2022-12-01
 </td></tr>
 
 
-##  4. <a name='wowmindmapscyberdfir'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
+###  <a name='wowmindmapscyberdfir'></a>#wow 👀 #mindmaps 🧠 #cyber 🔫 #dfir ⚔️
 
 <tr><td>
 ![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
@@ -51,7 +50,7 @@ modified_date: 2022-12-01
 📘 [DFIR nasbench](https://github.com/nasbench/MindMaps)
 </td></tr>
 
-##  5. <a name='wowmindmapssysadmin'></a>#wow 👀 #mindmaps 🧠 #sysadmin 🛠️
+###  <a name='wowmindmapssysadmin'></a>#wow 👀 #mindmaps 🧠 #sysadmin 🛠️
 
 <tr><td>
 ![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
@@ -61,7 +60,7 @@ modified_date: 2022-12-01
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 </td></tr>
 
-##  6. <a name='Oldpersonalstuffs'></a>Old personal stuffs
+###  <a name='Oldpersonalstuffs'></a>Old personal stuffs
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)

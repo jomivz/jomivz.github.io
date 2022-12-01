@@ -10,11 +10,11 @@ modified_date: 2022-12-01
 
 
 <!-- vscode-markdown-toc -->
-* [#wow 👀 #cyber 🔫 #saas](#wowcybersaas)
-* [#wow 👀 #cyber 🔫 #medias](#wowcybermedias)
-* [#wow 👀 #cyber 🔫 #repositories](#wowcyberrepositories)
-* [#wow 👀 #cyber 🔫 #tools](#wowcybertools)
-* [Processes, Logging and LOLBAS](#ProcessesLoggingandLOLBAS)
+* [#wow 👀 #cyber 🔫 #saas 🌎🤝](#wowcybersaas)
+* [#wow 👀 #cyber 🔫 #medias 📕📘🎙️](#wowcybermedias)
+* [#wow 👀 #cyber 🔫 #repositories 📚](#wowcyberrepositories)
+* [#wow 👀 #cyber 🔫 #tools 🛠️](#wowcybertools)
+* [Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
 * [MISC](#MISC)
 
 <!-- vscode-markdown-toc-config
@@ -23,7 +23,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  2. <a name='wowcybersaas'></a>#wow 👀 #cyber 🔫 #saas
+###  <a name='wowcybersaas'></a>#wow 👀 #cyber 🔫 #saas 🌎🤝
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -34,7 +34,7 @@ modified_date: 2022-12-01
 | 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 
-##  3. <a name='wowcybermedias'></a>#wow 👀 #cyber 🔫 #medias
+###  <a name='wowcybermedias'></a>#wow 👀 #cyber 🔫 #medias 📕📘🎙️
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
@@ -48,7 +48,7 @@ modified_date: 2022-12-01
 
 
 
-##  4. <a name='wowcyberrepositories'></a>#wow 👀 #cyber 🔫 #repositories
+###  <a name='wowcyberrepositories'></a>#wow 👀 #cyber 🔫 #repositories 📚
 
 | 📚 **Top Awesome Repos**												|
 |-----------------------------------------------------------------------|
@@ -59,14 +59,14 @@ modified_date: 2022-12-01
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 
 
-##  5. <a name='wowcybertools'></a>#wow 👀 #cyber 🔫 #tools
+###  <a name='wowcybertools'></a>#wow 👀 #cyber 🔫 #tools 🛠️
 
 | **Category**    | **Description** |    **Author**    |
 |-----------------|-----------------|------------------|
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS Institute |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | Mandiant |
 
-##  6. <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS
+###  <a name='ProcessesLoggingandLOLBAS'></a>Processes, Logging and LOLBAS 🛠️⚙️📃
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -81,7 +81,7 @@ modified_date: 2022-12-01
 | 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
 
-##  7. <a name='MISC'></a>MISC 
+###  <a name='MISC'></a>MISC 
 
 > You may be interested into my :
 * [cybersecurity PDFs collection (2y old)](https://github.com/jomivz/cybrary).
