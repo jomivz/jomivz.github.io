@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Mindmaps
+title: Awesome Mindmaps
 permalink: /mindmaps/
-nav_order: 4
+nav_order: 3
 modified_date: 2022-12-01
 ---
 
