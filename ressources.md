@@ -3,6 +3,7 @@ layout: page
 title: Awesome Ressources
 permalink: /ressources/
 nav_order: 2
+modified_date: 2022-12-01
 ---
 
 # Awesome Ressources
