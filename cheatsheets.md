@@ -1,10 +1,12 @@
 ---
 layout: post
-title: Nth Cheatsheets
+title: Yet Cheatsheets
 nav_order: 5
 has_children: true
 permalink: /cheatsheets/
 ---
+
+# 🖱 Yet CheatSheets ↩️
 
 <h2>Categories</h2>
 <ul>

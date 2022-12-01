@@ -5,8 +5,6 @@ permalink: /about/
 navi_order: 6
 ---
 
-# About
-
 About me and this website, my name Jonathan aka **j0mivz**. I work as Cybersecurity Specialist. **This website is my selfish IT notebook.**
 There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz).
 
