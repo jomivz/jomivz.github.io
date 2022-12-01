@@ -6,7 +6,7 @@ nav_order: 3
 modified_date: 2022-12-01
 ---
 
-##  1. <a name='MENUcyberwowmindmap'></a>MENU #cyber 🔫 #wow 👀 #mindmap 🧠
+##  <a name='MENUcyberwowmindmap'></a>MENU #cyber 🔫 #wow 👀 #mindmap 🧠
 
 
 <!-- vscode-markdown-toc -->
@@ -22,7 +22,7 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-###  1.1. <a name='AD______mindmapcyberad'></a>AD______ #mindmap 🧠 #cyber 🔫 #ad 🗑️ 
+###  <a name='AD______mindmapcyberad'></a>AD______ (#mindmap 🧠 #cyber 🔫 #ad 🗑️)
 
 <table>
 <tr><td>
@@ -35,7 +35,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  1.2. <a name='WEB_API_mindmapcyberwebapi'></a>WEB_API_ #mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️
+###  <a name='WEB_API_mindmapcyberwebapi'></a>WEB_API_ (#mindmap 🧠 #cyber 🔫 #webapi 🌎⚙️)
 
 <table>
 <tr><td>
@@ -49,7 +49,7 @@ modified_date: 2022-12-01
 </table>
 
 
-###  1.3. <a name='DFIR____mindmapcyberdfir'></a>DFIR____ #mindmap 🧠 #cyber 🔫 #dfir ⚔️
+###  <a name='DFIR____mindmapcyberdfir'></a>DFIR____ (#mindmap 🧠 #cyber 🔫 #dfir ⚔️)
 
 <table>
 <tr><td>
@@ -63,7 +63,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  1.4. <a name='SYSADMINmindmapsysadmin'></a>SYSADMIN #mindmap 🧠 #sysadmin 🛠️
+###  <a name='SYSADMINmindmapsysadmin'></a>SYSADMIN (#mindmap 🧠 #sysadmin 🛠️)
 
 <table>
 <tr><td>
@@ -77,7 +77,7 @@ modified_date: 2022-12-01
 </td></tr>
 </table>
 
-###  1.5. <a name='Oldpersonalstuffs'></a>Old personal stuffs
+###  <a name='Oldpersonalstuffs'></a>Old personal stuffs
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
