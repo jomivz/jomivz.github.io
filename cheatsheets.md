@@ -1,7 +1,7 @@
 ---
 layout: post
-title: NTH Cheatsheets
-nav_order: 4
+title: Nth Cheatsheets
+nav_order: 5
 has_children: true
 permalink: /cheatsheets/
 ---
