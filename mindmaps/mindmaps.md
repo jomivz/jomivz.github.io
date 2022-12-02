@@ -15,7 +15,7 @@ modified_date: 2022-12-01
 * [👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️](#_WEB_API_PENTEST_)
 * [👀🧠🔫 _DFIR_ 📘⚔️](#_DFIR_)
 * [👀🧠🛠️ _SYSADMIN_ 🗑️️🐧](#_SYSADMIN_)
-* [Old personal stuffs](#Oldpersonalstuffs)
+* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -50,7 +50,7 @@ modified_date: 2022-12-01
 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 
-### <a name='Oldpersonalstuffs'></a>Old personal stuffs
+### <a name='_OLD_STUFFS_'></a>👀🧠🔫 _OLD_STUFFS_ 🥱
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
