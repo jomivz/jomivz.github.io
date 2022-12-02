@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-12-01
+modified_date: 2022-12-02
 ---
 
 ## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️
@@ -41,13 +41,13 @@ modified_date: 2022-12-01
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
-| 🧰 [HITB 0xdf gitlab](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf gitlab](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ [hacknspeak](https://twitter.com/hacknspeak) 🇫🇷 | 
-| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Weekly Live Streaming](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
-| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ [comptoirsecu](https://www.comptoirsecu.fr/categories/emission/) 🇫🇷 | 
-| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | 🎙️ []() 🇫🇷 |
-| 📕 [bloodhound edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Les Tutos de Processus](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
-| 📕 [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)	|  | |
-| 📘 [eyehatemalwares](https://eyehatemalwares.com/home/) 🥇											| | |
+| 🧰 [HITB 0xdf](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ [hacknspk](https://twitter.com/hacknspeak) 🇫🇷 | 
+| 📕 [hacktricks.xyz](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Wk Live](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) => Fri 6PM GMT+1 | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
+| 📕 [hackingarticles.in](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ [cptsecu](https://www.comptoirsecu.fr/categories/emission/) 🇫🇷 | 
+| 📕 [thehacker.recipes](https://www.thehacker.recipes)									| 🔴 [John Hammond](https://www.youtube.com/@_JohnHammond) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
+| 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🇫🇷 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [Pour 1nf0](https://www.youtube.com/@Pour1nfo) | 🎙️  🇫🇷 |
+| 📕 [PayloadsAllTT](https://github.com/swisskyrepo/PayloadsAllTheThings)	| 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 | |
+| 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇											| | |
 
 
 
