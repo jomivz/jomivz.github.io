@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0006 Credentials Access - NTDS.dit, LSASS.exe, SAM
+title: TA0006 Credentials Access
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
@@ -13,12 +13,13 @@ permalink: /:categories/:title/
 	* [WHICH OS ? WHAT CREDS ?](#WHICHOSWHATCREDS)
 	* [Rubeus](#Rubeus)
 	* [Other tools](#Othertools)
-* [Kerberos Ticket Manipulations](#KerberosTicketManipulations)
+* [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
 	* [Kerberos ASKTGT](#KerberosASKTGT)
 	* [Import / Export Tickets](#ImportExportTickets)
 * [DCSync attack](#DCSyncattack)
 * [NTDS.dit dump](#NTDS.ditdump)
 * [LSASS.exe dump](#LSASS.exedump)
+* [SAM dump](#SAMdump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -32,17 +33,24 @@ permalink: /:categories/:title/
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
 
+TO READ: [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniques/T1003/001/)
+
 ### <a name='Rubeus'></a>Rubeus 
 ```powershell
 # compilation
 ```
 
 ### <a name='Othertools'></a>Other tools
-- [Mimikatz binaries]()
-- [Pypykatz]()
-- [Abusing kerberos using impacket](https://www.hackingarticles.in/abusing-kerberos-using-impacket/)
+- Mimikatz: [Cheatsheet]() / [Repository]() / [Binaries]()
+- Pypykatz: [Cheatsheet]() / [Repository]()
+- Impacket: [Cheatsheet](https://www.hackingarticles.in/abusing-kerberos-using-impacket/) / [Repository]()
+- lsassy:  [Cheatsheet]() / [Repository](https://github.com/Hackndo/lsassy)
+- lsass-shtinkering: [Repository](https://github.com/deepinstinct/Lsass-Shtinkering)
+- masky: [Repository](https://github.com/Z4kSec/Masky)
+- donpapi: [Repository](https://github.com/login-securite/DonPAPI)
 
-## <a name='KerberosTicketManipulations'></a>Kerberos Ticket Manipulations 
+
+## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
 
 [Wiki Rubeus](https://github.com/GhostPack/Rubeus)
 
@@ -84,9 +92,9 @@ lsadump::dcsync /dc:$zdom_dc /domain:$zdom_fqdn /user:$zlat_user
 ## <a name='NTDS.ditdump'></a>NTDS.dit dump
 
 
-
 ## <a name='LSASS.exedump'></a>LSASS.exe dump
 
 - [lsassy](https://github.com/Hackndo/lsassy)
+- [lsass-shtinkering](https://github.com/deepinstinct/Lsass-Shtinkering)
 
-## <a name='LSASS.exedump'></a>SAM dump
+## <a name='SAMdump'></a>SAM dump
