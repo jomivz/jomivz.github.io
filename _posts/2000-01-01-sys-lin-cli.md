@@ -14,8 +14,13 @@ permalink: /:categories/:title/
 	* [Run openvpn](#Runopenvpn)
 	* [Disable LLMNR (Ubuntu)](#DisableLLMNRUbuntu)
 * [Network concerns](#Networkconcerns)
+	* [Set a static/dynamic IP address](#SetastaticdynamicIPaddress)
 	* [Change the MAC address](#ChangetheMACaddress)
+	* [Loop exec over /24](#Loopexecover24)
 * [System concerns](#Systemconcerns)
+	* [APT history](#APThistory)
+	* [Archive servers](#Archiveservers)
+	* [Sysinternals Procdump / Promon install](#SysinternalsProcdumpPromoninstall)
 	* [Clean Shell history](#CleanShellhistory)
 	* [LVM resize vg-root](#LVMresizevg-root)
 	* [SED examples](#SEDexamples)
@@ -81,7 +86,7 @@ nano /etc/systemd/resolved.conf
 ```
 
 ## <a name='Networkconcerns'></a>Network concerns
-### <a name='ChangetheMACaddress'></a>Set a static/dynamic IP address
+### <a name='SetastaticdynamicIPaddress'></a>Set a static/dynamic IP address
 ```
 sudo vim /etc/netplan/01-netcfg.yaml
 # set the DHCP option from true to false
@@ -96,7 +101,7 @@ sudo ifconfig eth0 down
 sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
 sudo ifconfig eth0 up
 ```
-### <a name='ChangetheMACaddress'></a>Loop exec over /24
+### <a name='Loopexecover24'></a>Loop exec over /24
 ```
 # change echo with enum4linux, nmap, ... 
 for i in {1..254}; do echo 172.17.135.$i >> tt.txt; i=$i+1; done
@@ -104,12 +109,17 @@ for i in {1..254}; do echo 172.17.135.$i >> tt.txt; i=$i+1; done
 
 ## <a name='Systemconcerns'></a>System concerns
 
-### <a name='Systemconcerns'></a>Archive servers
+### <a name='APThistory'></a>APT history
+```
+zcat /var/log/apt/history.log.*.gz | cat - /var/log/apt/history.log | grep -Po '^Commandline.*'
+```
+
+### <a name='Archiveservers'></a>Archive servers
 
 Look for packages to download:
 - [ubuntu](https://fr.archive.ubuntu.com/ubuntu/pool/universe/)
 
-### <a name='Systemconcerns'></a>Sysinternals Procdump / Promon install 
+### <a name='SysinternalsProcdumpPromoninstall'></a>Sysinternals Procdump / Promon install 
 ```
 wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
 sudo dpkg -i packages-microsoft-prod.deb
