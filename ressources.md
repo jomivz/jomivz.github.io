@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-12-02
+modified_date: 2022-12-09
 ---
 
 ## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️
@@ -29,12 +29,20 @@ modified_date: 2022-12-02
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-| 🚦 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 👁️ [cvetrends](https://cvetrends.com/) 📈🐦 | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
+| 🚦 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦 | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
 | 🚦 [urlscan](https://urlscan.io/)						| 👁️ [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷 🥐  | 🛸 [hatching](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | 🚦 [virustotal](https://virustotal.com/)				| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
-| 🚦 [HIBP](https://haveibeenpwned.com/) 📈 	| 👁️ [opencve](https://opencve.io) 🛠️			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
-| 🚦 [lots-project](https://lots-project.com/)			| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
+| 🚦 [HIBP](https://haveibeenpwned.com/) 📈 			|  [opencve](https://opencve.io) 🛠️			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
+| 🚦 [hashkiller](https://hashkiller.io/leaks) 📈		| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
+| 🚦 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		|													| 																	| |
+
+**Legend**
+
+|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
+|🔥🚦 IOC sources to monitor | 😈👁️ CVE / Exploits daily watch | 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
+|🔥⚙️ payload cooking| 😈 🚦 CVE / CMDB monitoring | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
+| | 😈🔎 CVE / Exploits PoC search engines | 👾🇼💣⚠️ Source codes & Binairies for download | |
 
 ### <a name='WowListMedias'></a>👀🔫 Wow List Medias 📚🎞️🎙️
 
@@ -46,10 +54,16 @@ modified_date: 2022-12-02
 | 📕 [hackingarticles](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ [cptsecu](https://www.comptoirsecu.fr/categories/emission/) 🇫🇷 | 
 | 📕 [hacker.recipes](https://www.thehacker.recipes)									| 🔴 [John H](https://www.youtube.com/@_JohnHammond) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
 | 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
-| 📕 [PayloadsAllTT](https://github.com/swisskyrepo/PayloadsAllTheThings)	| 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 🥇 | |
-| 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇											| | |
+| 📕 [PayloadsAllTT](https://github.com/swisskyrepo/PayloadsAllTheThings)	| 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 | |
+| 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇											|  🔴 [HackerSploit](https://www.youtube.com/@HackerSploit/playlists) 🥇 | |
 
 
+**Legend**
+
+|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
+|🧰 Pentesting platform | 🎞️🔴 YouTube | 🎙️ Podcast | 
+|📕 Redteam cheatsheets | 🎞️🟣 Twitch | |
+|📘 Blueteam cheatsheets | | |
 
 ### <a name='WowListRepos'></a>👀🔫 Wow List Repos 📚
 
@@ -63,6 +77,13 @@ modified_date: 2022-12-02
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
 
+
+**Legend**
+
+|-------------------------------------------------------|
+| 📚👩🏻‍💻 Interactive Frameworks MUST KNOWN |
+| 📚📕 Famous Redteam repository |
+| 📚📘 Famous Blueteam repository |
 
 ### <a name='WowListTools'></a>👀🔫 Wow List Tools 🛠️
 
