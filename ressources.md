@@ -29,10 +29,10 @@ modified_date: 2022-12-09
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦 | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
+| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 🚦🔎 [opencve](https://opencve.io) 🛠️ | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
 | 🚦🔎 [urlscan](https://urlscan.io/)						| 👁️ [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷 🥐  | 🛸 [hatching](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | 🚦🔎 [virustotal](https://virustotal.com/)				| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
-| 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 🚦🔎 [opencve](https://opencve.io) 🛠️			| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
+| 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		|													| 																	| |
@@ -40,8 +40,8 @@ modified_date: 2022-12-09
 **Legend**
 
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-|🔥🚦🔎 IOC monitor & search | 😈👁️ CVE / Exploits daily watch | 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
-|🔥⚙️ payload cooking| 😈 🚦🔎 CMDB monitor & CVE search | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
+|🔥🚦🔎 IOC monitor & search | 😈 🚦🔎 CMDB monitor & CVE search| 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
+|🔥⚙️ payload cooking| 😈👁️ CVE / Exploits daily watch | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
 | | 😈🔎 CVE / Exploits PoC search engines | 👾🇼💣⚠️ Source codes & Binairies for download | |
 
 ### <a name='WowListMedias'></a>👀🔫 Wow List Medias 📚🎞️🎙️

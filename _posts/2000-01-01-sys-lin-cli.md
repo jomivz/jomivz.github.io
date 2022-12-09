@@ -4,7 +4,7 @@ title: Sysadmin LIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-08-30
+modified_date: 2022-12-09
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
