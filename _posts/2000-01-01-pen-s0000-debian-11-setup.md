@@ -60,8 +60,8 @@ chmod +x burpsuite_*.sh
 | Initial Access | [responder](https://github.com/lgandx/Responder) |
 | AD | [pywerview](https://github.com/the-useless-one/pywerview) |
 | Exploitation | [searchsploit](https://gitlab.com/exploit-database/exploitdb), [seatbelt](https://github.com/GhostPack/Seatbelt), [msf](https://github.com/rapid7/metasploit-framework) |
-| Post-Exploitaiton | [cme](https://github.com/Porchetta-Industries/CrackMapExec), [lsasy]h(ttps://github.com/Hackndo/lsassy), [donpapi](https://github.com/login-securite/DonPAPI), [masky](https://github.com/Z4kSec/Masky), [pypykatz](https://github.com/skelsec/pypykatz), [evil-win-rm](https://github.com/Hackplayers/evil-winrm), [rubeus](https://github.com/GhostPack/Rubeus), [impacket](https://github.com/SecureAuthCorp/impacket) |
+| Post-Exploitaiton | [cme](https://github.com/Porchetta-Industries/CrackMapExec), [lsassy](https://github.com/Hackndo/lsassy), [donpapi](https://github.com/login-securite/DonPAPI), [masky](https://github.com/Z4kSec/Masky), [pypykatz](https://github.com/skelsec/pypykatz), [evil-winrm](https://github.com/Hackplayers/evil-winrm), [rubeus](https://github.com/GhostPack/Rubeus), [impacket](https://github.com/SecureAuthCorp/impacket) |
 
 ## <a name='gitrepositories'></a>docker containers
 
-![sysadmin docker](/sysadmin/sys-virt-docker-cli/)
+* [sysadmin docker](/sysadmin/sys-virt-docker-cli/)
