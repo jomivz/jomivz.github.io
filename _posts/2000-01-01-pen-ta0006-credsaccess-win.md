@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0006 Credentials Access
+title: TA0006 Credentials Access - Windows
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
@@ -33,7 +33,9 @@ permalink: /:categories/:title/
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
 
-TO READ: [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniques/T1003/001/)
+TO READ: 
+* [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniques/T1003/001/)
+* [LSA RunAsPPL protection](https://itm4n.github.io/lsass-runasppl/)
 
 ### <a name='Rubeus'></a>Rubeus 
 ```powershell
@@ -46,6 +48,8 @@ TO READ: [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniq
 - Impacket: [Cheatsheet](https://www.hackingarticles.in/abusing-kerberos-using-impacket/) / [Repository]()
 - lsassy:  [Cheatsheet]() / [Repository](https://github.com/Hackndo/lsassy)
 - lsass-shtinkering: [Repository](https://github.com/deepinstinct/Lsass-Shtinkering)
+- DumpThatLSASS: [Repository](https://github.com/D1rkMtr/DumpThatLSASS)
+- HandleKatz: [Repository](https://github.com/codewhitesec/HandleKatz)
 - masky: [Repository](https://github.com/Z4kSec/Masky)
 - donpapi: [Repository](https://github.com/login-securite/DonPAPI)
 

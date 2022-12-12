@@ -33,9 +33,10 @@ modified_date: 2022-12-09
 | 🚦🔎 [urlscan](https://urlscan.io/)						| 👁️ [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷 🥐  | 🛸 [hatching](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | 🚦🔎 [virustotal](https://virustotal.com/)				| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
 | 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
-| 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
+| 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 👁️ [0day.today](https://en.0day.today/) 📈 💲			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 👁️ [0day.today](https://en.0day.today/) 📈 💲	| 																	| |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 																	| |
+|		| 🔎 [osv.dev](https://osv.dev/list) | | |
 
 **Legend**
 
@@ -56,6 +57,7 @@ modified_date: 2022-12-09
 | 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
 | 📕 [PayloadsAllTT](https://github.com/swisskyrepo/PayloadsAllTheThings)	| 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 | |
 | 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇											|  🔴 [HackerSploit](https://www.youtube.com/@HackerSploit/playlists) 🥇 | |
+| 📕📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
 
 
 **Legend**
@@ -72,6 +74,7 @@ modified_date: 2022-12-09
 |-----------------------------------------------------------------------|
 | 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
+| 📕 [The PPN notebook](https://ppn.snovvcrash.rocks/) |
 | 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
@@ -87,10 +90,13 @@ modified_date: 2022-12-09
 
 ### <a name='WowListTools'></a>👀🔫 Wow List Tools 🛠️
 
-| **Category**    | **Description** |    **Author**    |
-|-----------------|-----------------|------------------|
-| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS Institute |
-| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | Mandiant |
+| **Category**    | **Description** |
+|-----------------|-----------------|
+| 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) |
+| 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) |
+| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
+| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
+| Tools listing   | [Awesome DFIR](https://awesomedfir.com) |
 
 ### <a name='ProcessesLoggingandLOLBAS'></a>👀🔫 Processes, Logging and LOLBAS 🛠️⚙️📃
 

@@ -1,0 +1,31 @@
+---
+layout: post
+title: TA0005 Defense Evasion - EDR
+parent: Pentesting
+category: Pentesting
+grand_parent: Cheatsheets
+modified_date: 2022-12-12
+permalink: /:categories/:title/
+---
+
+<!-- vscode-markdown-toc -->
+* [EDR Evasion tools](#EDREvasiontools)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+## <a name='EDREvasiontools'></a>EDR Evasion tools 
+
+* [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
+* [Awesome-AV-EDR-XDR-Bypass](https://github.com/MrEmpy/Awesome-AV-EDR-XDR-Bypass)
+* [bruteratel](https://bruteratel.com/release/2022/08/18/Release-Scandinavian-Defense/)
+* [PostDump](https://github.com/post-cyberlabs/Offensive_tools/tree/main/PostDump)
+* [Telemetry Sourcer](https://github.com/jthuraisamy/TelemetrySourcerer)
+* [warbird-hook](https://github.com/KiFilterFiberContext/warbird-hook)
+* [Reflexxion](https://github.com/hlldz/RefleXXion)
+* [ScareCrow](https://github.com/optiv/ScareCrow)
+* [SharpEDRChecker](https://github.com/PwnDexter/SharpEDRChecker)
+* [@balqurneh](https://medium.com/@balqurneh/bypass-crowdstrike-falcon-edr-protection-against-process-dump-like-lsass-exe-3c163e1b8a3e)

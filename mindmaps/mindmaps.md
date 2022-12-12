@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2022-12-01
+modified_date: 2022-12-12
 ---
 
 ## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
@@ -11,11 +11,14 @@ modified_date: 2022-12-01
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [👀🧠🔫 _AD_PENTEST_ 📕🗑️](#_AD_PENTEST_)
-* [👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️](#_WEB_API_PENTEST_)
-* [👀🧠🔫 _DFIR_ 📘⚔️](#_DFIR_)
-* [👀🧠🛠️ _SYSADMIN_ 🗑️️🐧](#_SYSADMIN_)
-* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
+* [ #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️](#wowmindmapcybersysadmin)
+* [MENU](#MENU)
+	* [👀🧠🔫 _AD_PENTEST_ 📕🗑️](#_AD_PENTEST_)
+	* [👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️](#_WEB_API_PENTEST_)
+	* [👀🧠🔫 _DFIR_ 📘⚔️](#_DFIR_)
+	* [👀🧠🔫 _OSINT_ 📘🕵️](#_OSINT_)
+	* [👀🧠🛠️ _SYSADMIN_ 🗑️️🐧](#_SYSADMIN_)
+	* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -23,11 +26,16 @@ modified_date: 2022-12-01
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+### 👀🧠🔫 _FIRST_PLACES_
+
+* [securityzines](https://securityzines.com/)
+
 ### <a name='_AD_PENTEST_'></a>👀🧠🔫 _AD_PENTEST_ 📕🗑️
 
 ![AD icon](/assets/images/icons-ad.png){: width="90" }
 
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
+📕🗑️ [Pentest AD @y0u553f5433d](https://xmind.app/m/874LNH/)
 
 ### <a name='_WEB_API_PENTEST_'></a>👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️
 
@@ -42,6 +50,10 @@ modified_date: 2022-12-01
 📘⚔️ [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
 📘⚔️ [DFIR nasbench](https://github.com/nasbench/MindMaps)
 
+### <a name='_OSINT_'></a>👀🧠🔫 _OSINT_ 📘🕵️
+
+📘🕵️ [Malfrat's OSINT map](https://map.malfrats.industries/)
+
 ### <a name='_SYSADMIN_'></a>👀🧠🛠️ _SYSADMIN_ 🗑️️🐧
 
 
@@ -49,6 +61,8 @@ modified_date: 2022-12-01
 
 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
+
+🛠️🗑️☁️ [AWS geek](https://www.awsgeek.com/)
 
 ### <a name='_OLD_STUFFS_'></a>👀🧠🔫 _OLD_STUFFS_ 🥱
 

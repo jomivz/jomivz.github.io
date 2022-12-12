@@ -4,7 +4,7 @@ title: Terraform with DigitalOcean
 category: Development
 parent: Development
 grand_parent: Cheatsheets  
-modified_date: 2022-12-08
+modified_date: 2022-12-12
 permalink: /:categories/:title/
 ---
 
@@ -23,7 +23,8 @@ permalink: /:categories/:title/
 
 | 📚 **Top Sites** 									| 🎞️ **Top Video Channels** |
 |---------------------------------------------------|------------------------|
-|  [DO resources](https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs) | 🔴 [simple coding](https://www.youtube.com/watch?v=u_zl7XHiF-g&list=PL9evZl_m5wqsc7C38L9grx-djts2bqT_b) |
+| [DO resources](https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs) | 🔴 [simple coding](https://www.youtube.com/watch?v=u_zl7XHiF-g&list=PL9evZl_m5wqsc7C38L9grx-djts2bqT_b) |
+| [terry-the-terraformer](https://github.com/ezra-buckingham/terry-the-terraformer) | |
 
 ## <a name='Commandlines'></a>Command lines
 
