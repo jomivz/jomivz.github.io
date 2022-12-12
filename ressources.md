@@ -35,7 +35,7 @@ modified_date: 2022-12-09
 | 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 🔎 [github.com](https://github.com/search?q=CVE-2022)			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		|													| 																	| |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 👁️ [0day.today](https://en.0day.today/) 📈 💲	| 																	| |
 
 **Legend**
 
