@@ -79,6 +79,7 @@ modified_date: 2022-12-09
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
+| 🛠️ [explainshell](https://explainshell.com/) |
 
 
 **Legend**

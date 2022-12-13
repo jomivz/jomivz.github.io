@@ -27,7 +27,7 @@ permalink: /:categories/:title/
 #
 #Phone number
  ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$ 
-i#
+#
 #Username
 ^[a-z0-9_-]{3,15}$
 #
