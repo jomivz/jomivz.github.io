@@ -19,34 +19,8 @@ permalink: /:categories/:title/
 
 ## <a name='EDREvasiontools'></a>EDR Evasion tools 
 
-* [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
-* [Awesome-AV-EDR-XDR-Bypass](https://github.com/MrEmpy/Awesome-AV-EDR-XDR-Bypass)
-* [bruteratel](https://bruteratel.com/release/2022/08/18/Release-Scandinavian-Defense/)
-* [PostDump](https://github.com/post-cyberlabs/Offensive_tools/tree/main/PostDump)
-* [Telemetry Sourcer](https://github.com/jthuraisamy/TelemetrySourcerer)
-* [warbird-hook](https://github.com/KiFilterFiberContext/warbird-hook)
-* [Reflexxion](https://github.com/hlldz/RefleXXion)
-* [ScareCrow](https://github.com/optiv/ScareCrow)
-* [SharpEDRChecker](https://github.com/PwnDexter/SharpEDRChecker)
-* [@balqurneh](https://medium.com/@balqurneh/bypass-crowdstrike-falcon-edr-protection-against-process-dump-like-lsass-exe-3c163e1b8a3e)
-
-<script>
-	$(window).load(function() {
-    var repos = ["https://api.github.com/repos/wavestone-cdt/EDRSandblast", "https://api.github.com/repos/MrEmpy/Awesome-AV-EDR-XDR-Bypass","https://api.github.com/repos/jthuraisamy/TelemetrySourcerer","https://api.github.com/repos/KiFilterFiberContext/warbird-hook","https://api.github.com/repos/hlldz/RefleXXion","https://api.github.com/repos/optiv/ScareCrow","https://api.github.com/repos/PwnDexter/SharpEDRChecker"];
-    for (rep in repos) {
-$.ajax({
-        type: "GET",
-        url: repos[rep],
-        dataType: "json",
-        success: function(result) {
-            $("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.watchers_count + "</td><td>" + result.language + "</td></tr>");
-            console.log(result);
-            }
-        });
-		}
-    console.log(result);
-});
-</script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/wavestone-cdt/EDRSandblast", "https://api.github.com/repos/MrEmpy/Awesome-AV-EDR-XDR-Bypass","https://api.github.com/repos/jthuraisamy/TelemetrySourcerer","https://api.github.com/repos/KiFilterFiberContext/warbird-hook","https://api.github.com/repos/hlldz/RefleXXion","https://api.github.com/repos/optiv/ScareCrow","https://api.github.com/repos/PwnDexter/SharpEDRChecker"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.watchers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 <div id="repos">
     <table id="repo_list" class="sortable">

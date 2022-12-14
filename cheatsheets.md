@@ -43,10 +43,10 @@ permalink: /cheatsheets/
 <tr>
 <td><time datetime="{{ post.modified_date | date_to_xmlschema }}" itemprop="datePublished">{{ post.modified_date | date: "%Y-%m-%d" }}</time></td>
 <td><a href="{{ site.url }}{{ post.url }}"> {{ post.title }} </a></td>
+<td>{{ post.category }}</td>
 	{% endif %}
   </tr>
 {% endfor %}
-<td>{{ post.category }}</td>
 </tbody>
 
 </table>
