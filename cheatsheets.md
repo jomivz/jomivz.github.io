@@ -31,8 +31,8 @@ permalink: /cheatsheets/
 <thead>
 <tr>
 <th>Last updated</th>
-<th>Category</th>
 <th>Cheatsheet</th>
+<th>Category</th>
 </tr>
 </thead>
 <tbody>
@@ -42,11 +42,11 @@ permalink: /cheatsheets/
 	{% if post.title != null %}
 <tr>
 <td><time datetime="{{ post.modified_date | date_to_xmlschema }}" itemprop="datePublished">{{ post.modified_date | date: "%Y-%m-%d" }}</time></td>
-<td>{{ post.category }}</td>
 <td><a href="{{ site.url }}{{ post.url }}"> {{ post.title }} </a></td>
 	{% endif %}
   </tr>
 {% endfor %}
+<td>{{ post.category }}</td>
 </tbody>
 
 </table>
