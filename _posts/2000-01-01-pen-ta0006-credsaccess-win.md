@@ -43,16 +43,17 @@ TO READ:
 ```
 
 ### <a name='Othertools'></a>Other tools
-- Mimikatz: [Cheatsheet]() / [Repository]() / [Binaries]()
-- Pypykatz: [Cheatsheet]() / [Repository]()
-- Impacket: [Cheatsheet](https://www.hackingarticles.in/abusing-kerberos-using-impacket/) / [Repository]()
-- lsassy:  [Cheatsheet]() / [Repository](https://github.com/Hackndo/lsassy)
-- lsass-shtinkering: [Repository](https://github.com/deepinstinct/Lsass-Shtinkering)
-- DumpThatLSASS: [Repository](https://github.com/D1rkMtr/DumpThatLSASS)
-- HandleKatz: [Repository](https://github.com/codewhitesec/HandleKatz)
-- masky: [Repository](https://github.com/Z4kSec/Masky)
-- donpapi: [Repository](https://github.com/login-securite/DonPAPI)
 
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+    </table>
+</div>
 
 ## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
 
