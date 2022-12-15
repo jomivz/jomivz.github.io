@@ -34,6 +34,6 @@ permalink: /:categories/:title/
 
 ## <a name='EDRBypassarticles'></a>EDR Bypass articles
 
-[ **Date** | **EDR** | **Version** | **Bypass** | **Author** |
+| **Date** | **EDR** | **Version** | **Bypass** | **Author** |
 | 2021-07 | Palo Alto XDR | 7.4.0 | [privescndisable](https://mrd0x.com/cortex-xdr-analysis-and-bypass/) | @mrdox |
 | 2022-09 | Palo Alto XDR | 7.8.0 | [regnreboot](https://medium.com/@bentamam/bypassing-cortex-xdr-a-case-study-in-the-power-of-simplicity-b436f4f570ad) | @bentamam |
