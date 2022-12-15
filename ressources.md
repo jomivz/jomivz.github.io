@@ -3,19 +3,19 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-12-09
+modified_date: 2022-12-15
 ---
 
-## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️
+## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️🎞️
 
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [👀🔫 Dashboard SaaS 🌎🤝](#DashboardSaaS)
-* [👀🔫 Wow List Medias 📚🎞️🎙️](#WowListMedias)
-* [👀🔫 Wow List Repos 📚](#WowListRepos)
-* [👀🔫 Wow List Tools 🛠️](#WowListTools)
-* [👀🔫 Processes, Logging and LOLBAS 🛠️⚙️📃](#ProcessesLoggingandLOLBAS)
+* [🌎🤝 Dashboard SaaS](#DashboardSaaS)
+* [📚🎞️ Wow List Medias 🎙️](#WowListMedias)
+* [📚🛠️ Wow List Repos](#WowListRepos)
+* [🛠️🛠️ Wow List Tools](#WowListTools)
+* [🛠️⚙️ Processes, Logging and LOLBAS 📃](#ProcessesLoggingandLOLBAS)
 * [👀🔫 MISC ❓](#MISC)
 
 <!-- vscode-markdown-toc-config
@@ -24,7 +24,7 @@ modified_date: 2022-12-09
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='DashboardSaaS'></a>👀🔫 Dashboard SaaS 🌎🤝
+### <a name='DashboardSaaS'></a>🌎🤝 Dashboard SaaS
 
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
@@ -35,11 +35,11 @@ modified_date: 2022-12-09
 | 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 👁️ [0day.today](https://en.0day.today/) 📈 💲			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | |
-|		| 🔎 [osv.dev](https://osv.dev/list) | | |
+| 🚦🔎 [filesec](https://filesec.io/) | 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | | |
 
 
-### <a name='WowListMedias'></a>👀🔫 Wow List Medias 📚🎞️🎙️
+### <a name='WowListMedias'></a>📚🎞️ Wow List Medias 🎙️
 
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
@@ -54,13 +54,14 @@ modified_date: 2022-12-09
 | 📕📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
 
 
-### <a name='WowListRepos'></a>👀🔫 Wow List Repos 📚
+### <a name='WowListRepos'></a>📚🛠️ Wow List Repos 
 
 
 | 📚 **Top Wow Repos**												|
 |-----------------------------------------------------------------------|
 | 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
+| 📕 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) |
 | 📕 [The PPN notebook](https://ppn.snovvcrash.rocks/) |
 | 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
 | 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
@@ -69,7 +70,7 @@ modified_date: 2022-12-09
 | 🛠️ [explainshell](https://explainshell.com/) |
 
 
-### <a name='WowListTools'></a>👀🔫 Wow List Tools 🛠️
+### <a name='WowListTools'></a>🛠️🛠️ Wow List Tools 
 
 | **Category**    | **Description** |
 |-----------------|-----------------|
@@ -79,7 +80,7 @@ modified_date: 2022-12-09
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
 | Tools listing   | [Awesome DFIR](https://awesomedfir.com) |
 
-### <a name='ProcessesLoggingandLOLBAS'></a>👀🔫 Processes, Logging and LOLBAS 🛠️⚙️📃
+### <a name='ProcessesLoggingandLOLBAS'></a>🛠️⚙️ Processes, Logging and LOLBAS 📃
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -93,28 +94,6 @@ modified_date: 2022-12-09
 | 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
-### Emojis Legend
-
-**Legend**
-
-|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-|🔥🚦🔎 IOC monitor & search | 😈 🚦🔎 CMDB monitor & CVE search| 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
-|🔥⚙️ payload cooking| 😈👁️ CVE / Exploits daily watch | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
-| | 😈🔎 CVE / Exploits PoC search engines | 👾🇼💣⚠️ Source codes & Binairies for download | |
-
-**Legend**
-
-|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-|📚🧰 Pentesting platform | 🎞️🔴 YouTube | 🎙️ Podcast | 
-|📚📕 Redteam cheatsheets | 🎞️🟣 Twitch | |
-|📚📘 Blueteam cheatsheets | | |
-
-**Legend**
-
-|-------------------------------------------------------|
-| 📚👩🏻‍💻 Interactive Frameworks MUST KNOWN |
-| 📚📕 Famous Redteam repository |
-| 📚📘 Famous Blueteam repository |
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
 
