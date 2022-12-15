@@ -35,15 +35,9 @@ modified_date: 2022-12-09
 | 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 👁️ [0day.today](https://en.0day.today/) 📈 💲			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 																	| |
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)		| 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | |
 |		| 🔎 [osv.dev](https://osv.dev/list) | | |
 
-**Legend**
-
-|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-|🔥🚦🔎 IOC monitor & search | 😈 🚦🔎 CMDB monitor & CVE search| 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
-|🔥⚙️ payload cooking| 😈👁️ CVE / Exploits daily watch | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
-| | 😈🔎 CVE / Exploits PoC search engines | 👾🇼💣⚠️ Source codes & Binairies for download | |
 
 ### <a name='WowListMedias'></a>👀🔫 Wow List Medias 📚🎞️🎙️
 
@@ -60,13 +54,6 @@ modified_date: 2022-12-09
 | 📕📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
 
 
-**Legend**
-
-|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-|📚🧰 Pentesting platform | 🎞️🔴 YouTube | 🎙️ Podcast | 
-|📚📕 Redteam cheatsheets | 🎞️🟣 Twitch | |
-|📚📘 Blueteam cheatsheets | | |
-
 ### <a name='WowListRepos'></a>👀🔫 Wow List Repos 📚
 
 
@@ -81,13 +68,6 @@ modified_date: 2022-12-09
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
 | 🛠️ [explainshell](https://explainshell.com/) |
 
-
-**Legend**
-
-|-------------------------------------------------------|
-| 📚👩🏻‍💻 Interactive Frameworks MUST KNOWN |
-| 📚📕 Famous Redteam repository |
-| 📚📘 Famous Blueteam repository |
 
 ### <a name='WowListTools'></a>👀🔫 Wow List Tools 🛠️
 
@@ -113,6 +93,28 @@ modified_date: 2022-12-09
 | 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
+### Emojis Legend
+
+**Legend**
+
+|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
+|🔥🚦🔎 IOC monitor & search | 😈 🚦🔎 CMDB monitor & CVE search| 👾🛸 Sandboxes for binaries | 🌎🕸️ Recon scrapper tool|
+|🔥⚙️ payload cooking| 😈👁️ CVE / Exploits daily watch | 👾🇼 Malwares Databases  | 🌎📡  Recon scanner |
+| | 😈🔎 CVE / Exploits PoC search engines | 👾🇼💣⚠️ Source codes & Binairies for download | |
+
+**Legend**
+
+|-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
+|📚🧰 Pentesting platform | 🎞️🔴 YouTube | 🎙️ Podcast | 
+|📚📕 Redteam cheatsheets | 🎞️🟣 Twitch | |
+|📚📘 Blueteam cheatsheets | | |
+
+**Legend**
+
+|-------------------------------------------------------|
+| 📚👩🏻‍💻 Interactive Frameworks MUST KNOWN |
+| 📚📕 Famous Redteam repository |
+| 📚📘 Famous Blueteam repository |
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
 

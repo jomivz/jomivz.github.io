@@ -23,6 +23,10 @@ permalink: /:categories/:title/
 
 ## <a name='keepassxcyubikey'></a>keepassxc + yubikey
 
+* [instructions](https://keepassxc.org/docs/#faq-yubikey-howto)
+* [tutorial video](https://www.youtube.com/watch?v=r6Qe9Z-kOH0)
+* [yubico personilization tool](https://www.yubico.com/support/download/yubikey-personalization-tools/)
+
 ## <a name='aptinstall'></a>apt install
 
 | **Category**  |    **Packages**    |
