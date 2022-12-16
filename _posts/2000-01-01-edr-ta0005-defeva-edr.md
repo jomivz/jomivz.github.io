@@ -4,13 +4,14 @@ title: TA0005 Defense Evasion - EDR
 parent: EDR
 category: EDR
 grand_parent: Cheatsheets
-modified_date: 2022-12-15
+modified_date: 2022-12-16
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
 * [EDR Evasion tools](#EDREvasiontools)
 * [EDR Bypass articles](#EDRBypassarticles)
+* [EoL: End of Life](#EoL:EndofLife)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -37,3 +38,10 @@ permalink: /:categories/:title/
 | **Date** | **EDR** | **Version** | **Bypass** | **Author** |
 | 2021-07 | Palo Alto XDR | 7.4.0 | [privescndisable](https://mrd0x.com/cortex-xdr-analysis-and-bypass/) | @mrdox |
 | 2022-09 | Palo Alto XDR | 7.8.0 | [regnreboot](https://medium.com/@bentamam/bypassing-cortex-xdr-a-case-study-in-the-power-of-simplicity-b436f4f570ad) | @bentamam |
+
+
+## <a name='EoL:EndofLife'></a>EoL: End of Life
+
+| **EDR** |
+|---------|
+| [palo alto XDR](https://www.paloaltonetworks.com/services/support/end-of-life-announcements/end-of-life-summary#traps-esm-and-cortex) |
