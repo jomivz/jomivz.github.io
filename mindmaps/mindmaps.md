@@ -32,22 +32,23 @@ modified_date: 2022-12-18
 
 ### <a name='WEB'></a>👀🧠🔫 WEB
 
-Credits to Securityzines mindmaps for links below:
-
-* [Domain Lowering](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png)
-* [H2C smuggling](https://securityzines.com/assets/img/flyers/printable/h2c.jpg)
-* [HPP](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png)
-* [HRS](https://securityzines.com/assets/img/flyers/printable/hrs.jpg)
-* [IDOR](https://securityzines.com/assets/img/flyers/printable/idor.jpg)
-* [LFI](https://securityzines.com/assets/img/flyers/printable/lfi.jpg)
-* [RFI](https://securityzines.com/assets/img/flyers/printable/rfi.jpg)
-* [SQLi](https://securityzines.com/assets/img/zines/sqli.jpg)
-* SSRF
-* [SSTI](https://securityzines.com/assets/img/flyers/printable/ssti.jpg)
-* [XSS stored](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png)
-* [XSS reflected](https://securityzines.com/assets/img/flyers/printable/rxss.png)
-* [XSRF](https://securityzines.com/assets/img/zines/csrf.jpg)
-* [XXE](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png)
+| **attack** | **mindmap** | **article** | **video** | 
+|---------|---|---|---|
+| CORS | [securityzines](https://securityzines.com/assets/img/flyers/printable/cors.png)| [portswigger](https://portswigger.net/web-security/cors) ||
+| Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | [portswigger]()| |
+| H2C smuggling | [securityzines](https://securityzines.com/assets/img/flyers/printable/h2c.jpg) | [portswigger](https://portswigger.net/web-security/request-smuggling)||
+| HPP | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png) |||
+| HRS | [securityzines](https://securityzines.com/assets/img/flyers/printable/hrs.jpg) |||
+| IDOR | [securityzines](https://securityzines.com/assets/img/flyers/printable/idor.jpg) |[portswigger](https://portswigger.net/web-security/access-control)||
+| LFI | [securityzines](https://securityzines.com/assets/img/flyers/printable/lfi.jpg) |[portswigger](https://portswigger.net/web-security/file-path-traversal)||
+| RFI | [securityzines](https://securityzines.com/assets/img/flyers/printable/rfi.jpg) |||
+| SQLi | [securityzines](https://securityzines.com/assets/img/zines/sqli.jpg) | [portswigger](https://portswigger.net/web-security/sql-injection)||
+| SSRF | | [portswigger](https://portswigger.net/web-security/ssrf) | |
+| SSTI | [securityzines](https://securityzines.com/assets/img/flyers/printable/ssti.jpg) | [portswigger](https://portswigger.net/web-security/server-side-template-injection)||
+| XSS stored | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting) | |
+| XSS reflected | [securityzines](https://securityzines.com/assets/img/flyers/printable/rxss.png)
+| XSRF | [securityzines](https://securityzines.com/assets/img/zines/csrf.jpg) | [portswigger](https://portswigger.net/web-security/csrf)||
+| XXE | [securityzinesXXE](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png) | [portswigger](https://portswigger.net/web-security/xxe)||
 
 OWASP Top 10 mapping:
 
