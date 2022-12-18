@@ -35,7 +35,7 @@ modified_date: 2022-12-18
 | **attack** | **mindmap** | **article** | **video** | 
 |---------|---|---|---|
 | CORS | [securityzines](https://securityzines.com/assets/img/flyers/printable/cors.png)| [portswigger](https://portswigger.net/web-security/cors) ||
-| Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | [portswigger]()| |
+| Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | | |
 | H2C smuggling | [securityzines](https://securityzines.com/assets/img/flyers/printable/h2c.jpg) | [portswigger](https://portswigger.net/web-security/request-smuggling)||
 | HPP | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png) |||
 | HRS | [securityzines](https://securityzines.com/assets/img/flyers/printable/hrs.jpg) |||
