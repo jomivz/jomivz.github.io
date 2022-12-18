@@ -34,7 +34,9 @@ modified_date: 2022-12-18
 
 Credits to Securityzines mindmaps for links below:
 
+* [Domain Lowering](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png)
 * [H2C smuggling](https://securityzines.com/assets/img/flyers/printable/h2c.jpg)
+* [HPP](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png)
 * [HRS](https://securityzines.com/assets/img/flyers/printable/hrs.jpg)
 * [IDOR](https://securityzines.com/assets/img/flyers/printable/idor.jpg)
 * [LFI](https://securityzines.com/assets/img/flyers/printable/lfi.jpg)
@@ -45,7 +47,7 @@ Credits to Securityzines mindmaps for links below:
 * [XSS stored](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png)
 * [XSS reflected](https://securityzines.com/assets/img/flyers/printable/rxss.png)
 * [XSRF](https://securityzines.com/assets/img/zines/csrf.jpg)
-* [XXE]()
+* [XXE](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png)
 
 ![owasp-top-10-mapping](/assets/images/owasp-top10-mapping.png)
 
