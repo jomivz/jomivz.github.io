@@ -324,6 +324,7 @@ Get-DomainOU -Identity $ztarg_computer -Domain $zdom_fqdn -DomainController $zdo
 
 #### <a name='Adminaccesstoacomputer'></a>Admin access to a computer
 
+
 ```powershell
 # check smb admin share access 
 dir \\$ztarg_computer_fqdn\c$
@@ -335,42 +336,12 @@ Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn -Computer
 get-wmiobject -Class win32_operatingsystem -Computername $ztarg_computer_fqdn
 ```
 
-ExecuteDCOM ressources:
-- [CobaltStrike remote shell via DCOM execution](https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/)
-- [Bloodhound readthedocs - edge ExecuteDCOM ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom)
+**ExecuteDCOM ressources**: [[CS by enigma0x3]](https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/) / [[Bloodhound readthedocs]](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom)
 
-CanPSRemote ressources:
-- [JMVWORK Sysadmin - Create a PSSession](/sysadmin/sys-win-ps-useful-queries/#PSSessionInvoke-Command)
-- [Bloodhound readthedocs - edge canPSRemote ](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom)
+**CanPSRemote ressources**: [[JMVWORK sysadmin]](/sysadmin/sys-win-ps-useful-queries/#PSSessionInvoke-Command) / [[Bloodhound readthedocs]](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#executedcom).
 
 
 ### <a name='Misc'></a>Misc
-
-#### <a name='T1134.001TokenImpersonationviaDelegations'></a>T1134.001 Token Impersonation via Delegations
-- Prepare RBCD attack :
-
-```powershell
-# requirement : DC > win 2012
-Get-DomainController -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name.osversion | fl
-# requirement : target user is not a member of the "Protected Users" group
-Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-# requirement : MachineAccountQuota / possibility to create a new computer
-Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select ms-ds-machineaccountquota
-# requirement  : check constraint delegation setting on the target computer 
-Get-NetComputer $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select name,msds-allowedtoactonbehalfofotheridentity | fl
-# check targetuser is not part of protected users 
-
-# Target Computer Name : $computer
-# Admin on Target Computer : right click on the object in bloodhound
-# Fake Computer Name : fakecomputer
-# Fake Computer SID : get-netcomputer fakecomputer | select samaccountname,objectsid
-# Fake Computer password : Password123
-```
-
-
-References:
-- [https://attack.mitre.org/techniques/T1087/002/](https://attack.mitre.org/techniques/T1087/002/)
-
 
 ```powershell
 # look for a user from his objectsid
@@ -383,12 +354,6 @@ Find-UserField -SearchField Description -SearchTerm "pass" -Domain $zdom_fqdn -D
 # return the local group *members* of a remote server using Win32 API methods (faster but less info)
 Get-NetLocalGroupMember -Method API -ComputerName <Server>.<FQDN> -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
-```
-
-
-- [https://attack.mitre.org/techniques/T1615/](https://attack.mitre.org/techniques/T1615/)
-
-```powershell
 # local admin rights
 Find-GPOComputerAdmin -ComputerName $computer -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 Get-NetOU $OU -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | %{Get-NetComputer -ADSPath $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn}

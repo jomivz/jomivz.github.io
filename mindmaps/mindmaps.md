@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2022-12-12
+modified_date: 2022-12-18
 ---
 
 ## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
@@ -11,14 +11,11 @@ modified_date: 2022-12-12
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [ #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️](#wowmindmapcybersysadmin)
-* [MENU](#MENU)
-	* [👀🧠🔫 _AD_PENTEST_ 📕🗑️](#_AD_PENTEST_)
-	* [👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️](#_WEB_API_PENTEST_)
-	* [👀🧠🔫 _DFIR_ 📘⚔️](#_DFIR_)
-	* [👀🧠🔫 _OSINT_ 📘🕵️](#_OSINT_)
-	* [👀🧠🛠️ _SYSADMIN_ 🗑️️🐧](#_SYSADMIN_)
-	* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
+* [👀🧠🔫 Infrastructure](#Infrastructure)
+* [👀🧠🔫 WEB](#WEB)
+* [👀🧠🔫 WEB API](#WEBAPI)
+* [👀🧠🔫 Forensics / OSINT](#ForensicsOSINT)
+* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -26,43 +23,41 @@ modified_date: 2022-12-12
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### 👀🧠🔫 _FIRST_PLACES_
-
-* [securityzines](https://securityzines.com/)
-
-### <a name='_AD_PENTEST_'></a>👀🧠🔫 _AD_PENTEST_ 📕🗑️
-
-![AD icon](/assets/images/icons-ad.png){: width="90" }
+### <a name='Infrastructure'></a>👀🧠🔫 Infrastructure
 
 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
-📕🗑️ [Pentest AD @y0u553f5433d](https://xmind.app/m/874LNH/)
+🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
+🛠️🗑️ [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
+🛠️☁️ [AWS geek](https://www.awsgeek.com/)
 
-### <a name='_WEB_API_PENTEST_'></a>👀🧠🔫 _WEB_API_PENTEST_ 📕🌎⚙️
+### <a name='WEB'></a>👀🧠🔫 WEB
 
-![Pentest Web API icon](/assets/images/icons-web-api.png){: width="90" }
+Credits to Securityzines mindmaps for links below:
+
+* [H2C smuggling](https://securityzines.com/assets/img/flyers/printable/h2c.jpg)
+* [HRS](https://securityzines.com/assets/img/flyers/printable/hrs.jpg)
+* [IDOR](https://securityzines.com/assets/img/flyers/printable/idor.jpg)
+* [LFI](https://securityzines.com/assets/img/flyers/printable/lfi.jpg)
+* [RFI](https://securityzines.com/assets/img/flyers/printable/rfi.jpg)
+* [SQLi](https://securityzines.com/assets/img/zines/sqli.jpg)
+* [SSRF]()
+* [SSTI](https://securityzines.com/assets/img/flyers/printable/ssti.jpg)
+* [XSS stored](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png)
+* [XSS reflected](https://securityzines.com/assets/img/flyers/printable/rxss.png)
+* [XSRF](https://securityzines.com/assets/img/zines/csrf.jpg)
+* [XXE]()
+
+![owasp-top-10-mapping](/assets/images/owasp-top10-mapping.png)
+
+### <a name='WEBAPI'></a>👀🧠🔫 WEB API
 
 📕🌎 [Pentest API](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 
-### <a name='_DFIR_'></a>👀🧠🔫 _DFIR_ 📘⚔️
-
-![DFIR icon](/assets/images/icons-dfir.png){: width="90" }
+### <a name='ForensicsOSINT'></a>👀🧠🔫 Forensics / OSINT
 
 📘⚔️ [DFIR mindmaps](https://github.com/AndrewRathbun/DFIRMindMaps)
 📘⚔️ [DFIR nasbench](https://github.com/nasbench/MindMaps)
-
-### <a name='_OSINT_'></a>👀🧠🔫 _OSINT_ 📘🕵️
-
 📘🕵️ [Malfrat's OSINT map](https://map.malfrats.industries/)
-
-### <a name='_SYSADMIN_'></a>👀🧠🛠️ _SYSADMIN_ 🗑️️🐧
-
-
-![Sysadmin icon](/assets/images/icons-sysadmin.png){: width="90" }
-
-🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
-🛠️🗑️📃 [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
-
-🛠️🗑️☁️ [AWS geek](https://www.awsgeek.com/)
 
 ### <a name='_OLD_STUFFS_'></a>👀🧠🔫 _OLD_STUFFS_ 🥱
 
