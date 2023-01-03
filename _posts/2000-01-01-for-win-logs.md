@@ -8,7 +8,7 @@ modified_date: 2023-01-03
 permalink: /:categories/:title/
 ---
 
-# {{ page.title}}
+**MENU**
 
 <!-- vscode-markdown-toc -->
 * [Windows Use-cases](#WindowsUse-cases)
@@ -43,14 +43,18 @@ permalink: /:categories/:title/
 
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
 
+### <a name='ProcessExecutions'></a>Authentications
+
+![windows log for authentications](/assets/images/for-win-log-auth.png)
+
 ### <a name='ProcessExecutions'></a>Process Executions
 
-!(windows log for process executions)[/assets/images/for-win-log-proc-exec.png]
+![windows log for process executions](/assets/images/for-win-log-proc-exec.png)
 
 ### <a name='NetworkConnections'></a>Network Connections
 
-!(windows log for network connections)[/assets/images/for-win-log-net-conn-1.png]
-!(windows log for network connections)[/assets/images/for-win-log-net-conn-2.png]
+![windows log for network connections](/assets/images/for-win-log-net-conn-1.png)
+![windows log for network connections](/assets/images/for-win-log-net-conn-2.png)
 
 ### <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
 
@@ -83,7 +87,7 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 
 ### <a name='WindowsDefenderlogs'></a>Windows Defender logs
 
-[windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide)
+[windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
 - [EID 1006 | The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
 - [EID 1117 | The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
 
@@ -102,7 +106,7 @@ Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gr
 
 ### <a name='EmailCompromise'></a>Email Compromise
 
-- (Microsoft-eventlog-mindmap \ windows-email-compromise-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png]
+- [Microsoft-eventlog-mindmap \ windows-email-compromise-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
 
 ## <a name='Logsactivation'></a>Logs activation
 
@@ -186,27 +190,27 @@ eventvwr.msc
 
 ### <a name='Artifacts'></a>Artifacts
 
-Go to (jmvwork.xyz/forensics/for-win-artifacts)[https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles].
+Go to [jmvwork.xyz/forensics/for-win-artifacts](https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles).
 
 ### <a name='MindMapforWindowsOS'></a>MindMap for Windows OS
 
-- (Microsoft-eventlog-mindmap \ windows-auditing-baseline-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png]
+- [Microsoft-eventlog-mindmap \ windows-auditing-baseline-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
 
 ### <a name='MindMapforMSActiveDirectory'></a>MindMap for MS Active Directory 
 
-- (Microsoft-eventlog-mindmap \ active-diretory-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/active-directory-map/active-directory-map.png]
+- [Microsoft-eventlog-mindmap \ active-diretory-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/active-directory-map/active-directory-map.png)
 
 ### <a name='MindMapforMSExchange'></a>MindMap for MS Exchange
 
-- (Microsoft-eventlog-mindmap \ windows-auditing-baseline-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/exchange-server-map/exchange-server-map.png]
+- [Microsoft-eventlog-mindmap \ windows-auditing-baseline-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/exchange-server-map/exchange-server-map.png)
 
 ### <a name='MindMapforotherMSServerRoles'></a>MindMap for other MS Server Roles
 
-- (Microsoft-eventlog-mindmap \ windows-auditing-baseline-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-server-roles-map/windows-server-roles-map.png
+- [Microsoft-eventlog-mindmap \ windows-auditing-baseline-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-server-roles-map/windows-server-roles-map.png)
 
 ### <a name='MindMapforMSAzure'></a>MindMap for MS Azure
 
-- (Microsoft-eventlog-mindmap \ microsoft-azure-map)[https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/microsoft-azure-map/microsoft-azure-map.png]
+- [Microsoft-eventlog-mindmap \ microsoft-azure-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/microsoft-azure-map/microsoft-azure-map.png)
 
 ### <a name='FetchingintothelogswithPS'></a>Fetching into the logs with PS
 
