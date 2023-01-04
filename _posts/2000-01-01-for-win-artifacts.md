@@ -1,25 +1,25 @@
 ---
 layout: post
-title: Windows Artifacts
+title: FOR Windows Artifacts
 parent: Forensics
 category: Forensics
 grand_parent: Cheatsheets
 has_children: true
-modified_date: 2022-09-22
+modified_date: 2023-01-04
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
 * [Amcache](#Amcache)
-	* [*Files / Evidences*](#FilesEvidences)
+	* [Files / Evidences](#FilesEvidences)
 * [Registry hives](#Registryhives)
-	* [*Files / Evidences*](#FilesEvidences-1)
-	* [*Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*](#ForensicswithRegRippercredits:hexacornhttps:hexacorn.comtools3r.html)
+	* [Files / Evidences](#FilesEvidences-1)
+	* [Forensics with RegRipper](#ForensicswithRegRipper)
 		* [Confirming the asset & timezone](#Confirmingtheassettimezone)
 		* [Interesting findings](#Interestingfindings)
-	* [*Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*](#Registryhistorydatacredits:fireeyehttps:www.fireeye.comblogthreat-research201901digging-up-the-past-windows-registry-forensics-revisited.html)
-	* [*Extra: Live collection of a locked hive*](#Extra:Livecollectionofalockedhive)
-	* [*Extra: live browsing a hive in CLI*](#Extra:livebrowsingahiveinCLI)
+	* [Registry history data](#Registryhistorydata)
+	* [Extra: Live collection of a locked hive](#Extra:Livecollectionofalockedhive)
+	* [Extra: live browsing a hive in CLI](#Extra:livebrowsingahiveinCLI)
 * [Eventlogs Files](#EventlogsFiles)
 	* [All Windows Versions](#AllWindowsVersions)
 	* [Windows DNS Server](#WindowsDNSServer)
@@ -30,11 +30,13 @@ permalink: /:categories/:title/
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->---
+<!-- /vscode-markdown-toc -->
+
+🔥🔥🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥🔥🔥
 
 ## <a name='Amcache'></a>Amcache
 
-### <a name='FilesEvidences'></a>*Files / Evidences*
+### <a name='FilesEvidences'></a>Files / Evidences
 
 Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
 
@@ -46,7 +48,7 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 
 ## <a name='Registryhives'></a>Registry hives
 
-### <a name='FilesEvidences-1'></a>*Files / Evidences*
+### <a name='FilesEvidences-1'></a>Files / Evidences
 
 **What is it ?** Files listed are the evidences to collect for the forensics. 
 
@@ -62,7 +64,9 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-### <a name='ForensicswithRegRippercredits:hexacornhttps:hexacorn.comtools3r.html'></a>*Forensics with RegRipper (credits: [hexacorn](https://hexacorn.com/tools/3r.html))*
+### <a name='ForensicswithRegRipper'></a>Forensics with RegRipper
+
+* credits: [hexacorn](https://hexacorn.com/tools/3r.html)
 
 #### <a name='Confirmingtheassettimezone'></a>Confirming the asset & timezone
 
@@ -109,7 +113,9 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | system | usbstore |
 | all | sizes |
 
-### <a name='Registryhistorydatacredits:fireeyehttps:www.fireeye.comblogthreat-research201901digging-up-the-past-windows-registry-forensics-revisited.html'></a>*Registry history data (credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html))*
+### <a name='Registryhistorydata'></a>Registry history data 
+
+* credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)
 
 **What is it ?** System and registry hives can be tampered to hide compromise / make the forensics harder. The table below lists the evidences to figure out if anti-forensics happened.
 
@@ -121,14 +127,14 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | Backup system hives (REGBACK)       | %SystemRoot%\System32\config\RegBack                                     ||
 | Hives backed up with System Restore | \\\\.\\\"System Volume Information"                                      ||
 
-### <a name='Extra:Livecollectionofalockedhive'></a>*Extra: Live collection of a locked hive*
+### <a name='Extra:Livecollectionofalockedhive'></a>Extra: Live collection of a locked hive
 ```batch
 # useful when having remote access but system handle do not allow read/copy/download 
 # batch: registry hive live collection
 reg save HKLM\SYSTEM system.reg
 ```
 
-### <a name='Extra:livebrowsingahiveinCLI'></a>*Extra: live browsing a hive in CLI*
+### <a name='Extra:livebrowsingahiveinCLI'></a>Extra: live browsing a hive in CLI
 ```powershell
 # powershell: listing the registry hives
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\

@@ -1,18 +1,18 @@
 ---
 layout: post
-title: Windows Live Forensics on Persistence
+title: FOR Windows Persistence
 category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
-modified_date: 2021-08-06
+modified_date: 2023-01-04
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [CLI full-report with [autorunsc](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)](#CLIfull-reportwithautorunschttps:docs.microsoft.comen-ussysinternalsdownloadsautoruns)
-* [[T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost](#T1543.003https:attack.mitre.orgtechniquesT1543003-Persistenceviasvchost)
-* [[T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL](#T1546.007https:attack.mitre.orgtechniquesT1546007-PersistenceviaNetshhelperDLL)
-* [[T1218.007](https://attack.mitre.org/techniques/T1218/007/) - Scheduled task calling msiexec](#T1218.007https:attack.mitre.orgtechniquesT1218007-Scheduledtaskcallingmsiexec)
+* [CLI full-report with autorunsc](#CLIfull-reportwithautorunsc)
+* [T1543.003 - Persistence via svchost](#T1543.003-Persistenceviasvchost)
+* [T1546.007 - Persistence via Netsh helper DLL](#T1546.007-PersistenceviaNetshhelperDLL)
+* [T1218.007 - Scheduled task calling msiexec](#T1218.007-Scheduledtaskcallingmsiexec)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -22,7 +22,9 @@ permalink: /:categories/:title/
 
 [TA0003](https://attack.mitre.org/tactics/TA0003) 
 
-## <a name='CLIfull-reportwithautorunschttps:docs.microsoft.comen-ussysinternalsdownloadsautoruns'></a>CLI full-report with [autorunsc](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
+## <a name='CLIfull-reportwithautorunsc'></a>CLI full-report with autorunsc
+
+[MSTECH autorunsc](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
 
 Sysinternals autorunsc (CLI version of autoruns) covers a lot of TTPs (24/04/2021). 
 
@@ -49,7 +51,9 @@ Windows Mobile Device Center
 reg delete hklm\software\microsoft\Windows\CurrentVersion\Run /v 139750_owned
 ```
 
-## <a name='T1543.003https:attack.mitre.orgtechniquesT1543003-Persistenceviasvchost'></a>[T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost
+## <a name='T1543.003-Persistenceviasvchost'></a>T1543.003 - Persistence via svchost
+
+- [T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost
 
 - [How-To](https://www.ired.team/offensive-security/persistence/persisting-in-svchost.exe-with-a-service-dll-servicemain) PoC this TTP by IRED.TEAM.
 - The process **svchost** loads services group via the **-k** parameter.
@@ -68,7 +72,9 @@ for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Micros
 schtasks /query /fo LIST /v
 ```
 
-## <a name='T1546.007https:attack.mitre.orgtechniquesT1546007-PersistenceviaNetshhelperDLL'></a>[T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
+## <a name='T1546.007-PersistenceviaNetshhelperDLL'></a>T1546.007 - Persistence via Netsh helper DLL
+
+- [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
 
  - [How-To](https://pentestlab.blog/2019/10/29/persistence-netsh-helper-dll/) PoC this TTP with msfvenom and metasploit.
  
@@ -82,7 +88,10 @@ powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobj
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
 ```
 
-## <a name='T1218.007https:attack.mitre.orgtechniquesT1218007-Scheduledtaskcallingmsiexec'></a>[T1218.007](https://attack.mitre.org/techniques/T1218/007/) - Scheduled task calling msiexec
+## <a name='T1218.007-Scheduledtaskcallingmsiexec'></a>T1218.007 - Scheduled task calling msiexec
+
+- [T1218.007](https://attack.mitre.org/techniques/T1218/007/) - Scheduled task calling msiexec
+
 ```
 # look for a ProductCode
 wmic product where "IdenfyingNumber like '{400A01BF-E908-4393-BD39-31E386377BDA}'" get *
