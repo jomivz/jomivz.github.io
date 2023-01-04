@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Logs WIN
+title: FOR Windows Logs
 category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
-modified_date: 2023-01-03
+modified_date: 2023-01-04
 permalink: /:categories/:title/
 ---
 
@@ -42,7 +42,13 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+
+https://eyehatemalwares.com/incident-response/eventlog-analysis/
+
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
+
+🔥🔥🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥🔥🔥
+🔥🔥   FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/)  🔥🔥
 
 ### <a name='Authentications'></a>Authentications
 
