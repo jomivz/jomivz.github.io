@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-12-15
+modified_date: 2022-12-30
 ---
 
 ## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️🎞️
@@ -61,10 +61,8 @@ modified_date: 2022-12-15
 |-----------------------------------------------------------------------|
 | 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
-| 📕 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) |
 | 📕 [The PPN notebook](https://ppn.snovvcrash.rocks/) |
-| 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
-| 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
+| 📕 [hdks](https://exploit-notes.hdks.org/) |
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
 | 🛠️ [explainshell](https://explainshell.com/) |
@@ -78,7 +76,10 @@ modified_date: 2022-12-15
 | 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) |
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
-| Tools listing   | [Awesome DFIR](https://awesomedfir.com) |
+| Tools listing 📕 | [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) |
+| Tools listing 📕 | [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
+| Tools listing 📕 | [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
+| Tools listing 📘 | [Awesome DFIR](https://awesomedfir.com) |
 
 ### <a name='ProcessesLoggingandLOLBAS'></a>🛠️⚙️ Processes, Logging and LOLBAS 📃
 

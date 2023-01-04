@@ -35,7 +35,7 @@ modified_date: 2022-12-18
 | **attack** | **mindmap** | **article** | **video** | 
 |---------|---|---|---|
 | CORS | [securityzines](https://securityzines.com/assets/img/flyers/printable/cors.png)| [portswigger](https://portswigger.net/web-security/cors) ||
-| Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png) / [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | | |
+| Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png), [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | | |
 | H2C smuggling | [securityzines](https://securityzines.com/assets/img/flyers/printable/h2c.jpg) | [portswigger](https://portswigger.net/web-security/request-smuggling)||
 | HPP | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png) |||
 | HRS | [securityzines](https://securityzines.com/assets/img/flyers/printable/hrs.jpg) |||
@@ -45,10 +45,11 @@ modified_date: 2022-12-18
 | SQLi | [securityzines](https://securityzines.com/assets/img/zines/sqli.jpg) | [portswigger](https://portswigger.net/web-security/sql-injection)||
 | SSRF | | [portswigger](https://portswigger.net/web-security/ssrf) | |
 | SSTI | [securityzines](https://securityzines.com/assets/img/flyers/printable/ssti.jpg) | [portswigger](https://portswigger.net/web-security/server-side-template-injection)||
+| XSS DOM | [iocscan](https://miro.medium.com/max/1572/1*yuRkBR6YroYLCGpka9KdRA.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting/dom-based) | |
 | XSS stored | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting) | |
 | XSS reflected | [securityzines](https://securityzines.com/assets/img/flyers/printable/rxss.png)
 | XSRF | [securityzines](https://securityzines.com/assets/img/zines/csrf.jpg) | [portswigger](https://portswigger.net/web-security/csrf)||
-| XXE | [securityzinesXXE](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png) | [portswigger](https://portswigger.net/web-security/xxe)||
+| XXE | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png) | [portswigger](https://portswigger.net/web-security/xxe)||
 
 OWASP Top 10 mapping:
 

@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 
 <!-- vscode-markdown-toc -->
 * [Windows Use-cases](#WindowsUse-cases)
+	* [Authentications](#Authentications)
 	* [Process Executions](#ProcessExecutions)
 	* [Network Connections](#NetworkConnections)
 	* [AD Abuse of Delegation](#ADAbuseofDelegation)
@@ -43,18 +44,18 @@ permalink: /:categories/:title/
 
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
 
-### <a name='ProcessExecutions'></a>Authentications
+### <a name='Authentications'></a>Authentications
 
-![windows log for authentications](/assets/images/for-win-log-auth.png)
+![windows log for authentications](/assets/images/for-win-logs-auth.png)
 
 ### <a name='ProcessExecutions'></a>Process Executions
 
-![windows log for process executions](/assets/images/for-win-log-proc-exec.png)
+![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
 ### <a name='NetworkConnections'></a>Network Connections
 
-![windows log for network connections](/assets/images/for-win-log-net-conn-1.png)
-![windows log for network connections](/assets/images/for-win-log-net-conn-2.png)
+![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
+![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
 
 ### <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
 
@@ -88,8 +89,8 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 ### <a name='WindowsDefenderlogs'></a>Windows Defender logs
 
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
-- [EID 1006 | The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
-- [EID 1117 | The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
+- [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
+- [EID 1117 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
 
 ```powershell
 $date1 = [datetime]"11/08/2021"
