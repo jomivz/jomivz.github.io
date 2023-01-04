@@ -1,6 +1,6 @@
 ---
 layout: post
-title: FOR Logs MISC
+title: FOR Linux Logs
 category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
