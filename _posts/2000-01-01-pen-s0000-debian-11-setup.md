@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Debian 11 Setup
+title: Setup Debian 11 
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets

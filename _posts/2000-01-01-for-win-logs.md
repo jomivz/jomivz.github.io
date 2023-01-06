@@ -47,9 +47,9 @@ https://eyehatemalwares.com/incident-response/eventlog-analysis/
 
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
 
-🔥🔥🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥🔥🔥
+🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥
 
-🔥🔥   FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/)  🔥🔥
+🔥 FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/) 🔥
 
 ### <a name='Authentications'></a>Authentications
 

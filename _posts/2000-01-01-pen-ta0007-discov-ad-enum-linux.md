@@ -1,20 +1,29 @@
 ---
 layout: post
-title: TA0007 Discovery - AD Enumeration with Linux System
+title: TA0007 Discovery - AD Collection & Enumeration with Linux
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2021-12-10
+modified_date: 2023-01-06
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [Great ressources](#Greatressources)
-* [ENUM: DOMAIN AND IP PLAN](#ENUM:DOMAINANDIPPLAN)
-* [RELAY/POISON](#RELAYPOISON)
-* [SMBv2 SIGNING NOT REQUIRED](#SMBv2SIGNINGNOTREQUIRED)
-* [CRACKING HASHES](#CRACKINGHASHES)
-* [Docker Impacket RPCdump](#DockerImpacketRPCdump)
+* [SHOOT General Properties](#SHOOTGeneralProperties)
+	* [Domain properties](#Domainproperties)
+	* [Forest properties](#Forestproperties)
+	* [Kerberos Delegations](#KerberosDelegations)
+	* [Privileged Users](#PrivilegedUsers)
+	* [Privileged Machines](#PrivilegedMachines)
+	* [Great ressources](#Greatressources)
+* [ITER](#ITER)
+	* [User groups](#Usergroups)
+	* [Scope of compromise](#Scopeofcompromise)
+* [REFRESH](#REFRESH)
+* [MISC](#MISC)
+	* [ RELAY: SMBv2 SIGNING NOT REQUIRED](#RELAY:SMBv2SIGNINGNOTREQUIRED)
+	* [CRACKING HASHES](#CRACKINGHASHES)
+	* [Docker Impacket RPCdump](#DockerImpacketRPCdump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -22,21 +31,13 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Greatressources'></a>Great ressources
+
+## <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
+
+### <a name='Domainproperties'></a>Domain properties
+
 ```sh
-| **Ressource**  | **Description** |    **Author**    |
-|-----------------|-----------------|------------------|
-| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) | Ronnie Flathers |
-| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) | | |
-| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) | | |
-| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) | | specterops |
-
-
-```
-
-## <a name='ENUM:DOMAINANDIPPLAN'></a>ENUM: DOMAIN AND IP PLAN
-```sh
-# OBJECTIVE 1: Identify the DHCP server 
+# Identify the DC / DHCP services 
 nmap --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
@@ -49,21 +50,86 @@ nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='contoso.com'"
 
 nbtscan -r 10.0.0.0/24
 
-# OBJECTIVE 1: Enum domains and trusts with authenticated user - DC IP address 
+# Enum domains and trusts
 rpcclient -U "johndoe" 10.1.1.1
 rpcclient> enumdomains
 rpcclient> enumtrusts
-# Copy the output to trusts.txt
 
-# OBJECTIVE 2: GET THE IP SUBNETTING / IP PLAN
-# 2A DNS resolutions
+# Get the IP subnetting / IP plan
 cut -f1 -d" " trusts.txt > trusts_clean.txt                                                        │
 for i in `cat trusts_clean.txt`; do ping -a $i; done                                               │
+```
+
+### <a name='Forestproperties'></a>Forest properties
+```sh
+```
+
+### <a name='KerberosDelegations'></a>Kerberos Delegations
+```sh
+```
+
+### <a name='PrivilegedUsers'></a>Privileged Users
+```sh
+```
+
+### <a name='PrivilegedMachines'></a>Privileged Machines
+```sh
+```
+
+### <a name='Greatressources'></a>Great ressources
+```sh
+| **Ressource**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) | Ronnie Flathers |
+| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) | | |
+| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) | | |
+| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) | | specterops |
+```
+
+## <a name='ITER'></a>ITER
+
+### <a name='Usergroups'></a>User groups
+```bash
+# Get user info
+python pywerview.py get-netuser -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user > pt_xxx_getnetuser_x.txt
+
+# Get user info + canarytoken check
+# select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount
+
+# Get user memberof info
+python pywerview.py get-netgroup -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user| grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
+
+# Get the machine's OU
+python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --computername --full-data | grep 
+
+# Get the machines based on an adspath / OU
+ztarg_ou = "OU=Workstations,DC=CONTOSO,DC=COM"
+ztarg_adspath = "ldap://" + $ztarg_ou
+python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
+```
+
+### <a name='Scopeofcompromise'></a>Scope of compromise 
+```bash
+# Find where the account is local admin V1
+for i in $(cat pt_xxx_getnetcomputer_ou_x.txt); do python pywerview.py invoke-checklocaladminaccess -u $zlat_user -p $zlat_pwd --computername $i; done 
+
+# Find where the account is local admin V2
+cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
+cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
+
+# Get the DNs of the owned machines 
+
+# Get the OS of the owned machines 
 
 ```
-## <a name='RELAYPOISON'></a>RELAY/POISON
 
-## <a name='SMBv2SIGNINGNOTREQUIRED'></a>SMBv2 SIGNING NOT REQUIRED
+## <a name='REFRESH'></a>REFRESH
+```bash
+```
+
+## <a name='MISC'></a>MISC
+
+### <a name='RELAY:SMBv2SIGNINGNOTREQUIRED'></a> RELAY: SMBv2 SIGNING NOT REQUIRED
 ```sh
 # STEP 1: find smb not signed
 nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
@@ -74,14 +140,14 @@ python3 ntlmrelayx.py -tf targets.txt -smb2support
 
 ```
 
-## <a name='CRACKINGHASHES'></a>CRACKING HASHES
+### <a name='CRACKINGHASHES'></a>CRACKING HASHES
 ```sh
 # Get the domain pasword policy
 rpcclient -U "johndoe" 10.1.1.1
 rpcclient> getdompwinfo
 ```
 
-## <a name='DockerImpacketRPCdump'></a>Docker Impacket RPCdump
+### <a name='DockerImpacketRPCdump'></a>Docker Impacket RPCdump
 ```
 sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
 ```
