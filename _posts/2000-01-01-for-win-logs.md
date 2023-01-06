@@ -48,11 +48,17 @@ https://eyehatemalwares.com/incident-response/eventlog-analysis/
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
 
 🔥🔥🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥🔥🔥
+
 🔥🔥   FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/)  🔥🔥
 
 ### <a name='Authentications'></a>Authentications
 
 ![windows log for authentications](/assets/images/for-win-logs-auth.png)
+
+Below is the powershell command to get the EID 4624 for 'johndoe' :
+```powershell
+Get-WinEvent -FilterHashtable @{Logname='Security';Id=4624} | Where-Object -Property Message -Match "johndoe"
+```
 
 ### <a name='ProcessExecutions'></a>Process Executions
 
@@ -98,6 +104,7 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 - [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
 - [EID 1117 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
 
+Below is a powershell snippet to get EID 1006 within a timeframe :
 ```powershell
 $date1 = [datetime]"11/08/2021"
 $date2 = [datetime]"11/08/2021"
@@ -197,7 +204,16 @@ eventvwr.msc
 
 ### <a name='Artifacts'></a>Artifacts
 
-Go to [jmvwork.xyz/forensics/for-win-artifacts](https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles).
+To get the EVTX filenames and paths, go to [jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles](https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles).
+
+To count the logs / EID, use the commands below:
+```powershell
+# by category: Security, Application, System, Windows Powershell,...
+Get-WinEvent -FilterHashTable @{Logname='<event_log>’ | Group-Object id -NoElement | Sort-Object count
+
+# with the evtx file path
+Get-WinEvent -Path 'C:\Windows\System32\winevt\logs\Security.evtx' | Group-Object id -NoElement | Sort-Object count 
+```
 
 ### <a name='MindMapforWindowsOS'></a>MindMap for Windows OS
 
@@ -258,6 +274,9 @@ Get-WinEvent -FilterHashtable @{
 
 # list interactive logon
 Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
+
+# sort by creation date 
+| Sort-Object TimeCreated
 ```
 
 ### <a name='FormatingTSVtoCSV'></a>Formating TSV to CSV
