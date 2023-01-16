@@ -44,7 +44,8 @@ TO READ:
 
 ### <a name='Rubeus'></a>Rubeus 
 
-- [Wiki Rubeus](https://github.com/GhostPack/Rubeus)
+- [Wiki](https://github.com/GhostPack/Rubeus)
+- Compilation :
 ```powershell
 # compilation
 ```
@@ -90,13 +91,10 @@ kerberos::list /export
 
 ### <a name='Automated'></a>Automated
 
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://github.com/Arvanaghi/SessionGopher", "https://github.com/EncodeGroup/Gopher", "https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var reposs = ["https://github.com/Arvanaghi/SessionGopher", "https://github.com/EncodeGroup/Gopher", "https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (repp in reposs) {$.ajax({type: "GET", url: reposs[repp], dataType: "json", success: function(result) {$("#repo_listt").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="repos">
-    <table id="repo_list" class="sortable">
+<div id="reposs">
+    <table id="repo_listt" class="sortable">
       <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
     </table>
 </div>
