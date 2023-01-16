@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Windows Logs
-category: Forensics
-parent: Forensics
+title: SYS Logs Windows
+category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2023-01-04
+modified_date: 2023-01-10
 permalink: /:categories/:title/
 ---
 
@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 
 <!-- vscode-markdown-toc -->
 * [Windows Use-cases](#WindowsUse-cases)
+	* [Figure out activity](#Figureoutactivity)
 	* [Authentications](#Authentications)
 	* [Process Executions](#ProcessExecutions)
 	* [Network Connections](#NetworkConnections)
@@ -43,21 +44,61 @@ permalink: /:categories/:title/
 <!-- /vscode-markdown-toc -->
 
 
-https://eyehatemalwares.com/incident-response/eventlog-analysis/
-
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
+
+🔥 ENCYCLOPEDIA: [ultimatewindowssecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx) 🔥
 
 🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥
 
 🔥 FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/) 🔥
 
+### <a name='Figureoutactivity'></a>Figure out activity
+```powershell
+# listing categories sort descending by recordcount
+Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object LogName, RecordCount, IsClassicLog, IsEnabled, LogMode, LogType | Sort-Object -Descending -Property RecordCount | FT -autosize
+
+# recent entries of security logs
+# Get-EventLog -LogName Security -Newest 5
+$secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
+```
+
 ### <a name='Authentications'></a>Authentications
 
 ![windows log for authentications](/assets/images/for-win-logs-auth.png)
 
-Below is the powershell command to get the EID 4624 for 'johndoe' :
 ```powershell
-Get-WinEvent -FilterHashtable @{Logname='Security';Id=4624} | Where-Object -Property Message -Match "johndoe"
+# global logon/logoff history 
+
+# logon/logoff history of an user account 
+$ztarg_usersid = ''
+Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$sid} -Max 10 |  select ID,TaskDisplayName,TimeCreated
+
+$ztarg_username = ''
+Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} | Where-Object -Property Message -Match $ztarg_username|  select ID,TaskDisplayName,TimeCreated
+
+# network logon/logoff history of an user account with source IP
+#Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$sid} -Max 10 | select ID,TaskDisplayName,TimeCreated
+#Get-WinEvent -ProviderName 'Microsoft-Windows-Security-Auditing' -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='2']]" -MaxEvents 1
+
+[xml[]]$xml = Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624} | ForEach-Object{$_.ToXml()}
+$test = $xml.Event
+
+#$names = $test.SelectNodes("/Event/EventData/Datacity[=23]")
+#$names = $xml.SelectNodes("/Event/EventData/Data/KeyLength[=128]")
+$names = $test.SelectNodes("/EventData/Data")
+$sno = 0
+foreach($node in $names) {
+    $sno++
+    $dom = $node.getAttribute("TargetDomainName")
+    $user = $node.getAttribute("TargetUserName")
+    $ip = $node.getAttribute("IpAddress")
+    $port = $node.getAttribute("IpPort")
+    $lt = $node.getAttribute("LogonType")
+    Write-Host $dom $user $ip $port $lt
+}
+
+$secEvents = get-winevent -listprovider "microsoft-windows-security-auditing"
+$SecEvents.events[100]
 ```
 
 ### <a name='ProcessExecutions'></a>Process Executions
@@ -69,9 +110,14 @@ Get-WinEvent -FilterHashtable @{Logname='Security';Id=4624} | Where-Object -Prop
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
 
+```powershell
+# cisco anyconnect
+Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
+```
+
 ### <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
 
-```
+```powershell
 # hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
 # hunting for a CD abuse 2
 Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
@@ -84,17 +130,15 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 
 ### <a name='ADDSReplication'></a>AD DS Replication
 
-```
-# huntinfg for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
-```
+* hunting for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
 
 | Entry | CN | Display-Name | Rights-GUID |
 |----------------|--------------|--------------|-----------------|
 | Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
 | Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
 
-```
-# hunting for DCsync permission added to an account 2:
+* hunting for DCsync permission added to an account 2
+```powershell
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
@@ -107,8 +151,8 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 Below is a powershell snippet to get EID 1006 within a timeframe :
 ```powershell
 $date1 = [datetime]"11/08/2021"
-$date2 = [datetime]"11/08/2021"
-Get-WinEvent –FilterHashtable @{logname=’application’; id=1006} |
+$date2 = get-date "08/17/2021"
+Get-WinEvent –FilterHashtable @{'logname'='application'; 'id'=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 ```
 
@@ -125,7 +169,7 @@ Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gr
 ## <a name='Logsactivation'></a>Logs activation
 
 ### <a name='ActivateAMSIlogging'></a>Activate AMSI logging
-```
+```powershell
 $AutoLoggerName = 'MyAMSILogger'
 $AutoLoggerGuid = "{$((New-Guid).Guid)}"
 New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
@@ -275,8 +319,13 @@ Get-WinEvent -FilterHashtable @{
 # list interactive logon
 Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
 
-# sort by creation date 
-| Sort-Object TimeCreated
+# get eventdata properties
+$events = Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624}
+$event = [xml]$events[0].ToXml()
+$event.Event.EventData.Data
+$event.Event.EventData.Data | Where-Object {$_.name -eq "BootStartTime"}
+$BootStartTime."#text"
+
 ```
 
 ### <a name='FormatingTSVtoCSV'></a>Formating TSV to CSV

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Linux Logs
-category: Forensics
-parent: Forensics
+title: SYS Logs Linux
+category: Sysadmin
+parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2021-10-26
+modified_date: 2023-01-10
 permalink: /:categories/:title/
 ---
 

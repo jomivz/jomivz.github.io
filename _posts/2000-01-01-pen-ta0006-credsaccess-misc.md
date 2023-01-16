@@ -24,6 +24,26 @@ permalink: /:categories/:title/
 - [ldapnomnom](https://github.com/lkarlslund/ldapnomnom)
 - [oracle odat](https://github.com/quentinhardy/odat)
 
+### <a name='Services'></a>Scheduled Tasks
+
 ### <a name='WebBrowsers'></a>Web Browsers
 
 - [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
+
+### <a name='ImportExportTickets'></a>VNC
+
+* VNC softwares properties :  
+
+| software | registry key | folder |
+|----------|--------------|--------|
+| real vnc | HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\vncserver | |
+| TightVNC | HKEY_CURRENT_USER\Software\TightVNC\Server | |
+| TigerVNC | HKEY_LOCAL_USER\Software\TigerVNC\WinVNC4 | |
+| UltraVNC | | | C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini |
+
+* Example of download of the ini file:
+```
+Evil-winRM > download "C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini" /
+```
+
+## <a name='ImportExportTickets'></a>WinSCP

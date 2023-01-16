@@ -77,14 +77,12 @@ for i in `cat trusts_clean.txt`; do ping -a $i; done                            
 ```
 
 ### <a name='Greatressources'></a>Great ressources
-```sh
-| **Ressource**  | **Description** |    **Author**    |
-|-----------------|-----------------|------------------|
-| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) | Ronnie Flathers |
-| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) | | |
-| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) | | |
-| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) | | specterops |
-```
+| **Ressource**  | 
+|-----------------|
+| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
+| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) |
+| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) |
+| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) |
 
 ## <a name='ITER'></a>ITER
 

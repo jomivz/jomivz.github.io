@@ -9,15 +9,33 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [EDR Enumeration](#EDREnumeration)
 * [EDR Evasion tools](#EDREvasiontools)
 * [EDR Bypass articles](#EDRBypassarticles)
-* [EoL: End of Life](#EoL:EndofLife)
+* [End of Life Support](#EndofLifeSupport)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## <a name='EDREnumeration'></a>EDR Enumeration
+
+```powershell
+# windows defender 
+# windows defender: check if Defender is enabled
+Get-MpComputerStatus
+Get-MpComputerStatus | Select AntivirusEnabled
+# windows defender: check if defensive modules are enabled
+Get-MpComputerStatus | Select RealTimeProtectionEnabled, IoavProtectionEnabled,AntispywareEnabled | FL
+# windows defender: check if tamper protection is enabled
+Get-MpComputerStatus | Select IsTamperProtected,RealTimeProtectionEnabled | FL
+
+# windows palo xdr 
+dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
+
+```
 
 ## <a name='EDREvasiontools'></a>EDR Evasion tools 
 
@@ -36,11 +54,12 @@ permalink: /:categories/:title/
 ## <a name='EDRBypassarticles'></a>EDR Bypass articles
 
 | **Date** | **EDR** | **Version** | **Bypass** | **Author** |
+| 2021-10 | Windows Defender | x | [viperone](https://viperone.gitbook.io/pentest-everything/everything/everything-active-directory/defense-evasion/disable-defender) |
 | 2021-07 | Palo Alto XDR | 7.4.0 | [privescndisable](https://mrd0x.com/cortex-xdr-analysis-and-bypass/) | @mrdox |
 | 2022-09 | Palo Alto XDR | 7.8.0 | [regnreboot](https://medium.com/@bentamam/bypassing-cortex-xdr-a-case-study-in-the-power-of-simplicity-b436f4f570ad) | @bentamam |
 
 
-## <a name='EoL:EndofLife'></a>End of Life Support
+## <a name='EndofLifeSupport'></a>End of Life Support
 
 * [carbon black](https://community.carbonblack.com/t5/Documentation-Downloads/Carbon-Black-EDR-Supported-Versions-Grid/ta-p/85714)
 * [palo alto XDR](https://www.paloaltonetworks.com/services/support/end-of-life-announcements/end-of-life-summary#traps-esm-and-cortex)

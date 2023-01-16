@@ -227,6 +227,7 @@ References :
 #### <a name='PrivilegedUsers'></a>Privileged Users
 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
+- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
 
 ```powershell
 $ztarg_grp="Domain Admins"
@@ -235,6 +236,11 @@ $ztarg_grp="Domain Admins"
 #$ztarg_grp="Remote Desktop Users"
 #$ztarg_grp="DNSAdmins"
 Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+
+# users who can perform DCsync
+Get-DomainObjectAcl $zdom_dn -ResolveGUIDs  -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? {
+    ($_.ObjectType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')
+}
 ```
 
 #### <a name='PrivilegedMachines'></a>Privileged Machines

