@@ -4,7 +4,7 @@ title: SYS Logs Windows
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2023-01-10
+modified_date: 2023-01-16
 permalink: /:categories/:title/
 ---
 
@@ -67,13 +67,13 @@ $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ![windows log for authentications](/assets/images/for-win-logs-auth.png)
 
 ```powershell
-# global logon/logoff history 
+# get the security backlog period
+Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624} -Oldest -Max 1 | Select TimeCreated
 
 # logon/logoff history of an user account 
 $ztarg_usersid = ''
-Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$sid} -Max 10 |  select ID,TaskDisplayName,TimeCreated
-
 $ztarg_username = ''
+Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
 Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} | Where-Object -Property Message -Match $ztarg_username|  select ID,TaskDisplayName,TimeCreated
 
 # network logon/logoff history of an user account with source IP
@@ -195,7 +195,7 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
 ### <a name='ActivateFirewalllogs'></a>Activate Firewall logs
-```
+```powershell
 # Run this command to check if the logging is enabled
 netsh advfirewall show allprofiles
 
@@ -226,7 +226,7 @@ Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
 
 ### <a name='ActivateFirewalllogsManaged'></a>Activate Firewall logs / Managed 
 
-```
+```powershell
 # Prefer the GUID than the subcategory name / avoid OS language issues
 auditpol /list /subcategory:* /r > extract.txt
 

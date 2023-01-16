@@ -4,7 +4,7 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-09-06
+modified_date: 2023-01-16
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -13,7 +13,8 @@ permalink: /:categories/:title/
 	* 1.2. [network config & file shares](#networkconfigfileshares)
 	* 1.3. [users & groups](#usersgroups)
 	* 1.4. [active sessions](#activesessions)
-	* 1.5. [products, processes and services](#productsprocessesandservices)
+	* 1.5. [user accounts activity](#useraccountsactivity)
+	* 1.6. [products, processes and services](#productsprocessesandservices)
 * 2. [Security Checks](#SecurityChecks)
 	* 2.1. [windows firewall status](#windowsfirewallstatus)
 	* 2.2. [windows defender status](#windowsdefenderstatus)
@@ -97,11 +98,26 @@ net localgroup Administrators
 # listing the active sessions
 quser
 
-# killign a session / below '2' is the session ID
+# killing a session / below '2' is the session ID
 logoff 2
 ```
 
-###  1.5. <a name='productsprocessesandservices'></a>products, processes and services
+###  1.5. <a name='useraccountsactivity'></a>user accounts activity
+```powershell
+# global view
+wmic netlogin get Name,LastLogon,LastLogoff,NumberOfLogons,BadPasswordCount
+
+# backlog of the security eventlogs
+Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624} -Oldest -Max 1 | Select TimeCreated
+
+# user timeline based on the security eventlogs
+$ztarg_usersid=''
+$ztarg_username='' #username only, no '$zdom\' prefix
+Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} -Max 80 | Where-Object -Property Message -Match $ztarg_username|  select ID,TaskDisplayName,TimeCreated
+Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
+```
+
+###  1.6. <a name='productsprocessesandservices'></a>products, processes and services
 ```powershell
 # listing windows product
 wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
