@@ -116,9 +116,16 @@ cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pw
 cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
 
 # Get the DNs of the owned machines 
+# Get the OS of the owned machines / get the cn computer (1 line) and its DN (1 line)
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_getcomputer_XXX_dn.txt; done < pt_XXX_pwned_machines.txt
+# Get the OS of the owned machines / format the result returned to CSV
+i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_dn.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_dn.txt
 
-# Get the OS of the owned machines 
-
+# Get the OS of the owned machines /
+# Get the OS of the owned machines / get the cn computer (1 line) and its OS (1 line)
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn operatingSystem >> pt_XXX_getcomputer_XXX_os.txt; done < pt_XXX_pwned_machines.txt
+# Get the OS of the owned machines / format the result returned to CSV
+i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_os.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_os.txt
 ```
 
 ## <a name='REFRESH'></a>REFRESH

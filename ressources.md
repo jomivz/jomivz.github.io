@@ -24,12 +24,12 @@ modified_date: 2022-12-30
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='DashboardSaaS'></a>🌎🤝 Dashboard SaaS
+### <a name='DashboardSaaS'></a>🌎🤝 Dashboard Online Tools
 
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 🚦🔎 [opencve](https://opencve.io) 🛠️ | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
+| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 🚦🔎 [opencve](https://opencve.io/cve) 🛠️ | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
 | 🚦🔎 [urlscan](https://urlscan.io/)						| 👁️ [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷 🥐  | 🛸 [hatching](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
 | 🚦🔎 [virustotal](https://virustotal.com/)				| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
 | 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
@@ -39,32 +39,36 @@ modified_date: 2022-12-30
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | | |
 
 
-### <a name='WowListMedias'></a>📚🎞️ Wow List Medias 🎙️
+### <a name='WowListMedias'></a>📚🎞️ Wow RED List 🎙️
 
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
 |---------------------------------------------------------------------------------------|------------------------|------------------------|
+| 📕 [payloadAllTheThings](https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/) |  🔴 [HackerSploit](https://www.youtube.com/@HackerSploit/playlists) 🥇 |  |
+| 📕 [hacktricks](https://book.hacktricks.xyz) 🥇 	| 🟣 [OffSec Wk Live](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) => Fri 6PM GMT+1 | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
+| 📕 [The PPN notebook](https://ppn.snovvcrash.rocks/) | 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 | |
 | 🧰 [HITB 0xdf](https://0xdf.gitlab.io/) 🥇	 | 🔴 [0xdf](https://www.youtube.com/@0xdf/videos) / [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA) | 🎙️ [hacknspk](https://twitter.com/hacknspeak) 🇫🇷 | 
-| 📕 [hacktricks](https://book.hacktricks.xyz) 🥇 								| 🟣 [OffSec Wk Live](https://www.twitch.tv/offsecofficial/schedule?seriesID=b043a7dc-75d7-4f97-94a4-84e73cc23af9) => Fri 6PM GMT+1 | 🎙️ [nolimitsecu](https://www.nolimitsecu.fr/) 🇫🇷 | 
 | 📕 [hackingarticles](https://hackingarticles.in)									| 🔴 [S3cur3Th1sSh1t](https://www.youtube.com/channel/UC27i77nEwKE8hffrxNqXNOg) | 🎙️ [cptsecu](https://www.comptoirsecu.fr/categories/emission/) 🇫🇷 | 
 | 📕 [hacker.recipes](https://www.thehacker.recipes)									| 🔴 [John H](https://www.youtube.com/@_JohnHammond) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
+| 📕 [ired.team](https://www.ired.team/) | | |
 | 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
-| 📕 [PayloadsAllTT](https://github.com/swisskyrepo/PayloadsAllTheThings)	| 🔴 [waked XY](https://www.youtube.com/@wakedxy/videos) 🇫🇷 | |
-| 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇											|  🔴 [HackerSploit](https://www.youtube.com/@HackerSploit/playlists) 🥇 | |
-| 📕📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
+| 📕 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) | | | 
+| 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) | | |
+| 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) | | |
 
 
-### <a name='WowListRepos'></a>📚🛠️ Wow List Repos 
+### <a name='WowListRepos'></a>📚🛠️ Wow BLUE List 
 
 
 | 📚 **Top Wow Repos**												|
 |-----------------------------------------------------------------------|
-| 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
-| 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
-| 📕 [The PPN notebook](https://ppn.snovvcrash.rocks/) |
-| 📕 [hdks](https://exploit-notes.hdks.org/) |
+| 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
+| 📘 [Awesome DFIR](https://awesomedfir.com) |
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
+| 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
+| 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
+| 📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
 | 🛠️ [explainshell](https://explainshell.com/) |
 
 
@@ -76,10 +80,6 @@ modified_date: 2022-12-30
 | 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) |
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
-| Tools listing 📕 | [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) |
-| Tools listing 📕 | [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) |
-| Tools listing 📕 | [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) |
-| Tools listing 📘 | [Awesome DFIR](https://awesomedfir.com) |
 
 ### <a name='ProcessesLoggingandLOLBAS'></a>🛠️⚙️ Processes, Logging and LOLBAS 📃
 
