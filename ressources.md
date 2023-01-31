@@ -11,10 +11,10 @@ modified_date: 2022-12-30
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [🌎🤝 Dashboard SaaS](#DashboardSaaS)
-* [📚🎞️ Wow List Medias 🎙️](#WowListMedias)
-* [📚🛠️ Wow List Repos](#WowListRepos)
-* [🛠️🛠️ Wow List Tools](#WowListTools)
+* [🌎🤝 Dashboard Online Tools](#DashboardOnlineTools)
+* [📚📕 Wow List RED](#WowListRED)
+* [📚📘 Wow List BLUE](#WowListBLUE)
+* [📚🛠️ Wow List TOOLS](#WowListTOOLS)
 * [🛠️⚙️ Processes, Logging and LOLBAS 📃](#ProcessesLoggingandLOLBAS)
 * [👀🔫 MISC ❓](#MISC)
 
@@ -24,7 +24,7 @@ modified_date: 2022-12-30
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='DashboardSaaS'></a>🌎🤝 Dashboard Online Tools
+### <a name='DashboardOnlineTools'></a>🌎🤝 Dashboard Online Tools
 
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
@@ -39,7 +39,7 @@ modified_date: 2022-12-30
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | | |
 
 
-### <a name='WowListMedias'></a>📚🎞️ Wow RED List 🎙️
+### <a name='WowListRED'></a>📚📕 Wow List RED
 
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
@@ -52,12 +52,12 @@ modified_date: 2022-12-30
 | 📕 [hacker.recipes](https://www.thehacker.recipes)									| 🔴 [John H](https://www.youtube.com/@_JohnHammond) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
 | 📕 [ired.team](https://www.ired.team/) | | |
 | 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
-| 📕 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) | | | 
-| 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) | | |
-| 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) | | |
+| 🧰 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) | | | 
+| 🧰 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) | | |
+| 🧰 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) | | |
 
 
-### <a name='WowListRepos'></a>📚🛠️ Wow BLUE List 
+### <a name='WowListBLUE'></a>📚📘 Wow List BLUE 
 
 
 | 📚 **Top Wow Repos**												|
@@ -72,7 +72,7 @@ modified_date: 2022-12-30
 | 🛠️ [explainshell](https://explainshell.com/) |
 
 
-### <a name='WowListTools'></a>🛠️🛠️ Wow List Tools 
+### <a name='WowListTOOLS'></a>📚🛠️ Wow List TOOLS 
 
 | **Category**    | **Description** |
 |-----------------|-----------------|
