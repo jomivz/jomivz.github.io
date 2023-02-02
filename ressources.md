@@ -29,13 +29,13 @@ modified_date: 2022-12-30
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
-| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭		| 🚦🔎 [opencve](https://opencve.io/cve) 🛠️ | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [centralops](https://centralops.net/)	|
+| 🚦🔎 [virustotal](https://virustotal.com/)		| 🚦🔎 [opencve](https://opencve.io/cve) 🛠️ | 🛸 [hybrid-analysis](https://www.hybrid-analysis.com/)	 | 🕸️ [virustotal](https://virustotal.com/)	|
 | 🚦🔎 [urlscan](https://urlscan.io/)						| 👁️ [anssi](https://www.cert.ssi.gouv.fr/) 📈 🇫🇷 🥐  | 🛸 [hatching](https://tria.ge/login)							| 🕸️ [mxtoolbox](https://mxtoolbox.com/NetworkTools.aspx)|	
-| 🚦🔎 [virustotal](https://virustotal.com/)				| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
-| 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 📡 [shodan](https://shodan.io/) 🥇 |
+| 🚦🔎 [urlhaus](https://urlhaus.abuse.ch/browse/) 🇨🇭	| 👁️ [cisa](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 📈 🇺🇸 🗽 | 🛸 [any.run](https://app.any.run/) 🆔 [trends](https://any.run/malware-trends/) 📈 | 🕸️ [networksdb](https://networksdb.io/)			| 
+| 🚦🔎 [HIBP](https://haveibeenpwned.com/) 📈 			| 👁️ [cvetrend](https://cvetrends.com/) 📈🐦	| 🇼 [malpedia](https://malpedia.caad.fkie.fraunhofer.de/library)	📈 | 🕸️ [centralops](https://centralops.net/) |
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 👁️ [0day.today](https://en.0day.today/) 📈 💲			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
-| 🚦🔎 [filesec](https://filesec.io/) | 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | |
+| 🚦🔎 [filesec](https://filesec.io/) | 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | 📡 [shodan](https://shodan.io/) 🥇 |
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | | |
 
 
