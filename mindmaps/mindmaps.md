@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2022-12-18
+modified_date: 2023-02-08
 ---
 
 ## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
@@ -23,9 +23,15 @@ modified_date: 2022-12-18
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+### Ignite Repository
+
+* [Ignitetechnologies](https://github.com/Ignitetechnologies/Mindmap)
+
 ### <a name='Infrastructure'></a>👀🧠🔫 Infrastructure
 
+* 📕🕸️️ [Pentest Network](https://github.com/c4s73r/NetworkNightmare)
 * 📕🗑️ [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
+* 📕👾 [ByPass AV/EDR](https://github.com/CMEPW/BypassAV)
 * 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 * 🛠️🗑️ [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
 * 🛠️☁️ [AWS geek](https://www.awsgeek.com/)

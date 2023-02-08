@@ -4,7 +4,7 @@ title: Palo Alto XQL queries
 parent: EDR
 category: EDR
 grand_parent: Cheatsheets
-modified_date: 2022-12-07
+modified_date: 2023-02-07
 permalink: /:categories/:title/
 ---
 
@@ -19,20 +19,8 @@ permalink: /:categories/:title/
 	* [Network activity with the Internet for PC001](#NetworkactivitywiththeInternetforPC001)
 	* [Public sensitive services exposed in the Internet](#PublicsensitiveservicesexposedintheInternet)
 	* [Get actions over the windows registry for PC001](#GetactionsoverthewindowsregistryforPC001)
-* [Palo Alto examples (TO TEST)](#PaloAltoexamplesTOTEST)
-	* [Executing scheduled task once on a specific time.](#Executingscheduledtaskonceonaspecifictime.)
-	* [Looking for failed authentication events and sorting with the fields to include username + source ip.](#Lookingforfailedauthenticationeventsandsortingwiththefieldstoincludeusernamesourceip.)
-	* [WPAD to External IP addresses](#WPADtoExternalIPaddresses)
-	* [Use RPC call artifacts to detect scheduled tasks remotely created from another host](#UseRPCcallartifactstodetectscheduledtasksremotelycreatedfromanotherhost)
-	* [Stack count data uploaded to domains](#Stackcountdatauploadedtodomains)
 
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
-## <a name='practicedqueries'></a>practiced queries
+## <a name='practicedqueries'></a>BLUETEAM
 
 ### <a name='GettheendpointsusingapublicIP'></a>Get the endpoints using a public IP
 ```
@@ -112,6 +100,28 @@ dataset = xdr_data
 ```
 preset = xdr_registry | filter agent_hostname = "PC001"
 ```
+
+## <a name='practicedqueries'></a>REDTEAM
+
+* XQL queries over the field ```action_process_image_command_line```:
+
+```
+dataset = xdr_data 
+| filter event_type = ENUM.PROCESS and action_process_image_command_line contains "kubectl" and  action_process_image_command_line contains $_KEYWORD_$
+| comp count(agent_hostname) as hits by agent_hostname, agent_ip_addresses, action_process_image_command_line, agent_version, host_metadata_domain 
+```
+
+| loots | $_KEYWORD_$ |
+|-------|----------------------------|
+| Kubernetes | "kubectl config set-credentials" |
+| Container Registry X | "docker login" |  
+| Container Registry Azure | "azucr." |
+| DB sysdba | "sysdba" |
+| DB x | "sqlplus -s " |
+| password | " -pass" |
+| password | " -p " |
+| password | " -cred" |
+| psexec | "psexec " |
 
 ## <a name='PaloAltoexamplesTOTEST'></a>Palo Alto examples (TO TEST)
 ### <a name='Executingscheduledtaskonceonaspecifictime.'></a>Executing scheduled task once on a specific time.

@@ -4,7 +4,7 @@ title: TA0008 Lateral Movement - VNC
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-01-18
+modified_date: 2023-02-07
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 * [EDIT hydra return & LIST pwned machines](#EDIThydrareturnLISTpwnedmachines)
 * [VALIDATE LIST + SCREENSHOT of pwned desktops](#VALIDATELISTSCREENSHOTofpwneddesktops)
 * [STATS of pwned machines](#STATSofpwnedmachines)
+* [FILE TRANSFER](#FILETRANSFER)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -64,3 +65,8 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 Run the playbook [pen_enum_computers_os_piechart](https://github.com/jomivz/jomivz.github.io/playbook/pen_enum_computers_os_piechart.ipynb) to generate the chart pie per operating system.
 
 ![computers per OS](/assets/images/playbook_piechart_computers_per_os.png)
+
+## <a name='FILETRANSFER'></a>FILE TRANSFER
+
+Tools :
+* [Invoke-Transfer](https://github.com/JoelGMSec/Invoke-Transfer)

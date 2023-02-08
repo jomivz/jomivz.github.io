@@ -4,7 +4,7 @@ title: TA0005 Defense Evasion - EDR
 parent: EDR
 category: EDR
 grand_parent: Cheatsheets
-modified_date: 2023-01-31
+modified_date: 2023-02-08
 permalink: /:categories/:title/
 ---
 
@@ -13,6 +13,7 @@ permalink: /:categories/:title/
 * [EDR Evasion tools](#EDREvasiontools)
 * [EDR Bypass articles](#EDRBypassarticles)
 * [End of Life Support](#EndofLifeSupport)
+* [MindMaps](#MindMaps)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -63,3 +64,7 @@ dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
 
 * [carbon black](https://community.carbonblack.com/t5/Documentation-Downloads/Carbon-Black-EDR-Supported-Versions-Grid/ta-p/85714)
 * [palo alto XDR](https://www.paloaltonetworks.com/services/support/end-of-life-announcements/end-of-life-summary#traps-esm-and-cortex)
+
+## <a name='MindMaps'></a>MindMaps 
+
+* 📕🗑️ [ByPass AV/EDR](https://github.com/CMEPW/BypassAV)
