@@ -4,7 +4,7 @@ title: TA0008 Lateral Movement - Docker
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-02-08
+modified_date: 2023-02-14
 permalink: /:categories/:title/
 ---
 <!-- vscode-markdown-toc -->
@@ -23,7 +23,7 @@ permalink: /:categories/:title/
 ## <a name='MUSTTOREAD'></a>MUST TO READ
 
 - [PayloadAllTheThings](https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/Methodology%20and%20Resources/Container%20-%20Docker%20Pentest/#summary)
-- []()
+- [](https://infosecwriteups.com/attacking-and-securing-docker-containers-cc8c80f05b5b)
 - 
 
 ## <a name='ScanwithGrypeExploitDB'></a>Scan with Grype + ExploitDB
@@ -49,10 +49,23 @@ ls -alps /var/lib/docker
 docker inspect | jq 
 ```
 
+```
+alias jaqy='java -Dfile.encoding=UTF-8 -Xmx256m -jar ~/jaqy-1.2.0.jar'
+jaqy
+
+.protocol teradata com.teradata.jdbc.TeraDriver
+.classpath teradata lib/terajdbc4.jar
+.open -u dbc -p dbc teradata://127.0.0.1
+
+.protocol postgresql org.postgresql.driver
+.classpath postgresql lib/postgresql-42.5.3.jar
+.open -u dbc -p dbc postgresql://127.0.0.1
+```
+
 ## <a name='UnsecureAzureRegistry'></a>Unsecure Azure Registry
 
 ```
-curl -s -k --user "USER:PASS" https://registry.azurecr.io/v2/_catalog | jq '.repositories'ldd (Debian GLIBC 2.36-6) 2.36
+curl -s -k --user "USER:PASS" https://registry.azurecr.io/v2/_catalog | jq '.repositories'
 curl -s -k --user "USER:PASS" https://registry.azurecr.io/v2/<image_name>/tags/list | jq '.tags'
 podman pull --creds "USER:PASS" registry.azurecr.io/<image_name>:<tag>
 
@@ -85,7 +98,15 @@ To fix it :
 ```
 ```
 
+## Java Maven Applications 
 
+```
+jar xf app.jar
+find . -iname "*.properties"
+find -iname "*.properties" -print | xargs grep -r "://"
+find -iname "*.properties" -print | xargs grep -r "jdbc.*://"
+find -iname "*.properties" -print | xargs grep -r "postgresql://"
+```
 
 
 
