@@ -4,7 +4,7 @@ title: TA0005 Defense Evasion - EDR
 parent: EDR
 category: EDR
 grand_parent: Cheatsheets
-modified_date: 2023-02-08
+modified_date: 2023-02-14
 permalink: /:categories/:title/
 ---
 
@@ -58,6 +58,7 @@ dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
 | 2021-10 | Windows Defender | x | [viperone](https://viperone.gitbook.io/pentest-everything/everything/everything-active-directory/defense-evasion/disable-defender) |
 | 2021-07 | Palo Alto XDR | 7.4.0 | [privescndisable](https://mrd0x.com/cortex-xdr-analysis-and-bypass/) | @mrdox |
 | 2022-09 | Palo Alto XDR | 7.8.0 | [regnreboot](https://medium.com/@bentamam/bypassing-cortex-xdr-a-case-study-in-the-power-of-simplicity-b436f4f570ad) | @bentamam |
+| 2023-02 | Palo Alto XDR | - | [auditconf](https://github.com/Laokoon-SecurITy/Cortex-XDR-Config-Extractor) |
 
 
 ## <a name='EndofLifeSupport'></a>End of Life Support

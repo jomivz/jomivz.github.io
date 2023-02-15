@@ -11,6 +11,7 @@ modified_date: 2023-02-08
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
+* [👀🧠🔫 Offensive Tools](#OffensiveTools)
 * [👀🧠🔫 Infrastructure](#Infrastructure)
 * [👀🧠🔫 WEB](#WEB)
 * [👀🧠🔫 WEB API](#WEBAPI)
@@ -23,9 +24,16 @@ modified_date: 2023-02-08
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### Ignite Repository
+### <a name='OffensiveTools'></a>👀🧠🔫 Offensive Tools 
 
 * [Ignitetechnologies](https://github.com/Ignitetechnologies/Mindmap)
+	* [NMAP](https://github.com/Ignitetechnologies/Mindmap/tree/main/Nmap/nmap.pdf)
+	* [Wireshark](https://github.com/Ignitetechnologies/Mindmap/tree/main/Wireshark/wireshark.pdf)
+	* [hydra](https://github.com/Ignitetechnologies/Mindmap/blob/main/hydra/hydra.pdf)
+	* [sqlmap](https://github.com/Ignitetechnologies/Mindmap/blob/main/Sqlmap/Sqlmap.pdf)
+	* [Impacket](https://github.com/Ignitetechnologies/Mindmap/tree/main/Impacket/impacket.pdf)
+	* [CME](https://github.com/Ignitetechnologies/Mindmap/tree/main/Crackmapexec/Crackmapexec.pdf)
+	* [Burp](https://github.com/Ignitetechnologies/Mindmap/tree/main/Burp%20Suite/burp%20suite.pdf)
 
 ### <a name='Infrastructure'></a>👀🧠🔫 Infrastructure
 

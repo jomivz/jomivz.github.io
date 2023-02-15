@@ -86,6 +86,7 @@ sudo apt-get install linux-headers-`uname -r`
 ```
 
 * It requires also the GLIBC 2.34, giving this error otherwise:
+
 ```
 test@docker:/root$ ./escape
 ./escape: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34' not found (required by ./escape)
@@ -96,12 +97,16 @@ ldd (Debian GLIBC 2.36-6) 2.36
 
 To fix it :
 ```
+-
 ```
 
 ## Java Maven Applications 
 
 ```
+# extract application
 jar xf app.jar
+
+# find URLs and properties files
 find . -iname "*.properties"
 find -iname "*.properties" -print | xargs grep -r "://"
 find -iname "*.properties" -print | xargs grep -r "jdbc.*://"
