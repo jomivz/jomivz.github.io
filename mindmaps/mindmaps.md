@@ -3,6 +3,7 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
+has_children: true
 modified_date: 2023-03-08
 ---
 
