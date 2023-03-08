@@ -8,6 +8,8 @@ permalink: /mindmaps/cloud
 modified_date: 2023-03-08
 ---
 
+👀📊 **[comparecloud](https://comparecloud.in/)** 📊👀
+
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
@@ -21,8 +23,6 @@ modified_date: 2023-03-08
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-👀🧠 [comparecloud](https://comparecloud.in/) 👀🧠
 
 ## <a name='Mindmaps'></a>👀🧠 Mindmaps
 
