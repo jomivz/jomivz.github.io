@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-12-30
+modified_date: 2022-02-22
 ---
 
 ## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️🎞️
@@ -52,9 +52,13 @@ modified_date: 2022-12-30
 | 📕 [hacker.recipes](https://www.thehacker.recipes)									| 🔴 [John H](https://www.youtube.com/@_JohnHammond) | 🎙️ [hacknstock](https://hackstock.net/podcasts) 🇫🇷 |
 | 📕 [ired.team](https://www.ired.team/) | | |
 | 📕 [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
-| 🧰 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) | | | 
-| 🧰 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) | | |
-| 🧰 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) | | |
+
+| 🧰 **Tools repositories** 														    | 
+|---------------------------------------------------------------------------------------|
+| 📕 [blackhat arsenal tools](https://github.com/toolswatch/blackhat-arsenal-tools) 🧰 |
+| 📕 [infosecn1nja redteaming toolkit](https://github.com/infosecn1nja/Red-Teaming-Toolkit) 🧰 |
+| 📕 [bigb0ss redteam offensive security](https://github.com/bigb0sss/RedTeam-OffensiveSecurity) 🧰 |
+| 📕 [S3cur3Th1sSh1t/Pentest-Tool](https://github.com/S3cur3Th1sSh1t/Pentest-Tool) 🧰 |
 
 
 ### <a name='WowListBLUE'></a>📚📘 Wow List BLUE 
@@ -68,7 +72,8 @@ modified_date: 2022-12-30
 | 📘 [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
 | 👩🏻‍💻 [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | 👩🏻‍💻 [C2 Matrix](https://www.thec2matrix.com/matrix) |
-| 📘 [owasp](https://cheatsheetseries.owasp.org/) | | |
+| 📘 [owasp](https://cheatsheetseries.owasp.org/) |
+| 📘 [A-poc\Blueteam-tools](https://github.com/A-poc/BlueTeam-Tools/blob/main/README.md) 🧰 |
 | 🛠️ [explainshell](https://explainshell.com/) |
 
 

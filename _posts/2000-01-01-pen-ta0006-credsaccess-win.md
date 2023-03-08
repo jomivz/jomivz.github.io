@@ -4,7 +4,7 @@ title: TA0006 Credentials Access - Windows
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-01-16
+modified_date: 2023-02-22
 permalink: /:categories/:title/
 ---
 
@@ -20,6 +20,7 @@ permalink: /:categories/:title/
 * [Scheduled Tasks](#ScheduledTasks)
 * [Sofwares](#Sofwares)
 	* [Automated](#Automated)
+	* [mRemoteNG](#mRemoteNG)
 	* [xVNC](#xVNC)
 	* [WinSCP](#WinSCP)
 	* [Putty](#Putty)
@@ -98,6 +99,10 @@ kerberos::list /export
       <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
     </table>
 </div>
+
+### <a name='mRemoteNG'></a>mRemoteNG
+
+- [password decryption](https://github.com/S3cur3Th1sSh1t/mRemoteNG-Decrypt)
 
 ### <a name='xVNC'></a>xVNC
 
