@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Mindmap Web
-category: Mindmap Web
+category: Web
 parent: Mindmaps
-nav_order: 1
+nav_order: 2
 permalink: /mindmaps/web
 modified_date: 2023-03-08
 ---
@@ -31,6 +31,8 @@ modified_date: 2023-03-08
 ## <a name='OffensiveTools'></a>👀🔫 Offensive Tools 
 
 * [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
+* [waf bypass](https://github.com/nemesida-waf/waf-bypass)
+* [dump elastic](https://github.com/leakix/estk)
 
 ## <a name='LabsTargets'></a>👀🎯 Labs & Targets
 

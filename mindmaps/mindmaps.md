@@ -39,7 +39,6 @@ modified_date: 2023-03-08
 * 📕👾 [ByPass AV/EDR](https://github.com/CMEPW/BypassAV)
 * 🛠️🗑️️ [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 * 🛠️🗑️ [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
-* 🛠️☁️ [AWS geek](https://www.awsgeek.com/)
 
 ### <a name='ForensicsOSINT'></a>👀🧠🔫 Forensics / OSINT
 
