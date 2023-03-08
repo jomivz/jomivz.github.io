@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: category
 title: Mindmap Web
 category: Web
 parent: Mindmaps
