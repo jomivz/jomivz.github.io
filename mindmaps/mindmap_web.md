@@ -1,20 +1,20 @@
 ---
 layout: page
 title: Mindmap Web
-permalink: /mindmaps/web
+category: Mindmap Web
 parent: Mindmaps
 nav_order: 1
+permalink: /mindmaps/web
 modified_date: 2023-03-08
 ---
 
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [MENU](#MENU)
-* [👀🧠🔫 Mindmaps](#Mindmaps)
-* [👀🧠🔫 Offensive Tools](#OffensiveTools)
-* [Labs](#Labs)
-* [👀🧠🔫 Attack Types](#AttackTypes)
+* [👀🧠 Mindmaps](#Mindmaps)
+* [👀🔫 Offensive Tools](#OffensiveTools)
+* [👀🎯 Labs & Targets](#LabsTargets)
+* [👀🔥 Attack Types](#AttackTypes)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -22,24 +22,24 @@ modified_date: 2023-03-08
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Mindmaps'></a>Mindmaps
+## <a name='Mindmaps'></a>👀🧠 Mindmaps
 
 * [Burp mindmap](https://github.com/Ignitetechnologies/Mindmap/tree/main/Burp%20Suite/burp%20suite.pdf)
 * [Web API minmdap](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 
 
-## <a name='OffensiveTools'></a> Offensive Tools 
+## <a name='OffensiveTools'></a>👀🔫 Offensive Tools 
 
 * [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
 
-## <a name='Labs'></a>Labs
+## <a name='LabsTargets'></a>👀🎯 Labs & Targets
 
 * [vulnhub box](https://github.com/Ignitetechnologies/Web-Application-Cheatsheet)
 * [takito1812 playground](https://github.com/takito1812/web-hacking-playground/tree/main/Solutions)
 
-## <a name='AttackTypes'></a>Attack Types
+## <a name='AttackTypes'></a>👀🔥 Attack Types
 
-**OWASP Top 10 mapping**
+🧠🔥 OWASP Top 10 mapping
 
 ![owasp-top-10-mapping](/assets/images/owasp-top10-mapping.png)
 
