@@ -33,6 +33,8 @@ modified_date: 2023-03-08
 * [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
 * [waf bypass](https://github.com/nemesida-waf/waf-bypass)
 * [dump elastic](https://github.com/leakix/estk)
+* [IP rotator TOR](https://github.com/SusmithKrishnan/torghost)
+* [IP rotator for Burp](github.com/RhinoSecurityLabs/IPRotate_Burp_Extension)
 
 ## <a name='LabsTargets'></a>👀🎯 Labs & Targets
 
