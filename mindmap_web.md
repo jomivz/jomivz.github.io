@@ -30,16 +30,53 @@ modified_date: 2023-03-08
 
 ## <a name='OffensiveTools'></a>👀🔫 Offensive Tools 
 
-* [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
 * [waf bypass](https://github.com/nemesida-waf/waf-bypass)
-* [dump elastic](https://github.com/leakix/estk)
+* [mubeng](https://github.com/kitabisa/mubeng#proxy-ip-rotator)
+```bash
+# set the proxy ip rotator
+curl https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt -o http.txt
+docker run --network host -it mubeng -a localhost:8089 -f http.txt -r 10 -m random
+
+# run waf-bypass
+docker run --network host -it 7209816c0627 --host='contoso.com' --proxy='http://localhost:8089'
+
+# to select one payload we need to exclude all others
+--exclude-dir='FP' \
+--exclude-dir='API' \
+--exclude-dir='CM' \
+--exclude-dir='GraphQL' \
+--exclude-dir='LDAP' \
+--exclude-dir='LFI' \
+--exclude-dir='MFD' \
+--exclude-dir='NoSQLi' \
+--exclude-dir='OR' \
+--exclude-dir='RCE' \
+--exclude-dir='RFI' \
+--exclude-dir='SQLi' \
+--exclude-dir='SSI' \
+--exclude-dir='SSRF' \
+--exclude-dir='SSTI' \
+--exclude-dir='UWA' \
+--exclude-dir='XSS' \
+```
+
+* [fireprox](https://github.com/ustayready/fireprox)
 * [IP rotator TOR](https://github.com/SusmithKrishnan/torghost)
 * [IP rotator for Burp](github.com/RhinoSecurityLabs/IPRotate_Burp_Extension)
 
+* [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
+* [dump elastic](https://github.com/leakix/estk)
+
+```bash
+
+```
+
 ## <a name='LabsTargets'></a>👀🎯 Labs & Targets
 
+* [hacksplaining](https://www.hacksplaining.com/owasp)
 * [vulnhub box](https://github.com/Ignitetechnologies/Web-Application-Cheatsheet)
 * [takito1812 playground](https://github.com/takito1812/web-hacking-playground/tree/main/Solutions)
+* [burp BSCP exam notes](https://github.com/botesjuan/Burp-Suite-Certified-Practitioner-Exam-Study)
 
 ## <a name='AttackTypes'></a>👀🔥 Attack Types
 

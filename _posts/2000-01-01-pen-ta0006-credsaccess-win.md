@@ -67,6 +67,8 @@ kerberos::list /export
 
 ## <a name='LSASS.exedump'></a>LSASS.exe dump
 
+🔥 [redteamrecipe 50 methods](https://redteamrecipe.com/50-Methods-For-Dump-LSASS/)
+
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
