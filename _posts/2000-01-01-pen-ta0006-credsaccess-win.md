@@ -4,7 +4,7 @@ title: TA0006 Credentials Access - Windows
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-02-22
+modified_date: 2023-03-13
 permalink: /:categories/:title/
 ---
 

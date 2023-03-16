@@ -4,11 +4,12 @@ title: TA0005 Defense Evasion - Windows OS
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2021-12-11
+modified_date: 2023-03-16
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [EDR Evasion JMVWORK](#EDREvasionJMVWORK)
 * [AV Evasion 101 by S3cur3Th1sSh1t](#AVEvasion101byS3cur3Th1sSh1t)
 * [Firewall](#Firewall)
 * [Enabling Powershell](#EnablingPowershell)
@@ -22,7 +23,13 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='AVEvasion101byS3cur3Th1sSh1t'></a>AV Evasion 101 by S3cur3Th1sSh1t
+## <a name='EDREvasionJMVWORK'></a>Evasion EDR JMVWORK
+
+* [edr-ta0005-defeva-edr](https://www.jmvwork.xyz/edr/edr-ta0005-defeva-edr/)
+* [ta0005](https://www.jmvwork.xyz/edr/edr-ta0005-defeva-edr/)
+* [packing]()
+
+## <a name='AVEvasion101byS3cur3Th1sSh1t'></a>Evasion AV 101 by S3cur3Th1sSh1t
 
 <iframe width="727" height="409" src="https://www.youtube.com/embed/_sPM9Er_194" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

@@ -109,7 +109,9 @@ python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd -a 
 ### <a name='Scopeofcompromise'></a>Scope of compromise 
 ```bash
 # Find where the account is local admin V1
-for i in $(cat pt_xxx_getnetcomputer_ou_x.txt); do python pywerview.py invoke-checklocaladminaccess -u $zlat_user -p $zlat_pwd --computername $i; done 
+pywerview get-netcomputer -a $ztarg_ou -t $zdom_dc_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX | tee computerlist.txt
+./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile computerlist.txt
+cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > pt_xxx_fla_pwn.txt
 
 # Find where the account is local admin V2
 cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
