@@ -7,19 +7,8 @@ grand_parent: Cheatsheets
 modified_date: 2023-03-16
 permalink: /:categories/:title/
 ---
-<!-- vscode-markdown-toc -->
-* [Windows](#Windows)
-* [Linux](#Linux)
-
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
 
 * [Evil-winrm](https://github.com/Hackplayers/evil-winrm)
 * [PowerMeUp](https://github.com/ItsCyberAli/PowerMeUp)
 * [pwncat](https://github.com/calebstewart/pwncat)
 * [PSRemoting](https://www.jmvwork.xyz/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization)
-```
-```

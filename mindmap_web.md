@@ -5,7 +5,7 @@ category: Web
 parent: Mindmaps
 nav_order: 2
 permalink: /mindmaps/web
-modified_date: 2023-03-08
+modified_date: 2023-03-13
 ---
 
 ## <a name='MENU'></a>MENU
@@ -24,7 +24,7 @@ modified_date: 2023-03-08
 
 ## <a name='Mindmaps'></a>👀🧠 Mindmaps
 
-* [Burp mindmap](https://github.com/Ignitetechnologies/Mindmap/tree/main/Burp%20Suite/burp%20suite.pdf)
+* [Burp mindmap](https://github.com/Ignitetechnologies/Mindmap/blob/main/Burp%20Suite/Burp%20Suite.pdf)
 * [Web API minmdap](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
 
 
@@ -32,6 +32,7 @@ modified_date: 2023-03-08
 
 * [waf bypass](https://github.com/nemesida-waf/waf-bypass)
 * [mubeng](https://github.com/kitabisa/mubeng#proxy-ip-rotator)
+
 ```bash
 # set the proxy ip rotator
 curl https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/http.txt -o http.txt
@@ -67,10 +68,6 @@ docker run --network host -it 7209816c0627 --host='contoso.com' --proxy='http://
 * [nuclei templates](https://github.com/projectdiscovery/nuclei-templates)
 * [dump elastic](https://github.com/leakix/estk)
 
-```bash
-
-```
-
 ## <a name='LabsTargets'></a>👀🎯 Labs & Targets
 
 * [hacksplaining](https://www.hacksplaining.com/owasp)
@@ -87,19 +84,19 @@ docker run --network host -it 7209816c0627 --host='contoso.com' --proxy='http://
 
 | **attack** | **mindmap** | **article** | **video** | 
 |---------|---|---|---|
-| CORS | [securityzines](https://securityzines.com/assets/img/flyers/printable/cors.png)| [portswigger](https://portswigger.net/web-security/cors) ||
+| CORS | [securityzines](https://securityzines.com/assets/img/flyers/printable/cors.png)| [portswigger](https://portswigger.net/web-security/cors) |||
 | Domain Lowering | [securityzines](https://securityzines.com/assets/img/flyers/downloads/DomainLowering.png), [SOP](https://securityzines.com/assets/img/flyers/downloads/intigriti/sop.png) | | |
-| H2C smuggling | [securityzines](https://securityzines.com/assets/img/flyers/printable/h2c.jpg) | [portswigger](https://portswigger.net/web-security/request-smuggling)||
+| H2C smuggling | [securityzines](https://securityzines.com/assets/img/flyers/printable/h2c.jpg) | [portswigger](https://portswigger.net/web-security/request-smuggling)|||
 | HPP | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/hpp.png) |||
 | HRS | [securityzines](https://securityzines.com/assets/img/flyers/printable/hrs.jpg) |||
-| IDOR | [securityzines](https://securityzines.com/assets/img/flyers/printable/idor.jpg) |[portswigger](https://portswigger.net/web-security/access-control)||
-| LFI | [securityzines](https://securityzines.com/assets/img/flyers/printable/lfi.jpg) |[portswigger](https://portswigger.net/web-security/file-path-traversal)||
+| IDOR | [securityzines](https://securityzines.com/assets/img/flyers/printable/idor.jpg) |[portswigger](https://portswigger.net/web-security/access-control)|||
+| LFI | [securityzines](https://securityzines.com/assets/img/flyers/printable/lfi.jpg) |[portswigger](https://portswigger.net/web-security/file-path-traversal)|||
 | RFI | [securityzines](https://securityzines.com/assets/img/flyers/printable/rfi.jpg) |||
-| SQLi | [securityzines](https://securityzines.com/assets/img/zines/sqli.jpg) | [portswigger](https://portswigger.net/web-security/sql-injection)||
-| SSRF | | [portswigger](https://portswigger.net/web-security/ssrf) | |
-| SSTI | [securityzines](https://securityzines.com/assets/img/flyers/printable/ssti.jpg) | [portswigger](https://portswigger.net/web-security/server-side-template-injection)||
-| XSS DOM | [iocscan](https://miro.medium.com/max/1572/1*yuRkBR6YroYLCGpka9KdRA.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting/dom-based) | |
-| XSS stored | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting) | |
-| XSS reflected | [securityzines](https://securityzines.com/assets/img/flyers/printable/rxss.png)
-| XSRF | [securityzines](https://securityzines.com/assets/img/zines/csrf.jpg) | [portswigger](https://portswigger.net/web-security/csrf)||
-| XXE | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png) | [portswigger](https://portswigger.net/web-security/xxe)||
+| SQLi | [securityzines](https://securityzines.com/assets/img/zines/sqli.jpg) | [portswigger](https://portswigger.net/web-security/sql-injection)|||
+| SSRF | | [portswigger](https://portswigger.net/web-security/ssrf) | ||
+| SSTI | [securityzines](https://securityzines.com/assets/img/flyers/printable/ssti.jpg) | [portswigger](https://portswigger.net/web-security/server-side-template-injection)|||
+| XSS DOM | [iocscan](https://miro.medium.com/max/1572/1*yuRkBR6YroYLCGpka9KdRA.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting/dom-based) | ||
+| XSS stored | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/stored-xss.png) | [portswigger](https://portswigger.net/web-security/cross-site-scripting) | ||
+| XSS reflected | [securityzines](https://securityzines.com/assets/img/flyers/printable/rxss.png)|||
+| XSRF | [securityzines](https://securityzines.com/assets/img/zines/csrf.jpg) | [portswigger](https://portswigger.net/web-security/csrf)|||
+| XXE | [securityzines](https://securityzines.com/assets/img/flyers/downloads/intigriti/xxe.png) | [portswigger](https://portswigger.net/web-security/xxe)|||
