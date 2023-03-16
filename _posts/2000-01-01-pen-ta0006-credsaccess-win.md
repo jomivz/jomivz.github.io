@@ -9,8 +9,9 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [Multi-features Hacking Tools](#Multi-featuresHackingTools)
 * [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
-	* [WHICH OS ? WHAT CREDS ?](#WHICHOSWHATCREDS)
+	* [Which OS ? What Creds ?](#WhichOSWhatCreds)
 	* [Rubeus](#Rubeus)
 	* [Kerberos ASKTGT](#KerberosASKTGT)
 	* [Import / Export Tickets](#ImportExportTickets)
@@ -33,9 +34,22 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+## <a name='Multi-featuresHackingTools'></a>Multi-features Hacking Tools
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+    </table>
+</div>
+
 ## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
 
-### <a name='WHICHOSWHATCREDS'></a>WHICH OS ? WHAT CREDS ?
+### <a name='WhichOSWhatCreds'></a>Which OS ? What Creds ?
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
 
@@ -67,19 +81,7 @@ kerberos::list /export
 
 ## <a name='LSASS.exedump'></a>LSASS.exe dump
 
-🔥 [redteamrecipe 50 methods](https://redteamrecipe.com/50-Methods-For-Dump-LSASS/)
-
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="repos">
-    <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
-    </table>
-</div>
-
+- [redteamrecipe 50 methods](https://redteamrecipe.com/50-Methods-For-Dump-LSASS/) 🔥
 - [procdump](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)
 
 ## <a name='SAMdump'></a>SAM dump

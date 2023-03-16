@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1210 Remote Services Exploits 2017 - Cookbook 
+title: TA0008 Lateral Movement - T1210 RCE 2017 - Sambacry
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets

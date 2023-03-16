@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - S000 - Remote Shells
+title: TA0008 Lateral Movement - S0000 - Remote Shells
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets

@@ -9,9 +9,9 @@ permalink: /:categories/:title/
 ---
 
 
+ - [Masky](https://github.com/Z4kSec/Masky) 🔥🔥🔥
  - [Remote session hijacking - mitre T1563](https://attack.mitre.org/techniques/T1563/002/)
  - [Remote session hijacking - hackingarticles.in](https://www.hackingarticles.in/rdp-session-hijacking-with-tscon/)
- - Masky
 
 
 
