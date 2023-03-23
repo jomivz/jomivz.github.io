@@ -10,6 +10,7 @@ permalink: /:categories/:title/
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
 
+**Menu**
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITES](#PRE-REQUISITES)
 	* [Downloading SharpHound](#DownloadingSharpHound)

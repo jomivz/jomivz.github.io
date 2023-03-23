@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 * [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
 * [T1021  - Remote Services](https://attack.mitre.org/techniques/T1021/)
 
+**Menu**
 <!-- vscode-markdown-toc -->
 * [MUST TO READ](#MUSTTOREAD)
 * [Scan with Grype + ExploitDB](#ScanwithGrypeExploitDB)

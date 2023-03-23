@@ -14,6 +14,7 @@ tags: discovery scan nmap TA0007 T1595 T1046
 * [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
 * [T1046  - Network Service Discovery](https://attack.mitre.org/techniques/T1046/)
 
+**Menu**
 <!-- vscode-markdown-toc -->
 * [Administrative Services](#AdministrativeServices)
 * [WinRM / SMB / RPC](#WinRMSMBRPC)
@@ -138,7 +139,7 @@ You may refer to the [nmap.org firewall evasion](https://nmap.org/book/man-bypas
 
 ### <a name='References'></a>Mindmaps
 
-![NMAP Cheatsheet](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
+![NMAP Cheatsheet](/assets/images/pen-ta0007-discov-t1046-scan-net-svc-nmap.png)
 Image credit: [Ignitetechnologies Mindmaps](https://github.com/Ignitetechnologies/Mindmap)
 
 ![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet.jpg)

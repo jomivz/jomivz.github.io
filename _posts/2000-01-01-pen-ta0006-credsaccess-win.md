@@ -10,6 +10,7 @@ permalink: /:categories/:title/
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
 
+**Menu**
 <!-- vscode-markdown-toc -->
 * [Multi-features Hacking Tools](#Multi-featuresHackingTools)
 * [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
