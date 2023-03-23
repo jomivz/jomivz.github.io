@@ -4,13 +4,14 @@ title: TA0007 Discovery - T1046 Network scanning
 category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-03-16
+modified_date: 2023-03-23
 permalink: /:categories/:title/
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
 
 <!-- vscode-markdown-toc -->
-* [AD ServicePrincipalName](#ADServicePrincipalName)
+* [Administrative Services](#AdministrativeServices)
+* [WinRM / SMB / RPC](#WinRMSMBRPC)
 * [ARP / ICMP / DNS](#ARPICMPDNS)
 * [TCP/UDP w/ NMAP](#TCPUDPwNMAP)
 	* [NMAP Note 0 : Default Behavior](#NMAPNote0:DefaultBehavior)
@@ -26,7 +27,13 @@ tags: discovery scan nmap TA0007 T1595 T1046
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='ADServicePrincipalName'></a>AD ServicePrincipalName
+## <a name='AdministrativeServices'></a>Administrative Services
+
+![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
+
+## <a name='WinRMSMBRPC'></a>WinRM / SMB / RPC
+
+- [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
 
 ## <a name='ARPICMPDNS'></a>ARP / ICMP / DNS
 
@@ -45,8 +52,8 @@ fping -g 192.168.1.0/24
 # PING an IP range w/ NMAP and save results to hosts_up file
 # Send ICMP timestamp & netmask requests w/ no port scan and no IP reverse lookup 
 nmap -PEPM -sP -n -oA hosts_up 192.168.1.0/24 
-
 ```
+
 ## <a name='TCPUDPwNMAP'></a>TCP/UDP w/ NMAP 
 
 **use-case**: discovering services for assets into the input file ```hosts_up```.

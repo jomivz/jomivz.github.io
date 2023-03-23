@@ -4,11 +4,13 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-01-06
+modified_date: 2023-03-17
 permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
+* [PRE-REQUISITE](#PRE-REQUISITE)
+	* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
 * [SHOOT General Properties](#SHOOTGeneralProperties)
 	* [Domain properties](#Domainproperties)
 	* [Forest properties](#Forestproperties)
@@ -31,6 +33,37 @@ permalink: /:categories/:title/
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+## <a name='PRE-REQUISITE'></a>PRE-REQUISITE
+
+### <a name='Settingvariablesforcopypaste'></a>Setting variables for copy/paste
+
+Example of ```env.sh``` file :
+```bash
+#!/bin/bash
+export zforest="com"
+export zdom="contoso"
+export zdom_fqdn=$zdom+"."+$zforest
+export zdom_dn="DC=contoso,DC=com"
+export zdom_dc="DC001"
+export zdom_dc_fqdn=$zdom_dc+"."+$zdom_fqdn
+export zdom_dc_san=$zdom_dc+"$"
+export zdom_dc_ip="1.2.3.4"
+export ztarg_computer="PC001"
+export ztarg_computer_fqdn=$ztarg_computer+"."+$zdom_fqdn
+export ztarg_computer_san=$ztarg_computer+"$"
+export ztarg_computer_ip=""
+export ztarg_user_name="xxx"
+export ztarg_ou="OU=xxx,"+$zdom_dn
+```
+
+To set / verify the variables use the command:
+```bash
+# set the envs without opening a new shell
+. ./env.sh
+
+#verify the envs
+printenv
+```
 
 ## <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
 
@@ -62,18 +95,22 @@ for i in `cat trusts_clean.txt`; do ping -a $i; done                            
 
 ### <a name='Forestproperties'></a>Forest properties
 ```sh
+tbd
 ```
 
 ### <a name='KerberosDelegations'></a>Kerberos Delegations
 ```sh
+tbd
 ```
 
 ### <a name='PrivilegedUsers'></a>Privileged Users
 ```sh
+tbd
 ```
 
 ### <a name='PrivilegedMachines'></a>Privileged Machines
 ```sh
+tbd
 ```
 
 ### <a name='Greatressources'></a>Great ressources
@@ -97,7 +134,7 @@ python pywerview.py get-netuser -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip
 # Get user memberof info
 python pywerview.py get-netgroup -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user| grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
 
-# Get the machine's OU
+# Get the machine's full-data
 python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --computername --full-data | grep 
 
 # Get the machines based on an adspath / OU
@@ -109,8 +146,7 @@ python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd -a 
 ### <a name='Scopeofcompromise'></a>Scope of compromise 
 ```bash
 # Find where the account is local admin V1
-pywerview get-netcomputer -a $ztarg_ou -t $zdom_dc_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX | tee computerlist.txt
-./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile computerlist.txt
+./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile pt_xxx_getnetcomputer_ou_x.txt
 cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > pt_xxx_fla_pwn.txt
 
 # Find where the account is local admin V2
@@ -118,10 +154,10 @@ cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pw
 cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
 
 # Get the DNs of the owned machines 
-# Get the OS of the owned machines / get the cn computer (1 line) and its DN (1 line)
-while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_getcomputer_XXX_dn.txt; done < pt_XXX_pwned_machines.txt
-# Get the OS of the owned machines / format the result returned to CSV
-i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_dn.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_dn.txt
+# Get the DNs of the owned machines / get the cn computer (1 line) and its DN (1 line)
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_fla_pwn_dn.txt; done < pt_XXX_fla_pwn.txt
+# Get the DNs of the owned machines / format the result returned to CSV
+i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_fla_pwn_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_fla_pwn_dn.csv; i=0; fi; done < pt_XXX_fla_pwn_dn.txt
 
 # Get the OS of the owned machines /
 # Get the OS of the owned machines / get the cn computer (1 line) and its OS (1 line)
