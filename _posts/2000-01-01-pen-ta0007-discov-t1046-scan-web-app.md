@@ -9,6 +9,11 @@ permalink: /:categories/:title/
 tags: discovery scan nikto nuclei bypass-waf dirbuster
 ---
 
+**Mitre Att&ck Entreprise**
+
+* [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+* [T1046  - Network Service Discovery](https://attack.mitre.org/techniques/T1046/)
+
 <!-- vscode-markdown-toc -->
 * [Detect WAF](#DetectWAF)
 * [Bypass CloudFare](#BypassCloudFare)

