@@ -8,6 +8,8 @@ modified_date: 2022-09-22
 permalink: /:categories/:title/
 ---
 
+**Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITES](#PRE-REQUISITES)
 	* [Downloading SharpHound](#DownloadingSharpHound)

