@@ -86,10 +86,15 @@ nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='contoso.com'"
 
 nbtscan -r 10.0.0.0/24
 
-# Enum domains and trusts
+# Enum domains and trusts: V1
+python pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip
+
+# Enum domains and trusts: V2
 rpcclient -U "johndoe" 10.1.1.1
 rpcclient> enumdomains
 rpcclient> enumtrusts
+
+
 
 # Get the IP subnetting / IP plan
 cut -f1 -d" " trusts.txt > trusts_clean.txt

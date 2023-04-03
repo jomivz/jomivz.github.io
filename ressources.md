@@ -36,8 +36,10 @@ modified_date: 2022-02-22
 | 🚦🔎 [hashkiller](https://hashkiller.io/leaks) 📈		| 👁️ [0day.today](https://en.0day.today/) 📈 💲			| 🇼 [theZoo](https://github.com/ytisf/theZoo/tree/master/malware/Binaries) 💣⚠️ | 📡 [onyphe](https://onyphe.io/) |
 | 🚦🔎 [lots-project](https://lots-project.com/)			| 🔎 [exploit-db](https://exploit-db.com)	| 🇼 [unprotect](https://www.unprotect.it/) 		| 📡 [censys](https://search.censys.io/) |
 | 🚦🔎 [filesec](https://filesec.io/) | 🔎 [github.com](https://github.com/search?q=CVE-2022)	| 🔒 [crypto-sheriff](https://www.nomoreransom.org/crypto-sheriff.php?lang=en) | 📡 [shodan](https://shodan.io/) 🥇 |
-| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | | |
-
+| ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | 🛸 [browserling](https://www.browserling.com/) | 📡 [fofa](https://fofa.info) |
+| 🚦🔎 [redcanary](https://redcanary.com/threat-detection-report/threats/) 📈 | 🔎 [nuclei-templates](https://nuclei-templates.netlify.app)| 🛸 [polyswarm](https://polyswarm.network/)| 🎣 [checkphish](https://checkphish.ai/) |
+| 🚦🧅 [exonerator](https://metrics.torproject.org/exonerator.html) | | | 🧅 [torwhois](https://torwhois.com/) |
+| 🚦🔎 [maltiverse](https://maltiverse.com) | | | |
 
 ### <a name='WowListRED'></a>📚📕 Wow List RED
 
