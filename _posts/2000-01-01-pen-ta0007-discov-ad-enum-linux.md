@@ -65,7 +65,7 @@ To set / verify the variables use the command:
 . ./env.sh
 
 #verify the envs
-printenv
+env | sort
 ```
 
 ## <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
@@ -92,8 +92,8 @@ rpcclient> enumdomains
 rpcclient> enumtrusts
 
 # Get the IP subnetting / IP plan
-cut -f1 -d" " trusts.txt > trusts_clean.txt                                                        │
-for i in `cat trusts_clean.txt`; do ping -a $i; done                                               │
+cut -f1 -d" " trusts.txt > trusts_clean.txt
+for i in `cat trusts_clean.txt`; do ping -a $i; done
 ```
 
 ### <a name='Forestproperties'></a>Forest properties

@@ -4,9 +4,15 @@ title: Sysadmin VIRT Docker - Administration Cookbook
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-07-19
+modified_date: 2023-03-27
 permalink: /:categories/:title/
 ---
+
+**Must**
+
+* [docker post-install](https://docs.docker.com/engine/install/linux-postinstall/)
+
+**Menu**
 
 <!-- vscode-markdown-toc -->
 * 1. [Memo Docker](#MemoDocker)
@@ -182,7 +188,7 @@ IN 5 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
 
 1- MAKE sure you have ```docker```  and ```docker-compose``` installed
 
-2- MAKE sure you are member of the docker users group
+2- [MAKE sure you are member of the docker users group](https://docs.docker.com/engine/install/linux-postinstall/)
 
 3- COPY the Dockerfile below in your ```$HOME``` and TYPE in a terminal ```cd; docker-compose up``` 
 
@@ -190,19 +196,19 @@ IN 5 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
 version: '3.8'
 
 services:
-	db:
-	    container_name: pg_container
-	    image: postgres
-		restart: "no"
-	    environment:
-      		POSTGRES_USER: root
-      		POSTGRES_PASSWORD: root
-      		POSTGRES_DB: test_db
-    	volumes:
-      		- pg_data:/var/lib/postgresql/data/
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: "no"
+  environment:
+    POSTGRES_USER: root
+    POSTGRES_PASSWORD: root
+    POSTGRES_DB: test_db
+  volumes:
+    - pg_data:/var/lib/postgresql/data/
 
 volumes:
-	pg_data:
+  pg_data:
 ```
 
 4- MAKE sure the container is running then get a bash on it: 
@@ -214,7 +220,19 @@ docker exec -it pg_container bash
 5- LOG ON the postgres database created like so:
 ```
 psql -U root -d test_db
+
+test_db=# \c
+You are now connected to database "test_db" as user "root"
 ```
+
+6- CREATE / RESTORE a backup
+```
+test_db=# pg_dump test_db > /var/lib/postgres/data/test_db_bkp.sql
+test_db=# pg_restore -f /var/lib/postgres/data/test_db_bkp.sql
+test_db=# \dt
+test_db=# select * from pg_catalog.pg_tables where schemaname='public';
+```
+More database [backup and restore examples](https://simplebackups.com/blog/postgresql-pgdump-and-pgrestore-guide-examples/).
 
 ###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
