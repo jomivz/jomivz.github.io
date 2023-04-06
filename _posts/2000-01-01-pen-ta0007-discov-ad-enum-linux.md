@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-03-17
+modified_date: 2023-04-04
 permalink: /:categories/:title/
 ---
 
@@ -77,43 +77,60 @@ env | sort
 nmap --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
-dig -t SRV _gc._tcp.contoso.com
-dig -t SRV _ldap._tcp.contoso.com
-dig -t SRV _kerberos._tcp.contoso.com
-dig -t SRV _kpasswd._tcp.contoso.com
+dig -t SRV _gc._tcp.$zdom_fqdn
+dig -t SRV _ldap._tcp.$zdom_fqdn
+dig -t SRV _kerberos._tcp.$zdom_fqdn
+dig -t SRV _kpasswd._tcp.$zdom_fqdn
 
-nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='contoso.com'"
+nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
 
 nbtscan -r 10.0.0.0/24
+```
 
+### <a name='Forestproperties'></a>Forest properties
+```sh
 # Enum domains and trusts: V1
 python pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip
 
 # Enum domains and trusts: V2
-rpcclient -U "johndoe" 10.1.1.1
+rpcclient -U $ztarg_user_name $ztarg_computer_ip
 rpcclient> enumdomains
 rpcclient> enumtrusts
-
-
 
 # Get the IP subnetting / IP plan
 cut -f1 -d" " trusts.txt > trusts_clean.txt
 for i in `cat trusts_clean.txt`; do ping -a $i; done
 ```
 
-### <a name='Forestproperties'></a>Forest properties
-```sh
-tbd
+#### <a name='KerberosDelegations'></a>Kerberos Delegations
+
+Easy enumeration with **Impacket\FindDelegation.py**:
+
+```bash
+# with password in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
+.\findDelegation.py  $zz
+
+# with kerberos auth / password not in the CLI
+$zz = $zdom_fqdn + '/' + $zlat_user
+.\findDelegation.py  $zz -k -no-pass
 ```
 
-### <a name='KerberosDelegations'></a>Kerberos Delegations
-```sh
-tbd
-```
+References :
+- [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
+- [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
-### <a name='PrivilegedUsers'></a>Privileged Users
-```sh
-tbd
+#### <a name='PrivilegedUsers'></a>Privileged Users
+
+- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
+- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
+
+```powershell
+$ztarg_grp="Domain Admins"
+#$ztarg_grp="Enterprise Admins"
+#$ztarg_grp="Backup Operators"
+#$ztarg_grp="Remote Desktop Users"
+#$ztarg_grp="DNSAdmins"
 ```
 
 ### <a name='PrivilegedMachines'></a>Privileged Machines
@@ -122,6 +139,7 @@ tbd
 ```
 
 ### <a name='Greatressources'></a>Great ressources
+
 | **Ressource**  | 
 |-----------------|
 | [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | 
