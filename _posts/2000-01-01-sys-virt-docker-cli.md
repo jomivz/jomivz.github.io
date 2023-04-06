@@ -235,8 +235,8 @@ test_db=# select * from pg_catalog.pg_tables where schemaname='public';
 
 More here:
 * Excellent **postgres cheatsheet** by [quickref.me](https://quickref.me/postgres).
-* Official [datetype & datetime] doc (https://www.postgresql.org/docs/current/datatype-datetime.html)
-* Official [datetime functions] doc (https://www.postgresql.org/docs/current/functions-datetime.html)
+* Official doc [datetype & datetime](https://www.postgresql.org/docs/current/datatype-datetime.html)
+* Official doc [datetime functions](https://www.postgresql.org/docs/current/functions-datetime.html)
 
 ###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
