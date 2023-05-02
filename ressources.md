@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Ressources
 permalink: /ressources/
 nav_order: 2
-modified_date: 2022-02-22
+modified_date: 2022-05-02
 ---
 
 ## <a name='wowcyberressources'></a> #wow 👀 #cyber 🔫 #ressources 📚🎙️🎞️
@@ -40,6 +40,7 @@ modified_date: 2022-02-22
 | 🚦🔎 [redcanary](https://redcanary.com/threat-detection-report/threats/) 📈 | 🔎 [nuclei-templates](https://nuclei-templates.netlify.app)| 🛸 [polyswarm](https://polyswarm.network/)| 🎣 [checkphish](https://checkphish.ai/) |
 | 🚦🧅 [exonerator](https://metrics.torproject.org/exonerator.html) | | 🇼 [C2 Matrix](https://docs.google.com/spreadsheets/d/1b4mUxa6cDQuTV2BPC6aA-GR4zGZi0ooPYtBe4IgPsSc/edit#gid=0) | 🧅 [torwhois](https://torwhois.com/) |
 | 🚦🔎 [maltiverse](https://maltiverse.com) | | | |
+| 🚦🔎 [red.flags.domain](https://red.flag.domains) | | | |
 
 ### <a name='WowListRED'></a>📚📕 Wow List RED
 
@@ -94,6 +95,7 @@ modified_date: 2022-02-22
 |----------------------|------------------------|-------------------|
 | 🗑️ Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
 | 🗑️ Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
+| 🗑️ Windows              | [Project Windows Drivers](https://loldrivers.io) | CuratedList of LOL drivers used adversaries to bypass sec contorlsand carry out attacks. |
 | 🗑️ Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
 | 🗑️ Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
 | 🗑️ Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |

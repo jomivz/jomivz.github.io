@@ -184,7 +184,7 @@ docker run --rm --volume /tmp:/mnt frolvlad/alpine-python2 python test.py
 
 ###  3.4. <a name='postgres'></a>postgres
 
-IN 5 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
+IN 6 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
 
 1- MAKE sure you have ```docker```  and ```docker-compose``` installed
 
@@ -237,6 +237,8 @@ More here:
 * Excellent **postgres cheatsheet** by [quickref.me](https://quickref.me/postgres).
 * Official doc [datetype & datetime](https://www.postgresql.org/docs/current/datatype-datetime.html)
 * Official doc [datetime functions](https://www.postgresql.org/docs/current/functions-datetime.html)
+* Official doc [network functions](https://www.postgresql.org/docs/current/functions-net.html)
+
 
 ###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
