@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin WIN MSC
+title: Sysadmin WIN Shortcuts
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
@@ -8,6 +8,7 @@ modified_date: 2023-04-12
 permalink: /:categories/:title/
 ---
 
+!(/)
 
 | Name	 | Function |
 |--------|-------------|

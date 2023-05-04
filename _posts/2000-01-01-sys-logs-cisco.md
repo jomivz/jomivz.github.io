@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS Logs Cisco
+title: Sysadmin LOGS Cisco
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets

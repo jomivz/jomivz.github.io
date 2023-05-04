@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS Logs Windows
+title: Sysadmin LOGS Windows
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets

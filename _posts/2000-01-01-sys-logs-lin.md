@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS Logs Linux
+title: Sysadmin LOGS Linux
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets

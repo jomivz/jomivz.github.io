@@ -93,9 +93,18 @@ nbtscan -r 10.0.0.0/24
 python pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip
 
 # Enum domains and trusts: V2
-rpcclient -U $ztarg_user_name $ztarg_computer_ip
+rpcclient -U $ztarg_user_name $ztarg_computer_ip...  
 rpcclient> enumdomains
 rpcclient> enumtrusts
+
+# Enum domains and trusts: V3
+./bloodhound.py -dc $ztarg_dc_fqdn -d $zdom_fqdn -u $ztarg_user_name -p XXX -c Trusts
+python
+>>> import json
+with open ("X.json","r+") as f:                                                                                     
+	c = content['data'][0]['Trusts']
+	for t in c:
+		print(t['TargetDomainName'] + "," + str(t['IsTransitive']) + "," + t['TrustDirection'] + "," + t['TrustType'])
 
 # Get the IP subnetting / IP plan
 cut -f1 -d" " trusts.txt > trusts_clean.txt
