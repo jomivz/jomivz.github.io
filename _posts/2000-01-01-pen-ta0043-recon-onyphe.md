@@ -33,8 +33,11 @@ fi
 ## Extract all IPs
 ```python
 import json
+import sys
 
-with open("test.json") as f:
+FILE = sys.argv[1]
+
+with open(FILE) as f:
     content = json.load(f)
     for c in content:
         try:
