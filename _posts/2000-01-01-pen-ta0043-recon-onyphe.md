@@ -12,6 +12,7 @@ permalink: /:categories/:title/
 ## Discovery Datascan TO JSON
 ```
 #!/bin/bash
+args="$@"
 FILE="${args[0]}" 
 
 if [[ -e $FILE && -r $FILE ]]; then

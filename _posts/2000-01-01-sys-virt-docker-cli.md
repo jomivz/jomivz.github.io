@@ -239,6 +239,14 @@ More here:
 * Official doc [datetime functions](https://www.postgresql.org/docs/current/functions-datetime.html)
 * Official doc [network functions](https://www.postgresql.org/docs/current/functions-net.html)
 
+```
+# create the table ips_bogon
+create table ips_bogon (ipr cidr not null);
+\copy ips_bogon FROM /var/lib/docker/ips_bogon.csv CSV;
+
+# removes Bogon IPs from table X
+select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS NULL;  
+```
 
 ###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
