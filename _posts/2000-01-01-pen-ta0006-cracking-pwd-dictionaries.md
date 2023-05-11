@@ -1,10 +1,10 @@
 ---
 layout: post
-title: XXX - Dictionaries for Hashcat
+title: TA0006 Credentials Access - Dictionaries for Hashcat
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-05-07
+modified_date: 2023-05-11
 permalink: /:categories/:title/
 ---
 
@@ -151,7 +151,7 @@ The tarball rockyou is 14 million lines:
 14344391 rockyou.txt
 ```
 
-##  4. <a name='Diffbetween2files'></a>Diff between 2 files
+##  4. <a name='Diffbetween2files'></a>Diff between 2 Dictionaries
 
 Diff on 2 dictionaries:
 ```
