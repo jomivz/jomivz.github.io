@@ -32,6 +32,8 @@ line numbers of password dictionaries:
 
 ##  2. <a name='SecListsPasswords'></a>SecLists Passwords
 
+![SecLists](https://github.com/danielmiessler/SecLists)
+
 line numbers of password dictionaries:
 ```
 └─$ wc -l SecLists/Passwords/*.* |sort -r
@@ -173,7 +175,7 @@ cut -c2- ~/diff-xato-rockyou.txt
 List the accounts for which the passwords were cracked: 
 
 ```sh
-wget 
-chmod +x 
+wget https://raw.githubusercontent.com/jomivz/jomivz.github.io/master/playbook/pen_cracked_accounts.sh
+chmod +x pen_cracked_accounts.sh
 ./cracked_accounts.sh secretdumps.out 
 ```
