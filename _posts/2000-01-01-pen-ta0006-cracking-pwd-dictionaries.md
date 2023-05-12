@@ -9,10 +9,11 @@ permalink: /:categories/:title/
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [hashkiller.io dictionary](#hashkiller.iodictionary)
-* 2. [SecLists Passwords](#SecListsPasswords)
-* 3. [SecLists Leaked Databases](#SecListsLeakedDatabases)
-* 4. [Diff between 2 Dictionaries](#Diffbetween2Dictionaries)
+1. [hashkiller.io dictionary](#hashkiller.iodictionary)
+2. [SecLists Passwords](#SecListsPasswords)
+3. [SecLists Leaked Databases](#SecListsLeakedDatabases)
+4. [Diff between 2 Dictionaries](#Diffbetween2Dictionaries)
+5. [Map cracked passwords to relative accounts](#Mapcrackedpasswordstorelativeaccounts)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -170,7 +171,7 @@ sed -e 's/^.//' diff-xato-rockyou.txt
 cut -c2- ~/diff-xato-rockyou.txt
 ```
 
-##  4. <a name='Diffbetween2Dictionaries'></a>Map cracked passwords to relative accounts
+##  5. <a name='Mapcrackedpasswordstorelativeaccounts'></a>Map cracked passwords to relative accounts
 
 List the accounts for which the passwords were cracked: 
 
