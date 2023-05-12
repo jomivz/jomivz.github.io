@@ -12,7 +12,7 @@ permalink: /:categories/:title/
 * 1. [hashkiller.io dictionary](#hashkiller.iodictionary)
 * 2. [SecLists Passwords](#SecListsPasswords)
 * 3. [SecLists Leaked Databases](#SecListsLeakedDatabases)
-* 4. [Diff between 2 files](#Diffbetween2files)
+* 4. [Diff between 2 Dictionaries](#Diffbetween2Dictionaries)
 
 <!-- vscode-markdown-toc-config
 	numbering=true
@@ -151,7 +151,7 @@ The tarball rockyou is 14 million lines:
 14344391 rockyou.txt
 ```
 
-##  4. <a name='Diffbetween2files'></a>Diff between 2 Dictionaries
+##  4. <a name='Diffbetween2Dictionaries'></a>Diff between 2 Dictionaries
 
 Diff on 2 dictionaries:
 ```
@@ -166,4 +166,14 @@ Removes the first character ("+" added by diff):
 sed -e 's/^.//' diff-xato-rockyou.txt
 #v2
 cut -c2- ~/diff-xato-rockyou.txt
+```
+
+##  4. <a name='Diffbetween2Dictionaries'></a>Map cracked passwords to relative accounts
+
+List the accounts for which the passwords were cracked: 
+
+```sh
+wget 
+chmod +x 
+./cracked_accounts.sh secretdumps.out 
 ```
