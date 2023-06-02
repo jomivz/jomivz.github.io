@@ -4,5 +4,5 @@ title: Development
 category: Development
 parent: Cheatsheets
 nav_order: 5
-permalink: /cheatsheets/development
+permalink: /dev
 ---

@@ -4,5 +4,5 @@ title: Forensics
 category: Forensics
 parent: Cheatsheets
 nav_order: 3
-permalink: /cheatsheets/forensics
+permalink: /for
 ---

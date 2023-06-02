@@ -4,5 +4,5 @@ title: SIEM
 category: SIEM
 parent: Cheatsheets
 nav_order: 6
-permalink: /cheatsheets/siem
+permalink: /siem
 ---

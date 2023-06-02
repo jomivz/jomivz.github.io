@@ -4,5 +4,5 @@ title: Networking
 category: Networking
 parent: Cheatsheets
 nav_order: 2
-permalink: /cheatsheets/networking
+permalink: /net
 ---
