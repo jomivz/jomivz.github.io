@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2023-04-12
-permalink: /:categories/:title/
+permalink: /sys/win-runcmds
 ---
 
 !(/)

@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2021-02-06
-permalink: /:categories/:title/
+permalink: /sys/powershell2
 ---
 
 ## PS script for detailled listing of Group Members

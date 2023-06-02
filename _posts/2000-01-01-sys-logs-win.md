@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2023-01-16
-permalink: /:categories/:title/
+permalink: /sys/logs-win
 ---
 
 **MENU**

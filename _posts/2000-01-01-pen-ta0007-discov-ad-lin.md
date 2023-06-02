@@ -4,8 +4,8 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-04-04
-permalink: /:categories/:title/
+modified_date: 2023-06-02
+permalink: /pen/discov-ad-lin
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
@@ -203,7 +203,10 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 ```
 
 ## <a name='REFRESH'></a>REFRESH
+
+### <a name='Whoisloggedonacomputer'></a>Who is logged on a computer
 ```bash
+
 ```
 
 ## <a name='MISC'></a>MISC

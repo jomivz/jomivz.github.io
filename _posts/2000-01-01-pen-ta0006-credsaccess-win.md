@@ -5,7 +5,7 @@ parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-03-13
-permalink: /:categories/:title/
+permalink: /pen/credsaccess-win
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)

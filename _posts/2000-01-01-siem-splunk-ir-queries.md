@@ -5,7 +5,7 @@ parent: SIEM
 category: SIEM
 grand_parent: Cheatsheets
 modified_date: 2022-03-22
-permalink: /:categories/:title/
+permalink: /siem/splunk-misc
 ---
 
 <!-- vscode-markdown-toc -->

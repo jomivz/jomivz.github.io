@@ -1,11 +1,11 @@
 ---
 layout: post
-title: TA0006 Credentials Access - Dictionaries for Hashcat
+title: TA0006 Credentials Access - Cracking with Hashcat
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-05-11
-permalink: /:categories/:title/
+modified_date: 2023-06-02
+permalink: /pen/hashcat
 ---
 
 <!-- vscode-markdown-toc -->
@@ -23,17 +23,16 @@ permalink: /:categories/:title/
 
 ##  1. <a name='hashkiller.iodictionary'></a>hashkiller.io dictionary
 
-![haskiller.io/download](https://hashkiller.io/download)
+* [haskiller.io/download](https://hashkiller.io/download)
 
 line numbers of password dictionaries:
 ```
 └─$ wc -l
-
 ```
 
 ##  2. <a name='SecListsPasswords'></a>SecLists Passwords
 
-![SecLists](https://github.com/danielmiessler/SecLists)
+* [SecLists](https://github.com/danielmiessler/SecLists)
 
 line numbers of password dictionaries:
 ```
@@ -179,4 +178,11 @@ List the accounts for which the passwords were cracked:
 wget https://raw.githubusercontent.com/jomivz/jomivz.github.io/master/playbook/pen_cracked_accounts.sh
 chmod +x pen_cracked_accounts.sh
 ./cracked_accounts.sh secretdumps.out 
+```
+
+##  5. <a name='Mapcrackedpasswordstorelativeaccounts'></a> The potfiles
+
+Go to the path:
+``` 
+/home/$LOGNAME/.local/share/hashcat
 ```

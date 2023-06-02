@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2022-08-29
-permalink: /:categories/:title/
+permalink: /sys/powershell
 ---
 
 <!-- vscode-markdown-toc -->

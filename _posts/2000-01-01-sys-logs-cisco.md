@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2023-01-10
-permalink: /:categories/:title/
+permalink: /sys/logs-cisco
 ---
 
 <!-- vscode-markdown-toc -->

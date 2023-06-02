@@ -5,7 +5,7 @@ category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-03-16
-permalink: /:categories/:title/
+permalink: /pen/scan-web
 tags: discovery scan nikto nuclei bypass-waf dirbuster
 ---
 

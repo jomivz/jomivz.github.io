@@ -5,7 +5,7 @@ category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-03-23
-permalink: /:categories/:title/
+permalink: /pen/scan-net
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
 

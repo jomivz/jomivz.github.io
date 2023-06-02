@@ -5,7 +5,7 @@ category: SIEM
 parent: SIEM
 grand_parent: Cheatsheets
 modified_date: 2021-09-15
-permalink: /:categories/:title/
+permalink: /siem/splunk-misc-ip
 ---
 
 <!-- vscode-markdown-toc -->

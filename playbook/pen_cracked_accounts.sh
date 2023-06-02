@@ -1,5 +1,5 @@
 #!/bin/bash
-# usage: ./pen_cracked_accounts.sh secretdumps.out
+# usage: ./pen_cracked_accounts.sh secretdumps.out hashcat.potfile
 secretsdump="$1"
 potfile="$2"
 #potfile="/home/$LOGNAME/.local/share/hashcat/hashcat.potfile"
