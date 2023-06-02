@@ -5,8 +5,13 @@ parent: EDR
 category: EDR
 grand_parent: Cheatsheets
 modified_date: 2023-02-08
-permalink: /:categories/:title/
+permalink: /edr/azure-security
 ---
+
+If we were bill gates, We could have called that produce :
+
+* Azure Security
+* Defender Console
 
 ## <a name='practicedqueries'></a>REDTEAM
 
