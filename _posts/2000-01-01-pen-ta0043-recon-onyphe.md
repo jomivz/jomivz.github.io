@@ -1,15 +1,35 @@
 ---
 layout: post
-title: TA0043 Reconnaissance - Onyphe
+title: TA0043 Reconnaissance
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-05-04
-permalink: /:categories/:title/
+permalink: /recon
 ---
 
+<!-- vscode-markdown-toc -->
+* 1. [censys](#censys)
+* 2. [onyphe](#onyphe)
+	* 2.1. [pnyphe - bash / jq](#pnyphe-bashjq)
+		* 2.1.1. [onyphe json to python list](#onyphejsontopythonlist)
+	* 2.2. [python scripts](#pythonscripts)
+	* 2.3. [onyphe-extract-all-ips](#onyphe-extract-all-ips)
 
-## Discovery Datascan TO JSON
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+
+##  1. <a name='censys'></a>censys
+##  2. <a name='onyphe'></a>onyphe
+
+###  2.1. <a name='pnyphe-bashjq'></a>onyphe - bash - jq
+
+
+####  2.1.1. <a name='onyphejsontopythonlist'></a>onyphe json to python list
 ```
 #!/bin/bash
 args="$@"
@@ -31,7 +51,9 @@ if [[ -e $FILE && -r $FILE ]]; then
 fi
 ```
 
-## Extract all IPs
+###  2.2. <a name='pythonscripts'></a>python scripts
+
+###  2.3. <a name='onyphe-extract-all-ips'></a>onyphe-extract-all-ips
 ```python
 import json
 import sys

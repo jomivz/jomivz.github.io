@@ -5,7 +5,7 @@ parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-03-16
-permalink: /pen/rshell
+permalink: /pen/latmov-rshell
 ---
 
 **Mitre Att&ck Entreprise**: [TA0008 - Lateral Movement](https://attack.mitre.org/tactics/TA0008/)

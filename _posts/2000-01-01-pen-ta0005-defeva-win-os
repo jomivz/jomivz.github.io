@@ -12,13 +12,14 @@ permalink: /pen/defeva-win
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [EDR Evasion JMVWORK](#EDREvasionJMVWORK)
-* [AV Evasion 101 by S3cur3Th1sSh1t](#AVEvasion101byS3cur3Th1sSh1t)
-* [Firewall](#Firewall)
+* [edr](#enum-edr)
+* [fw](#fw)
 * [Enabling Powershell](#EnablingPowershell)
 * [Disabling Windows Defender](#DisablingWindowsDefender)
 * [Bypassing AMSI](#BypassingAMSI)
 * [T1112 - Modify Registry](#T1112-ModifyRegistry)
+* [sources](#sources)
+	* [Evasion AV 101 by S3cur3Th1sSh1t](#EvasionAV101byS3cur3Th1sSh1t)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -26,17 +27,12 @@ permalink: /pen/defeva-win
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='EDREvasionJMVWORK'></a>Evasion EDR JMVWORK
+## <a name='edr'></a>enum-edr
 
-* [edr-ta0005-defeva-edr](https://www.jmvwork.xyz/edr/edr-ta0005-defeva-edr/)
-* [ta0005](https://www.jmvwork.xyz/edr/edr-ta0005-defeva-edr/)
-* [packing]()
+* [palo cortex xdr](/edr/defeva#win-xdr)
+* [windows defender]/edr/defeva#win-defender)
 
-## <a name='AVEvasion101byS3cur3Th1sSh1t'></a>Evasion AV 101 by S3cur3Th1sSh1t
-
-<iframe width="727" height="409" src="https://www.youtube.com/embed/_sPM9Er_194" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-## <a name='Firewall'></a>Firewall
+## <a name='fw'></a>enum-fw
 ```powershell
 # windows firewall showing / disabling config 
 netsh advfirewall set allprofiles state off
@@ -80,3 +76,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Par
 # win10 tampering: PS allow administrative shares
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name LocalAccountTokenFilterPolicy -Value 1 
 ```
+
+## <a name='sources'></a>sources 
+### <a name='EvasionAV101byS3cur3Th1sSh1t'></a>Evasion AV 101 by S3cur3Th1sSh1t
+<iframe width="727" height="409" src="https://www.youtube.com/embed/_sPM9Er_194" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

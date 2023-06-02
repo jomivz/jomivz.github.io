@@ -5,7 +5,7 @@ category: Development
 parent: Development
 grand_parent: Cheatsheets  
 modified_date: 2021-11-19
-permalink: /:categories/:title/
+permalink: /dev/git
 ---
 
 <!-- vscode-markdown-toc -->

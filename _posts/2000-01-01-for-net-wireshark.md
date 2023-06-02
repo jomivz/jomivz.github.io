@@ -5,7 +5,7 @@ category: Forensics
 parent: Forensics
 grand_parent: Cheatsheets
 modified_date: 2021-02-06
-permalink: /:categories/:title/
+permalink: /for/wireshark
 ---
 
 * Change time to UTC in the menu "View \ Time Display Format"

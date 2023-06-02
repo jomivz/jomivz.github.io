@@ -5,7 +5,7 @@ parent: EDR
 category: EDR
 grand_parent: Cheatsheets
 modified_date: 2023-02-07
-permalink: /:categories/:title/
+permalink: /edr/xdr
 ---
 
 <!-- vscode-markdown-toc -->

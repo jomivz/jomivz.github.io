@@ -5,7 +5,7 @@ category: Pentesting
 parent: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2022-08-16
-permalink: /:categories/:title/
+permalink: /pen/c2-inda-cloud
 ---
 
 ## References

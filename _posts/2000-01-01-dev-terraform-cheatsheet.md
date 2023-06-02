@@ -5,7 +5,7 @@ category: Development
 parent: Development
 grand_parent: Cheatsheets  
 modified_date: 2022-12-12
-permalink: /:categories/:title/
+permalink: /dev/terraform
 ---
 
 <!-- vscode-markdown-toc -->
