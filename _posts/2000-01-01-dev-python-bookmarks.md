@@ -15,8 +15,8 @@ permalink: /dev/python
 	* 2.1. [lib-net](#lib-net)
 	* 2.2. [lib-sys](#lib-sys)
 	* 2.3. [lib-data](#lib-data)
-	* 2.4. [Security](#Security)
-* 3. [sec](#sec)
+	* 2.4. [sec](#sec)
+* 3. [sec](#sec-1)
 	* 3.1. [python-exec-bash](#python-exec-bash)
 	* 3.2. [python-exec-cmd](#python-exec-cmd)
 
@@ -80,14 +80,14 @@ deactivate.bat
 - [plotly](https://plotly.com/python/)
 - [sqlalchemy](https://sqlalchemy.readthedocs.io)
 
-###  2.4. <a name='Security'></a>sec
+###  2.4. <a name='sec'></a>sec
 - [impacket](https://www.secureauth.com/labs/open-source-tools/impacket/) / [examples](https://github.com/SecureAuthCorp/impacket/tree/master/examples)
 - [msticpy](https://msticpy.readthedocs.io)
 - [pypykatz](https://github.com/skelsec/pypykatz/wiki)
 - [shodan](https://shodan.readthedocs.io)
 
 
-##  3. <a name='sec'></a>sec
+##  3. <a name='sec-1'></a>sec
 
 ###  3.1. <a name='python-exec-bash'></a>python-exec-bash
 ```sh
