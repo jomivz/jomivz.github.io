@@ -5,7 +5,7 @@ category: SIEM
 parent: SIEM
 grand_parent: Cheatsheets
 modified_date: 2021-03-02
-permalink: /:categories/:title/
+permalink: /siem/splunk-viz-portscan
 ---
 <!-- vscode-markdown-toc -->
 * [Dashboard with dropdown location + timepicker](#Dashboardwithdropdownlocationtimepicker)
