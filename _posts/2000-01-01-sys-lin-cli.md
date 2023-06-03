@@ -5,7 +5,7 @@ category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
 modified_date: 2022-12-09
-permalink: /sys/lin-cli
+permalink: /sys/lin
 ---
 <!-- vscode-markdown-toc -->
 * [Security concerns](#Securityconcerns)

