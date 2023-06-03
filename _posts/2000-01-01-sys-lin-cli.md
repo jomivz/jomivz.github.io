@@ -4,31 +4,35 @@ title: Sysadmin LIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-12-09
+modified_date: 2023-06-04
 permalink: /sys/lin
 ---
 <!-- vscode-markdown-toc -->
-* [Security concerns](#Securityconcerns)
-	* [Check ISO integrity](#CheckISOintegrity)
-	* [Check boot integrity](#Checkbootintegrity)
-	* [Run openvpn](#Runopenvpn)
-	* [Disable LLMNR (Ubuntu)](#DisableLLMNRUbuntu)
-* [Network concerns](#Networkconcerns)
-	* [Set a static/dynamic IP address](#SetastaticdynamicIPaddress)
-	* [Change the MAC address](#ChangetheMACaddress)
-	* [Loop exec over /24](#Loopexecover24)
-* [System concerns](#Systemconcerns)
-	* [APT history](#APThistory)
-	* [Archive servers](#Archiveservers)
-	* [Sysinternals Procdump / Promon install](#SysinternalsProcdumpPromoninstall)
-	* [Clean Shell history](#CleanShellhistory)
-	* [LVM resize vg-root](#LVMresizevg-root)
-	* [SED examples](#SEDexamples)
-	* [FIND examples](#FINDexamples)
-* [Other concerns](#Otherconcerns)
-	* [PDF & ebooks](#PDFebooks)
-	* [Images treatment](#Imagestreatment)
-	* [Miscellaneous](#Miscellaneous)
+* [enum](#enum)
+	* [get-os](#get-os)
+	* [get-kb](#get-kb)
+	* [get-netconf](#get-netconf)
+	* [get-vpn](#get-vpn)
+	* [get-shares](#get-shares)
+	* [get-users](#get-users)
+	* [get-processes](#get-processes)
+	* [get-services](#get-services)
+	* [get-sessions](#get-sessions)
+	* [last-sessions](#last-sessions)
+* [enum-sec](#enum-sec)
+	* [check-apt-history](#check-apt-history)
+	* [check-boot-integrity](#check-boot-integrity)
+	* [get-status-fw](#get-status-fw)
+* [tamper](#tamper)
+	* [add-account](#add-account)
+	* [set-netconf](#set-netconf)
+	* [set-rdp](#set-rdp)
+	* [unset-fw](#unset-fw)
+	* [clean-history](#clean-history)
+* [harden](#harden)
+	* [disable-llmnr](#disable-llmnr)
+	* [install-procdump](#install-procdump)
+	* [install-procmon](#install-procmon)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -36,208 +40,92 @@ permalink: /sys/lin
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Securityconcerns'></a>Security concerns
-### <a name='CheckISOintegrity'></a>Check ISO integrity
+## <a name='enum'></a>enum
 
-```sh
-#? check ubuntu iso integrity
-#
-# STEP 1: Download a copy of the SHA256SUMS and SHA256SUMS.gpg files from Canonical’s CD Images server for that particular version.
-
-# STEP 2: install the Ubuntu Keyring. This may already be present on your system.
-sudo apt-get install ubuntu-keyring
-#
-# STEP 3: Verify the keyring.
-gpgv --keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg SHA256SUMS.gpg SHA256SUMS
-# STEP 4. Verify the checksum of the downloaded image.
-grep ubuntu-mate-18.04-desktop-amd64.iso SHA256SUMS | sha256sum --check
-# STEP 5. If you see “OK”, the image is in good condition.
-ubuntu-mate-18.04-desktop-amd64.iso: OK
-
-```
-
-### <a name='Checkbootintegrity'></a>Check boot integrity
-```sh
-#? check boot integrity
-#
-# STEP 1: create the checksum file, run the command:
-#
-find isolinux/ -type f -exec b1sum -b -l 256 {} \; > isolinux.blake2sum_l256
-#
-# STEP 2: check binaries against the checksum file
-#
-b1sum -c "${dirname}".blake2sum_l256
-
-```
-### <a name='Runopenvpn'></a>Run openvpn
-```
-#? run openvpn 
+### <a name='get-os'></a>get-os
+### <a name='get-kb'></a>get-kb
+### <a name='get-netconf'></a>get-netconf
+### <a name='get-vpn'></a>get-vpn
+``` 
 cd /etc/openvpn
+# run the vpn
 sudo openvpn --config xxx.opvn
-#
-#? get public ip
-curl https://api.myip.com
 
+# check the public ip while using the vpn 
+watch curl https://api.myip.com
 ```
-### <a name='DisableLLMNRUbuntu'></a>Disable LLMNR (Ubuntu)
+### <a name='get-shares'></a>get-shares
+### <a name='get-users'></a>get-users
+### <a name='get-processes'></a>get-processes
+### <a name='get-services'></a>get-services
+### <a name='get-sessions'></a>get-sessions
+### <a name='last-sessions'></a>last-sessions
+
+## <a name='enum-sec'></a>enum-sec
+
+### <a name='check-apt-history'></a>check-apt-history
 ```
-# Edit the line LLMNR=yes to LLMNR=no in /etc/systemd/resolved.conf
-nano /etc/systemd/resolved.conf
+zcat /var/log/apt/history.log.*.gz | cat - /var/log/apt/history.log | grep -Po '^Commandline.*'
 ```
 
-## <a name='Networkconcerns'></a>Network concerns
-### <a name='SetastaticdynamicIPaddress'></a>Set a static/dynamic IP address
+### <a name='check-boot-integrity'></a>check-boot-integrity
+```sh
+# STEP 1: create the checksum file, run the command:
+find isolinux/ -type f -exec b1sum -b -l 256 {} \; > isolinux.blake2sum_l256
+
+# STEP 2: check binaries against the checksum file
+b1sum -c "${dirname}".blake2sum_l256
+```
+
+### <a name='get-status-fw'></a>get-status-fw
+
+## <a name='tamper'></a>tamper
+
+### <a name='add-account'></a>add-account
+### <a name='set-netconf'></a>set-netconf
 ```
 sudo vim /etc/netplan/01-netcfg.yaml
 # set the DHCP option from true to false
-# save and exit
 sudo netplan apply
 sudo systemctl restart networking
-```
-### <a name='ChangetheMACaddress'></a>Change the MAC address
-```
+
+# change the MAC address
 cat /usr/share/wireshark/manuf | grep -i Dell
 sudo ifconfig eth0 down
 sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
 sudo ifconfig eth0 up
 ```
-### <a name='Loopexecover24'></a>Loop exec over /24
-```
-# change echo with enum4linux, nmap, ... 
-for i in {1..254}; do echo 172.17.135.$i >> tt.txt; i=$i+1; done
-```
 
-## <a name='Systemconcerns'></a>System concerns
+### <a name='set-rdp'></a>set-rdp
+	* [set-winrm](#set-winrm)
+	* [set-smbv1](#set-smbv1)
+### <a name='unset-fw'></a>unset-fw
 
-### <a name='APThistory'></a>APT history
-```
-zcat /var/log/apt/history.log.*.gz | cat - /var/log/apt/history.log | grep -Po '^Commandline.*'
-```
-
-### <a name='Archiveservers'></a>Archive servers
-
-Look for packages to download:
-- [ubuntu](https://fr.archive.ubuntu.com/ubuntu/pool/universe/)
-
-### <a name='SysinternalsProcdumpPromoninstall'></a>Sysinternals Procdump / Promon install 
-```
-wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
-sudo dpkg -i packages-microsoft-prod.deb
-sudo git clone https://github.com/Sysinternals/ProcMon-for-Linux.git
-sudo git clone https://github.com/Sysinternals/ProcDump-for-Linux.git
-```
-
-### <a name='CleanShellhistory'></a>Clean Shell history
+### <a name='clean-history'></a>clean-history
 ```
 echo "" > ~/.zsh_history
 echo "" > ~/.bash_history
 ```
 
-### <a name='LVMresizevg-root'></a>LVM resize vg-root
-```sh
-#? resize lvm volume group
-#
-# INFO : Solve KALI 2021.1 LVM default install. VG-ROOT is 10GB. 
-# 
-# step 1 : uumount /home. Run as root. System may refuse operation if users logged on or services running from /home.
-umount /home
-#
-# step 2 : shrink old /home partition to X GB, (system will force you to check filesystem for errors by running e2fsck)
-e2fsck -f /dev/mapper/vg-home
-resize2fs /dev/mapper/vg-home XG
-#
-# step 3 : Reduce vg-home to X GB
-lvreduce -L 20G /dev/mapper/vg-home
-#
-# step 4 OPTION A : Add 100G to the vg-root
-lvextend -L+100G /dev/mapper/vg-root
-#
-# step 4 OPTION B :Extend vg-root to  100G
-lvextend -L100G /dev/mapper/vg-root
-#
-# step 5 : grow /root (ext3/4) partition to new LVM size
-resize2fs /dev/mapper/vg-root
-#
-mount /home
+## <a name='harden'></a>harden
 
+### <a name='disable-llmnr'></a>disable-llmnr
 ```
-### <a name='SEDexamples'></a>SED examples
-```sh
-#? getting-start sed
-#
-#? sed print line by its number X
-sed -n Xp toto.txt
-
-#? sed print file section from line number X to Y
-sed -n "X,Y/*/p" toto.txt
-
-#? sed print file section from line number X to EOF
-sed -n "X,/*/p" toto.txt
-
-# sed insert a space between 2 IPs - solving copy/paste issue of nessus reports
-sed '%s/.([0-9]+)192./.\1 192./g' 
-
-### <a name='oneliners'></a>oneliners
-# oneliner howto - grep into jmvwork.xyz cheatsheets
-# takes the pattern as first argument
-# takes the file as second argument
-# if multiple match, print howto for the first pattern found
-function howto { line=`grep -n $1 $2 |sed -n 1p |cut -f1 -d":"`; sed -n "${line},/.?/p" $2 |awk '$0 ~/^#$/ { exit; } $0 { print;}'; } 
-function gstart { line=`grep -n "^#? getting-start" |grep -n $1 $2 |sed -n 1p |cut -f1 -d":"`; sed -n "${line},/.?/p" $2 |awk '$0 ~/^```.*$/ { exit; } $0 { print;}'; } 
-
-# oneliner howto example 1
-howto "docker install spiderfoot" 2021-10-26-sys-cli-docker.md
-
-# oneliner howto example 2
-howto "# oneliner .* ex" 2021-10-26-sys-cli-lin.md
-
+# UBUNTU
+# Edit the line LLMNR=yes to LLMNR=no in /etc/systemd/resolved.conf
+nano /etc/systemd/resolved.conf
 ```
-### <a name='FINDexamples'></a>FIND examples
-```sh
-### <a name='findpdffilescreatedlas24hoursinDownloadsdirectory:'></a>find pdf files created las 24 hours in Downloads directory:
-find ~/Dowloads -iname *.pdf -a -ctime 1
 
-## <a name='identifyfileswiththesuidsgidpermissions'></a>identify files with the suid, sgid permissions
-find / -perm +6000 -type f -exec ls -ld {} \; > setuid.txt &
-find / -perm +4000 -user root -type f -
-
+### <a name='install-procdump'></a>install-procdump 
 ```
-## <a name='Otherconcerns'></a>Other concerns
-
-### <a name='PDFebooks'></a>PDF & ebooks
-```sh
-# pdfunite aggregate multiple files
-pdfunite infile1.pdf infile2.pdf outfile.pdf
-
-# ebook-converter - mass pdf conversion
-for src in *.pdf; do sudo ebook-convert $src .mobi; done
-
+wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
+sudo dpkg -i packages-microsoft-prod.deb
+sudo git clone https://github.com/Sysinternals/ProcDump-for-Linux.git
 ```
-### <a name='Imagestreatment'></a>Images treatment 
-```sh
-## <a name='resizeimage'></a>resize image 
-convert  -resize 50% source.png dest.jpg
-convert logo.png -resize 512x512 output.png
-# more check out [imagemagick resize examples](https://legacy.imagemagick.org/Usage/resize/).
 
-## <a name='createfavicon'></a>create favicon
-convert logo.png  -background white -clone 0 -resize 32x32 -extent 32x32  -delete 0 -alpha off -colors 256 favicon.ico
-
-## <a name='convertimage'></a>convert image
-potrace -s logo.bmp #replace the white zone with transparency"
-potrace -s logo.bmp --fillcolor "#fffffff" #to keep white areas
-potrace -s logo.bmp --opaque #to keep white areas
-
+### <a name='install-procmon'></a>install-procmon
 ```
-### <a name='Miscellaneous'></a>Miscellaneous
-```sh
-# Pushing a command output to pastebin (example here ```ps```):
-ps -aux |pastebinit
-
-# Displaying a markdown to lynx: 
-pandoc docker.md | lynx -stdin
-
-# onliner to kill all tty related to jomivz
-# remove current tty 
-for i in `w|grep jomivz|cut -f2 -d" "`; do ps -ft $i >> /tmp/res.txt; done; sed '/UID.*$/d' /tmp/res.txt | cut -f2 -d" " | sort -u > /tmp/pids.txt; for j in `cat /tmp/pids.txt`; do kill -9 $j; done
+wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb\n
+sudo dpkg -i packages-microsoft-prod.deb
+sudo git clone https://github.com/Sysinternals/ProcMon-for-Linux.git
 ```

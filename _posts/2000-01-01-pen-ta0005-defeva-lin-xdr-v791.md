@@ -5,7 +5,7 @@ parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-06-03
-permalink: /pen/defeva/lin-xdr-v791
+permalink: /pen/defeva-lin-xdr-v791
 ---
 
 # Linux XDR v7.9.1

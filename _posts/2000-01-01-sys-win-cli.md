@@ -60,7 +60,7 @@ permalink: /sys/win
 
 **ALSO**
 
-* [windows logs](/sysadmin/sys-logs-win/)
+* [windows logs](/sys/logs-win/)
 
 
 ## <a name='enum'></a>enum
@@ -160,7 +160,6 @@ Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} -Max 80 | W
 Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
 ```
 
-# listing local users
 ## <a name='enum-sec'></a>enum-sec
 
 ### <a name='get-status-fw'></a>get-status-fw
@@ -172,6 +171,7 @@ netsh firewall show portopening
 
 ### <a name='get-status-defender'></a>get-status-defender
 ```batch
+Get-MpComputerStatus
 powershell -inputformat none -outputformat text -NonInteractive -Command 'Get-MpPreference | select -ExpandProperty "DisableRealtimeMonitoring"'
 ```
 
@@ -285,9 +285,11 @@ powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
 ### <a name='unset-ppl'></a>unset-ppl
 
 Tools that disable PPL flags on the LSASS process by patching the EPROCESS kernel 
+ - [PPLFault](https://github.com/gabriellandau/PPLFault)
  - [EDRSandBlast](https://github.com/wavestone-cdt/EDRSandblast)
  - [PPLdump](https://github.com/itm4n/PPLdump)
  - [PPLKiller](https://github.com/RedCursorSecurityConsulting/PPLKiller)
+
 
 ```batch
 ```
