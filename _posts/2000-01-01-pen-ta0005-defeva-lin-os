@@ -4,13 +4,15 @@ title: TA0005 Defense Evasion - Linux OS
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2021-12-11
+modified_date: 2023-06-03
 permalink: /pen/defeva-lin
 ---
 
 **Mitre Att&ck Entreprise**: [TA0005 - Defense Evasion](https://attack.mitre.org/tactics/TA0005/)
 
 <!-- vscode-markdown-toc -->
+* [enum-fw](#enum-fw)
+* [enum-edr](#enum-edr)
 * [T1548.003 Sudo and Sudo Caching](#T1548.003SudoandSudoCaching)
 
 <!-- vscode-markdown-toc-config
@@ -19,9 +21,12 @@ permalink: /pen/defeva-lin
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## enum-fw
+## <a name='enum-fw'></a>enum-fw
 
-## enum-edr
+## <a name='enum-edr'></a>enum-edr
+
+* [microsoft defender](/edr/defender#enum)
+* [palo cortex xdr](/edr/xdr#enum) 
 
 ## <a name='T1548.003SudoandSudoCaching'></a>T1548.003 Sudo and Sudo Caching
 ```

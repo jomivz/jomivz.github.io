@@ -9,19 +9,22 @@ permalink: /pen/hashcat
 ---
 
 <!-- vscode-markdown-toc -->
-1. [hashkiller.io dictionary](#hashkiller.iodictionary)
-2. [SecLists Passwords](#SecListsPasswords)
-3. [SecLists Leaked Databases](#SecListsLeakedDatabases)
-4. [Diff between 2 Dictionaries](#Diffbetween2Dictionaries)
-5. [Map cracked passwords to relative accounts](#Mapcrackedpasswordstorelativeaccounts)
+* 1. [dict-hashkiller](#dict-hashkiller)
+* 2. [dict-seclists-pwd](#dict-seclists-pwd)
+* 3. [dict-seclists-db](#dict-seclists-db)
+* 4. [diff-2-dict](#diff-2-dict)
+* 5. [cracked-accounts](#cracked-accounts)
+* 6. [potfiles](#potfiles)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='hashkiller.iodictionary'></a>hashkiller.io dictionary
+##  1. <a name='dict-hashkiller'></a>dict-hashkiller
+
+hashkiller.io dictionary
 
 * [haskiller.io/download](https://hashkiller.io/download)
 
@@ -30,7 +33,9 @@ line numbers of password dictionaries:
 └─$ wc -l
 ```
 
-##  2. <a name='SecListsPasswords'></a>SecLists Passwords
+##  2. <a name='dict-seclists-pwd'></a>dict-seclists-pwd
+
+SecLists Passwords
 
 * [SecLists](https://github.com/danielmiessler/SecLists)
 
@@ -85,7 +90,9 @@ line numbers of password dictionaries:
         1 SecLists/Passwords/der-postillon.txt
 ```
 
-##  3. <a name='SecListsLeakedDatabases'></a>SecLists Leaked Databases
+##  3. <a name='dict-seclists-db'></a>dict-seclists-db
+
+SecLists Leaked Databases
 
 line numbers of leaked databases:
 ```
@@ -153,7 +160,9 @@ The tarball rockyou is 14 million lines:
 14344391 rockyou.txt
 ```
 
-##  4. <a name='Diffbetween2Dictionaries'></a>Diff between 2 Dictionaries
+##  4. <a name='diff-2-dict'></a>diff-2-dict
+
+Diff between 2 Dictionaries
 
 Diff on 2 dictionaries:
 ```
@@ -170,7 +179,9 @@ sed -e 's/^.//' diff-xato-rockyou.txt
 cut -c2- ~/diff-xato-rockyou.txt
 ```
 
-##  5. <a name='Mapcrackedpasswordstorelativeaccounts'></a>Map cracked passwords to relative accounts
+##  5. <a name='cracked-accounts'></a>cracked-accounts
+
+Map cracked passwords to relative accounts
 
 List the accounts for which the passwords were cracked: 
 
@@ -180,7 +191,7 @@ chmod +x pen_cracked_accounts.sh
 ./cracked_accounts.sh secretdumps.out 
 ```
 
-##  5. <a name='Mapcrackedpasswordstorelativeaccounts'></a> The potfiles
+##  6. <a name='potfiles'></a>potfiles
 
 Go to the path:
 ``` 

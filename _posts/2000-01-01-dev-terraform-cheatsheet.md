@@ -4,13 +4,13 @@ title: Terraform with DigitalOcean
 category: Development
 parent: Development
 grand_parent: Cheatsheets  
-modified_date: 2022-12-12
+modified_date: 2023-06-03
 permalink: /dev/terraform
 ---
 
 <!-- vscode-markdown-toc -->
-* [Ressources](#Ressources)
-* [Command lines](#Commandlines)
+* [sources](#sources)
+* [cli](#cli)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -19,14 +19,14 @@ permalink: /dev/terraform
 <!-- /vscode-markdown-toc -->
 
 
-## <a name='Ressources'></a>Ressources
+## <a name='sources'></a>sources
 
 | 📚 **Top Sites** 									| 🎞️ **Top Video Channels** |
 |---------------------------------------------------|------------------------|
 | [DO resources](https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs) | 🔴 [simple coding](https://www.youtube.com/watch?v=u_zl7XHiF-g&list=PL9evZl_m5wqsc7C38L9grx-djts2bqT_b) |
 | [terry-the-terraformer](https://github.com/ezra-buckingham/terry-the-terraformer) | |
 
-## <a name='Commandlines'></a>Command lines
+## <a name='cli'></a>cli
 
 ```
 # watch logs building a droplet

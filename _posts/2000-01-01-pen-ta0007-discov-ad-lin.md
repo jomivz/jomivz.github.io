@@ -12,23 +12,33 @@ permalink: /pen/discov-ad-lin
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [PRE-REQUISITE](#PRE-REQUISITE)
+* [prereq](#prereq)
 	* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
-* [SHOOT General Properties](#SHOOTGeneralProperties)
-	* [Domain properties](#Domainproperties)
-	* [Forest properties](#Forestproperties)
-	* [Kerberos Delegations](#KerberosDelegations)
-	* [Privileged Users](#PrivilegedUsers)
-	* [Privileged Machines](#PrivilegedMachines)
-	* [Great ressources](#Greatressources)
-* [ITER](#ITER)
-	* [User groups](#Usergroups)
-	* [Scope of compromise](#Scopeofcompromise)
-* [REFRESH](#REFRESH)
-* [MISC](#MISC)
-	* [ RELAY: SMBv2 SIGNING NOT REQUIRED](#RELAY:SMBv2SIGNINGNOTREQUIRED)
-	* [CRACKING HASHES](#CRACKINGHASHES)
+* [shoot](#shoot)
+	* [shoot-forest](#shoot-forest)
+	* [shoot-dom](#shoot-dom)
+		* [shoot-pwd-policy](#shoot-pwd-policy)
+		* [shoot-delegations](#shoot-delegations)
+		* [shoot-priv-users](#shoot-priv-users)
+		* [shoot-priv-machines](#shoot-priv-machines)
+		* [shoot-shares](#shoot-shares)
+		* [shoot-mssql-servers](#shoot-mssql-servers)
+		* [shoot-spns](#shoot-spns)
+		* [shoot-npusers](#shoot-npusers)
+		* [shoot-acls](#shoot-acls)
+* [iter](#iter)
+	* [iter-memberof](#iter-memberof)
+	* [iter-scope](#iter-scope)
+* [refresh](#refresh)
+	* [check-computer-access](#check-computer-access)
+	* [last-logons](#last-logons)
+	* [last-logons-computer](#last-logons-computer)
+	* [last-logons-ou](#last-logons-ou)
+	* [whereis-user](#whereis-user)
+	* [whereis-group](#whereis-group)
+* [misc](#misc)
 	* [Docker Impacket RPCdump](#DockerImpacketRPCdump)
+* [sources](#sources)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -36,7 +46,9 @@ permalink: /pen/discov-ad-lin
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='PRE-REQUISITE'></a>PRE-REQUISITE
+## <a name='prereq'></a>prereq
+
+PRE-REQUISITE:
 
 ### <a name='Settingvariablesforcopypaste'></a>Setting variables for copy/paste
 
@@ -68,26 +80,13 @@ To set / verify the variables use the command:
 env | sort
 ```
 
-## <a name='SHOOTGeneralProperties'></a>SHOOT General Properties
+## <a name='shoot'></a>shoot
 
-### <a name='Domainproperties'></a>Domain properties
+SHOOT General Properties :
 
-```sh
-# Identify the DC / DHCP services 
-nmap --script broadcast-dhcp-discover
-sudo tcpdump -ni eth0 udp port 67 and port 68
+### <a name='shoot-forest'></a>shoot-forest
 
-dig -t SRV _gc._tcp.$zdom_fqdn
-dig -t SRV _ldap._tcp.$zdom_fqdn
-dig -t SRV _kerberos._tcp.$zdom_fqdn
-dig -t SRV _kpasswd._tcp.$zdom_fqdn
-
-nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
-
-nbtscan -r 10.0.0.0/24
-```
-
-### <a name='Forestproperties'></a>Forest properties
+Forest properties:
 ```sh
 # Enum domains and trusts: V1
 python pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip
@@ -111,7 +110,35 @@ cut -f1 -d" " trusts.txt > trusts_clean.txt
 for i in `cat trusts_clean.txt`; do ping -a $i; done
 ```
 
-#### <a name='KerberosDelegations'></a>Kerberos Delegations
+### <a name='shoot-dom'></a>shoot-dom
+
+Domain properties:
+
+```sh
+# Identify the DC / DHCP services 
+nmap --script broadcast-dhcp-discover
+sudo tcpdump -ni eth0 udp port 67 and port 68
+
+dig -t SRV _gc._tcp.$zdom_fqdn
+dig -t SRV _ldap._tcp.$zdom_fqdn
+dig -t SRV _kerberos._tcp.$zdom_fqdn
+dig -t SRV _kpasswd._tcp.$zdom_fqdn
+
+nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
+
+nbtscan -r 10.0.0.0/24
+```
+
+#### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
+```sh
+# Get the domain pasword policy
+rpcclient -U "johndoe" 10.1.1.1
+rpcclient> getdompwinfo
+```
+
+#### <a name='shoot-delegations'></a>shoot-delegations
+
+Kerberos Delegations:
 
 Easy enumeration with **Impacket\FindDelegation.py**:
 
@@ -129,7 +156,9 @@ References :
 - [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
-#### <a name='PrivilegedUsers'></a>Privileged Users
+#### <a name='shoot-priv-users'></a>shoot-priv-users
+
+Privileged Users:
 
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 - [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
@@ -142,24 +171,24 @@ $ztarg_grp="Domain Admins"
 #$ztarg_grp="DNSAdmins"
 ```
 
-### <a name='PrivilegedMachines'></a>Privileged Machines
+#### <a name='shoot-priv-machines'></a>shoot-priv-machines
+
+Privileged Machines:
 ```sh
 tbd
 ```
+#### <a name='shoot-shares'></a>shoot-shares
+#### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
+#### <a name='shoot-spns'></a>shoot-spns
+#### <a name='shoot-npusers'></a>shoot-npusers
+#### <a name='shoot-acls'></a>shoot-acls
 
-### <a name='Greatressources'></a>Great ressources
 
-| **Ressource**  | 
-|-----------------|
-| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | 
-| [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
-| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) |
-| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) |
-| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) |
 
-## <a name='ITER'></a>ITER
+## <a name='iter'></a>iter
 
-### <a name='Usergroups'></a>User groups
+### <a name='iter-memberof'></a>iter-memberof
+User groups:
 ```bash
 # Get user info
 python pywerview.py get-netuser -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user > pt_xxx_getnetuser_x.txt
@@ -179,7 +208,9 @@ ztarg_adspath = "ldap://" + $ztarg_ou
 python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
 ```
 
-### <a name='Scopeofcompromise'></a>Scope of compromise 
+### <a name='iter-scope'></a>iter-scope
+
+Scope of compromise:
 ```bash
 # Find where the account is local admin V1
 ./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile pt_xxx_getnetcomputer_ou_x.txt
@@ -202,24 +233,36 @@ while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computerna
 i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_os.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_os.txt
 ```
 
-## <a name='REFRESH'></a>REFRESH
+## <a name='refresh'></a>refresh
 
-### <a name='Whoisloggedonacomputer'></a>Who is logged on a computer
+REFRESH
+
+### <a name='check-computer-access'></a>check-computer-access
+### <a name='last-logons'></a>last-logons
+### <a name='last-logons-computer'></a>last-logons-computer
+### <a name='last-logons-ou'></a>last-logons-ou
+
+Who is logged on a computer:
 ```bash
 
 ```
+### <a name='whereis-user'></a>whereis-user
+### <a name='whereis-group'></a>whereis-group
 
-## <a name='MISC'></a>MISC
 
-
-### <a name='CRACKINGHASHES'></a>CRACKING HASHES
-```sh
-# Get the domain pasword policy
-rpcclient -U "johndoe" 10.1.1.1
-rpcclient> getdompwinfo
-```
+## <a name='misc'></a>misc
 
 ### <a name='DockerImpacketRPCdump'></a>Docker Impacket RPCdump
 ```
 sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
 ```
+
+## <a name='sources'></a>sources
+
+| **Ressource**  | 
+|-----------------|
+| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | 
+| [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
+| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) |
+| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) |
+| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) |

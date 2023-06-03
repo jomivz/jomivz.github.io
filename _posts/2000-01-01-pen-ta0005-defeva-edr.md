@@ -1,19 +1,14 @@
 ---
 layout: post
 title: TA0005 Defense Evasion - EDR
-parent: EDR
-category: EDR
+parent: Pentesting
+category: Pentesting
 grand_parent: Cheatsheets
 modified_date: 2023-06-02
-permalink: /edr/defeva
+permalink: /pen/defeva-edr
 ---
 
 <!-- vscode-markdown-toc -->
-* [enum](#enum)
-	* [win-defender](#win-defender)
-	* [lin-xdr-get](#lin-xdr-get)
-		* [lin-xdr-get-version](#lin-xdr-get-version)
-		* [lin-xdr-get-processes](#lin-xdr-get-processes)
 * [tools](#tools)
 * [sources](#sources)
 * [eol](#eol)
@@ -25,45 +20,6 @@ permalink: /edr/defeva
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='enum'></a>enum
-
-### <a name='win-defender'></a>win-defender
-
-```powershell
-# defender 
-# defender: check if Defender is enabled
-Get-MpComputerStatus
-Get-MpComputerStatus | Select AntivirusEnabled
-# defender: check if defensive modules are enabled
-Get-MpComputerStatus | Select RealTimeProtectionEnabled, IoavProtectionEnabled,AntispywareEnabled | FL
-# defender: check if tamper protection is enabled
-Get-MpComputerStatus | Select IsTamperProtected,RealTimeProtectionEnabled | FL
-
-# palo xdr 
-dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
-```
-
-### <a name='lin-xdr-get'></a>lin-xdr-get
-
-#### <a name='lin-xdr-get-version'></a>lin-xdr-get-version
-* palo xdr version:
-```bash
-cat /opt/trap/version.txt
-```
-
-#### <a name='lin-xdr-get-processes'></a>lin-xdr-get-processes
-* palo xdr processes:
-```bash
-ps -aux | grep cortex
-```
-![ps aux](/assets/images/xdr-psaux.png)
-
-* Enumerate linux version of Palo Cortex XDR:
-```bash
-cat /opt/trap/version.txt
-```
-* [XDR v7. processes](/edr/defeva/lin-xdr-v7)
-* [XDR v7.9.1 processes](/edr/defeva/lin-xdr-v791)
 
 
 ## <a name='tools'></a>tools 
