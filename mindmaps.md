@@ -59,7 +59,7 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 * [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 * [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
 
-### <a name='_OLD_STUFFS_'></a>👀🧠🔫 _OLD_STUFFS_ 🥱
+### <a name='_OLD_STUFFS_'></a>_OLD_STUFFS_ 🥱
 
 * [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
