@@ -7,15 +7,15 @@ has_children: true
 modified_date: 2023-06-05
 ---
 
-# <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
+## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
 
 ** MENU **
 
 <!-- vscode-markdown-toc -->
-	* [methodoly](#methodoly)
-	* [tools](#tools)
-	* [sources](#sources)
-	* [👀🧠🔫 _OLD_STUFFS_ 🥱](#_OLD_STUFFS_)
+* [methodoly](#methodoly)
+* [tools](#tools)
+* [sources](#sources)
+* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -35,6 +35,8 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
+* [/tool/burp.png](/tool/cme.png)
+* [/tool/burp-extensions.png](/tool/cme.png)
 * [/tool/cme.png](/tool/cme.png)
 * [/tool/gobuster.png](/tool/gobuster.png)
 * [/tool/hashcat.png](/tool/hashcat.png)
@@ -59,10 +61,7 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 * [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 * [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
 
-### <a name='_OLD_STUFFS_'></a>_OLD_STUFFS_ 🥱
+### <a name='OLD_STUFFS_'></a>_OLD_STUFFS_ 🥱
 
-* [Forensics Roadmap for NTFS](/mindmaps/svg/win-for-ntfs.svg)
-* [Forensics Roadmap for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
-* [EnCE Encase v7](/mindmaps/svg/win-for-encase-v7-ence.svg)
-* [Encase v7 EnScripts](/mindmaps/svg/win-for-encase-v7-enscript.svg)
-* [Encase v7 Products](/mindmaps/svg/win-for-encase-products-2016.svg)
+* [Forensics for NTFS](/mindmaps/svg/win-for-ntfs.svg)
+* [Forensics for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)
