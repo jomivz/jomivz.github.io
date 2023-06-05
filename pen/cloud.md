@@ -1,0 +1,58 @@
+---
+layout: page
+title: Mindmap Cloud
+category: Cloud
+parent: Mindmaps
+nav_order: 1
+permalink: /pen/cloud
+modified_date: 2023-06-05
+---
+
+
+👀📊 **[Compare CSP](https://comparecloud.in/)** 📊👀
+
+
+## <a name='MENU'></a>MENU
+
+<!-- vscode-markdown-toc -->
+* [👀🧠 Mindmaps](#Mindmaps)
+* [👀🔫 Offensive Tools](#OffensiveTools)
+* [👀🎯 Labs & Targets](#LabsTargets)
+* [👀🔥 Attack Types](#AttackTypes)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+## <a name='Mindmaps'></a>👀🧠 Mindmaps
+
+
+[MUST READ](https://attack.mitre.org/matrices/enterprise/cloud/)
+
+| **AWS** | **Azure** | **GCP** | 
+|---------|-----------|---------|
+| [AWS devops](https://www.awsgeek.com/) | [Azure CMEPW](https://github.com/CMEPW/azure-mindmap) |  |
+|  | [Azure Attack Paths](https://cloudbrothers.info/en/azure-attack-paths/) | |
+|  | [Platforms & Services](https://blog.microwavewitness.eu/work/microsoft/static/microsoft_services.png)
+|  | [Azure Attack articles](https://securecloud.blog/) | |
+
+
+## <a name='OffensiveTools'></a>👀🔫 Offensive Tools 
+
+| **AWS** | **Azure** | **GCP** | **Multi** |
+|---------|-----------|---------|-----------|
+| [IAM privesc](https://github.com/RhinoSecurityLabs/AWS-IAM-Privilege-Escalation)| [AADInternals](https://github.com/Gerenios/AADInternals) / [TTP](https://attack.mitre.org/software/S0677/) | [IAM privesc](https://github.com/RhinoSecurityLabs/GCP-IAM-Privilege-Escalation) | [pacu](https://github.com/RhinoSecurityLabs/pacu)|
+| | [ROADtools](https://github.com/dirkjanm/ROADtools) / [TTP](https://attack.mitre.org/software/S0684/)| [GCP bucket brute](https://github.com/RhinoSecurityLabs/GCPBucketBrute)| [cloudscraper](https://github.com/RhinoSecurityLabs/CloudScraper)|
+| | | |[ccat](https://github.com/RhinoSecurityLabs/ccat)|
+
+## <a name='LabsTargets'></a>👀🎯 Labs & Targets
+
+
+## <a name='AttackTypes'></a>👀🔥 Attack articles
+
+| **AWS** | **Azure** | **GCP** | 
+|---------|-----------|---------|
+| [AWS / Terraform](https://sysdig.com/blog/cloud-breach-terraform-data-theft/) | [Azure DevOps](https://www.synacktiv.com/publications/cicd-secrets-extraction-tips-and-tricks.html) | |
+| | []() | |
