@@ -1,7 +1,7 @@
 ---
 layout: category
 title: OSINT
-category: osint
+categories: osint
 parent: cheatsheets
-permalink: /:category
+permalink: /:categories
 ---
