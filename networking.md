@@ -3,5 +3,5 @@ layout: category
 title: Networking
 category: net
 parent: cheatsheets
-permalink: /net
+permalink: /:category
 ---

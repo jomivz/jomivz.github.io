@@ -1,7 +1,7 @@
 ---
 layout: category
 title: Development
-category: Development
+category: dev
 parent: cheatsheets
-permalink: /dev
+permalink: /:category
 ---
