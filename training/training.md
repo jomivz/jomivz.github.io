@@ -6,7 +6,7 @@ nav_order: 4
 modified_date: 2022-12-12
 ---
 
-# #cyber 🔫 #wow 👀 #trainings 🚲
+## #cyber 🔫 #wow 👀 #trainings 🚲
 
 <!-- vscode-markdown-toc -->
 * [training platforms](#trainingplatforms)
@@ -17,7 +17,6 @@ modified_date: 2022-12-12
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->---
-
 
 
 ## <a name='trainingplatforms'></a>training platforms

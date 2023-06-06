@@ -1,8 +1,7 @@
 ---
 layout: category
 title: EDR
-category: EDR
-parent: Cheatsheets
-nav_order: 8
+category: edr
+parent: cheatsheets
 permalink: /edr
 ---

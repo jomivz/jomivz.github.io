@@ -1,8 +1,7 @@
 ---
 layout: category
 title: Forensics
-category: Forensics
-parent: Cheatsheets
-nav_order: 3
+category: for
+parent: cheatsheets
 permalink: /for
 ---

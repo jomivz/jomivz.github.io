@@ -7,6 +7,8 @@ grand_parent: Cheatsheets
 modified_date: 2023-06-04
 permalink: /sys/lin
 ---
+
+**Menu**
 <!-- vscode-markdown-toc -->
 * [enum](#enum)
 	* [get-os](#get-os)
