@@ -44,3 +44,20 @@ DeviceProcessEvents
 | Container Registry X | "docker " |  
 | DB x | "sqlplus" |
 | psexec | "psexec " |
+
+### <a name='Getthealertsassociatedtoauser'></a>Get the alerts associated to a user
+```
+# over 7 days backlog
+AlertEvidence
+| where Timestamp > ago(8d)
+| where AccountName =~ "johndoe"
+```
+
+
+### <a name='Getthealertsassociatedtoamachine'></a>Get the alerts associated to a machine
+```
+# over 7 days backlog
+AlertEvidence
+| where Timestamp > ago(8d)
+| where DeviceName =~ "AL"
+```

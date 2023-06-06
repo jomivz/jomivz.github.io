@@ -3,9 +3,8 @@ layout: post
 title: Sysadmin VIRT VirtualBox - Administration Cookbook
 category: sys
 parent: sys
-
 modified_date: 2022-08-16
-permalink: /:categories/:title/
+permalink: /sys/virtualbox
 ---
 
 <!-- vscode-markdown-toc -->

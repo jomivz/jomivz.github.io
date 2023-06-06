@@ -4,7 +4,7 @@ title: Spiderfoot Cheatsheet
 parent: osint
 category: osint
 modified_date: 2021-12-08
-permalink: /:categories/:title/
+permalink: /osint/spiderfoot
 ---
 <!-- vscode-markdown-toc -->
 * 1. [SpiderFoot Install](#SpiderFootInstall)

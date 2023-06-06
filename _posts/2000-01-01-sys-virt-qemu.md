@@ -3,9 +3,8 @@ layout: post
 title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
 category: sys
 parent: sys
-
 modified_date: 2021-08-31
-permalink: /:categories/:title/
+permalink: /sys/qemu
 ---
 
 <!-- vscode-markdown-toc -->

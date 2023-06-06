@@ -3,7 +3,6 @@ layout: post
 title:  Sysadmin WIN Powershell - Useful queries
 category: sys
 parent: sys
-
 modified_date: 2023-06-05
 permalink: /sys/powershell
 ---

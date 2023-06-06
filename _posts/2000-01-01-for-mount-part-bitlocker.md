@@ -4,7 +4,7 @@ title: SYS Mounting bitlocker partition
 category: for
 parent: for
 modified_date: 2021-02-06
-permalink: /:categories/:title/
+permalink: /for/bitlocker
 ---
 
 <!-- vscode-markdown-toc -->

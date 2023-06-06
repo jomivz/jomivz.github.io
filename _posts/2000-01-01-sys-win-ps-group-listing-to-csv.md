@@ -3,7 +3,6 @@ layout: post
 title: Sysadmin WIN Powershell - listing user groups
 category: sys
 parent: sys
-
 modified_date: 2021-02-06
 permalink: /sys/powershell2
 ---

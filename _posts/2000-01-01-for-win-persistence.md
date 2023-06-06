@@ -4,7 +4,7 @@ title: FOR Windows Persistence
 category: for
 parent: for
 modified_date: 2023-01-04
-permalink: /:categories/:title/
+permalink: /for/win-persistence
 ---
 
 <!-- vscode-markdown-toc -->

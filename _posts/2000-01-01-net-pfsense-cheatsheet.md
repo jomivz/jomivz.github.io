@@ -4,7 +4,7 @@ title: Pfsense cheatsheet
 category: net
 parent: net
 modified_date: 2021-02-06
-permalink: /:categories/:title/
+permalink: /net/pfsense
 ---
 
 ## Install

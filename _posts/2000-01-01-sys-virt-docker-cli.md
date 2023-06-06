@@ -3,9 +3,8 @@ layout: post
 title: Sysadmin VIRT Docker - Administration Cookbook
 category: sys
 parent: sys
-
 modified_date: 2023-03-27
-permalink: /:categories/:title/
+permalink: /sys/docker
 ---
 
 **Must**

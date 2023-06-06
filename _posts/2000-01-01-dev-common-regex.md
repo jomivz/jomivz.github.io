@@ -3,7 +3,6 @@ layout: post
 title: Common REGEX in Cybersecurity
 category: dev
 parent: dev
-
 modified_date: 2023-06-05
 permalink: /dev/regex
 ---

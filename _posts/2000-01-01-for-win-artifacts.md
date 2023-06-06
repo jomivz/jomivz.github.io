@@ -4,7 +4,7 @@ title: FOR Windows Artifacts
 parent: for
 category: for
 modified_date: 2023-01-04
-permalink: /:categories/:title/
+permalink: /for/win-artifacts
 ---
 
 <!-- vscode-markdown-toc -->

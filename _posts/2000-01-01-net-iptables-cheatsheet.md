@@ -4,7 +4,7 @@ title: IPTABLES cheatsheet
 parent: net
 category: net
 modified_date: 2021-11-18
-permalink: /:categories/:title/
+permalink: /net/iptables
 ---
 
 <!-- vscode-markdown-toc -->

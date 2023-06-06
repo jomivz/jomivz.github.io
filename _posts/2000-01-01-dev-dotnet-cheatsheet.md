@@ -3,7 +3,6 @@ layout: post
 title: Build .NET projects
 category: dev
 parent: dev
-
 modified_date: 2023-06-03
 permalink: /dev/dotnet
 ---
