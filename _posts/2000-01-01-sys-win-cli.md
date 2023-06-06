@@ -4,7 +4,7 @@ title: Sysadmin WIN CLI
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2023-06-03
+modified_date: 2023-06-05
 permalink: /sys/win
 ---
 
@@ -14,7 +14,7 @@ permalink: /sys/win
 * [enum](#enum)
 	* [get-os](#get-os)
 	* [get-kb](#get-kb)
-	* [get-netconf](#get-netconf)
+	* [get-network](#get-network)
 	* [get-shares](#get-shares)
 	* [get-users](#get-users)
 	* [get-products](#get-products)
@@ -24,13 +24,15 @@ permalink: /sys/win
 	* [last-sessions](#last-sessions)
 * [enum-sec](#enum-sec)
 	* [get-status-fw](#get-status-fw)
+	* [get-status-proxy](#get-status-proxy)
 	* [get-status-defender](#get-status-defender)
 	* [get-status-cred-guard](#get-status-cred-guard)
 	* [get-status-ppl](#get-status-ppl)
 * [tamper](#tamper)
 	* [add-account](#add-account)
 	* [set-kb](#set-kb)
-	* [set-netconf](#set-netconf)
+	* [set-network](#set-network)
+	* [set-proxy](#set-proxy)
 	* [set-rdp](#set-rdp)
 	* [set-winrm](#set-winrm)
 	* [set-smbv1](#set-smbv1)
@@ -81,7 +83,7 @@ powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.c
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-### <a name='get-netconf'></a>get-netconf
+### <a name='get-network'></a>get-network
 ```powershell
 # listing network hardware
 wmic nic list brief
@@ -169,6 +171,16 @@ netsh advfirewall show allprofiles
 netsh firewall show portopening
 ```
 
+### <a name='get-status-proxy'></a>get-status-proxy
+```powershell
+#V1
+netsh winhttp show proxy
+#V2
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+# V3
+(Get-ItemProperty -Path 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable
+```
+
 ### <a name='get-status-defender'></a>get-status-defender
 ```batch
 Get-MpComputerStatus
@@ -224,11 +236,19 @@ Set-WinUserLanguageList -Force "fr-FR"
 Set-WinUserLanguageList -Force "en-US"
 ```
 
-### <a name='set-netconf'></a>set-netconf
+### <a name='set-network'></a>set-network
 ```batch
 netsh interface ip set address "connection name" static 192.168.1.1 255.255.255.0 192.168.1.254
 netsh interface ip add dns "connection name" 8.8.8.8
 ```
+
+### <a name='set-proxy'></a>set-proxy
+```
+set HTTP_PROXY=http://proxy_userid:proxy_password@proxy_ip:proxy_port
+set FTP_PROXY=%HTTP_PROXY%
+set HTTPS_PROXY=%HTTP_PROXY%
+```
+
 
 ### <a name='set-rdp'></a>set-rdp
 

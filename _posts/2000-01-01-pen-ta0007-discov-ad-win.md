@@ -13,16 +13,15 @@ permalink: /pen/discov-ad-win
 **Menu**
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
-	* [Downloading SharpHound](#DownloadingSharpHound)
-	* [Running Powershell Tools](#RunningPowershellTools)
-		* [Spawn an AD account](#SpawnanADaccount)
-		* [Mandiant Commando VM](#MandiantCommandoVM)
-		* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
-		* [Handling console errors](#Handlingconsoleerrors)
-		* [Bypass AMSI](#BypassAMSI)
-	* [Running Bloodhound](#RunningBloodhound)
+	* [install](#install)
+	* [spawn-cmd](#spawn-cmd)
+	* [run-powershell](#run-powershell)
+		* [load-powersploit](#load-powersploit)
+		* [load-env](#load-env)
+		* [no-errors](#no-errors)
+		* [bypass-amsi](#bypass-amsi)
+	* [run-bloodhound](#run-bloodhound)
 * [collect](#collect)
-* [enum](#enum)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
@@ -55,20 +54,31 @@ permalink: /pen/discov-ad-win
 
  !!! **Useful links** to [learn AD security](/sysadmin/win-ad-sec-awesome/#starting-your-journey) !!!
 
+Cheatsheet inspired more various [ones](/sysadmin/win-ad-sec-awesome/#OffensivePowershell).
+
+![Enumeration Strategy](/assets/images/ad_enum_strat.png)
+
 ## <a name='prereq'></a>prereq
 
 PRE-REQUISITES: 
 
-### <a name='DownloadingSharpHound'></a>Downloading SharpHound
+### <a name='install'></a>install
 
-- [SharpHound latest Scripts & Binary](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors)
-- [Python Alternative](https://github.com/fox-it/BloodHound.py)
+* SharpHound :
+- [latest scripts & binary](https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors)
+- [python alternative](https://github.com/fox-it/BloodHound.py)
 
-### <a name='RunningPowershellTools'></a>Running Powershell Tools
+* BloodHound :
+- [neo4j & bloodhound-gui](https://bloodhound.readthedocs.io/en/latest/installation/windows.html)
+
+
+Running powershell :
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
-#### <a name='SpawnanADaccount'></a>Spawn an AD account
+### <a name='spawn-cmd'></a>spawn-cmd
+
+Spawn an AD account with CMD.exe:
 
 ![funny reminder](/assets/images/pen-win-sys-spawn-cmd.jpg)
 
@@ -77,6 +87,14 @@ PRE-REQUISITES:
 ```powershell
 # using a cleartext password
 runas /netonly /user:adm_x@dom.corp powershell
+```
+
+### <a name='run-powershell'></a>run-powershell
+
+#### <a name='load-powersploit'></a>load-powersploit
+
+* run powershell:
+```
 powershell -ep bypass
 
 # run powershell with pass-the-hash
@@ -85,15 +103,15 @@ privilege::debug
 sekurlsa::pth /user:$zlat_user /rc4:xxx  /domain:$zdom /dc:$zdom_dc_fqdn /run:"powershell -ep bypass"
 ```
 
-
-#### <a name='MandiantCommandoVM'></a>Mandiant Commando VM
+* Mandiant Commando VM
 ```powershell
 cd C:\tools\PowerSploit\Recon
 Import-Module ./Recon.psm1
 gcm -m Recon
 ```
 
-#### <a name='Settingvariablesforcopypaste'></a>Setting variables for copy/paste
+#### <a name='load-env'></a>load-env
+Setting variables for copy/paste
 ```powershell
 $zforest = "corp"
 
@@ -119,18 +137,20 @@ To verify the variables use the command:
 Get-Variable | Out-String
 ```
 
-#### <a name='Handlingconsoleerrors'></a>Handling console errors
+#### <a name='no-errors'></a>no-errors
+
+Handling console errors
 ```powershell
 $ErrorActionPreference = 'SilentlyContinue' # hide errors on out console
 $ErrorActionPreference = 'Continue' # set back the display of the errors
 ```
 
-#### <a name='BypassAMSI'></a>Bypass AMSI 
+#### <a name='bypass-amsi'></a>bypass-amsi
 - [amsi.fails](https://amsi.fails)
 - [S3cur3Th1sSh1t](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
 - [notes.offsec-journey.com](https://notes.offsec-journey.com/evasion/amsi-bypass)
 
-### <a name='RunningBloodhound'></a>Running Bloodhound 
+### <a name='run-bloodhound'></a>run-bloodhound 
 ```powershell
 # Path for VM Mandiant Commando
 # Start the Neo4J database
@@ -153,15 +173,6 @@ Refresh sessions:
 ```
 :link: Check the **readthedocs of sharphound** to [refresh the sessions](https://bloodhound.readthedocs.io/en/latest/data-collection/sharphound.html#the-session-loop-collection-method).
 
-## <a name='enum'></a>enum
-
-Data Enumeration:
-
-Commands below inspired more various [cheatsheets](/sysadmin/win-ad-sec-awesome/#OffensivePowershell).
-
-**CAUTION: WORK IN PROGRESS HERE!**
-
-![Enumeration Strategy](/assets/images/ad_enum_strat.png)
 
 ## <a name='shoot'></a>shoot
 

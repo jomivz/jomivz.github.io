@@ -13,7 +13,10 @@ permalink: /pen/discov-ad-lin
 **Menu**
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
-	* [Setting variables for copy/paste](#Settingvariablesforcopypaste)
+	* [install](#install)
+	* [env](#env)
+* [collect](#collect)
+	* [adexplorersnapshot](#adexplorersnapshot)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
@@ -50,25 +53,30 @@ permalink: /pen/discov-ad-lin
 
 PRE-REQUISITE:
 
-### <a name='Settingvariablesforcopypaste'></a>Setting variables for copy/paste
+### <a name='install'></a>install
 
-Example of ```env.sh``` file :
+- [bloodhound](https://bloodhound.readthedocs.io/en/latest/installation/linux.html)
+- [ADExplorerSnapshot.py](https://github.com/c3c/ADExplorerSnapshot.py)
+
+### <a name='env'></a>env
+
+Setting variables for copy/paste. Example of ```env.sh``` file :
 ```bash
 #!/bin/bash
 export zforest="com"
 export zdom="contoso"
-export zdom_fqdn=$zdom+"."+$zforest
+export zdom_fqdn=$zdom"."$zforest
 export zdom_dn="DC=contoso,DC=com"
 export zdom_dc="DC001"
-export zdom_dc_fqdn=$zdom_dc+"."+$zdom_fqdn
-export zdom_dc_san=$zdom_dc+"$"
+export zdom_dc_fqdn=$zdom_dc"."$zdom_fqdn
+export zdom_dc_san=$zdom_dc"$"
 export zdom_dc_ip="1.2.3.4"
 export ztarg_computer="PC001"
-export ztarg_computer_fqdn=$ztarg_computer+"."+$zdom_fqdn
-export ztarg_computer_san=$ztarg_computer+"$"
+export ztarg_computer_fqdn=$ztarg_computer"."$zdom_fqdn
+export ztarg_computer_san=$ztarg_computer"$"
 export ztarg_computer_ip=""
 export ztarg_user_name="xxx"
-export ztarg_ou="OU=xxx,"+$zdom_dn
+export ztarg_ou="OU=xxx,"$zdom_dn
 ```
 
 To set / verify the variables use the command:
@@ -77,8 +85,18 @@ To set / verify the variables use the command:
 . ./env.sh
 
 #verify the envs
-env | sort
+set
 ```
+## <a name='collect'></a>collect
+
+### <a name='adexplorersnapshot'></a>adexplorersnapshot
+
+* Convert ADExplorer snapshot to Bloodhound json files:
+```
+mkdir $zdom_dc_fqdn
+ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
+```
+
 
 ## <a name='shoot'></a>shoot
 
@@ -92,7 +110,7 @@ Forest properties:
 pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip
 
 # Enum domains and trusts: V2
-rpcclient -U $ztarg_user_name $ztarg_computer_ip  
+rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
 rpcclient> enumdomains
 rpcclient> enumtrusts
 
@@ -116,7 +134,7 @@ Domain properties:
 
 ```sh
 # Identify the DC / DHCP services 
-nmap --script broadcast-dhcp-discover
+nmap $zdom_fqdn --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
 dig -t SRV _gc._tcp.$zdom_fqdn
@@ -124,7 +142,7 @@ dig -t SRV _ldap._tcp.$zdom_fqdn
 dig -t SRV _kerberos._tcp.$zdom_fqdn
 dig -t SRV _kpasswd._tcp.$zdom_fqdn
 
-nmap --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
+nmap $zdom_fqdn --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
 
 nbtscan -r 10.0.0.0/24
 ```
@@ -132,7 +150,7 @@ nbtscan -r 10.0.0.0/24
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
 # Get the domain pasword policy
-rpcclient -U "johndoe" 10.1.1.1
+rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
 rpcclient> getdompwinfo
 ```
 
@@ -144,12 +162,12 @@ Easy enumeration with **Impacket\FindDelegation.py**:
 
 ```bash
 # with password in the CLI
-$zz = $zdom_fqdn + '/' + $ztarg_user_name + ':' + $ztarg_user_pass
-.\findDelegation.py  $zz
+zz=$zdom_fqdn'/'$ztarg_user_name':'$ztarg_user_pass 
+findDelegation.py  $zz -dc-ip $zdom_dc_ip
 
 # with kerberos auth / password not in the CLI
-$zz = $zdom_fqdn + '/' + $ztarg_user_name
-.\findDelegation.py  $zz -k -no-pass
+zz=$zdom_fqdn'/'$ztarg_user_name'
+findDelegation.py  $zz -k -no-pass
 ```
 
 References :

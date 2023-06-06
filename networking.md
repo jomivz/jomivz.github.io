@@ -1,8 +1,8 @@
 ---
 layout: category
 title: Networking
-category: Networking
-parent: Cheatsheets
+category: networking
+parent: cheatsheets
 nav_order: 2
 permalink: /net
 ---

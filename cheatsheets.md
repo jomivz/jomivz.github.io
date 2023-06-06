@@ -2,7 +2,9 @@
 layout: post
 title: Yet Cyber Cheatsheets
 nav_order: 5
-permalink: /cheatsheets/
+permalink: /cheatsheets
+category: cheatsheets
+has_children: true
 ---
 
 ## #yet 🖱 #cyber 🔫 #cheatsheets ↩️

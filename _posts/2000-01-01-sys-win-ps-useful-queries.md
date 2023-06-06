@@ -4,41 +4,46 @@ title:  Sysadmin WIN Powershell - Useful queries
 category: Sysadmin
 parent: Sysadmin
 grand_parent: Cheatsheets
-modified_date: 2022-08-29
+modified_date: 2023-06-05
 permalink: /sys/powershell
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [PSCredential initialization](#PSCredentialinitialization)
-* 2. [PSSession & Invoke-Command](#PSSessionInvoke-Command)
-* 3. [SMB File sharing](#SMBFilesharing)
-* 4. [CRUD in Registry Keys](#CRUDinRegistryKeys)
-* 5. [CRUD MAC addresses](#CRUDMACaddresses)
-* 6. [Search for Hotfix](#SearchforHotfix)
-* 7. [Search in ActiveDirectory](#SearchinActiveDirectory)
+* [pscredential](#pscredential)
+* [pssession](#pssession)
+* [transfer-smb](#transfer-smb)
+* [transfer-http](#transfer-http)
+* [transfer-ftp](#transfer-ftp)
+* [crud-reg](#crud-reg)
+* [crud-mac](#crud-mac)
+* [get-hotfix](#get-hotfix)
+* [get-aduser](#get-aduser)
+* [get-adgroup](#get-adgroup)
+* [get-adcomputer](#get-adcomputer)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='PSCredentialinitialization'></a>PSCredential initialization
+## <a name='pscredential'></a>pscredential
+PSCredential initialization:
 ```powershell
 $zdom = "contoso"
-$zlat_user = "john_doe"
-$zlat_pass = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
-$zlat_login = $zdom + "\" + $zlat_user
-$zlat_creds = New-Object System.Management.Automation.PSCredential($zlat_login,$zlat_pass)
+$ztarg_user_name = "john_doe"
+$ztarg_user_pass = "PASSWORD" | ConvertTo-SecureString -AsPlainText -Force
+$ztarg_login = $zdom + "\" + $zlat_user
+$ztarg_creds = New-Object System.Management.Automation.PSCredential($ztarg_user_login,$ztarg_user_pass)
 ```
 
-##  2. <a name='PSSessionInvoke-Command'></a>PSSession & Invoke-Command 
+## <a name='pssession'></a>pssession
 
 !!! Verify [WinRM is running](/sysadmin/sys-win-cli/#activatePSRemoting) !!!
 
 ```powershell
 # create and enter a session
-$zs = New-PSSession -ComputerName $ztarg_computer_fqdn -Credential $zlat_creds
+$zs = New-PSSession -ComputerName $ztarg_computer_fqdn -Credential $ztarg_creds
 Enter-PSSession -Session $zs
 
 # create sessions for many computers
@@ -56,12 +61,12 @@ Exit-PsSession
 Get-PSSession | Disconnect-PSSession 
 ```
 
-##  3. <a name='SMBFilesharing'></a>SMB File sharing
+## <a name='transfer-smb'></a>transfer-smb
 ```powershell
 
 # STEP 1: create a smb share on the remote machine
 $zshare = "hope"
-$zcmd = 'New-SmbShare -name ' + $zshare + ' -path "c:\windows\temp" -FullAccess ' + $zlat_login
+$zcmd = 'New-SmbShare -name ' + $zshare + ' -path "c:\windows\temp" -FullAccess ' + $ztarg_login
 $zsb = [scriptblock]::create($zcmd)
 Invoke-Command -Session $zs -ScriptBlock $zsb
 
@@ -86,7 +91,20 @@ $zsb = [scriptblock]::create($zcmd)
 Invoke-Command -Session $zs -ScriptBlock $zsb
 ```
 
-##  4. <a name='CRUDinRegistryKeys'></a>CRUD in Registry Keys 
+[Yesterday 1:41 PM] MICHEL-VILLAZ Jonathan 
+
+## <a name='transfer-http'></a>transfer-http
+```
+Invoke-RestMethod -Uri $uri -Method Post -InFile $uploadPath -UseDefaultCredentials
+$wc = New-Object System.Net.WebClient
+$resp = $wc.UploadFile($uri,$uploadPath)
+```
+
+## <a name='transfer-ftp'></a>transfer-ftp
+
+* [transfer-ftp](https://www.howtogeek.com/devops/how-to-upload-files-over-ftp-with-powershell/)
+
+## <a name='crud-reg'></a>crud-reg 
 ```powershell
 #? Listing registry hives
 get-psdrive -PSProvider registry
@@ -99,21 +117,21 @@ HKLM                                   Registry      HKEY_LOCAL_MACHINE
 #? Get registry key
 Get-ChildItem REGISTRY::HKEY_USERS | select name
 
-Name                                                                                                    ----                                                                                                           
-HKEY_USERS\.DEFAULT                                                                                                               
-HKEY_USERS\S-2-5-19                                                                                                               
-HKEY_USERS\S-2-5-20                                                                                                               
-HKEY_USERS\S-2-5-21-X-1125                                                                                                       
-HKEY_USERS\S-2-5-21-X-1125_Classes                                                                                               
-HKEY_USERS\S-2-5-21-X-1126                                                                                                       
-HKEY_USERS\S-2-5-21-X-1126_Classes                                                                                               
-HKEY_USERS\S-2-5-80-X                                                                                                                                                                                                        
-HKEY_USERS\S-2-5-80-X_Classes                                                                                                                                                                                                                                                                                              
-HKEY_USERS\S-2-5-18             
+Name                                                                                                    ----                                                                                                    HKEY_USERS\.DEFAULT  
+HKEY_USERS\S-2-5-19                                                                                     
+HKEY_USERS\S-2-5-20                          
+HKEY_USERS\S-2-5-21-X-1125
+HKEY_USERS\S-2-5-21-X-1125_Classes
+HKEY_USERS\S-2-5-21-X-1126
+HKEY_USERS\S-2-5-21-X-1126_Classes
+HKEY_USERS\S-2-5-80-X
+HKEY_USERS\S-2-5-80-X_Classes
+HKEY_USERS\S-2-5-18           
 
 dir HKLM:\system\CurrentControlSet\Control\hivelist*
 ```
-##  5. <a name='CRUDMACaddresses'></a>CRUD MAC addresses
+
+## <a name='crud-mac'></a>crud-mac
 ```powershell
 #? Get the MAC address of the first network adapter
 get-item "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000"
@@ -127,17 +145,14 @@ $thenic.disable()
 $thenic.enable()
 
 #? Set the network adapter MAC address
-set-itemproperty -path "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000" -name MACAddress -value 
-
+set-itemproperty -path "hklm:\system\CurrentControlSet\control\class\{4D36E972-E325-11CE-BFC1-08002BE10318}\0000" -name MACAddress -value
 ```
  
-##  6. <a name='SearchforHotfix'></a>Search for Hotfix 
+## <a name='get-hotfix'></a>get-hotfix 
 ```powershell
 #? Listing registry hives
-#? ...
 Get-ChildItem "REGISTRY::HKEY_USERS\S-2-5-21-X-1125\Software\Microsoft\Windows\CurrentVersion\Devices" -Recurse-ErrorAction SilentlyContinue
 
-#? ...
 PS C:\> Get-WmiObject Win31_UserProfile -filter 'special=False' | select localpath, SID
 
 localpath              SID
@@ -152,10 +167,7 @@ Get-HotFix
 (Get-HotFix -Description Security* | Sort-Object -Property InstalledOn)[-1,-2,-3]
 ```
 
-##  7. <a name='SearchinActiveDirectory'></a>Search in ActiveDirectory
-
-For Offensive AD enumeration, refer to ()[]. 
-
+## <a name='get-aduser'></a>get-aduser
 ```powershell
 #? Installing telnet clients 	
 Import-module servermanager
@@ -165,26 +177,31 @@ Import-module servermanager
 Import-module ActiveDirectory
 
 #? Listing User Groups
-Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf 
-
-#? Listing Group Members
-Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member 
+Get-ADuser $ztarg_user_name -Property * | Select-Object -ExpandProperty MemberOf 
 
 #? PasswordLastSet
-Get-ADUser 'x123455' -properties PasswordLastSet | Format-List
+Get-ADUser $ztarg_user_name -properties PasswordLastSet | Format-List
 
 #? Matching Group Name for USB
-Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL'
+Get-ADuser $ztarg_user_name -Property * | Select-Object -ExpandProperty MemberOf | findstr 'DEVICECONTROL'
 
 #? Matching Group Name for DA
-Get-ADuser x123455 -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins'
+Get-ADuser $ztarg_user_name -Property * | Select-Object -ExpandProperty MemberOf | findstr 'Domain Admins'
+```
 
+## <a name='get-adgroup'></a>get-adgroup
+```powershell
 #? Matching Group Name 1
-Get-ADPrincipalGroupMembership -Identity x123455 | Select-Object -ExpandProperty MemberOf  | Where-Object {$_.name -like '*DEVICECONTROL*' } 		
+Get-ADPrincipalGroupMembership -Identity $ztarg_user_name | Select-Object -ExpandProperty MemberOf  | Where-Object {$_.name -like '*DEVICECONTROL*' } 		
 
-#? Listing Computer Info
+Get-ADGroup EMEA-PXY-Web-ReadWrite -Property * | Select-Object -ExpandProperty Member 
+```
+
+## <a name='get-adcomputer'></a>get-adcomputer
+```powershell
+# Listing Computer Info
 Get-ADComputer -Filter {Name -Like "dell-xps*"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemServicePack,OperatingSystemVersion -Wrap -Auto
 
-#? Listing Win > 5.1
+# Listing Win > 5.1
 Get-ADComputer -Filter {OperatingSystemVersion -ge "5.1"} -Property * | Format-Table Name,OperatingSystem,OperatingSystemVersion -Wrap -Auto
 ```

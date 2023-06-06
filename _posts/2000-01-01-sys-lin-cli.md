@@ -12,7 +12,6 @@ permalink: /sys/lin
 	* [get-os](#get-os)
 	* [get-kb](#get-kb)
 	* [get-netconf](#get-netconf)
-	* [get-vpn](#get-vpn)
 	* [get-shares](#get-shares)
 	* [get-users](#get-users)
 	* [get-processes](#get-processes)
@@ -26,6 +25,7 @@ permalink: /sys/lin
 * [tamper](#tamper)
 	* [add-account](#add-account)
 	* [set-netconf](#set-netconf)
+	* [set-vpn](#set-vpn)
 	* [set-rdp](#set-rdp)
 	* [unset-fw](#unset-fw)
 	* [clean-history](#clean-history)
@@ -45,21 +45,19 @@ permalink: /sys/lin
 ### <a name='get-os'></a>get-os
 ### <a name='get-kb'></a>get-kb
 ### <a name='get-netconf'></a>get-netconf
-### <a name='get-vpn'></a>get-vpn
-``` 
-cd /etc/openvpn
-# run the vpn
-sudo openvpn --config xxx.opvn
-
-# check the public ip while using the vpn 
-watch curl https://api.myip.com
-```
 ### <a name='get-shares'></a>get-shares
 ### <a name='get-users'></a>get-users
 ### <a name='get-processes'></a>get-processes
 ### <a name='get-services'></a>get-services
 ### <a name='get-sessions'></a>get-sessions
+```
+w
+```
+
 ### <a name='last-sessions'></a>last-sessions
+```
+last | grep -v 00:
+```
 
 ## <a name='enum-sec'></a>enum-sec
 
@@ -96,9 +94,18 @@ sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
 sudo ifconfig eth0 up
 ```
 
+### <a name='set-vpn'></a>set-vpn
+``` 
+cd /etc/openvpn
+# run the vpn
+sudo openvpn --config xxx.opvn
+
+# check the public ip while using the vpn 
+watch curl https://api.myip.com
+```
+
 ### <a name='set-rdp'></a>set-rdp
-	* [set-winrm](#set-winrm)
-	* [set-smbv1](#set-smbv1)
+
 ### <a name='unset-fw'></a>unset-fw
 
 ### <a name='clean-history'></a>clean-history

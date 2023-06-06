@@ -1,8 +1,8 @@
 ---
 layout: category
 title: Sysadmin
-category: Sysadmin
-parent: Cheatsheets
+category: sysadmin
+parent: cheatsheets
 nav_order: 1
 permalink: /sys
 ---
