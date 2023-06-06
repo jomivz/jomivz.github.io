@@ -14,11 +14,11 @@ has_children: true
 {% assign categories_list = site.categories %}
   {% if categories_list.first[0] == null %}
     {% for category in categories_list %}
-      <li><a href="{{ category | downcase | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category | camelcase }} ({{ site.tags[category].size}})</a></li>
+      <li><a href="{{ category | downcase | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category | camelcase }} ({{ site.tags[category].size}}) aa</a></li>
     {% endfor %}
   {% else %}
     {% for category in categories_list %}
-      <li><a href="{{ category[0] | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase }} ({{ category[1].size }})</a></li>
+      <li><a href="{{ category[1] | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase }} ({{ category[1].size }}) bb</a></li>
   {% endfor %}
 {% endif %}
 {% assign categories_list = nil %}
