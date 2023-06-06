@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0005 Defense Evasion - EDR
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: cheatsheets
 modified_date: 2023-06-02
 permalink: /pen/defeva-edr
 ---

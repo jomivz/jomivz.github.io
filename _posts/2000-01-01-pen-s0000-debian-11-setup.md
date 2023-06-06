@@ -1,11 +1,9 @@
 ---
 layout: post
 title: Setup Debian 11 
-category: Pentesting
-parent: Pentesting
-grand_parent: Cheatsheets
+category: pen
 modified_date: 2022-12-09
-permalink: /:categories/:title/
+permalink: /:category/:title/
 ---
 
 <!-- vscode-markdown-toc -->

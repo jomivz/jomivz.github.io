@@ -1,9 +1,7 @@
 ---
 layout: post
 title: TA0007 Discovery - AD Collection & Enumeration with Linux
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
 modified_date: 2023-06-05
 permalink: /pen/discov-ad-lin
 ---

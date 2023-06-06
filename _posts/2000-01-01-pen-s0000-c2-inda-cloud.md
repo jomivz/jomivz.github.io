@@ -1,9 +1,7 @@
 ---
 layout: post
 title: C2 inda Cloud
-category: Pentesting
-parent: Pentesting
-grand_parent: Cheatsheets
+category: pen
 modified_date: 2022-08-16
 permalink: /pen/c2-inda-cloud
 ---

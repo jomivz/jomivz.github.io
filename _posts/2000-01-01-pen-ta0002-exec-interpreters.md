@@ -1,9 +1,7 @@
 ---
 layout: post
 title: TA0002 Execution
-category: Pentesting
-parent: Pentesting
-grand_parent: Cheatsheets
+category: pen
 modified_date: 2023-06-02
 permalink: /pen/exec
 ---
