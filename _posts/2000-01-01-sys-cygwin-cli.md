@@ -3,7 +3,6 @@ layout: post
 title: Sysadmin CygWin CLI
 category: sys
 parent: sys
-
 modified_date: 2023-06-04
 permalink: /sys/cygwin
 ---
