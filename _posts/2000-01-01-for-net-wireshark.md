@@ -1,9 +1,8 @@
 ---
 layout: post
 title: NET WIRESHARK forensics
-category: Forensics
-parent: Forensics
-grand_parent: Cheatsheets
+category: for
+parent: for
 modified_date: 2021-02-06
 permalink: /for/wireshark
 ---

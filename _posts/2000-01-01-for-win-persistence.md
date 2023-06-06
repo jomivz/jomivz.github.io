@@ -1,9 +1,8 @@
 ---
 layout: post
 title: FOR Windows Persistence
-category: Forensics
-parent: Forensics
-grand_parent: Cheatsheets
+category: for
+parent: for
 modified_date: 2023-01-04
 permalink: /:categories/:title/
 ---

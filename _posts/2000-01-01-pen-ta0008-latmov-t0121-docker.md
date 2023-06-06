@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0008 Lateral Movement - T1021 Docker
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2023-02-14
 permalink: /pen/latmov-docker
 ---

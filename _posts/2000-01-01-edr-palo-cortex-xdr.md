@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Palo Alto Cortex XDR
-parent: EDR
-category: EDR
-grand_parent: Cheatsheets
+parent: edr
+category: edr
 modified_date: 2023-06-03
 permalink: /edr/xdr
 ---

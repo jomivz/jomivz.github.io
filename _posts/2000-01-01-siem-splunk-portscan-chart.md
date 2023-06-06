@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Splunk Visualization - Network Port Scanning
-category: SIEM
-parent: SIEM
-grand_parent: Cheatsheets
+category: siem
+parent: siem
 modified_date: 2021-03-02
 permalink: /siem/splunk-viz-portscan
 ---

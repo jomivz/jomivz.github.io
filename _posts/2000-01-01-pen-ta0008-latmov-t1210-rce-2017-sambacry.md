@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0008 Lateral Movement - T1210 RCE 2017 - Sambacry
-category: Pentesting
-parent: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2022-02-15
 permalink: /:categories/:title/
 ---

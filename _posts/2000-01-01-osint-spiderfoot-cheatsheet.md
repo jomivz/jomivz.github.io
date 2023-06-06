@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Spiderfoot Cheatsheet 
-parent: OSINT
-category: OSINT
-grand_parent: Cheatsheets
+parent: osint
+category: osint
 modified_date: 2021-12-08
 permalink: /:categories/:title/
 ---

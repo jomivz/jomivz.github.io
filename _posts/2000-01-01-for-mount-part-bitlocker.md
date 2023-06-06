@@ -1,9 +1,8 @@
 ---
 layout: post
 title: SYS Mounting bitlocker partition
-category: Forensics
-parent: Forensics
-grand_parent: Cheatsheets
+category: for
+parent: for
 modified_date: 2021-02-06
 permalink: /:categories/:title/
 ---

@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Pfsense cheatsheet
-category: Networking
-parent: Networking
-grand_parent: Cheatsheets
+category: net
+parent: net
 modified_date: 2021-02-06
 permalink: /:categories/:title/
 ---

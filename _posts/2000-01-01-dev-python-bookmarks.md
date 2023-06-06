@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Python Snippets & Libraries
-category: Development
-parent: Development
-grand_parent: Cheatsheets
+category: dev
+parent: dev
 modified_date: 2022-09-22
 permalink: /dev/python
 ---

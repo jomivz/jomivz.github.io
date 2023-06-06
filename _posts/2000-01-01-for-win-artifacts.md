@@ -1,10 +1,8 @@
 ---
 layout: post
 title: FOR Windows Artifacts
-parent: Forensics
-category: Forensics
-grand_parent: Cheatsheets
-has_children: true
+parent: for
+category: for
 modified_date: 2023-01-04
 permalink: /:categories/:title/
 ---

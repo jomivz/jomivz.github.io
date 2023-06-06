@@ -1,9 +1,8 @@
 ---
 layout: post
 title: IPTABLES cheatsheet
-parent: Networking
-category: Networking
-grand_parent: Cheatsheets
+parent: net
+category: net
 modified_date: 2021-11-18
 permalink: /:categories/:title/
 ---

@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0007 Discovery - AD Collection & Enumeration
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2023-06-03
 permalink: /pen/discov-ad-win
 ---

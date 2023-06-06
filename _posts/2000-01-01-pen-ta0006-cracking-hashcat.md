@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0006 Credentials Access - Cracking with Hashcat
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2023-06-02
 permalink: /pen/hashcat
 ---

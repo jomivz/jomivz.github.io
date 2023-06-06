@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0006 Credentials Access - Windows
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2023-03-13
 permalink: /pen/credsaccess-win
 ---

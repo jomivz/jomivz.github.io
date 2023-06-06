@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Splunk queries by user
-category: SIEM
-parent: SIEM
-grand_parent: Cheatsheets
+category: siem
+parent: siem 
 modified_date: 2021-02-05
 permalink: /siem/splunk-misc-user
 ---

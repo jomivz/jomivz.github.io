@@ -1,9 +1,8 @@
 ---
 layout: post
 title: GIT Cheatsheet
-category: Development
-parent: Development
-grand_parent: Cheatsheets  
+category: dev
+parent: dev
 modified_date: 2021-11-19
 permalink: /dev/git
 ---

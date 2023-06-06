@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0005 Defense Evasion - EDR - XDR v7.9.1
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2023-06-05
 permalink: /pen/defeva-lin-xdr-v791
 ---

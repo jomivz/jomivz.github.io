@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0008 Lateral Movement - T1210 RCE 2021 - Log4J VCenter
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2022-02-14
 permalink: /:categories/:title/
 ---

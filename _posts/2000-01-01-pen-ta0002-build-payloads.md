@@ -2,6 +2,7 @@
 layout: post
 title: TA0002 Execution
 category: pen
+parent: pen
 modified_date: 2022-02-15
 permalink: /pen/build-payload
 ---

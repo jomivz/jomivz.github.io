@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Awesome AD Security
-category: Sysadmin
-parent: Sysadmin
-grand_parent: Cheatsheets  
+category: sys
+parent: sys
+
 modified_date: 2022-08-12
 permalink: /awesome-ad
 ---

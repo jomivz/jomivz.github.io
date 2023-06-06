@@ -2,6 +2,7 @@
 layout: post
 title: Setup Debian 11 
 category: pen
+parent: pen
 modified_date: 2022-12-09
 permalink: /:category/:title/
 ---

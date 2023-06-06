@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Windows Defender queries 
-parent: EDR
-category: EDR
-grand_parent: Cheatsheets
+parent: edr
+category: edr
 modified_date: 2022-12-07
 permalink: /:categories/:title/
 ---

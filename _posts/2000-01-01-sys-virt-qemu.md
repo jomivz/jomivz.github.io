@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
-category: Sysadmin
-parent: Sysadmin
-grand_parent: Cheatsheets  
+category: sys
+parent: sys
+
 modified_date: 2021-08-31
 permalink: /:categories/:title/
 ---

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Sysadmin VIRT Docker - Administration Cookbook
-category: Sysadmin
-parent: Sysadmin
-grand_parent: Cheatsheets
+category: sys
+parent: sys
+
 modified_date: 2023-03-27
 permalink: /:categories/:title/
 ---

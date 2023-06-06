@@ -2,6 +2,7 @@
 layout: post
 title: TA0007 Discovery - AD Collection & Enumeration with Linux
 category: pen
+parent: pen
 modified_date: 2023-06-05
 permalink: /pen/discov-ad-lin
 ---

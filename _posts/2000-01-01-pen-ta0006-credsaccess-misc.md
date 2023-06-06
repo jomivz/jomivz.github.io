@@ -1,9 +1,8 @@
 ---
 layout: post
 title: TA0006 Credentials Access - Miscellaneous
-parent: Pentesting
-category: Pentesting
-grand_parent: Cheatsheets
+category: pen
+parent: pen
 modified_date: 2022-12-12
 permalink: /pen/credsaccess-misc
 ---
