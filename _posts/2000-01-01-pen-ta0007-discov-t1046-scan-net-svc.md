@@ -3,7 +3,7 @@ layout: post
 title: TA0007 Discovery - T1046 Network scanning
 category: pen
 parent: cheatsheets
-modified_date: 2023-03-23
+modified_date: 2023-06-07
 permalink: /pen/scan-net
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
@@ -15,18 +15,21 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [Administrative Services](#AdministrativeServices)
+* [adm-svc](#adm-svc)
 * [WinRM / SMB / RPC](#WinRMSMBRPC)
-	* [WinRM](#WinRM)
-	* [SMBv2: SIGNING NOT REQUIRED](#SMBv2:SIGNINGNOTREQUIRED)
-* [ARP / ICMP / DNS](#ARPICMPDNS)
-* [TCP/UDP w/ NMAP](#TCPUDPwNMAP)
+	* [winrm](#winrm)
+	* [smb](#smb)
+* [icmp](#icmp)
+* [tcp](#tcp)
+* [udp](#udp)
+* [theory](#theory)
 	* [NMAP Note 0 : Default Behavior](#NMAPNote0:DefaultBehavior)
 	* [NMAP Note 1 : UDP conns](#NMAPNote1:UDPconns)
 	* [NMAP Note 2 : TCP conns](#NMAPNote2:TCPconns)
 	* [NMAP Note 3 : NSE scripts](#NMAPNote3:NSEscripts)
 	* [NMAP Note 4 : Firewall evasion](#NMAPNote4:Firewallevasion)
-* [References](#References)
+	* [mindmap](#mindmap)
+* [sources](#sources)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -34,17 +37,19 @@ tags: discovery scan nmap TA0007 T1595 T1046
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='AdministrativeServices'></a>Administrative Services
+## <a name='adm-svc'></a>loots
+
+Administrative Services:
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 
-## <a name='WinRMSMBRPC'></a>WinRM / SMB / RPC
-
-### <a name='WinRM'></a>WinRM
+## <a name='winrm'></a>winrm
 
 - [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
 
-### <a name='SMBv2:SIGNINGNOTREQUIRED'></a>SMBv2: SIGNING NOT REQUIRED
+## <a name='smb'></a>smb
+
+SMBv2: SIGNING NOT REQUIRED
 ```sh
 # STEP 1: find smb not signed
 nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
@@ -54,7 +59,7 @@ grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -
 python3 ntlmrelayx.py -tf targets.txt -smb2support
 ```
 
-## <a name='ARPICMPDNS'></a>ARP / ICMP / DNS
+## <a name='icmp'></a>icmp
 
 **use-case**: discovering IP assets over a subnet.
 ```sh
@@ -73,27 +78,39 @@ fping -g 192.168.1.0/24
 nmap -PEPM -sP -n -oA hosts_up 192.168.1.0/24 
 ```
 
-## <a name='TCPUDPwNMAP'></a>TCP/UDP w/ NMAP 
+## <a name='tcp'></a>tcp
+
+TCP/UDP w/ NMAP :
 
 **use-case**: discovering services for assets into the input file ```hosts_up```.
 ```sh
 #? memo pentesting discovery nmap
 
 #? NMAP TCP SYN/Top 100 ports scan
-nmap -F -sS -Pn -iL hosts_up -oA nmap_tcp_fastscan 192.168.0.0/24
+nmap -F -sS -Pn -oA nmap_tcp_fastscan 192.168.0.0/24
+nmap -F -sS -Pn -oA nmap_tcp_fastscan -iL hosts_up
 
 #? NMAP TCP SYN/Version scan on all port
-sudo nmap -sV -Pn -p0- -T4 -A --stats-every 60s -iL hosts_up --reason -oA nmap_tcp_fullscan 192.168.0.0/24
+sudo nmap -sV -Pn -p0- -T4 -A --stats-every 60s --reason -oA nmap_tcp_fullscan 192.168.0.0/24
+sudo nmap -sV -Pn -p0- -T4 -A --stats-every 60s --reason -oA nmap_tcp_fullscan -iL hosts_up
+```
 
-#? NMAP UDP/Fast Scan
-nmap -F -sU -Pn -iL hosts_up -oA nmap_udp_fastscan 192.168.0.0/24
+## <a name='udp'></a>udp
+```
+# NMAP UDP/Fast Scan
+nmap -F -sU -Pn -oA nmap_udp_fastscan 192.168.0.0/24
+nmap -F -sU -Pn -oA nmap_udp_fastscan -iL hosts_up
 
 #? NMAP UDP/Top 1000 ports scan
-nmap -sU -Pn -iL hosts_up -oA nmap_udp_top1000_scan 192.168.0.0/24
+nmap -sU -Pn -oA nmap_udp_top1000_scan 192.168.0.0/24
+nmap -sU -Pn -oA nmap_udp_top1000_scan -iL hosts_up
 
 #? NMAP UDP scan on all port scan
-sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -iL hosts_up -oA nmap_udp_fullscan 192.168.0.0/24
+sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan 192.168.0.0/24
+sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan -iL hosts_up
 ```
+
+## <a name='theory'></a>theory
 
 ### <a name='NMAPNote0:DefaultBehavior'></a>NMAP Note 0 : Default Behavior 
 
@@ -136,7 +153,7 @@ NMAP uses the following options for NSE scripts :
 
 You may refer to the [nmap.org firewall evasion](https://nmap.org/book/man-bypass-firewalls-ids.html) page for futher information.
 
-### <a name='References'></a>Mindmaps
+### <a name='mindmap'></a>mindmap
 
 ![NMAP Cheatsheet](/assets/images/pen-ta0007-discov-t1046-scan-net-svc-nmap.png)
 Image credit: [Ignitetechnologies Mindmaps](https://github.com/Ignitetechnologies/Mindmap)
@@ -144,6 +161,6 @@ Image credit: [Ignitetechnologies Mindmaps](https://github.com/Ignitetechnologie
 ![NMAP Cheatsheet](/assets/images/pen-discov-nmap-cheatsheet.jpg)
 Image credit: Mohamed M. Aly
 
-## <a name='References'></a>References
+## <a name='sources'></a>sources
 
 > * [NMAP SANS cheatsheet](https://jmvwork.xyz/docs/purple/TA0007/discovery_network_nmap_cheatsheet_sans.pdf)

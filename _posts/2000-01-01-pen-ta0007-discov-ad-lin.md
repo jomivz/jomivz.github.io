@@ -106,7 +106,8 @@ SHOOT General Properties :
 Forest properties:
 ```sh
 # Enum domains and trusts: V1
-pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip
+pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip > pt_xxx_get-netdomaintrust.txt
+grep "trustpartner" pt_xxx_get-netdomaintrust.txt | cut -d" " -f5
 
 # Enum domains and trusts: V2
 rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
@@ -219,21 +220,22 @@ GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -r
 User groups:
 ```bash
 # Get user info
-python pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --username $ztarg_user_name> pt_xxx_getnetuser_x.txt
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX > pt_xxx_getnetuser_x.txt
 
 # Get user info + canarytoken check
 # select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount
+egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" pt_xxx_getnetuser_x.txt
 
 # Get user memberof info
-python pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --username $ztarg_user| grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
+pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX | grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
 
 # Get the machine's full-data
-python pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd --dc-ip $zdom_dc_ip --computername --full-data | grep 
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > pt_xxx_getnetcomputer_xxx.txt
 
 # Get the machines based on an adspath / OU
 ztarg_ou = "OU=Workstations,DC=CONTOSO,DC=COM"
 ztarg_adspath = "ldap://" + $ztarg_ou
-python pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_pwd -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
 ```
 
 ### <a name='iter-scope'></a>iter-scope

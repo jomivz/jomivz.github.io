@@ -28,11 +28,21 @@ permalink: /pen/hashcat
 * [/pen/discov-ad-lin#shoot-npusers](/pen/discov-ad-win#shoot-spns)
 * [/pen/discov-ad-]()
 
+```
+# from impacket / get-spnusers
+while read line; do echo $line | grep "^\$krb5tgs" >> hashes.txt ; done < tgs.txt
+```
+
 ## <a name='run'></a>run
 
 ```
-# crack NT hashes
-hashcat -m 1000 hashes.txt dict.txt --status-timer 10 | tee -a output.txt
+# crack NT hashes from NTDS.dit
+hashcat -m 1000 hashes.txt rockyou.txt --status-timer 10 | tee -a output.txt
+
+# crack RC4 hashes from TGS
+hashcat -m 13100 hashes.txt rockyou.txt --status-timer 10 | tee -a output.txt
+cat /home/$LOGNAME/.local/share/hashcat/hashcat.potfile | sed 's/.*\/\(.*\)\*.*:\(.*\)/\1:\2/'
+toto:toto1234
 ```
 
 ## <a name='potfiles'></a>potfiles

@@ -8,16 +8,15 @@ permalink: /dev/git
 ---
 
 <!-- vscode-markdown-toc -->
-* [Generate SSH keypair](#GenerateSSHkeypair)
-* [Introduction](#Introduction)
-* [Configure git settings](#Configuregitsettings)
+* [intro](#intro)
+* [config](#config)
+* [ignore](#ignore)
+* [log](#log)
+* [branch](#branch)
+* [push](#push)
+* [rm](#rm)
+* [checkout](#checkout)
 * [Working with repos](#Workingwithrepos)
-* [Ignoring content](#Ignoringcontent)
-* [Logging](#Logging)
-* [Branches](#Branches)
-* [Pushes and Merges](#PushesandMerges)
-* [Cleaning repo](#Cleaningrepo)
-* [Rollback on files](#Rollbackonfiles)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -28,7 +27,7 @@ permalink: /dev/git
 First if something missing here, [Atlassian GIT tutorials](https://www.atlassian.com/fr/git/tutorials).
 
 !! DRAFT HERE !!
-## <a name='Introduction'></a>Introduction
+## <a name='intro'></a>intro
 Git is a source control tool created by Linus Torvald.
 Simply stated, git manage snapshots, checksums, and metadata to track of changes in files.
 
@@ -38,7 +37,9 @@ Some basics terminology:
 - commits are affiliated with repositories and branches
 - the HEAD may be moved between commits
 
-## <a name='Configuregitsettings'></a>Configure git settings
+## <a name='config'></a>config
+
+* Configure git settings
 ```
 #? getting-start git
 
@@ -51,20 +52,119 @@ git config --global core.excludesfile <path>
 
 ```
 
-### git config file
-#
+* Config file :
 Alternatively, assign system-wide configuration in the config files:
 - /etc/gitconfig which correspond to --system
 - ~/.gitconfig or ~/.config/git/config whci correspond to --global
 - .git/config in a directory which correspond to --local 
 Note: Files lower in the list override higher files.
-#
-## git config file - format
+
+* Config file format :
 ```
 [user]
 	name = john smith
 	email = john@smith.fr
-#
+```
+
+
+
+## <a name='ignore'></a>ignore
+
+Ignoring content
+---------------------
+
+Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file:
+```
+*.o
+src/
+**.cache/
+**.jekyll-cache/
+```
+
+## <a name='log'></a>log
+
+Logging
+---------------------
+
+```
+git log --oneline
+```
+Look at logs for a particular file
+```
+git log -- <filename>
+git log --oneline <filename>
+```
+
+Look at logs in a graphical way
+```
+git log --graph --decorate
+```
+
+## <a name='branch'></a>branch
+
+Branches 
+---------------------
+
+Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch.
+
+Create a branch:
+```
+git branch foo
+```
+
+Begin working in a new branch:
+```
+git checkout foo
+```
+
+Do both at once
+```
+git checkout -b foo
+```
+
+## <a name='push'></a>push
+
+Pushes and Merges
+---------------------
+
+Push one or all branches to the origin:
+```
+git push origin <branchname>
+git push origin --all
+```
+
+Merge a branch with HEAD on the master branch:
+```
+git pull
+git checkout master
+git merge foo
+```
+
+## <a name='rm'></a>rm
+
+Cleaning repo 
+---------------------
+
+Steps to remove folder/directory only from git repository and not from the local  :
+
+```
+git rm -r --cached FolderName
+git commit -m "Removed folder from repository"
+git push origin master
+```
+
+## <a name='checkout'></a>checkout
+
+Rollback on files
+---------------------
+
+```
+#Interesting when file was erased / nothing functioning anymore
+git checkout -- file.txt
+
+#Case of loop erasing a folder
+for i in `ls`; echo "" > $i; done
+git checkout -- *
 ```
 
 ## <a name='Workingwithrepos'></a>Working with repos
@@ -98,91 +198,4 @@ git reset HEAD blob2.txt
 git rm -f blob2.txt
 git commit -m "some comments here"
 git push origin master
-```
-
-## <a name='Ignoringcontent'></a>Ignoring content
----------------------
-
-Binaries, compiled files might be not versionned. Disregard those files creating a ```.gitignore``` file:
-```
-*.o
-src/
-**.cache/
-**.jekyll-cache/
-```
-
-## <a name='Logging'></a>Logging
----------------------
-
-```
-git log --oneline
-```
-Look at logs for a particular file
-```
-git log -- <filename>
-git log --oneline <filename>
-```
-
-Look at logs in a graphical way
-```
-git log --graph --decorate
-```
-
-## <a name='Branches'></a>Branches 
----------------------
-
-Branches allows to create an effective copy of the master branch with a repository that worked with or without interfering with the master. This declutters the master branch.
-
-Create a branch:
-```
-git branch foo
-```
-
-Begin working in a new branch:
-```
-git checkout foo
-```
-
-Do both at once
-```
-git checkout -b foo
-```
-
-## <a name='PushesandMerges'></a>Pushes and Merges
----------------------
-
-Push one or all branches to the origin:
-```
-git push origin <branchname>
-git push origin --all
-```
-
-Merge a branch with HEAD on the master branch:
-```
-git pull
-git checkout master
-git merge foo
-```
-
-## <a name='Cleaningrepo'></a>Cleaning repo 
----------------------
-
-Steps to remove folder/directory only from git repository and not from the local  :
-
-```
-git rm -r --cached FolderName
-git commit -m "Removed folder from repository"
-git push origin master
-```
-
-## <a name='Rollbackonfiles'></a>Rollback on files
----------------------
-
-```
-#Interesting when file was erased / nothing functioning anymore
-git checkout -- file.txt
-
-#Case of loop erasing a folder
-for i in `ls`; echo "" > $i; done
-git checkout -- *
 ```
