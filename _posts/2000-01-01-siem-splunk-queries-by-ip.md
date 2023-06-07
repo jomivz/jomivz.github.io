@@ -2,7 +2,7 @@
 layout: post
 title: Splunk queries based on IP
 category: siem
-parent: siem
+parent: cheatsheets
 modified_date: 2021-09-15
 permalink: /siem/splunk-misc-ip
 ---

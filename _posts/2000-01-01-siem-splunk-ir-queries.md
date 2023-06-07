@@ -2,7 +2,7 @@
 layout: post
 title: Incident response with Splunk 
 category: siem
-parent: siem
+parent: cheatsheets
 modified_date: 2022-03-22
 permalink: /siem/splunk-misc
 ---

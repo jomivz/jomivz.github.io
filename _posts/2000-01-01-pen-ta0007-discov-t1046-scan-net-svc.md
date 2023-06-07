@@ -2,7 +2,7 @@
 layout: post
 title: TA0007 Discovery - T1046 Network scanning
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-03-23
 permalink: /pen/scan-net
 tags: discovery scan nmap TA0007 T1595 T1046

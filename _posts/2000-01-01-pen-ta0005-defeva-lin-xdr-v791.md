@@ -2,7 +2,7 @@
 layout: post
 title: TA0005 Defense Evasion - EDR - XDR v7.9.1
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-06-05
 permalink: /pen/defeva-lin-xdr-v791
 ---

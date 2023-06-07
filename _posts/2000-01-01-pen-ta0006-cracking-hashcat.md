@@ -3,17 +3,18 @@ layout: post
 title: TA0006 Credentials Access - Cracking with Hashcat
 category: pen
 parent: pen
-modified_date: 2023-06-02
+modified_date: 2023-06-07
 permalink: /pen/hashcat
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [dict-hashkiller](#dict-hashkiller)
-* 2. [dict-seclists-pwd](#dict-seclists-pwd)
-* 3. [dict-seclists-db](#dict-seclists-db)
-* 4. [diff-2-dict](#diff-2-dict)
-* 5. [cracked-accounts](#cracked-accounts)
-* 6. [potfiles](#potfiles)
+* [run](#run)
+* [potfiles](#potfiles)
+* [cracked-accounts](#cracked-accounts)
+* [dic](#dic)
+* [dic-hashkiller](#dic-hashkiller)
+* [dic-seclists](#dic-seclists)
+* [diff-2-dic](#diff-2-dic)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -21,7 +22,41 @@ permalink: /pen/hashcat
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='dict-hashkiller'></a>dict-hashkiller
+## inputs
+
+* [/pen/discov-ad-lin#shoot-spns](/pen/discov-ad-win#shoot-spns)
+* [/pen/discov-ad-lin#shoot-npusers](/pen/discov-ad-win#shoot-spns)
+* [/pen/discov-ad-]()
+
+## <a name='run'></a>run
+
+```
+# crack NT hashes
+hashcat -m 1000 hashes.txt dict.txt --status-timer 10 | tee -a output.txt
+```
+
+## <a name='potfiles'></a>potfiles
+
+Go to the path:
+``` 
+/home/$LOGNAME/.local/share/hashcat
+```
+
+## <a name='cracked-accounts'></a>cracked-accounts
+
+Map cracked passwords to relative accounts
+
+List the accounts for which the passwords were cracked: 
+
+```sh
+wget https://raw.githubusercontent.com/jomivz/jomivz.github.io/master/playbook/pen_cracked_accounts.sh
+chmod +x pen_cracked_accounts.sh
+./cracked_accounts.sh secretdumps.out 
+```
+
+## <a name='dic'></a>dic
+
+## <a name='dic-hashkiller'></a>dic-hashkiller
 
 hashkiller.io dictionary
 
@@ -32,7 +67,7 @@ line numbers of password dictionaries:
 └─$ wc -l
 ```
 
-##  2. <a name='dict-seclists-pwd'></a>dict-seclists-pwd
+## <a name='dic-seclists'></a>dic-seclists
 
 SecLists Passwords
 
@@ -89,9 +124,7 @@ line numbers of password dictionaries:
         1 SecLists/Passwords/der-postillon.txt
 ```
 
-##  3. <a name='dict-seclists-db'></a>dict-seclists-db
-
-SecLists Leaked Databases
+* SecLists Leaked Databases
 
 line numbers of leaked databases:
 ```
@@ -159,7 +192,7 @@ The tarball rockyou is 14 million lines:
 14344391 rockyou.txt
 ```
 
-##  4. <a name='diff-2-dict'></a>diff-2-dict
+## <a name='diff-2-dic'></a>diff-2-dic
 
 Diff between 2 Dictionaries
 
@@ -176,23 +209,4 @@ Removes the first character ("+" added by diff):
 sed -e 's/^.//' diff-xato-rockyou.txt
 #v2
 cut -c2- ~/diff-xato-rockyou.txt
-```
-
-##  5. <a name='cracked-accounts'></a>cracked-accounts
-
-Map cracked passwords to relative accounts
-
-List the accounts for which the passwords were cracked: 
-
-```sh
-wget https://raw.githubusercontent.com/jomivz/jomivz.github.io/master/playbook/pen_cracked_accounts.sh
-chmod +x pen_cracked_accounts.sh
-./cracked_accounts.sh secretdumps.out 
-```
-
-##  6. <a name='potfiles'></a>potfiles
-
-Go to the path:
-``` 
-/home/$LOGNAME/.local/share/hashcat
 ```

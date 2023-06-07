@@ -1,7 +1,7 @@
 ---
 layout: post
 title: MicroSoft Defender
-parent: edr
+parent: cheatsheets
 category: edr
 modified_date: 2023-06-03
 permalink: /edr/defender

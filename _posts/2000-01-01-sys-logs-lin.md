@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin LOGS Linux
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-01-10
 permalink: /sys/logs-lin
 ---

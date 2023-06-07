@@ -2,7 +2,7 @@
 layout: post
 title: TA0007 Discovery - T1046 Web App scanning
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-03-16
 permalink: /pen/scan-web
 tags: discovery scan nikto nuclei bypass-waf dirbuster

@@ -2,7 +2,7 @@
 layout: post
 title: TA0006 Credentials Access - Miscellaneous
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2022-12-12
 permalink: /pen/credsaccess-misc
 ---

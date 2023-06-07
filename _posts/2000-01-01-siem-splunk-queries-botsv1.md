@@ -2,7 +2,7 @@
 layout: post
 title: Splunk Search Queries based on BOTSv1
 category: siem
-parent: siem
+parent: cheatsheets
 modified_date: 2021-03-02
 permalink: /siem/splunk-botsv1
 ---

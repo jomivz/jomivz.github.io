@@ -2,7 +2,7 @@
 layout: post
 title: Awesome AD Security
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2022-08-12
 permalink: /awesome-ad
 ---

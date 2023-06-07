@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin LIN CLI
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-06-04
 permalink: /sys/lin
 ---

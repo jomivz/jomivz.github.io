@@ -2,7 +2,7 @@
 layout: post
 title: NET WIRESHARK forensics
 category: for
-parent: for
+parent: cheatsheets
 modified_date: 2021-02-06
 permalink: /for/wireshark
 ---

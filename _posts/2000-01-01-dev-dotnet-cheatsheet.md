@@ -2,22 +2,23 @@
 layout: post
 title: Build .NET projects
 category: dev
-parent: dev
+parent: cheatsheets
 modified_date: 2023-06-03
 permalink: /dev/dotnet
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [get-version](#get-version)
-* 2. [install](#install)
+* [get-version](#get-version)
+* [install](#install)
+* [build](#build)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='get-version'></a>get-version
+## <a name='get-version'></a>get-version
 
 Check the core version:
 ```
@@ -30,9 +31,11 @@ cd hklm:
 ls SOFTWARE\Microsoft\NET Framework Setup\NDP\v4
 ```
 
-##  2. <a name='install'></a>install
+## <a name='install'></a>install
 
 Install EoL version 4.5
 ```
 choco install netfx-4.5.1-devpack
 ```
+
+## <a name='build'></a>build

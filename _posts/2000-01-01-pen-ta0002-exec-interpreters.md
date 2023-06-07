@@ -2,7 +2,7 @@
 layout: post
 title: TA0002 Execution
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-06-02
 permalink: /pen/exec
 ---

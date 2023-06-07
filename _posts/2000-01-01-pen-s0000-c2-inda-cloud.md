@@ -2,7 +2,7 @@
 layout: post
 title: C2 inda Cloud
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2022-08-16
 permalink: /pen/c2-inda-cloud
 ---

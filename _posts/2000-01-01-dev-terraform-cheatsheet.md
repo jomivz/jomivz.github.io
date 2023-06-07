@@ -2,7 +2,7 @@
 layout: post
 title: Terraform with DigitalOcean
 category: dev
-parent: dev
+parent: cheatsheets
 modified_date: 2023-06-03
 permalink: /dev/terraform
 ---

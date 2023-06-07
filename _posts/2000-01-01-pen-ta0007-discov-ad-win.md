@@ -2,7 +2,7 @@
 layout: post
 title: TA0007 Discovery - AD Collection & Enumeration
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-06-03
 permalink: /pen/discov-ad-win
 ---

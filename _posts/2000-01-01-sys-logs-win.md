@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin LOGS Windows
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-01-16
 permalink: /sys/logs-win
 ---

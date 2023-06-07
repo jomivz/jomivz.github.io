@@ -2,7 +2,7 @@
 layout: post
 title: Pfsense cheatsheet
 category: net
-parent: net
+parent: cheatsheets
 modified_date: 2021-02-06
 permalink: /net/pfsense
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin VIRT Docker - Administration Cookbook
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-03-27
 permalink: /sys/docker
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: Setup Debian 11 
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2022-12-09
 permalink: /pen/debian
 ---

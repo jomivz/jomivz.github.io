@@ -1,7 +1,7 @@
 ---
 layout: post
 title: IPTABLES cheatsheet
-parent: net
+parent: cheatsheets
 category: net
 modified_date: 2021-11-18
 permalink: /net/iptables

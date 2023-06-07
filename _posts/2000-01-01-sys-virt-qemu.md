@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2021-08-31
 permalink: /sys/qemu
 ---

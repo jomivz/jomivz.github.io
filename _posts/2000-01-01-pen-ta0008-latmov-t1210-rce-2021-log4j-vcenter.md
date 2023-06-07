@@ -2,7 +2,7 @@
 layout: post
 title: TA0008 Lateral Movement - T1210 RCE 2021 - Log4J VCenter
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2022-02-14
 permalink: /pen/rce-2021
 ---

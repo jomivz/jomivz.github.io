@@ -2,7 +2,7 @@
 layout: post
 title: FOR Windows Persistence
 category: for
-parent: for
+parent: cheatsheets
 modified_date: 2023-01-04
 permalink: /for/win-persistence
 ---

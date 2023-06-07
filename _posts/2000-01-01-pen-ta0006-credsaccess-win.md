@@ -2,7 +2,7 @@
 layout: post
 title: TA0006 Credentials Access - Windows
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-03-13
 permalink: /pen/credsaccess-win
 ---

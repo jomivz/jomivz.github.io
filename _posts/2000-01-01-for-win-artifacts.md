@@ -1,7 +1,7 @@
 ---
 layout: post
 title: FOR Windows Artifacts
-parent: for
+parent: cheatsheets
 category: for
 modified_date: 2023-01-04
 permalink: /for/win-artifacts

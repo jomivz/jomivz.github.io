@@ -2,7 +2,7 @@
 layout: post
 title: Sysadmin LIN MISC
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-06-04
 permalink: /sys/lin-misc
 ---

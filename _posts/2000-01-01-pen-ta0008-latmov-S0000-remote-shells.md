@@ -2,7 +2,7 @@
 layout: post
 title: TA0008 Lateral Movement - S0000 - Remote Shells
 category: pen
-parent: pen
+parent: cheatsheets
 modified_date: 2023-03-16
 permalink: /pen/latmov-rshell
 ---

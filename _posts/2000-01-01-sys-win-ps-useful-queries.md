@@ -2,7 +2,7 @@
 layout: post
 title:  Sysadmin WIN Powershell - Useful queries
 category: sys
-parent: sys
+parent: cheatsheets
 modified_date: 2023-06-05
 permalink: /sys/powershell
 ---
