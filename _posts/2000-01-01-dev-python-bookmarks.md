@@ -79,9 +79,11 @@ deactivate.bat
 - [plotly](https://plotly.com/python/)
 - [sqlalchemy](https://sqlalchemy.readthedocs.io)
 
-###  2.4. <a name='sec'></a>sec
+###  2.4. <a name='sec'></a>lib-sec
+
 - [impacket](https://www.secureauth.com/labs/open-source-tools/impacket/) / [examples](https://github.com/SecureAuthCorp/impacket/tree/master/examples)
 - [msticpy](https://msticpy.readthedocs.io)
+- [pyjarm](https://pypi.org/project/pyjarm/)
 - [pypykatz](https://github.com/skelsec/pypykatz/wiki)
 - [shodan](https://shodan.readthedocs.io)
 
