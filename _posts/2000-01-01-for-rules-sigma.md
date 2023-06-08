@@ -1,6 +1,7 @@
 ---
 layout: post
-category: FOR Hunting with Sigma Rules
+title: FOR Hunting with Sigma Rules
+category: for
 parent: cheatsheets
 modified_date: 2023-06-08
 permalink: /for/sigma
