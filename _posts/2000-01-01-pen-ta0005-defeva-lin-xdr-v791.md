@@ -4,14 +4,14 @@ title: TA0005 Defense Evasion - EDR - XDR v7.9.1
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-05
-permalink: /pen/defeva-lin-xdr-v791
+permalink: /pen/lin/defeva/xdr-v791
 ---
 
 # Linux XDR v7.9.1
 
 <!-- vscode-markdown-toc -->
-* [End of Life Support](#EndofLifeSupport)
-* [MindMaps](#MindMaps)
+* [processes](#processes)
+* [files](#files)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -19,9 +19,9 @@ permalink: /pen/defeva-lin-xdr-v791
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## processes
+## <a name='processes'></a>processes
 
-## files
+## <a name='files'></a>files
 
 * palo xdr file ```ltee_decryptor.json```:
 ```bash

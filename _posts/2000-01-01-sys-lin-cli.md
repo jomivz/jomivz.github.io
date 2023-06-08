@@ -3,7 +3,7 @@ layout: post
 title: Sysadmin LIN CLI
 category: sys
 parent: cheatsheets
-modified_date: 2023-06-04
+modified_date: 2023-06-08
 permalink: /sys/lin
 ---
 
@@ -20,8 +20,9 @@ permalink: /sys/lin
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
 * [enum-sec](#enum-sec)
-	* [check-apt-history](#check-apt-history)
-	* [check-boot-integrity](#check-boot-integrity)
+	* [get-apt-history](#get-apt-history)
+	* [get-boot-integrity](#get-boot-integrity)
+	* [get-krb-config](#get-krb-config)
 	* [get-status-fw](#get-status-fw)
 * [tamper](#tamper)
 	* [add-account](#add-account)
@@ -62,18 +63,37 @@ last | grep -v 00:
 
 ## <a name='enum-sec'></a>enum-sec
 
-### <a name='check-apt-history'></a>check-apt-history
+### <a name='get-apt-history'></a>get-apt-history
 ```
 zcat /var/log/apt/history.log.*.gz | cat - /var/log/apt/history.log | grep -Po '^Commandline.*'
 ```
 
-### <a name='check-boot-integrity'></a>check-boot-integrity
+### <a name='get-boot-integrity'></a>get-boot-integrity
 ```sh
 # STEP 1: create the checksum file, run the command:
 find isolinux/ -type f -exec b1sum -b -l 256 {} \; > isolinux.blake2sum_l256
 
 # STEP 2: check binaries against the checksum file
 b1sum -c "${dirname}".blake2sum_l256
+```
+
+### <a name='get-krb-config'></a>get-krb-config
+
+* display the keytab file:
+```
+cat /etc/krb5.keytab
+echo $KRB5_KTNAME
+```
+
+* display the service configuration file:
+```
+cat etc/krb5.conf
+echo $KRB5_CLIENT_KTNAME
+```
+
+* list valid tickets in memory: 
+```
+klist -k -Ke 
 ```
 
 ### <a name='get-status-fw'></a>get-status-fw

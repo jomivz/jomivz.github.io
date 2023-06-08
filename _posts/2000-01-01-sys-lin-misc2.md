@@ -4,7 +4,7 @@ title: Sysadmin LIN MISC
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-04
-permalink: /sys/lin-misc
+permalink: /sys/lin/misc
 ---
 <!-- vscode-markdown-toc -->
 * [Check ISO integrity](#CheckISOintegrity)

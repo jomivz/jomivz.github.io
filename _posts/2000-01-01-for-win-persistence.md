@@ -4,7 +4,7 @@ title: FOR Windows Persistence
 category: for
 parent: cheatsheets
 modified_date: 2023-01-04
-permalink: /for/win-persistence
+permalink: /for/win/persistence
 ---
 
 

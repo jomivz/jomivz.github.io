@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-05
-permalink: /pen/discov-ad-lin
+permalink: /pen/lin/discov-ad
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
@@ -12,8 +12,8 @@ permalink: /pen/discov-ad-lin
 **Menu**
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
-	* [install](#install)
-	* [env](#env)
+	* [tools](#tools)
+	* [load-env](#load-env)
 * [collect](#collect)
 	* [adexplorersnapshot](#adexplorersnapshot)
 * [shoot](#shoot)
@@ -52,12 +52,12 @@ permalink: /pen/discov-ad-lin
 
 PRE-REQUISITE:
 
-### <a name='install'></a>install
+### <a name='tools'></a>tools
 
 - [bloodhound](https://bloodhound.readthedocs.io/en/latest/installation/linux.html)
 - [ADExplorerSnapshot.py](https://github.com/c3c/ADExplorerSnapshot.py)
 
-### <a name='env'></a>env
+### <a name='load-env'></a>load-env
 
 Setting variables for copy/paste. Example of ```env.sh``` file :
 ```bash
@@ -181,12 +181,14 @@ Privileged Users:
 - [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
 - [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
 
-```powershell
-$ztarg_grp="Domain Admins"
-#$ztarg_grp="Enterprise Admins"
-#$ztarg_grp="Backup Operators"
-#$ztarg_grp="Remote Desktop Users"
-#$ztarg_grp="DNSAdmins"
+```
+ztarg_grp="Domain Admins"
+#ztarg_grp="Enterprise Admins"
+#ztarg_grp="Backup Operators"
+#ztarg_grp="Remote Desktop Users"
+#ztarg_grp="DNSAdmins"
+
+
 ```
 
 #### <a name='shoot-priv-machines'></a>shoot-priv-machines
