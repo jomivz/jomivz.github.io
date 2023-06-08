@@ -3,12 +3,12 @@ layout: post
 category: FOR Hunting with YARA
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /for/yara
+permalink: /for/snort
 ---
 
 
 <!-- vscode-markdown-toc -->
-* [elastic](#elastic)
+* [et](#et)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -16,6 +16,6 @@ permalink: /for/yara
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='elastic'></a>elastic
+## <a name='et'></a>et
 
-[/for/yara#elastic](https://github.com/elastic/protections-artifacts/tree/main/yara/rules)
+* [rules.emergingthreats.net](https://rules.emergingthreats.net/)
