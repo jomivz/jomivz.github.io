@@ -1,6 +1,7 @@
 ---
 layout: post
-category: FOR Hunting with YARA
+title: FOR Hunting with Snort
+category: for
 parent: cheatsheets
 modified_date: 2023-06-08
 permalink: /for/snort
