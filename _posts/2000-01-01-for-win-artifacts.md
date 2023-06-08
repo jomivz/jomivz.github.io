@@ -3,26 +3,22 @@ layout: post
 title: FOR Windows Artifacts
 parent: cheatsheets
 category: for
-modified_date: 2023-01-04
+modified_date: 2023-06-08
 permalink: /for/win-artifacts
 ---
 
 <!-- vscode-markdown-toc -->
-* [Amcache](#Amcache)
-	* [Files / Evidences](#FilesEvidences)
-* [Registry hives](#Registryhives)
-	* [Files / Evidences](#FilesEvidences-1)
-	* [Forensics with RegRipper](#ForensicswithRegRipper)
-		* [Confirming the asset & timezone](#Confirmingtheassettimezone)
-		* [Interesting findings](#Interestingfindings)
-	* [Registry history data](#Registryhistorydata)
-	* [Extra: Live collection of a locked hive](#Extra:Livecollectionofalockedhive)
-	* [Extra: live browsing a hive in CLI](#Extra:livebrowsingahiveinCLI)
-* [Eventlogs Files](#EventlogsFiles)
-	* [All Windows Versions](#AllWindowsVersions)
-	* [Windows DNS Server](#WindowsDNSServer)
-* [NTFS metafiles](#NTFSmetafiles)
-* [NTDS.dit](#NTDS.dit)
+* [amcache](#amcache)
+* [dll](#dll)
+* [eventlogs](#eventlogs)
+		* [eventlogs-all](#eventlogs-all)
+		* [eventlogs-dns](#eventlogs-dns)
+* [ntfs](#ntfs)
+* [ntds-dit](#ntds-dit)
+* [reg](#reg)
+	* [regripper](#regripper)
+	* [reg-history](#reg-history)
+	* [reg-extra](#reg-extra)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -32,9 +28,7 @@ permalink: /for/win-artifacts
 
 🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥
 
-## <a name='Amcache'></a>Amcache
-
-### <a name='FilesEvidences'></a>Files / Evidences
+## <a name='amcache'></a>amcache
 
 Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
 
@@ -44,9 +38,72 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
-## <a name='Registryhives'></a>Registry hives
+## <a name='dll'></a>dll
 
-### <a name='FilesEvidences-1'></a>Files / Evidences
+## <a name='eventlogs'></a>eventlogs
+
+Eventlogs Files :
+
+#### <a name='eventlogs-all'></a>eventlogs-all
+
+* All Windows Versions :
+
+- %SystemRoot%\System32\winevt\logs\Application.evtx
+- %SystemRoot%\System32\winevt\logs\Security.evtx
+- %SystemRoot%\System32\winevt\logs\System.evtx
+- %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
+
+#### <a name='eventlogs-dns'></a>eventlogs-dns 
+
+* Windows DNS Server :
+
+1/ Are the DNS debug logs activated ?
+
+Open a console (`cmd.exe`) and run the command: 
+```
+# check the parameter `dwDebugLevel`. It value must be `00006101`.
+dnscmd /Info
+```
+
+2/ Where are located the DNS debug logs ?
+
+By default, the locations for storing DNS logs are :
+- %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
+- %SystemRoot%\System32\Dns\Dns.log
+
+To verify it, open a console (`cmd.exe`) and run the commands:
+```batch
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
+```
+```powershell
+Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
+```
+
+3/ How to activate the DNS logs ? How to define logs location ?
+
+Open a console (`cmd.exe`) and run the commands:
+```batch
+# set the debug mode
+dnscmd.exe localhost /Config /LogLevel 0x6101
+# set the log file path
+dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
+```
+
+## <a name='ntfs'></a>ntfs
+
+NTFS metafiles : 
+
+- Path: \\.\C:\[SYSTEM]
+- Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
+- [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
+
+## <a name='ntds-dit'></a>ntds-dit
+
+NTDS.dit
+
+systemroot\NTDS\Ntds.dit
+
+## <a name='reg'></a>reg
 
 **What is it ?** Files listed are the evidences to collect for the forensics. 
 
@@ -62,18 +119,18 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
-### <a name='ForensicswithRegRipper'></a>Forensics with RegRipper
+### <a name='regripper'></a>regripper
 
 * credits: [hexacorn](https://hexacorn.com/tools/3r.html)
 
-#### <a name='Confirmingtheassettimezone'></a>Confirming the asset & timezone
+* Confirming the asset & timezone:
 
 | **Hive** | **Plugin** |
 |---------------|-------------|
 | system | compname |
 | system | timezone |
 
-#### <a name='Interestingfindings'></a>Interesting findings
+* Interesting findings:
 
 **What is it ?** In a forensics, the table below tend to help identify interesting [regripper](https://github.com/keydet89/RegRipper3.0) plugins to run on which evidences.
 
@@ -111,7 +168,7 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | system | usbstore |
 | all | sizes |
 
-### <a name='Registryhistorydata'></a>Registry history data 
+### <a name='reg-history'></a>reg-history 
 
 * credits: [fireeye](https://www.fireeye.com/blog/threat-research/2019/01/digging-up-the-past-windows-registry-forensics-revisited.html)
 
@@ -125,14 +182,17 @@ for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 | Backup system hives (REGBACK)       | %SystemRoot%\System32\config\RegBack                                     ||
 | Hives backed up with System Restore | \\\\.\\\"System Volume Information"                                      ||
 
-### <a name='Extra:Livecollectionofalockedhive'></a>Extra: Live collection of a locked hive
+### <a name='reg-extra'></a>reg-extra
+
+* Extra: Live collection of a locked hive :
+
 ```batch
 # useful when having remote access but system handle do not allow read/copy/download 
 # batch: registry hive live collection
 reg save HKLM\SYSTEM system.reg
 ```
 
-### <a name='Extra:livebrowsingahiveinCLI'></a>Extra: live browsing a hive in CLI
+* Extra: live browsing a hive in CLI :
 ```powershell
 # powershell: listing the registry hives
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
@@ -140,56 +200,3 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
-
-## <a name='EventlogsFiles'></a>Eventlogs Files
-
-### <a name='AllWindowsVersions'></a>All Windows Versions
-
-- %SystemRoot%\System32\winevt\logs\Application.evtx
-- %SystemRoot%\System32\winevt\logs\Security.evtx
-- %SystemRoot%\System32\winevt\logs\System.evtx
-- %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
-
-### <a name='WindowsDNSServer'></a>Windows DNS Server
-
-1/ Are the DNS debug logs activated ?
-
-Open a console (`cmd.exe`) and run the command: 
-```
-# check the parameter `dwDebugLevel`. It value must be `00006101`.
-dnscmd /Info
-```
-
-2/ Where are located the DNS debug logs ?
-
-By default, the locations for storing DNS logs are :
-- %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
-- %SystemRoot%\System32\Dns\Dns.log
-
-To verify it, open a console (`cmd.exe`) and run the commands:
-```batch
-reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
-```
-```powershell
-Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
-```
-
-3/ How to activate the DNS logs ? How to define logs location ?
-
-Open a console (`cmd.exe`) and run the commands:
-```batch
-# set the debug mode
-dnscmd.exe localhost /Config /LogLevel 0x6101
-# set the log file path
-dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
-```
-
-## <a name='NTFSmetafiles'></a>NTFS metafiles
-
-- Path: \\.\C:\[SYSTEM]
-- Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
-- [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
-
-## <a name='NTDS.dit'></a>NTDS.dit
-
-systemroot\NTDS\Ntds.dit

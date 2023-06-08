@@ -37,9 +37,7 @@ tags: discovery scan nmap TA0007 T1595 T1046
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='adm-svc'></a>loots
-
-Administrative Services:
+** Administrative Services **
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 

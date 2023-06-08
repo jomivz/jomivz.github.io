@@ -3,19 +3,19 @@ layout: post
 title: Python Snippets & Libraries
 category: dev
 parent: cheatsheets
-modified_date: 2022-09-22
+modified_date: 2023-06-08
 permalink: /dev/python
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [Code snippets](#Codesnippets)
-	* 1.1. [Virtual Environment](#VirtualEnvironment)
+* 1. [snippet](#snippet)
+	* 1.1. [venv](#venv)
 * 2. [lib](#lib)
 	* 2.1. [lib-net](#lib-net)
 	* 2.2. [lib-sys](#lib-sys)
 	* 2.3. [lib-data](#lib-data)
-	* 2.4. [sec](#sec)
-* 3. [sec](#sec-1)
+	* 2.4. [lib-sec](#lib-sec)
+* 3. [sec](#sec)
 	* 3.1. [python-exec-bash](#python-exec-bash)
 	* 3.2. [python-exec-cmd](#python-exec-cmd)
 
@@ -25,9 +25,9 @@ permalink: /dev/python
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='Codesnippets'></a>Code snippets
+##  1. <a name='snippet'></a>snippet
 
-###  1.1. <a name='VirtualEnvironment'></a>Virtual Environment
+###  1.1. <a name='venv'></a>venv
 
 - [python venv module](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
 
@@ -79,7 +79,7 @@ deactivate.bat
 - [plotly](https://plotly.com/python/)
 - [sqlalchemy](https://sqlalchemy.readthedocs.io)
 
-###  2.4. <a name='sec'></a>lib-sec
+###  2.4. <a name='lib-sec'></a>lib-sec
 
 - [impacket](https://www.secureauth.com/labs/open-source-tools/impacket/) / [examples](https://github.com/SecureAuthCorp/impacket/tree/master/examples)
 - [msticpy](https://msticpy.readthedocs.io)
@@ -88,7 +88,7 @@ deactivate.bat
 - [shodan](https://shodan.readthedocs.io)
 
 
-##  3. <a name='sec-1'></a>sec
+##  3. <a name='sec'></a>sec
 
 ###  3.1. <a name='python-exec-bash'></a>python-exec-bash
 ```sh

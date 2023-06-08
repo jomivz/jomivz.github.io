@@ -7,11 +7,12 @@ modified_date: 2023-01-04
 permalink: /for/win-persistence
 ---
 
+
 <!-- vscode-markdown-toc -->
-* [CLI full-report with autorunsc](#CLIfull-reportwithautorunsc)
-* [T1543.003 - Persistence via svchost](#T1543.003-Persistenceviasvchost)
-* [T1546.007 - Persistence via Netsh helper DLL](#T1546.007-PersistenceviaNetshhelperDLL)
-* [T1218.007 - Scheduled task calling msiexec](#T1218.007-Scheduledtaskcallingmsiexec)
+* [autorunsc](#autorunsc)
+* [svchost](#svchost)
+* [helper-dll](#helper-dll)
+* [schtasks](#schtasks)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -21,7 +22,9 @@ permalink: /for/win-persistence
 
 [TA0003](https://attack.mitre.org/tactics/TA0003) 
 
-## <a name='CLIfull-reportwithautorunsc'></a>CLI full-report with autorunsc
+## <a name='autorunsc'></a>autorunsc
+
+* CLI full-report with autorunsc
 
 [MSTECH autorunsc](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
 
@@ -50,7 +53,7 @@ Windows Mobile Device Center
 reg delete hklm\software\microsoft\Windows\CurrentVersion\Run /v 139750_owned
 ```
 
-## <a name='T1543.003-Persistenceviasvchost'></a>T1543.003 - Persistence via svchost
+## <a name='svchost'></a>svchost
 
 - [T1543.003](https://attack.mitre.org/techniques/T1543/003/) - Persistence via svchost
 
@@ -71,7 +74,8 @@ for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Micros
 schtasks /query /fo LIST /v
 ```
 
-## <a name='T1546.007-PersistenceviaNetshhelperDLL'></a>T1546.007 - Persistence via Netsh helper DLL
+## <a name='helper-dll'></a>helper-dll
+
 
 - [T1546.007](https://attack.mitre.org/techniques/T1546/007/) - Persistence via Netsh helper DLL
 
@@ -87,7 +91,7 @@ powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobj
 for /F %i in ('powershell.exe -Command "(Get-ItemProperty hklm:\software\Microsoft\Netsh).psobject.properties.value -like '*.dll'"') do c:\Temp\sigcheck.exe /accepteula %i
 ```
 
-## <a name='T1218.007-Scheduledtaskcallingmsiexec'></a>T1218.007 - Scheduled task calling msiexec
+## <a name='schtasks'></a>schtasks
 
 - [T1218.007](https://attack.mitre.org/techniques/T1218/007/) - Scheduled task calling msiexec
 
