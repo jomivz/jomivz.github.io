@@ -11,12 +11,13 @@ modified_date: 2022-05-02
 ## <a name='MENU'></a>MENU
 
 <!-- vscode-markdown-toc -->
-* [🌎🤝 Dashboard Online Tools](#DashboardOnlineTools)
-* [📚📕 Wow List RED](#WowListRED)
-* [📚📘 Wow List BLUE](#WowListBLUE)
-* [📚🛠️ Wow List TOOLS](#WowListTOOLS)
-* [🛠️⚙️ Processes, Logging and LOLBAS 📃](#ProcessesLoggingandLOLBAS)
-* [👀🔫 MISC ❓](#MISC)
+* [ #wow 👀 #cyber 🔫 #ressources 📚🎙️🎞️](#wowcyberressources)
+* [MENU](#MENU)
+	* [🌎🤝 Dashboard Online Tools](#DashboardOnlineTools)
+	* [📚📕 RED](#RED)
+	* [📚📘 BLUE](#BLUE)
+	* [📚🛠️ TOOLS](#TOOLS)
+	* [👀🔫 MISC ❓](#MISC)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -42,7 +43,7 @@ modified_date: 2022-05-02
 | 🚦🔎 [maltiverse](https://maltiverse.com) | | | |
 | 🚦🔎 [red.flags.domain](https://red.flag.domains) | | | |
 
-### <a name='WowListRED'></a>📚📕 Wow List RED
+### <a name='RED'></a>📚📕 RED
 
 
 | 📚 **Top Cheatsheets** 																| 🎞️ **Top Video Channels** | 🎙️ **Top Podcasts** |
@@ -64,7 +65,7 @@ modified_date: 2022-05-02
 | 📕 [S3cur3Th1sSh1t/Pentest-Tool](https://github.com/S3cur3Th1sSh1t/Pentest-Tool) 🧰 |
 
 
-### <a name='WowListBLUE'></a>📚📘 Wow List BLUE 
+### <a name='BLUE'></a>📚📘 BLUE 
 
 
 | 📚 **Top Wow Repos**												|
@@ -80,29 +81,16 @@ modified_date: 2022-05-02
 | 🛠️ [explainshell](https://explainshell.com/) |
 
 
-### <a name='WowListTOOLS'></a>📚🛠️ Wow List TOOLS 
+### <a name='TOOLS'></a>📚🛠️ TOOLS
 
 | **Category**    | **Description** |
 |-----------------|-----------------|
+| IDS | [SELKS](https://www.stamus-networks.com/selks) |
+| LAB | [GOAD](https://github.com/Orange-Cyberdefense/GOAD) |
 | 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) |
 | 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) |
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
-
-### <a name='ProcessesLoggingandLOLBAS'></a>🛠️⚙️ Processes, Logging and LOLBAS 📃
-
-| **Operating System** | **KnowledgeBase (KB)** | **Description** |
-|----------------------|------------------------|-------------------|
-| 🗑️ Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
-| 🗑️ Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
-| 🗑️ Windows              | [Project Windows Drivers](https://loldrivers.io) | CuratedList of LOL drivers used adversaries to bypass sec contorlsand carry out attacks. |
-| 🗑️ Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
-| 🗑️ Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
-| 🗑️ Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
-| 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
-| 🐧 Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
-| 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
-| 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
 
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
