@@ -3,7 +3,7 @@ layout: post
 title: Palo Alto Cortex XDR
 parent: cheatsheets
 category: edr
-modified_date: 2023-06-03
+modified_date: 2023-06-08
 permalink: /edr/xdr
 ---
 
@@ -43,6 +43,13 @@ permalink: /edr/xdr
 
 * enum xdr on windows OS:
 ```powershell
+cd "C:\Program Files\Palo Alto Networks\Traps"
+./cytool.exe
+```
+![xdr-get-version.png](/assets/images/xdr-get-version.png)
+
+* check the DLL cryptsvc:
+```
 dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
 ```
 

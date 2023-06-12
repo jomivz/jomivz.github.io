@@ -4,7 +4,7 @@ title: FOR Windows Artifacts
 parent: cheatsheets
 category: for
 modified_date: 2023-06-08
-permalink: /for/win-artifacts
+permalink: /for/win/artifacts
 ---
 
 <!-- vscode-markdown-toc -->

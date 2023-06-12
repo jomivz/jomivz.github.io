@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Sysadmin VIRT Docker - Administration Cookbook
+title: / sys / docker #imgomy #imgsec #memo #tshoot   
 category: sys
 parent: cheatsheets
-modified_date: 2023-03-27
+modified_date: 2023-06-12
 permalink: /sys/docker
 ---
 
@@ -14,148 +14,45 @@ permalink: /sys/docker
 **Menu**
 
 <!-- vscode-markdown-toc -->
-* 1. [Memo Docker](#MemoDocker)
-* 2. [Infosec Images](#InfosecImages)
-	* 2.1. [testssl.sh](#testssl.sh)
-	* 2.2. [nuclei](#nuclei)
-	* 2.3. [SpiderFoot](#SpiderFoot)
-	* 2.4. [ropnop\kerbrute](#ropnopkerbrute)
-	* 2.5. [impacket](#impacket)
-* 3. [Other images](#Otherimages)
-	* 3.1. [Alpine](#Alpine)
-	* 3.2. [Jekyll](#Jekyll)
-	* 3.3. [frolvlad/alpine-python2](#frolvladalpine-python2)
-	* 3.4. [postgres](#postgres)
-	* 3.5. [linuxserver\libreoffice](#linuxserverlibreoffice)
-	* 3.6. [splunk\splunk](#splunksplunk)
-* 4. [Troubleshooting](#Troubleshooting)
-	* 4.1. [No space left on device error](#Nospaceleftondeviceerror)
-	* 4.2. [Docker Daemon Config File](#DockerDaemonConfigFile)
+* [images-omy](#images-omy)
+	* [alpine](#alpine)
+	* [jekyll](#jekyll)
+	* [libreoffice](#libreoffice)
+	* [python2](#python2)
+	* [postgres](#postgres)
+* [images-sec](#images-sec)
+	* [impacket](#impacket)
+	* [kerbrute](#kerbrute)
+	* [nuclei](#nuclei)
+	* [spiderfoot](#spiderfoot)
+	* [testssl](#testssl)
+	* [splunk](#splunk)
+* [memo](#memo)
+* [tshoot](#tshoot)
+	* [no-space-left-on-device-error](#no-space-left-on-device-error)
+	* [docker-daemon-config-file](#docker-daemon-config-file)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='MemoDocker'></a>Memo Docker
-
-DRAFT HERE...
-```sh
-#? memo sysadmin docker
-
-#? create dockerfile
-cat > Dockerfile <<EOF
-FROM alpine
-MAINTAINER obama@us.gouv
-RUN apt update
-RUN apt install -y git vim python3.8
-EOF
-
-#? build docker image
-docker build -t <your_username>/my-first-repo 
-
-#? run docker image
-docker run <your_username>/my-first-repo.
-docker run -i --expose=9999 b5593e60c33b bash
-docker run -d -p 5801:5801 -p  9999:9999 .....
-
-#? push docker image
-docker push <your_username>/my-first-repo 
-
-```
-##  2. <a name='InfosecImages'></a>Infosec Images
-
-###  2.1. <a name='testssl.sh'></a>testssl.sh
-```sh
-#? install docker testssl.sh
-docker pull drwetter/testssl.sh
-
-#? run docker testssl.sh
-docker run --rm -ti drwetter/testssl.sh https://jmvwork.xyz
-
-```
-###  2.2. <a name='nuclei'></a>nuclei
-```sh
-#? install docker nuclei
-docker pull projectdiscovery/nuclei
-
-#? run docker nuclei
-docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz 
-
-```
-###  2.3. <a name='SpiderFoot'></a>SpiderFoot
-```sh
-#? install docker spiderfoot
-#
-# (OPTIONAL): for Kali distrib embedding spiderfoot
-cd /usr/share
-sudo mv spiderfoot spiderfoot.old
-#
-#? build docker spiderfoot image
-cd /usr/share
-sudo git clone https://github.com/smicallef/spiderfoot.git
-cd spiderfoot
-docker build -t spiderfoot .
-pip3 install -r requirements.txt
-
-#? run docker spiderfoot
-docker run -p 5002:5001 -d spiderfoot
-# open your browser https://127.0.0.1:5002
-
-```
-Go to the [spiderfoot cheatsheet](/_posts/2000-01-01-osint-spiderfoot-cheatsheet.md).
-
-###  2.4. <a name='ropnopkerbrute'></a>ropnop\kerbrute
-```sh
-#? pentest ad bruteforce auth kerbrute
-#? build docker kerbrute
-#
-cd /usr/share
-git clone https://github.com/ropnop/kerbrute.git
-cd kerbrute
-vi Dockerfile
-    FROM golang:alpine
-    RUN mkdir /app 
-    ADD . /app/
-    WORKDIR /app 
-    RUN go build -o main .
-    RUN adduser -S -D -H -h /app appuser
-    USER appuser
-    CMD ["./main"]
-docker build -t kerbrute:1.0.3 .
-#? run docker kerbrute
-# practice : https://tryhackme.com/room/attacktivedirectory
-curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
-curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
-
-docker run -v .:/mnt -it kerbrute:1.0.3 enumuser --dc spookysec.local userlist.txt -t 100
-
-```
-###  2.5. <a name='impacket'></a>impacket
-```sh
-#? pentest ad bruteforce auth kerbrute
-#? build docker kerbrute
-#
-```
-##  3. <a name='Otherimages'></a>Other images
-###  3.1. <a name='Alpine'></a>Alpine
+## <a name='images-omy'></a>images-omy
+### <a name='alpine'></a>alpine
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
 ```sh
 #? install packages alpine
 apk update
 apk add git
 apk add curl
-
 #? install gcc alpine
 apk add build-base 
-
 #? set $PATH alpine
 git clone 
 export PATH=$PATH:/GoMApEnum/src 
-
 ```
-###  3.2. <a name='Jekyll'></a>Jekyll
+### <a name='jekyll'></a>jekyll
 To run github.io locally:
 ```sh
 #? install docker jekyll
@@ -164,9 +61,16 @@ docker pull jekyll/jekyll
 #? run docker jekyll
 sudo docker run --rm --volume="$HOME/git/jomivz.github.io:/srv/jekyll" --publish 127.0.0.1:4000:4000 jekyll/jekyll jekyll serve
 # open your browser https://127.0.0.1:4000
-
 ```
-###  3.3. <a name='frolvladalpine-python2'></a>frolvlad/alpine-python2
+
+### <a name='libreoffice'></a>libreoffice
+[Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
+```sh
+docker pull linuxserver/libreoffice:7.2.2
+docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 3000:3000 -v /home/jomivz/doc:/doc --restart unless-stopped linuxserver/libreoffice:7.2.2
+```
+
+### <a name='python2'></a>python2
 ```sh
 #? install docker alpine-python2
 docker pull frolvlad/alpine-python2
@@ -181,7 +85,7 @@ docker run --rm /tmp:/mnt frolvlad/alpine-python2 python -c 'u"Hello world!"'
 docker run --rm --volume /tmp:/mnt frolvlad/alpine-python2 python test.py
 ```
 
-###  3.4. <a name='postgres'></a>postgres
+### <a name='postgres'></a>postgres
 
 IN 6 STEPS, this is HOW TO create and log on a 'test_db' postgres database :
 
@@ -246,36 +150,105 @@ create table ips_bogon (ipr cidr not null);
 # removes Bogon IPs from table X
 select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS NULL;  
 ```
-
-###  3.5. <a name='linuxserverlibreoffice'></a>linuxserver\libreoffice
-[Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
+## <a name='images-sec'></a>images-sec
+### <a name='impacket'></a>impacket
 ```sh
-docker pull linuxserver/libreoffice:7.2.2
-docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 3000:3000 -v /home/jomivz/doc:/doc --restart unless-stopped linuxserver/libreoffice:7.2.2
+#? pentest ad bruteforce auth kerbrute
+#? build docker kerbrute
+#
 ```
+### <a name='kerbrute'></a>kerbrute
+```sh
+#? pentest ad bruteforce auth kerbrute
+#? build docker kerbrute
+#
+cd /usr/share
+git clone https://github.com/ropnop/kerbrute.git
+cd kerbrute
+vi Dockerfile
+    FROM golang:alpine
+    RUN mkdir /app 
+    ADD . /app/
+    WORKDIR /app 
+    RUN go build -o main .
+    RUN adduser -S -D -H -h /app appuser
+    USER appuser
+    CMD ["./main"]
+docker build -t kerbrute:1.0.3 .
+#? run docker kerbrute
+# practice : https://tryhackme.com/room/attacktivedirectory
+curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
+curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
 
-###  3.6. <a name='splunksplunk'></a>splunk\splunk
+docker run -v .:/mnt -it kerbrute:1.0.3 enumuser --dc spookysec.local userlist.txt -t 100
+```
+### <a name='nuclei'></a>nuclei
+```sh
+#? install docker nuclei
+docker pull projectdiscovery/nuclei
+#? run docker nuclei
+docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz 
+```
+### <a name='spiderfoot'></a>spiderfoot
+```sh
+#? install docker spiderfoot
+# (OPTIONAL): for Kali distrib embedding spiderfoot
+cd /usr/share
+sudo mv spiderfoot spiderfoot.old
+#? build docker spiderfoot image
+cd /usr/share
+sudo git clone https://github.com/smicallef/spiderfoot.git
+cd spiderfoot
+docker build -t spiderfoot .
+pip3 install -r requirements.txt
+#? run docker spiderfoot
+docker run -p 5002:5001 -d spiderfoot
+# open your browser https://127.0.0.1:5002
+```
+Go to the [spiderfoot cheatsheet](/_posts/2000-01-01-osint-spiderfoot-cheatsheet.md).
+### <a name='testssl'></a>testssl
+```sh
+#? install docker testssl.sh
+docker pull drwetter/testssl.sh
+#? run docker testssl.sh
+docker run --rm -ti drwetter/testssl.sh https://jmvwork.xyz
+```
+### <a name='splunk'></a>splunk
 ```sh
 docker pull splunk/splunk
 docker run -d -p 8000:8000 -e "SPLUNK_START_ARGS=--accept-license" -e "SPLUNK_PASSWORD=<password>" --name splunk splunk/splunk:latest
 ```
-
-##  4. <a name='Troubleshooting'></a>Troubleshooting
-###  4.1. <a name='Nospaceleftondeviceerror'></a>No space left on device error
-
+## <a name='memo'></a>memo
+DRAFT HERE...
+```sh
+#? memo sysadmin docker
+#? create dockerfile
+cat > Dockerfile <<EOF
+FROM alpine
+MAINTAINER obama@us.gouv
+RUN apt update
+RUN apt install -y git vim python3.8
+EOF
+#? build docker image
+docker build -t <your_username>/my-first-repo 
+#? run docker image
+docker run <your_username>/my-first-repo.
+docker run -i --expose=9999 b5593e60c33b bash
+docker run -d -p 5801:5801 -p  9999:9999 .....
+#? push docker image
+docker push <your_username>/my-first-repo 
+```
+## <a name='tshoot'></a>tshoot
+### <a name='no-space-left-on-device-error'></a>no-space-left-on-device-error
 ```sh
 #? tshoot docker no space left
 docker build -t <your_username>/my-first-repo 
 sudo su
 docker rm $(docker ps -q -f 'status=exited')
 docker rm $(docker ps -q -f 'status=exited')
-
 ```
-
-###  4.2. <a name='DockerDaemonConfigFile'></a>Docker Daemon Config File
-
+### <a name='docker-daemon-config-file'></a>docker-daemon-config-file
 Edit the file ```/etc/docker/daemon.json```.
-
 ```json
 #
 ```

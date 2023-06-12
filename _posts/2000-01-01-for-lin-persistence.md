@@ -4,7 +4,7 @@ title: FOR Linux Persistence
 category: for
 parent: cheatsheets
 modified_date: 2023-01-04
-permalink: /for/lin-persistence
+permalink: /for/lin/persistence
 ---
 
 

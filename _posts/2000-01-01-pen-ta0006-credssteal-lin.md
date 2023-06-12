@@ -4,7 +4,7 @@ title: TA0006 Credentials Access - Linux
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/lin/creds
+permalink: /pen/credssteal/lin
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)

@@ -4,7 +4,7 @@ title: FOR Windows Binaries
 parent: cheatsheets
 category: for
 modified_date: 2023-06-07
-permalink: /for/pe
+permalink: /for/win/pe
 ---
 
 ```

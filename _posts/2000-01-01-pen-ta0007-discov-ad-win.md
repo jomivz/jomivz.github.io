@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-03
-permalink: /pen/discov-ad-win
+permalink: /pen/win/discov-ad
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)

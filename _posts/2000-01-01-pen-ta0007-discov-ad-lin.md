@@ -3,7 +3,7 @@ layout: post
 title: TA0007 Discovery - AD Collection & Enumeration with Linux
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-05
+modified_date: 2023-06-08
 permalink: /pen/lin/discov-ad
 ---
 
@@ -72,10 +72,15 @@ export zdom_dc_san=$zdom_dc"$"
 export zdom_dc_ip="1.2.3.4"
 export ztarg_computer="PC001"
 export ztarg_computer_fqdn=$ztarg_computer"."$zdom_fqdn
-export ztarg_computer_san=$ztarg_computer"$"
 export ztarg_computer_ip=""
+export ztarg_computer_san=$ztarg_computer"$"
 export ztarg_user_name="xxx"
+export ztarg_user_nthash="xxx"
+export ztarg_user_pass="xxx"
+export ztarg_user_next="xxx"
 export ztarg_ou="OU=xxx,"$zdom_dn
+export zy=$zdom_fqdn/$ztarg_user_name
+export zz=$zdom_fqdn/$ztarg_user_name:$ztarg_user_pass
 ```
 
 To set / verify the variables use the command:
@@ -96,6 +101,12 @@ mkdir $zdom_dc_fqdn
 ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 ```
 
+<table id="repo">
+  <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+</table>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var rep = "https://api.github.com/repos/c3c/ADExplorerSnapshot.py"; $.ajax({type: "GET", url: rep, dataType: "json", success: function(result) {$("#repo").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result););</script>
 
 ## <a name='shoot'></a>shoot
 
@@ -227,11 +238,15 @@ Get-GPPPassword
 User groups:
 ```bash
 # Get user info
-pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX > pt_xxx_getnetuser_x.txt
+ztarg_user_next=""
+ztarg_computer=""
+date_now=$(date "+%F-%H%M")
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > pt_xxx_getnetuser_$ztarg_user_next.txt
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > pt_xxx_getnetuser_$ztarg_user_next"_"$ztarg_computer"_"$date_now.txt
 
 # Get user info + canarytoken check
 # select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount
-egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" pt_xxx_getnetuser_x.txt
+egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" pt_xxx_getnetuser_$ztarg_computer"_"$ztarg_user_next.txt
 
 # Get user memberof info
 pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX | grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 

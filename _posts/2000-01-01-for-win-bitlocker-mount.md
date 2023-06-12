@@ -4,7 +4,7 @@ title: SYS Mounting bitlocker partition
 category: for
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/bitlocker
+permalink: /for/win/bitlocker
 ---
 
 <!-- vscode-markdown-toc -->

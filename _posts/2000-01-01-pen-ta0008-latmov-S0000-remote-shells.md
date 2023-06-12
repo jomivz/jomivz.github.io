@@ -49,4 +49,8 @@ permalink: /pen/rshell
 
 ##  6. <a name='winrm'></a>winrm
 
-* [Evil-winrm](https://github.com/Hackplayers/evil-winrm)
+* [Evil-winrm](https://github.com/Hackplayers/evil-winrm):
+```
+evil-winrm -i $ztarg_computer_ip -u $ztarg_user_name -p $ztarg_user_pass
+evil-winrm -i $ztarg_computer_ip -u $ztarg_user_name -H $ztarg_user_nthash
+```

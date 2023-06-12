@@ -4,7 +4,7 @@ title: TA0006 Windows - Credentials Steal
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/win/creds
+permalink: /pen/credssteal/win
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
