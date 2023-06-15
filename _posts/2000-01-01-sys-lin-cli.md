@@ -102,7 +102,7 @@ klist -k -Ke
 
 ### <a name='add-account'></a>add-account
 ### <a name='set-netconf'></a>set-netconf
-```
+```sh
 sudo vim /etc/netplan/01-netcfg.yaml
 # set the DHCP option from true to false
 sudo netplan apply
@@ -113,6 +113,32 @@ cat /usr/share/wireshark/manuf | grep -i Dell
 sudo ifconfig eth0 down
 sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
 sudo ifconfig eth0 up
+```
+
+### set-krb
+```sh
+# list the DC
+dig -type=srv _gc_.tcp.$zdom_fqdn
+
+# fill /etc/hosts
+sudo vi /etc/hosts
+
+# install the krb5-user service
+sudo apt install krb5-user 
+
+# edit /etc/krb5.conf
+sudo vi /etc/krb5.conf
+
+# reconfigure krb5-user service
+sudo dpkg-reconfigure krb5-config
+
+# tshoot /etc/krb5.conf
+kinit
+net ads info
+realm list
+klist -k /etc/kr5.keytab
+
+
 ```
 
 ### <a name='set-vpn'></a>set-vpn

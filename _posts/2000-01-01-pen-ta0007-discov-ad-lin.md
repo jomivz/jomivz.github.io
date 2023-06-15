@@ -12,7 +12,7 @@ permalink: /pen/lin/discov-ad
 **Menu**
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
-	* [tools](#tools)
+	* [install](#install)
 	* [load-env](#load-env)
 * [collect](#collect)
 	* [adexplorersnapshot](#adexplorersnapshot)
@@ -23,11 +23,13 @@ permalink: /pen/lin/discov-ad
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
+		* [shoot-gpo](#shoot-gpo)
 		* [shoot-shares](#shoot-shares)
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-acls](#shoot-acls)
+		* [shoot-gpos](#shoot-gpos)
 * [iter](#iter)
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
@@ -52,50 +54,20 @@ permalink: /pen/lin/discov-ad
 
 PRE-REQUISITE:
 
-### <a name='tools'></a>tools
+### <a name='install'></a>install
 
 - [bloodhound](https://bloodhound.readthedocs.io/en/latest/installation/linux.html)
 - [ADExplorerSnapshot.py](https://github.com/c3c/ADExplorerSnapshot.py)
 
 ### <a name='load-env'></a>load-env
 
-Setting variables for copy/paste. Example of ```env.sh``` file :
-```bash
-#!/bin/bash
-export zforest="com"
-export zdom="contoso"
-export zdom_fqdn=$zdom"."$zforest
-export zdom_dn="DC=contoso,DC=com"
-export zdom_dc="DC001"
-export zdom_dc_fqdn=$zdom_dc"."$zdom_fqdn
-export zdom_dc_san=$zdom_dc"$"
-export zdom_dc_ip="1.2.3.4"
-export ztarg_computer="PC001"
-export ztarg_computer_fqdn=$ztarg_computer"."$zdom_fqdn
-export ztarg_computer_ip=""
-export ztarg_computer_san=$ztarg_computer"$"
-export ztarg_user_name="xxx"
-export ztarg_user_nthash="xxx"
-export ztarg_user_pass="xxx"
-export ztarg_user_next="xxx"
-export ztarg_ou="OU=xxx,"$zdom_dn
-export zy=$zdom_fqdn/$ztarg_user_name
-export zz=$zdom_fqdn/$ztarg_user_name:$ztarg_user_pass
-```
+* URL suffix (F6 shortcut) : [/pen/setenv#lin](/pen/setenv#lin)
 
-To set / verify the variables use the command:
-```bash
-# set the envs without opening a new shell
-. ./env.sh
-
-#verify the envs
-set
-```
 ## <a name='collect'></a>collect
 
 ### <a name='adexplorersnapshot'></a>adexplorersnapshot
 
-* Convert ADExplorer snapshot to Bloodhound json files:
+* usage: convert ADExplorer snapshot to BloodHound json files:
 ```
 mkdir $zdom_dc_fqdn
 ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
@@ -106,7 +78,7 @@ ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 </table>
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var rep = "https://api.github.com/repos/c3c/ADExplorerSnapshot.py"; $.ajax({type: "GET", url: rep, dataType: "json", success: function(result) {$("#repo").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result););</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 ## <a name='shoot'></a>shoot
 
@@ -148,7 +120,7 @@ Domain properties:
 nmap $zdom_fqdn --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
-dig -t SRV _gc._tcp.$zdom_fqdn
+dig -t SRV _gc._tcp.$zdom_fqdn | grep "^[a-z]
 dig -t SRV _ldap._tcp.$zdom_fqdn
 dig -t SRV _kerberos._tcp.$zdom_fqdn
 dig -t SRV _kpasswd._tcp.$zdom_fqdn
@@ -160,6 +132,8 @@ nbtscan -r 10.0.0.0/24
 
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
+crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --pass-pol
+
 # Get the domain pasword policy
 rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
 rpcclient> getdompwinfo
@@ -200,7 +174,6 @@ ztarg_grp="Domain Admins"
 #ztarg_grp="Remote Desktop Users"
 #ztarg_grp="DNSAdmins"
 
-
 ```
 
 #### <a name='shoot-priv-machines'></a>shoot-priv-machines
@@ -209,6 +182,16 @@ Privileged Machines:
 ```sh
 tbd
 ```
+
+#### <a name='shoot-gpo'></a>shoot-gpo
+```bash
+# cme
+crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_pasword
+crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_autologin
+# impacket
+Get-GPPPassword.py $zz
+```
+
 #### <a name='shoot-shares'></a>shoot-shares
 #### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
 
@@ -227,7 +210,7 @@ GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -r
 
 #### <a name='shoot-acls'></a>shoot-acls
 
-#### <a name='shoot-acls'></a>shoot-gpos
+#### <a name='shoot-gpos'></a>shoot-gpos
 ```
 Get-GPPPassword
 ```
@@ -287,10 +270,12 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 
 ## <a name='refresh'></a>refresh
 
-REFRESH
-
 ### <a name='check-computer-access'></a>check-computer-access
 ### <a name='last-logons'></a>last-logons
+```sh
+pywerview get-netgroupmember --groupname "Domain Admins" -u $ztarg_user_name -p $ztarg_user_pass -w $zdom_fqdn --dc-ip $zdom_dc_ip -r --full-data | grep -i "samaccountname\|pwdlastset"
+pywerview get-netgroupmember --groupname "Domain Admins" -u $ztarg_user_name -p $ztarg_user_pass -w $zdom_fqdn --dc-ip $zdom_dc_ip -r --full-data | grep -i "samaccountname\|pwdlastset\|lastlogontimestamp"
+```
 ### <a name='last-logons-computer'></a>last-logons-computer
 ### <a name='last-logons-ou'></a>last-logons-ou
 
