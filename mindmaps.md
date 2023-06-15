@@ -3,12 +3,12 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2023-06-05
+modified_date: 2023-06-15
 ---
 
 ## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
 
-** MENU **
+**MENU**
 
 <!-- vscode-markdown-toc -->
 * [methodoly](#methodoly)
@@ -40,11 +40,11 @@ convert goad2.png -channel RGB -negate goad2negat.png
 # split the final PNG to 21 pages (A3 format)  
 posterazor goad2negat.png
 ```
-![/assets/images/goad2-svg-2-pdf-1.png]
-![/assets/images/goad2-svg-2-pdf-2.png]
-![/assets/images/goad2-svg-2-pdf-3.png]
-![/assets/images/goad2-svg-2-pdf-4.png]
-![/assets/images/goad2-svg-2-pdf-5.png]
+![](/assets/images/goad2-svg-2-pdf-1.png)
+![](/assets/images/goad2-svg-2-pdf-2.png)
+![](/assets/images/goad2-svg-2-pdf-3.png)
+![](/assets/images/goad2-svg-2-pdf-4.png)
+![](/assets/images/goad2-svg-2-pdf-5.png)
 
 
 * [/pen/cloud](/pen/cloud)
