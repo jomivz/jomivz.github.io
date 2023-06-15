@@ -34,10 +34,11 @@ permalink: /pen/win/discov-ad
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spn](#shoot-spn)
 		* [shoot-npusers](#shoot-npusers)
-		* [shoot-acls](#shoot-acls)
+		* [shoot-dacl](#shoot-dacl)
 * [iter](#iter)
 	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
+	* [iter-dacl](#iter-dacl)
 	* [iter-scope](#iter-scope)
 * [refresh](#refresh)
 	* [check-computer-access](#check-computer-access)
@@ -338,26 +339,26 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -Domai
 
 #### <a name='shoot-npusers'></a>shoot-npusers
 
-#### <a name='shoot-acls'></a>shoot-acls
-
-TXXXX ACL
-
-References:
-- [BloodHound Edge GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall)
-- [BloodHound Edge WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl)
-- [BloodHound Edge GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
-
+#### <a name='shoot-dacl'></a>shoot-dacl
 ```powershell
-# Enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
+# STEP 1: global gathering
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+
+# STEP 2: check for "authenticated users" and "everyone" group
+
+# STEP 3: gather info on security groups
+#$ztarg_group="Domain Computers"
+$ztarg_group="RDP Users"
+Get-ObjectAcl -SamAccountName $ztarg_group -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group}
+
+# STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
 Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
-
-# enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-
-# gather info on security groups
-Get-ObjectAcl -SamAccountName "Domain Computers" -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match "RDPUsers"} 
 ```
+
+sources:
+- [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
+- BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
 ## <a name='iter'></a>iter
 
@@ -381,6 +382,14 @@ get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zd
 # identify if the new account is 'memberof' new groups 
 get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
 get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
+```
+
+### <a name='iter-dacl'></a>iter-dacl
+```powershell
+$(Get-ADUser anakin -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
+
+# enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
+Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
 ### <a name='iter-scope'></a>iter-scope
