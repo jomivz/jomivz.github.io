@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS Dumping memory
-category: for
+title: DFIR SYS Dumping memory
+category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/memdump
+permalink: /dfir/memdump
 ---
 
 ## Dumping Memory of a VirtualBox Machine

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Windows Binaries
+title: DFIR WIN Binaries
 parent: cheatsheets
-category: for
+category: dfir
 modified_date: 2023-06-07
-permalink: /for/win/pe
+permalink: /dfir/win/pe
 ---
 
 ```

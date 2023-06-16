@@ -1,10 +1,10 @@
 ---
 layout: post
-title: NET TSHARK forensics
-category: for
+title: DFIR NET Tshark
+category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/tshark
+permalink: /dfir/net/tshark
 ---
 
 <!-- vscode-markdown-toc -->

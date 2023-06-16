@@ -11,7 +11,6 @@ permalink: /awesome-ad
 * [azure](#azure)
 * [dfir](#dfir)
 * [powershell](#powershell)
-* [sources](#sources)
 * [talks](#talks)
 
 <!-- vscode-markdown-toc-config
@@ -19,6 +18,19 @@ permalink: /awesome-ad
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+| **Ressource**  | **Description** |    **Author**    |
+|-----------------|-----------------|------------------|
+| [Attack AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. My TOP 1. | Eloy Pérez González | 
+| [Bloodhound Nodes](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html) | Must-read to understand AD attack paths. | SperterOps | 
+| [Bloodhound Edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) | Must-read to understand AD attack paths. | SpecterOps | 
+| [CERT-FR checklist](https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html) | | ANSSI |
+| [CME wiki](https://wiki.porchetta.industries/) | First thing first. Can I make it with CME? | porchetta, mpgn64 |
+| [GOAD tutorial](https://mayfly277.github.io/categories/ad/) | Best to practice, prepare tooling. | mayfly277 |
+| [Attack bookmarks](https://github.com/infosecn1nja/AD-Attack-Defense) | Curated list to deepdive a particluar topic. | infosecn1nja |
+| [Dog Whisperer](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. | SadProcessor |
+| [Cypher Queries](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/)  | Hunting with BloodHound. STEP 2 after the pre-built queries. | hausec | 
+| [KRB Attacks 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
 
 ## <a name='azure'></a>azure
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)
@@ -43,19 +55,6 @@ permalink: /awesome-ad
 | [PS toolbox 2](https://www.varonis.com/blog/powershell-tool-roundup/) | Collection of tools. | varonis |
 | [PS snippet gallery](https://www.powershellgallery.com/packages/EventList/2.0.0) | Snipets. | powershellgallery |
 | [PS old stuffs](https://ethicalhackersacademy.com/blogs/ethical-hackers-academy/active-directory) | - | ethicalhackersacademy |
-
-## <a name='sources'></a>sources
-
-| **Ressource**  | **Description** |    **Author**    |
-|-----------------|-----------------|------------------|
-| [Attack AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. My TOP 1. | Eloy Pérez González | 
-| [Bloodhound Nodes](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html) | Must-read to understand AD attack paths. | SperterOps | 
-| [Bloodhound Edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) | Must-read to understand AD attack paths. | SpecterOps | 
-| [GOAD tutorial](https://mayfly277.github.io/categories/ad/) | Best to practice, prepare tooling. | mayfly277 |
-| [Attack bookmarks](https://github.com/infosecn1nja/AD-Attack-Defense) | Well **classified compilation of articles** from the technet, adsecurity, stealthbits, specterops, youtube, github and other sources. Great room to deepdive a particluar topic. | infosecn1nja |
-| [Dog Whisperer](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. | SadProcessor |
-| [Cypher Queries](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/)  | Hunting with BloodHound. STEP 2 after the pre-built queries. | hausec | 
-| [KRB Attacks 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
 
 ## <a name='talks'></a>talks
 

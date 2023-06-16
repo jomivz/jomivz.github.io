@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Ressources
-category: for
+title: DFIR Ressources
+category: dfir
 parent: cheatsheets
 modified_date: 2023-06-09
-permalink: /for/sources
+permalink: /dfir/sources
 ---
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |

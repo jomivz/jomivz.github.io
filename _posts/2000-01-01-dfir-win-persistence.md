@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Windows Persistence
-category: for
+title: DFIR WIN Persistence
+category: dfir
 parent: cheatsheets
 modified_date: 2023-01-04
-permalink: /for/win/persistence
+permalink: /dfir/win/persistence
 ---
 
 

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS Mounting bitlocker partition
-category: for
+title: DFIR WIN Mounting bitlocker partition
+category: DFIR
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/win/bitlocker
+permalink: /dfir/win/bitlocker
 ---
 
 <!-- vscode-markdown-toc -->

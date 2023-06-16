@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Hunting with YARA
-category: for
+title: DFIR iRULES Yara
+category: dfir
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /for/yara
+permalink: /dfir/rules/yara
 ---
 
 

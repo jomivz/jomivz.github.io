@@ -1,10 +1,10 @@
 ---
 layout: post
-title: NET WIRESHARK forensics
-category: for
+title: DFIR NET Wireshark
+category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/wireshark
+permalink: /dfir/net/wireshark
 ---
 
 * Change time to UTC in the menu "View \ Time Display Format"

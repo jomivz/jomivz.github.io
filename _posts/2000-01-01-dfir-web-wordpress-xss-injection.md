@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS Wordpress XSS injection
-category: for
+title: DFIR WEB Wordpress XSS injection
+category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /for/wp-xss
+permalink: /dfir/web/wordpress
 ---
 
 <!-- vscode-markdown-toc -->

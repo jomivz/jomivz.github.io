@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Active Directory - Remediation
+title: DFIR AD Remediation
 category: dfir
 parent: cheatsheets
 modified_date: 2023-06-15

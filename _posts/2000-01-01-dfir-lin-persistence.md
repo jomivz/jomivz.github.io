@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Linux Persistence
-category: for
+title: DFIR LIN Persistence
+category: dfir
 parent: cheatsheets
 modified_date: 2023-01-04
-permalink: /for/lin/persistence
+permalink: /dfir/lin/persistence
 ---
 
 

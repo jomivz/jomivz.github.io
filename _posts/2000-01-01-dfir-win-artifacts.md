@@ -1,10 +1,10 @@
 ---
 layout: post
-title: FOR Windows Artifacts
+title: DFIR WIN Artifacts
 parent: cheatsheets
-category: for
+category: dfir
 modified_date: 2023-06-08
-permalink: /for/win/artifacts
+permalink: /dfir/win/artifacts
 ---
 
 <!-- vscode-markdown-toc -->
