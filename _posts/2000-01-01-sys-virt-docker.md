@@ -3,7 +3,7 @@ layout: post
 title: / sys / docker #imgomy #imgsec #memo #tshoot   
 category: sys
 parent: cheatsheets
-modified_date: 2023-06-12
+modified_date: 2023-06-19
 permalink: /sys/docker
 ---
 
@@ -68,6 +68,15 @@ sudo docker run --rm --volume="$HOME/git/jomivz.github.io:/srv/jekyll" --publish
 ```sh
 docker pull linuxserver/libreoffice:7.2.2
 docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 3000:3000 -v /home/jomivz/doc:/doc --restart unless-stopped linuxserver/libreoffice:7.2.2
+```
+
+### neo4j
+```sh
+docker run \
+    --publish=7474:7474 --publish=7687:7687 \
+    --volume=/neo4j/data:/data \
+    --volume=/logs/neo4j:/logs \
+    neo4j:4.4.21-community
 ```
 
 ### <a name='python2'></a>python2

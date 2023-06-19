@@ -54,6 +54,8 @@ dir HKLM:\SYSTEM\CurrentControlSet\Services\CryptSvc
 ```
 
 ### <a name='lin-enum'></a>lin-enum
+
+* [editor user guide](https://docs-cortex.paloaltonetworks.com/r/Cortex-XDR/5.0/Traps-Agent-Administrator-Guide)
 * enum xdr on linux OS:
 ```bash
 cat /opt/trap/version.txt

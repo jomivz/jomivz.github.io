@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR iRULES Yara
+title: DFIR RULES Yara
 category: dfir
 parent: cheatsheets
 modified_date: 2023-06-08

@@ -16,6 +16,7 @@ permalink: /pen/lin/discov-ad
 	* [load-env](#load-env)
 * [collect](#collect)
 	* [adexplorersnapshot](#adexplorersnapshot)
+	* [bloodhound.py](#bloodhound.py)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
@@ -28,7 +29,7 @@ permalink: /pen/lin/discov-ad
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
-		* [shoot-acls](#shoot-acls)
+		* [shoot-dacl](#shoot-dacl)
 		* [shoot-gpos](#shoot-gpos)
 * [iter](#iter)
 	* [iter-memberof](#iter-memberof)
@@ -72,6 +73,11 @@ PRE-REQUISITE:
 mkdir $zdom_dc_fqdn
 ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 ```
+
+### <a name='bloodhound.py'></a>bloodhound.py
+
+[Collection methods](https://github.com/fox-it/BloodHound.py#installation-and-usage) are not the same as sharphound's ones.
+
 
 <table id="repo">
   <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -208,7 +214,7 @@ GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -
 GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> np_users.txt 
 ```
 
-#### <a name='shoot-acls'></a>shoot-dacl
+#### <a name='shoot-dacl'></a>shoot-dacl
 ```sh
 # STEP 1: global gathering
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 

@@ -18,3 +18,5 @@ permalink: /dfir/rules/sigma
 <!-- /vscode-markdown-toc -->
 
 ## <a name='hello'></a>hello
+
+* [SigmaHQ](https://github.com/SigmaHQ/sigma) 
