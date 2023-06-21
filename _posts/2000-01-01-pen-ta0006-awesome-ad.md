@@ -27,6 +27,8 @@ permalink: /awesome-ad
 | [CERT-FR checklist](https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html) | | ANSSI |
 | [CME wiki](https://wiki.porchetta.industries/) | First thing first. Can I make it with CME? | porchetta, mpgn64 |
 | [GOAD tutorial](https://mayfly277.github.io/categories/ad/) | Best to practice, prepare tooling. | mayfly277 |
+| [activedirectoryrightss](https://learn.microsoft.com/fr-fr/dotnet/api/system.directoryservices.activedirectoryrights?view=windowsdesktop-7.0) | List of ActiveDirectoryRights values. | Microsoft |
+| [well-known SIDs](https://learn.microsoft.com/en-us/windows/win32/secauthz/well-known-sids) | List of Well-Known SIDs. | Microsoft |
 | [Attack bookmarks](https://github.com/infosecn1nja/AD-Attack-Defense) | Curated list to deepdive a particluar topic. | infosecn1nja |
 | [Dog Whisperer](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. | SadProcessor |
 | [Cypher Queries](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/)  | Hunting with BloodHound. STEP 2 after the pre-built queries. | hausec | 

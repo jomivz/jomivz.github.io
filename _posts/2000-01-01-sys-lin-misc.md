@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin LIN MISC
+title: SYS LIN MISC
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-04

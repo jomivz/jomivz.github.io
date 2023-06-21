@@ -1,6 +1,6 @@
 ---
 layout: post
-title: IPTABLES cheatsheet
+title: NET IPTABLES cheatsheet
 parent: cheatsheets
 category: net
 modified_date: 2021-11-18

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin LOGS Cisco
+title: SYS LOGS Cisco
 category: sys
 parent: cheatsheets
 modified_date: 2023-01-10

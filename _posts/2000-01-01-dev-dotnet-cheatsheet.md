@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Build .NET projects
+title: DEV Build .NET projects
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-03

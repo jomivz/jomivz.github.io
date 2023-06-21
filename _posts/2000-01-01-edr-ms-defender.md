@@ -1,6 +1,6 @@
 ---
 layout: post
-title: MicroSoft Defender
+title: EDR MicroSoft Defender
 parent: cheatsheets
 category: edr
 modified_date: 2023-06-03

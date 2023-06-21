@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Incident response with Splunk 
+title: SIEM Incident response with Splunk 
 category: siem
 parent: cheatsheets
 modified_date: 2022-03-22

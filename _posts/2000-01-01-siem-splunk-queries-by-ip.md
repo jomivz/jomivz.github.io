@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Splunk queries based on IP
+title: SIEM Splunk queries based on IP
 category: siem
 parent: cheatsheets
 modified_date: 2021-09-15

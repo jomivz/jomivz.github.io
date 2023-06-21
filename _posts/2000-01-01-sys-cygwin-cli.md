@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin CygWin CLI
+title: SYS CygWin CLI
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-04

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python Snippets & Libraries
+title: DEV Python Snippets & Libraries
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-08

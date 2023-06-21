@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Common REGEX in Cybersecurity
+title: DEV Common REGEX in Cybersecurity
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-08

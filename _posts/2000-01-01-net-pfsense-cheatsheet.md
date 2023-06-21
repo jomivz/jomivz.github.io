@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Pfsense cheatsheet
+title: NET Pfsense cheatsheet
 category: net
 parent: cheatsheets
 modified_date: 2021-02-06

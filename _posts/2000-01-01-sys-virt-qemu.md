@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin VIRT QEMU / Proxmox - Administration Cookbook
+title: SYS VIRT QEMU / Proxmox
 category: sys
 parent: cheatsheets
 modified_date: 2021-08-31

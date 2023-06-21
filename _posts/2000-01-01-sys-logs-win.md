@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin LOGS Windows
+title: SYS LOGS Windows
 category: sys
 parent: cheatsheets
 modified_date: 2023-01-16

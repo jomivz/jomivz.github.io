@@ -1,6 +1,6 @@
 ---
 layout: post
-title: C2 inda Cloud
+title: PEN C2 inda Cloud
 category: pen
 parent: cheatsheets
 modified_date: 2022-08-16

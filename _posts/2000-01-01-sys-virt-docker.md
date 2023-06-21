@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / sys / docker #imgomy #imgsec #memo #tshoot   
+title: SYS docker #imgomy #imgsec #memo #tshoot   
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-19
@@ -14,13 +14,14 @@ permalink: /sys/docker
 **Menu**
 
 <!-- vscode-markdown-toc -->
-* [images-omy](#images-omy)
+* [imgomy](#imgomy)
 	* [alpine](#alpine)
 	* [jekyll](#jekyll)
 	* [libreoffice](#libreoffice)
+	* [neo4j](#neo4j)
 	* [python2](#python2)
 	* [postgres](#postgres)
-* [images-sec](#images-sec)
+* [imgsec](#imgsec)
 	* [impacket](#impacket)
 	* [kerbrute](#kerbrute)
 	* [nuclei](#nuclei)
@@ -38,7 +39,7 @@ permalink: /sys/docker
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='images-omy'></a>images-omy
+## <a name='imgomy'></a>imgomy
 ### <a name='alpine'></a>alpine
 [Alpine](https://wiki.alpinelinux.org/wiki/Alpine_Linux_Init_System)
 ```sh
@@ -70,7 +71,7 @@ docker pull linuxserver/libreoffice:7.2.2
 docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -p 3000:3000 -v /home/jomivz/doc:/doc --restart unless-stopped linuxserver/libreoffice:7.2.2
 ```
 
-### neo4j
+### <a name='neo4j'></a>neo4j
 ```sh
 docker run \
     --publish=7474:7474 --publish=7687:7687 \
@@ -159,7 +160,7 @@ create table ips_bogon (ipr cidr not null);
 # removes Bogon IPs from table X
 select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS NULL;  
 ```
-## <a name='images-sec'></a>images-sec
+## <a name='imgsec'></a>imgsec
 ### <a name='impacket'></a>impacket
 ```sh
 #? pentest ad bruteforce auth kerbrute

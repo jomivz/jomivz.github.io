@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Sysadmin WIN CLI
+title: SYS WIN CLI
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-05
@@ -321,6 +321,11 @@ bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
+### unset-restricted-admin-mode
+```powershell
+# no need to reboot
+reg add HKLM\SYSTEM\CurrentControlSet\Control\LSA /v 1
+```
 
 ### <a name='dl-ps-ad-module'></a>dl-ps-ad-module 
 ```batch

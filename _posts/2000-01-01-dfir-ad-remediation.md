@@ -9,19 +9,20 @@ permalink: /dfir/ad/remediation
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [check-account-live](#check-account-live)
-	* [admincount](#admincount)
-	* [pwdlastset](#pwdlastset)
-		* [get-user-pwdlastset](#get-user-pwdlastset)
-		* [get-groupmember-pwdlastset](#get-groupmember-pwdlastset)
-	* [spn](#spn)
-	* [uac](#uac)
+* [hva](#hva)
+	* [hva-enum](#hva-enum)
+	* [hva-confirm](#hva-confirm)
+* [check-pwdlastset](#check-pwdlastset)
+	* [pwdlastset-hva](#pwdlastset-hva)
+	* [pwdlastset-bh-pwnable](#pwdlastset-bh-pwnable)
+		* [bh-pwnable-users](#bh-pwnable-users)
+		* [bh-pwnable-groupmembers](#bh-pwnable-groupmembers)
 * [check-dacl](#check-dacl)
-	* [aced](#aced)
-	* [bloodhood.py](#bloodhood.py)
-	* [ldap-queries](#ldap-queries)
+	* [check-dacl-4-sam](#check-dacl-4-sam)
+	* [check-dacl-all-with-aced](#check-dacl-all-with-aced)
+	* [check-dacl-all-with-bh.py](#check-dacl-all-with-bh.py)
 * [check-gpo](#check-gpo)
-	* [bloodhood.py](#bloodhood.py-1)
+	* [bloodhood.py](#bloodhood.py)
 	* [check-gpo-whencreated](#check-gpo-whencreated)
 	* [group3r](#group3r)
 * [check-replications](#check-replications)
@@ -38,58 +39,47 @@ permalink: /dfir/ad/remediation
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='check-account-live'></a>check-account-live
+## <a name='hva'></a>hva
 
-### <a name='admincount'></a>admincount
+### <a name='hva-enum'></a>can-dcsync
+- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
 ```sh
-# live
-# admincount
-pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep admincount | awk '{print $2}' | paste -s -d, -
+# bh pre built query
+MATCH p=()-[:DCSync|AllExtendedRights|GenericAll]->(:Domain {name: ""}) RETURN p
+# export json, name it 'dcsync.json'
 
-# jq-over-bh-json
-# admincount
-users.json | jq -r '.data[].Properties | select((.admincount==true) and .enabled==true)) | .samaccountname'
+# dig
+dig -t SRV "_ldap._tcp.dc._msdcs."$zdom_fqdn
 
-#groupmembers
-#groups.json | jq -r '.data[].Properties | select(.name=="Domain Admins@$zdom_fqdn")'
+# pywerview query
+#echo "CAN NOT DCSync ?!"
+#for ztarg_sam in `cat dcsync.json`; do 
+#cannot=""
+pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam |grep "extended_right\|generic_all" | awk '{print $2}' | paste -s -d, -;
 ```
 
-### <a name='pwdlastset'></a>pwdlastset
+### <a name='hva-enum'></a>hva-enum
+
+* [/pen/lin/discov-ad#shoot-priv-users](/pen/lin/discov-ad#shoot-priv-users)
+* [/pen/lin/discov-ad#shoot-spns](/pen/lin/discov-ad#shoot-spns])
+* [/pen/lin/discov-ad#shoot-uac](/pen/lin/discov-ad#shoot-uac])
 
 ```sh
-bh_query=pt_XXX_bh_dangerous-privs_dcsync
-cat $bh_query.json | jq -r '.spotlight[] | join(",")' > $bh_query.csv
+# credit hausec cypher query : hva
+MATCH p=(n:User)-[r:MemberOf*1..]->(m:Group {highvalue:true}) RETURN p
+
+# credit hausec cypher query : list users group
 ```
 
-#### <a name='get-user-pwdlastset'></a>get-user-pwdlastset
+### <a name='hva-confirm'></a>hva-confirm
 ```sh
-for user in `grep -i user $bh_query".csv" | cut -f1 -d, | sed 's/\(.*\)\@.*$/\1/'`; 
-  do pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep "samaccountname\|pwdlastset" | awk '{print $2}' | paste -s -d, -; 
-done
-```
+# confirm admincount
+pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $ztarg_user_next | grep admincount | awk '{print $2}' | paste -s -d, -
 
-#### <a name='get-groupmember-pwdlastset'></a>get-groupmember-pwdlastset
-```sh
-# get the groups
-while read line; do echo $line | grep -i group | cut -f1 -d, | sed 's/\(.*\)\@.*$/\1/'; done < $bh_query.csv > >> groups.txt
+# confirm spn
+pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $ztarg_user_next | grep serviceprincipalname | awk '{print $2}' | paste -s -d, -
 
-# get the members
-while read group;  do echo $group; pywerview get-netgroupmember -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip -r --groupname "$group" >> members.txt ; done < groups.txt
-
-# list pwdlastset
-for member in `sort -u members.txt`; 
-do pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $member | grep "samaccountname\|pwdlastset" | awk '{print $2}' | paste -s -d, -; done;
-```
-
-### <a name='spn'></a>spn 
-```sh
-pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep XXX | awk '{print $2}' | paste -s -d, -
-```
-
-### <a name='uac'></a>uac
-
-```sh
-# live
+# confirm uac
 pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep useraccountcontrol | awk '{print $2}' | paste -s -d, -
 ```
 
@@ -104,9 +94,63 @@ pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $
 * TRUSTED_FOR_DELEGATION
 * TRUSTED_TO_AUTH_FOR_DELEGATION
 
+## <a name='check-pwdlastset'></a>check-pwdlastset
+
+### <a name='pwdlastset-hva'></a>pwdlastset-hva
+
+### <a name='pwdlastset-bh-pwnable'></a>pwdlastset-bh-pwnable
+
+
+* Extract JSON from BH prebuilt queries (Dangerous Privs, KRB interactions, SPF)
+* Format the JSON to CSV :
+```sh
+bh_query=pt_XXX_bh_dangerous-privs_dcsync
+cat $bh_query.json | jq -r '.spotlight[] | join(",")' > $bh_query.csv
+```
+
+#### <a name='bh-pwnable-users'></a>bh-pwnable-users
+
+```sh
+for user in `grep -i user $bh_query".csv" | cut -f1 -d, | sed 's/\(.*\)\@.*$/\1/'`; 
+  do pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep "samaccountname\|pwdlastset" | awk '{print $2}' | paste -s -d, -; 
+done
+```
+
+#### <a name='bh-pwnable-groupmembers'></a>bh-pwnable-groupmembers
+```sh
+# get the groups
+while read line; do echo $line | grep -i group | cut -f1 -d, | sed 's/\(.*\)\@.*$/\1/'; done < $bh_query.csv >> groups.txt
+
+# get the members
+while read group;  do echo $group; pywerview get-netgroupmember -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip -r --groupname "$group" | grep "membername" | awk '{print $2}' >> members.txt ; done < groups.txt
+
+# list pwdlastset
+for member in `sort -u members.txt`; 
+do pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $member | grep "samaccountname\|pwdlastset" | awk '{print $2}' | paste -s -d, -; done;
+```
+
 ## <a name='check-dacl'></a>check-dacl
 
-### <a name='aced'></a>aced
+### <a name='check-dacl-4-sam'></a>check-dacl-4-sam
+```sh
+# define the sam-account-name
+ztarg_sam="Domain users"
+ztarg_sam="Authenticated users"
+ztarg_sam="DC01$"
+
+# check everyone group permissions
+pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam --resolve-sids > $zcase"_acl_"$ztarg_sam"_resolved.txt"
+
+# get the securityidentifier with writeowner dacl
+ad_rights="generic_all"
+ad_rights="generic_write"
+ad_rights="write_dacl"
+ad_rights="write_owner"
+ad_rights="extended_write"
+more "acl_"$ztarg_sam"_resolved.txt | grep -A 3 $ad_rights | grep securityidentifier | awk "{print $2}"
+```
+
+### <a name='check-dacl-all-with-aced'></a>check-dacl-all-with-aced
 ```sh
 # execution
 python3 ./aced.py $zz@$zdom_dc_ip
@@ -117,34 +161,15 @@ sid=""
 pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --custom-filter "(objectsid=$sid)"
 ```
 
-### <a name='bloodhood.py'></a>bloodhood.py
+### <a name='check-dacl-all-with-bh.py'></a>check-dacl-all-with-bh.py
 ```sh
 ./bloodhound.py -c ACL --domain $zdom_fqdn -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass
+jq ...
 ```
-
-### <a name='ldap-queries'></a>ldap-queries
-```sh
-# get sid for domain users / everyone / autenticated users
-#ztarg_group="Domain users"
-#ztarg_group="Authenticated users"
-ztarg_group_name="Everyone"
-sid=`pywerview get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --groupname $starg_group --full-data | grep objectsid | awk '{print $2}'`
-
-# check everyone DACL over DC01
-ztarg_sam="DC01$"
-pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam > $ztarg_sam".txt"
-
-# does 'everyone' has an ACE for DC01$ ? 
-grep $sid $ztarg_sam".txt"
-
-# check everyone group permissions
-pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_group_name --resolve-sids > "acl_"$ztarg_group_name"_resolved.txt"
-```
-
 
 ## <a name='check-gpo'></a>check-gpo
 
-### <a name='bloodhood.py-1'></a>bloodhood.py
+### <a name='bloodhood.py'></a>bloodhood.py
 ```sh
 ./bloodhound.py -c Container --domain $zdom_fqdn -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass
 ```

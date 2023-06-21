@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Splunk Search Queries based on BOTSv1
+title: SIEM Splunk Search Queries based on BOTSv1
 category: siem
 parent: cheatsheets
 modified_date: 2021-03-02
