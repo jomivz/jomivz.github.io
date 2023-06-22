@@ -10,6 +10,7 @@ permalink: /dfir/ad/remediation
 **Menu**
 <!-- vscode-markdown-toc -->
 * [hva](#hva)
+	* [can-dcsync](#can-dcsync)
 	* [hva-enum](#hva-enum)
 	* [hva-confirm](#hva-confirm)
 * [check-pwdlastset](#check-pwdlastset)
@@ -23,6 +24,7 @@ permalink: /dfir/ad/remediation
 	* [check-dacl-all-with-bh.py](#check-dacl-all-with-bh.py)
 * [check-gpo](#check-gpo)
 	* [bloodhood.py](#bloodhood.py)
+* [check-schema](#check-schema)
 	* [check-gpo-whencreated](#check-gpo-whencreated)
 	* [group3r](#group3r)
 * [check-replications](#check-replications)
@@ -41,28 +43,47 @@ permalink: /dfir/ad/remediation
 
 ## <a name='hva'></a>hva
 
-### <a name='hva-enum'></a>can-dcsync
+### <a name='can-dcsync'></a>can-dcsync
 - [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
 ```sh
-# bh pre built query
+
+# 01 : bh pre built query to find dcsync principal
 MATCH p=()-[:DCSync|AllExtendedRights|GenericAll]->(:Domain {name: ""}) RETURN p
 # export json, name it 'dcsync.json'
 
-# dig
-dig -t SRV "_ldap._tcp.dc._msdcs."$zdom_fqdn
+# 02 : list the DCs with dig
+dig -t SRV "_ldap._tcp.dc._msdcs."$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"." | sort -u > $zcase"_dig_dc_list.txt"
 
-# pywerview query
-#echo "CAN NOT DCSync ?!"
-#for ztarg_sam in `cat dcsync.json`; do 
-#cannot=""
-pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam |grep "extended_right\|generic_all" | awk '{print $2}' | paste -s -d, -;
+# 02 : collect the ACLs for all DCs
+ddir=`date +"%Y%m%d"`; mkdir $ddir; cd $ddir
+for ztarg_sam in `cat ../$zcase"_dig_dc_list.txt"`; do
+pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam"$" --resolve-sids > $zcase"_get-objectacl_"$ztarg_sam".txt"; done
+
+# 02 : list to CSV
+for file in `ls`; do awk '{if ($1 ~ /activedirectoryrights/) {split($0,a,":"); p=a[2]} else if ($1 ~ /securityidentifier/) {split($0,a,":"); print a[2]";"p}}' $file > $file.csv; done
+
+# 02 : display principal granted for dcsync 
+for file in `ls *.csv`; do echo $file; grep "extended_right\|generic_all" $file |csvlook -d ";"; done
+
+# 03 : check the Replication-Get-Changes rights
+# 03 : to debug : pywerview do not retrieve the ntsecuritydescriptor
+#CN="DS-Replication-Get-Changes,CN=Extended-Rights,CN=Configuration,"$zdom_dn
+#CN="DS-Replication-Get-Changes-All,CN=Extended-Rights,CN=Configuration,"$zdom_dn
+#CN="DS-Replication-Get-Changes-In-Filtered-Set,CN=Extended-Rights,CN=Configuration,"$zdom_dn
+#pywerview get-adobjectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip -a $CN
+
+# 03 : check the Replication-Get-Changes rights
+# open adexplorer, copy the ntSecurityDescriptor of the 3 CNs up into 3 different files, grep for the SIDs
+egrep -o "S-1-5-21-[0-9]{10}-[0-9]{10}-[0-9]{10}-[0-9]{1,6}" replication-get-changes.txt
+egrep -o "S-1-5-21-[0-9]{10}-[0-9]{10}-[0-9]{10}-[0-9]{1,6}" replication-get-changes-all.txt
+egrep -o "S-1-5-21-[0-9]{10}-[0-9]{10}-[0-9]{10}-[0-9]{1,6}" replication-get-changes-in-filtered-set.txt
 ```
 
 ### <a name='hva-enum'></a>hva-enum
 
 * [/pen/lin/discov-ad#shoot-priv-users](/pen/lin/discov-ad#shoot-priv-users)
-* [/pen/lin/discov-ad#shoot-spns](/pen/lin/discov-ad#shoot-spns])
-* [/pen/lin/discov-ad#shoot-uac](/pen/lin/discov-ad#shoot-uac])
+* [/pen/lin/discov-ad#shoot-spns](/pen/lin/discov-ad#shoot-spns)
+* [/pen/lin/discov-ad#shoot-uac](/pen/lin/discov-ad#shoot-uac)
 
 ```sh
 # credit hausec cypher query : hva
@@ -138,16 +159,19 @@ ztarg_sam="Domain users"
 ztarg_sam="Authenticated users"
 ztarg_sam="DC01$"
 
-# check everyone group permissions
-pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam --resolve-sids > $zcase"_acl_"$ztarg_sam"_resolved.txt"
+# retrieve DACLs
+pywerview get-objectacl -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --sam-account-name $ztarg_sam --resolve-sids > $zcase"_dacl_XXX_resolved.txt"
 
-# get the securityidentifier with writeowner dacl
+# get the securityidentifier based on $ad_rights 
 ad_rights="generic_all"
 ad_rights="generic_write"
 ad_rights="write_dacl"
+ad_rights="write_property"
 ad_rights="write_owner"
-ad_rights="extended_write"
-more "acl_"$ztarg_sam"_resolved.txt | grep -A 3 $ad_rights | grep securityidentifier | awk "{print $2}"
+ad_rights="extended_right"
+
+grep -A 7 -B 7 $ad_rights $zcase"_get-objectacl_"$ztarg_sam".txt" | awk '{  if ($1 ~ /objectdn/) {split($0,a,":"); od=a[2]} else if ($1 ~ /acetype/) {split($0,a,":"); at=a[2]} else if ($1 ~ /activedirectoryrights/) {split($0,a,":"); ar=a[2]} else if ($1 ~ /isinherited/) {split($0,a,":"); ii=a[2]} else if ($1 ~ /securityidentifier/) {split($0,a,":"); print at";"od";"a[2]";"ar";"ii}}'
+
 ```
 
 ### <a name='check-dacl-all-with-aced'></a>check-dacl-all-with-aced
@@ -173,6 +197,14 @@ jq ...
 ```sh
 ./bloodhound.py -c Container --domain $zdom_fqdn -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass
 ```
+
+## <a name='check-schema'></a>check-schema
+```sh
+# list confidential attributes
+#Get-AdObject -SearchBase "CN=Schema,CN=Configuration,"$zdom_dn -LdapFilter '(&(searchflags:1.2.840.113556.1.4.804:=128)(!(searchflags:1.2.840.113556.1.4.804:=512)))'
+#pywerview get-adobject -a "CN=Schema,CN=Configuration,"$zdom_dn --attribute searchflags
+```
+source: [simondotsh.com](https://simondotsh.com/infosec/2022/07/11/dirsync.html).
 
 ### <a name='check-gpo-whencreated'></a>check-gpo-whencreated
 ```sh

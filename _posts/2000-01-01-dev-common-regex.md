@@ -3,7 +3,7 @@ layout: post
 title: DEV Common REGEX in Cybersecurity
 category: dev
 parent: cheatsheets
-modified_date: 2023-06-08
+modified_date: 2023-06-21
 permalink: /dev/regex
 ---
 
@@ -16,6 +16,8 @@ permalink: /dev/regex
 * [ipv6](#ipv6)
 * [password](#password)
 * [phone](#phone)
+* [username](#username)
+* [sid](#sid)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -69,8 +71,14 @@ greater than 8 characters...
  ^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$ 
 ```
 
-# username
+## <a name='username'></a>username
 ```sh
 ^[a-z0-9_-]{3,15}$
+```
+
+## <a name='sid'></a>sid
+```sh
+# egrep -o S-1-5-21-[0-9]{10}-[0-9]{10}-[0-9]{10}-[0-9]{1,6} toto.txt
+S-1-5-21-[0-9]{10}-[0-9]{10}-[0-9]{10}-[0-9]{1,6}
 ```
 

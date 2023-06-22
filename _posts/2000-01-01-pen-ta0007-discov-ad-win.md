@@ -363,6 +363,13 @@ sources:
 - [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
 - BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
+#### shoot-laps
+* [DirSync](https://github.com/simondotsh/DirSync)
+
+#### shoot-gmsa
+
+https://github.com/micahvandeusen/gMSADumper
+
 ## <a name='iter'></a>iter
 
 ITER(ated) Enumeration:

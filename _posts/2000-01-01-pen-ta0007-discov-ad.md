@@ -126,10 +126,19 @@ Domain properties:
 nmap $zdom_fqdn --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
-dig -t SRV _gc._tcp.$zdom_fqdn | grep "^[a-z]
-dig -t SRV _ldap._tcp.$zdom_fqdn
-dig -t SRV _kerberos._tcp.$zdom_fqdn
-dig -t SRV _kpasswd._tcp.$zdom_fqdn
+# dig : listing the DCs
+dig -t SRV _ldap._tcp.dc._msdcs.$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"." | sort -u
+# listing the PDCs
+dig -t SRV _ldap._tcp.pdc.msdcs.$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"." | sort -u
+# dig: listing the GCs
+dig -t SRV _ldap._tcp.gc._msdcs.$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"." | sort -u
+# dig : listing the KDCs
+dig -t SRV _kerberos._tcp.dc.msdcs.$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"."
+# dig : listing the kerberos change password services
+dig -t SRV _kpasswd._tcp.$zdom_fqdn | grep "^[a-zA-Z]" | cut -f1 -d"." | sort -u
+# dig : find domain from its GUID
+GUID="12345678-1234-1234-1234-123456789ab"
+dig -t SRV $GUID"._msdcs."$zdom_fqdn
 
 nmap $zdom_fqdn --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_fqdn'"
 
@@ -167,6 +176,9 @@ References :
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
 #### <a name='shoot-priv-users'></a>shoot-priv-users
+
+*[Scanning for Active Directory Privileges & Privileged Accounts](https://adsecurity.org/?p=3658) by Seam MetCalf, the 14/06/2017.
+
 ```sh
 # privileged group
 ztarg_group_name="Backup Operators"; ztarg_group_nick="bo"
@@ -193,7 +205,20 @@ cat users.json | jq -r '.data[].Properties | select((.admincount==true) and .ena
 
 #### <a name='shoot-priv-machines'></a>shoot-priv-machines
 ```sh
-tbd
+# DC v1
+dig -t SRV _gc._tcp.$zdom_fqdn | grep "^[a-z]"
+
+# DC v2
+ztarg_ou="OU=Domain Controllers,"$zdom_dn; ztarg_ou_nick="dc"
+echo $ztarg_ou; pywerview.py get-adobject -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip -a "$ztarg_ou" > "$zcase""_get-adobject_""$ztarg_ou_nick"".txt"
+
+# DC v2 : list the samaccountname
+echo $ztarg_ou
+cat "$zcase""_get-adobject_""$ztarg_ou_nick"".txt" | grep samaccountname |awk '{print $2}'
+
+DS-Replication-Get-Changes
+DS-Replication-Get-Changes-In-Filtered-Set
+
 ```
 
 #### <a name='shoot-gpo'></a>shoot-gpo
@@ -253,14 +278,12 @@ pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass 
 pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > $zcase"_getnetcomputer_xxx.txt"
 
 # Get the machines based on an adspath / OU
-ztarg_ou = "OU=Workstations,DC=CONTOSO,DC=COM"
+ztarg_ou = "OU=Workstations,"$zdom_fqdn
 ztarg_adspath = "ldap://" + $ztarg_ou
 pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > $zcase"_getnetcomputer_ou_x.txt"
 ```
 
 ### <a name='iter-scope'></a>iter-scope
-
-Scope of compromise:
 ```bash
 # Find where the account is local admin V1
 ./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile pt_xxx_getnetcomputer_ou_x.txt
