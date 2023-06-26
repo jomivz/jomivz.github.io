@@ -3,7 +3,7 @@ layout: post
 title: SYS docker #imgomy #imgsec #memo #tshoot   
 category: sys
 parent: cheatsheets
-modified_date: 2023-06-19
+modified_date: 2023-06-26
 permalink: /sys/docker
 ---
 
@@ -73,11 +73,13 @@ docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -
 
 ### <a name='neo4j'></a>neo4j
 ```sh
+# compatible version for bloodhound
+# v5 not supported  
 docker run \
     --publish=7474:7474 --publish=7687:7687 \
     --volume=/neo4j/data:/data \
     --volume=/logs/neo4j:/logs \
-    neo4j:4.4.21-community
+    neo4j:4.4.21-community --name $zdom
 ```
 
 ### <a name='python2'></a>python2
@@ -125,13 +127,13 @@ volumes:
 ```
 
 4- MAKE sure the container is running then get a bash on it: 
-```
+```sh
 docker container start pg_container
 docker exec -it pg_container bash
 ```
  
 5- LOG ON the postgres database created like so:
-```
+```sh
 psql -U root -d test_db
 
 test_db=# \c
@@ -139,7 +141,7 @@ You are now connected to database "test_db" as user "root"
 ```
 
 6- CREATE / RESTORE a backup
-```
+```sh
 test_db=# pg_dump test_db > /var/lib/postgres/data/test_db_bkp.sql
 test_db=# pg_restore -f /var/lib/postgres/data/test_db_bkp.sql
 test_db=# \dt
@@ -163,9 +165,7 @@ select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS N
 ## <a name='imgsec'></a>imgsec
 ### <a name='impacket'></a>impacket
 ```sh
-#? pentest ad bruteforce auth kerbrute
-#? build docker kerbrute
-#
+sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
 ```
 ### <a name='kerbrute'></a>kerbrute
 ```sh

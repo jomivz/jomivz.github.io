@@ -3,7 +3,7 @@ layout: post
 title: TA0007 Discovery - AD Collection & Enumeration with Linux
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-08
+modified_date: 2023-06-26
 permalink: /pen/discov-ad
 ---
 
@@ -12,11 +12,12 @@ permalink: /pen/discov-ad
 **Menu**
 <!-- vscode-markdown-toc -->
 * [prereq](#prereq)
-	* [install](#install)
 	* [load-env](#load-env)
+	* [tools](#tools)
 * [collect](#collect)
 	* [adexplorersnapshot](#adexplorersnapshot)
 	* [bloodhound.py](#bloodhound.py)
+	* [dnschef](#dnschef)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
@@ -41,8 +42,6 @@ permalink: /pen/discov-ad
 	* [last-logons-ou](#last-logons-ou)
 	* [whereis-user](#whereis-user)
 	* [whereis-group](#whereis-group)
-* [misc](#misc)
-	* [Docker Impacket RPCdump](#DockerImpacketRPCdump)
 * [sources](#sources)
 
 <!-- vscode-markdown-toc-config
@@ -53,7 +52,10 @@ permalink: /pen/discov-ad
 
 ## <a name='prereq'></a>prereq
 
-### <a name='install'></a>install
+### <a name='load-env'></a>load-env
+* URL suffix (F6 shortcut) : [/pen/setenv#lin](/pen/setenv#lin)
+
+### <a name='tools'></a>tools
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py", "https://api.github.com/repos/fox-it/BloodHound.py", "https://api.github.com/repos/Porchetta-Industries/CrackMapExeccrackmapexec", "https://api.github.com/repos/iphelix/dnschef", "https://api.github.com/repos/CiscoCXSecurity/enum4linux", "https://api.github.com/repos/the-useless-one/pywerview"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
@@ -65,9 +67,6 @@ permalink: /pen/discov-ad
       <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
     </table>
 </div>
-
-### <a name='load-env'></a>load-env
-* URL suffix (F6 shortcut) : [/pen/setenv#lin](/pen/setenv#lin)
 
 ## <a name='collect'></a>collect
 
@@ -86,7 +85,7 @@ bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pas
 
 [Collection methods](https://github.com/fox-it/BloodHound.py#installation-and-usage) are not the same as sharphound's ones.
 
-### dnschef
+### <a name='dnschef'></a>dnschef
 * set up a nameserver in localhost :
 ```sh
 sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q                                                                                                                                                                        
@@ -336,20 +335,12 @@ Who is logged on a computer:
 ### <a name='whereis-user'></a>whereis-user
 ### <a name='whereis-group'></a>whereis-group
 
-
-## <a name='misc'></a>misc
-
-### <a name='DockerImpacketRPCdump'></a>Docker Impacket RPCdump
-```
-sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
-```
-
 ## <a name='sources'></a>sources
 
-| **Ressource**  | 
-|-----------------|
-| [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) | 
-| [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs) |
-| [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html) |
-| [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/) |
-| [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) |
+* [multiple neo4j databases](https://neo4j.com/developer/manage-multiple-databases/) 💥 ENTERPRISE-ONLY ✅ WORKAROUND: [DOCKER CONTAINER](/sys/docker/neo4j)
+* [enum4linux queries](https://labs.portcullis.co.uk/tools/enum4linux/)
+* [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) 
+* [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs)
+* [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html)
+* [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/)
+* [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb)
