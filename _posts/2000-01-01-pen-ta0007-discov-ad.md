@@ -53,21 +53,25 @@ permalink: /pen/discov-ad
 
 ## <a name='prereq'></a>prereq
 
-PRE-REQUISITE:
-
 ### <a name='install'></a>install
 
-- [bloodhound](https://bloodhound.readthedocs.io/en/latest/installation/linux.html)
-- [ADExplorerSnapshot.py](https://github.com/c3c/ADExplorerSnapshot.py)
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py", "https://api.github.com/repos/fox-it/BloodHound.py", "https://api.github.com/repos/Porchetta-Industries/CrackMapExeccrackmapexec", "https://api.github.com/repos/iphelix/dnschef", "https://api.github.com/repos/CiscoCXSecurity/enum4linux", "https://api.github.com/repos/the-useless-one/pywerview"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+    </table>
+</div>
 
 ### <a name='load-env'></a>load-env
-
 * URL suffix (F6 shortcut) : [/pen/setenv#lin](/pen/setenv#lin)
 
 ## <a name='collect'></a>collect
 
 ### <a name='adexplorersnapshot'></a>adexplorersnapshot
-
 * usage: convert ADExplorer snapshot to BloodHound json files:
 ```
 mkdir $zdom_dc_fqdn
@@ -75,16 +79,23 @@ ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 ```
 
 ### <a name='bloodhound.py'></a>bloodhound.py
+```sh
+bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn
+bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -ns 127.0.0.1
+```
 
 [Collection methods](https://github.com/fox-it/BloodHound.py#installation-and-usage) are not the same as sharphound's ones.
 
+### dnschef
+* set up a nameserver in localhost :
+```sh
+sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q                                                                                                                                                                        
+```
+* add the ns option to bloodhood.py:
+```sh
+-ns 127.0.0.1
+``` 
 
-<table id="repo">
-  <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
-</table>
-
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 ## <a name='shoot'></a>shoot
 
