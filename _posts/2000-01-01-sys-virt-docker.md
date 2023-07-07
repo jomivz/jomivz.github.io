@@ -72,19 +72,29 @@ docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -
 ```
 
 ### <a name='neo4j'></a>neo4j
+* create a new database:
 ```sh
 # compatible version for bloodhound v11.5.0 / neo4j v5 not supported
 # what s the $zdom variable ? go to /pen/setenv
 zdom="contoso"
 snapshot=$zdom"_"`date +"%Y%m%d"`
-mkdir /neo4j/data/$zdom
-mkdir /neo4j/logs/$zdom
+mkdir /neo4j/data/$snapshot
+mkdir /neo4j/logs/$snapshot
 
 sudo docker run \
     --publish=7474:7474 --publish=7687:7687 \
     --volume=/neo4j/data/$snapshot:/data \
     --volume=/neo4j/logs/$snapshot:/logs \
     --name=$snapshot neo4j:4.4.21-community 
+```
+* list your databases: 
+```sh
+sudo docker ps -a
+```
+* start / stop an existing databases: 
+```sh
+sudo docker start $snapshot 
+sudo docker stop $snapshot 
 ```
 
 ### <a name='python2'></a>python2
