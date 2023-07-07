@@ -73,13 +73,18 @@ docker run -d --name=libreoffice -e PUID=1000 -e PGID=1000 -e TZ=Europe/London -
 
 ### <a name='neo4j'></a>neo4j
 ```sh
-# compatible version for bloodhound
-# v5 not supported  
-docker run \
+# compatible version for bloodhound v11.5.0 / neo4j v5 not supported
+# what s the $zdom variable ? go to /pen/setenv
+zdom="contoso"
+snapshot=$zdom"_"`date +"%Y%m%d"`
+mkdir /neo4j/data/$zdom
+mkdir /neo4j/logs/$zdom
+
+sudo docker run \
     --publish=7474:7474 --publish=7687:7687 \
-    --volume=/neo4j/data:/data \
-    --volume=/logs/neo4j:/logs \
-    neo4j:4.4.21-community --name $zdom
+    --volume=/neo4j/data/$snapshot:/data \
+    --volume=/neo4j/logs/$snapshot:/logs \
+    --name=$snapshot neo4j:4.4.21-community 
 ```
 
 ### <a name='python2'></a>python2
@@ -163,14 +168,16 @@ create table ips_bogon (ipr cidr not null);
 select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS NULL;  
 ```
 ## <a name='imgsec'></a>imgsec
-### <a name='impacket'></a>impacket
+### <a name='impacket'></a>exegol
+* extracted from the exegol [readthedocs](https://exegol.readthedocs.io/en/latest/getting-started/install.html#requirements):
 ```sh
-sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
+python3 -m pip install exegol
+# autocompletion
+sudo apt update && sudo apt install bash-completion
+
 ```
 ### <a name='kerbrute'></a>kerbrute
 ```sh
-#? pentest ad bruteforce auth kerbrute
-#? build docker kerbrute
 #
 cd /usr/share
 git clone https://github.com/ropnop/kerbrute.git
@@ -185,12 +192,15 @@ vi Dockerfile
     USER appuser
     CMD ["./main"]
 docker build -t kerbrute:1.0.3 .
-#? run docker kerbrute
 # practice : https://tryhackme.com/room/attacktivedirectory
 curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/userlist.txt
 curl https://raw.githubusercontent.com/Sq00ky/attacktive-directory-tools/master/passwordlist.txt
 
 docker run -v .:/mnt -it kerbrute:1.0.3 enumuser --dc spookysec.local userlist.txt -t 100
+```
+### <a name='impacket'></a>impacket
+```sh
+sudo docker run --rm -it -p 134:135 rflathers/impacket rpcdump.py -port 135 1.3.8.3 > rpcdump_10.3.8.3.txt
 ```
 ### <a name='nuclei'></a>nuclei
 ```sh

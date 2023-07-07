@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Setup Debian 11 
+title: T0000 Setup OS Debian 11 
 category: pen
 parent: cheatsheets
 modified_date: 2022-12-09

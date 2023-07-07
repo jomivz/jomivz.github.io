@@ -4,12 +4,14 @@ title: DEV - Snippets
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /dev/snippets
+permalink: /dev/snippet
 ---
 
 <!-- vscode-markdown-toc -->
 * [powershell](#powershell)
 	* [ps-list-groupmembers](#ps-list-groupmembers)
+* [python](#python)
+	* [python-dl](#python-dl)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -47,4 +49,29 @@ foreach ($Member in $Members){
 
 $Result|Export-csv -path $ResultFileName -delimiter ';' -NoTypeInformation -Encoding UTF8 -Force;
 Type $ResultFileName
+```
+
+## <a name='python'></a>python
+
+### <a name='python-dl'></a>python-dl
+```python
+import requests
+import re
+
+def get_filename_from_cd(cd):
+    """
+    Get filename from content-disposition
+    """
+    if not cd:
+        return None
+    fname = re.findall('filename=(.+)', cd)
+    if len(fname) == 0:
+        return None
+    return fname[0]
+
+
+url = 'http://google.com/favicon.ico'
+r = requests.get(url, allow_redirects=True)
+filename = get_filename_from_cd(r.headers.get('content-disposition'))
+open(filename, 'wb').write(r.content)
 ```

@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Awesome AD Security
+title: T0000 Awesome AD Security
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-15
+modified_date: 2023-07-06
 permalink: /awesome-ad
 ---
 
@@ -24,10 +24,11 @@ permalink: /awesome-ad
 | [Attack AD: 0 to 0.9](https://zer1t0.gitlab.io/posts/attacking_ad/) | The **encyclopedia to start your journey** in AD security. My TOP 1. | Eloy Pérez González | 
 | [Bloodhound Nodes](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html) | Must-read to understand AD attack paths. | SperterOps | 
 | [Bloodhound Edges](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) | Must-read to understand AD attack paths. | SpecterOps | 
+| [thehacker.recipes](https://www.thehacker.recipes/ad/movement/) | pages after /ad/movement/ : credentials, mitm-and-coerced-authentications, ntlm, kerberos, dacl, group-policies, trusts, netlogon, ad-cs, sccm-mecm, exchange-services, print-spooler-service, domain-settings   | @_nwodtuhs |
 | [CERT-FR checklist](https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html) | | ANSSI |
 | [CME wiki](https://wiki.porchetta.industries/) | First thing first. Can I make it with CME? | porchetta, mpgn64 |
 | [GOAD tutorial](https://mayfly277.github.io/categories/ad/) | Best to practice, prepare tooling. | mayfly277 |
-| [activedirectoryrightss](https://learn.microsoft.com/fr-fr/dotnet/api/system.directoryservices.activedirectoryrights?view=windowsdesktop-7.0) | List of ActiveDirectoryRights values. | Microsoft |
+| [activedirectoryrights](https://learn.microsoft.com/fr-fr/dotnet/api/system.directoryservices.activedirectoryrights?view=windowsdesktop-7.0) | List of ActiveDirectoryRights values. | Microsoft |
 | [well-known SIDs](https://learn.microsoft.com/en-us/windows/win32/secauthz/well-known-sids) | List of Well-Known SIDs. | Microsoft |
 | [Attack bookmarks](https://github.com/infosecn1nja/AD-Attack-Defense) | Curated list to deepdive a particluar topic. | infosecn1nja |
 | [Dog Whisperer](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. | SadProcessor |

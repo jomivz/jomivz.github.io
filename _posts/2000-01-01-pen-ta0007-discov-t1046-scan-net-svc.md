@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - T1046 Network scanning
+title: TA0007 Discovery - T1046 Scanning the Network
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-07

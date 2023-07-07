@@ -3,7 +3,7 @@ layout: post
 title: TA0005 Defense Evasion - EDR - XDR v7.9.1
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-05
+modified_date: 2023-06-26
 permalink: /pen/lin/defeva/xdr-v791
 ---
 
@@ -18,6 +18,8 @@ permalink: /pen/lin/defeva/xdr-v791
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+🚧 **WORK IN PROGRESS** 🚧
 
 ## <a name='processes'></a>processes
 

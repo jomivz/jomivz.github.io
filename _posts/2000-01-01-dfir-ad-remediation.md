@@ -3,8 +3,8 @@ layout: post
 title: DFIR AD Remediation
 category: dfir
 parent: cheatsheets
-modified_date: 2023-06-19
-permalink: /dfir/ad/remediation
+modified_date: 2023-07-03
+permalink: /dfir/ad
 ---
 
 **Menu**

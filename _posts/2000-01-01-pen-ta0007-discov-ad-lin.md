@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0007 Discovery - AD Collection & Enumeration with Linux
+title: TA0007 Discovery - AD Collection & Enumeration - Linux
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-26
-permalink: /pen/discov-ad
+permalink: /pen/ad/discov
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
@@ -129,10 +129,9 @@ for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 
 ### <a name='shoot-dom'></a>shoot-dom
 
-Domain properties:
-
+#### <a name='shoot-dom'></a>shoot-dcs
 ```sh
-# Identify the DC / DHCP services 
+# scanning the lan
 nmap $zdom_fqdn --script broadcast-dhcp-discover
 sudo tcpdump -ni eth0 udp port 67 and port 68
 
@@ -166,10 +165,7 @@ rpcclient> getdompwinfo
 
 #### <a name='shoot-delegations'></a>shoot-delegations
 
-Kerberos Delegations:
-
-Easy enumeration with **Impacket\FindDelegation.py**:
-
+* Easy enumeration with **Impacket\FindDelegation.py**:
 ```bash
 # with password in the CLI
 zz=$zdom_fqdn'/'$ztarg_user_name':'$ztarg_user_pass 
@@ -180,6 +176,13 @@ findDelegation.py  $zz -dc-ip $zdom_dc_ip
 zz=$zdom_fqdn'/'$ztarg_user_name'
 findDelegation.py  $zz -k -no-pass
 ```
+
+* Emum attribute ms-DS-AllowedToActOnBehalfOfOtherIdentity:
+```sh 
+ztarg_computer_name=""
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername $ztarg_computer_name
+grep ms-DS-AllowedToActOnBehalfOfOtherIdentity
+``` 
 
 References :
 - [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)

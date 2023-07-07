@@ -4,7 +4,7 @@ title: TA0006 Credentials Forgery - Kerberos
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-09
-permalink: /pen/credsforge/krb
+permalink: /pen/krb
 ---
 
 **Mitre Att&ck Entreprise**: [T1558 Steal and Forge Kerberos Tickets](https://attack.mitre.org/techniques/T1558/) 

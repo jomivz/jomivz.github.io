@@ -3,11 +3,12 @@ layout: post
 title: EDR Palo Alto Cortex XDR
 parent: cheatsheets
 category: edr
-modified_date: 2023-06-08
+modified_date: 2023-06-27
 permalink: /edr/xdr
 ---
 
 <!-- vscode-markdown-toc -->
+* [defeva](#defeva)
 * [enum](#enum)
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
@@ -36,6 +37,13 @@ permalink: /edr/xdr
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## <a name='defeva'></a>defeva
+
+|Cortex XDR version | OS |
+|-------------------|----|
+| [v7](/pen/lindefeva/lin-xdr-v7) | linux |
+| [v7.9.1](/pen/ilin/defeva/lin-xdr-v791) | linux 🚧 |
 
 ## <a name='enum'></a>enum
 
@@ -67,9 +75,6 @@ cat /opt/trap/version.txt
 ps -aux | grep cortex
 ```
 ![ps aux](/assets/images/xdr-psaux.png)
-
-* [XDR v7. processes](/edr/defeva/lin-xdr-v7)
-* [XDR v7.9.1 processes](/edr/defeva/lin-xdr-v791)
 
 
 ## <a name='xql'></a>xql
@@ -168,9 +173,8 @@ preset = xdr_registry | filter agent_hostname = "PC001"
 ```
 
 ### <a name='get-creds'></a>get-creds
-* XQL queries over the field ```action_process_image_command_line```:
-
-```
+* Looking for the process executions:
+```sh
 dataset = xdr_data 
 | filter event_type = ENUM.PROCESS and action_process_image_command_line contains "kubectl" and  action_process_image_command_line contains $_KEYWORD_$
 | comp count(agent_hostname) as hits by agent_hostname, agent_ip_addresses, action_process_image_command_line, agent_version, host_metadata_domain 
@@ -187,6 +191,14 @@ dataset = xdr_data
 | password | " -p " |
 | password | " -cred" |
 | psexec | "psexec " |
+
+* Looking for the Windows registry ([T1552.002](https://attack.mitre.org/techniques/T1552/002/)):
+```sh
+preset = xdr_registry 
+| alter privrange = incidr( agent_ip_addresses,"10.0.0.0/24")
+| filter privrange = true and action_registry_key_name contains "Password"
+```
+
 
 ## <a name='xql-4-ir'></a>xql-4-ir
 

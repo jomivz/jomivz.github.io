@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PEN C2 inda Cloud
+title: T0000 Deploy C2 inda Cloud
 category: pen
 parent: cheatsheets
 modified_date: 2022-08-16
