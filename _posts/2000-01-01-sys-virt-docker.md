@@ -88,16 +88,28 @@ sudo docker run \
     --volume=/neo4j/logs/$snapshot:/logs \
     --name=$snapshot neo4j:4.4.21-community 
 ```
-* list your databases: 
 
+* check at the configuration:
 ```sh
-sudo docker ps -a
+sudo docker exec -it $snapshot /bin/grep -v ^$ conf/neo4j.conf | grep -v "^#"
+sudo docker exec -it $snapshot /bin/grep dbms.memory conf/neo4j.conf
 ```
-* start / stop an existing databases: 
 
+* optimize the memory setting :
 ```sh
-sudo docker start $snapshot 
-sudo docker stop $snapshot 
+# run memory recommendation
+docker exec -it $snapshot bin/neo4j-admin memrec
+
+# for 64GB, memrec gives the following recommendation
+docker exec -it $snapshot /bin/sed -i 's/#dbms.memory.heap.initial_size=512m/dbms.memory.heap.initial_size=24100m/' conf/neo4j.conf
+docker exec -it $snapshot /bin/sed -i 's/#dbms.memory.heap.max_size=512m/dbms.memory.heap.max_size=24100m/' conf/neo4j.conf
+docker exec -it $snapshot /bin/sed -i 's/dbms.memory.pagecache.size=512M/dbms.memory.pagecache.size=28100m/' conf/neo4j.conf
+```
+
+* test query execution time:
+```sh
+docker exec -it $snapshot /bin/bash
+cat /data/example.cypher | bin/cypher-shell -u neo4j -p <password> --format plain
 ```
 
 ### <a name='python2'></a>python2
@@ -254,22 +266,25 @@ docker run -d -p 8000:8000 -e "SPLUNK_START_ARGS=--accept-license" -e "SPLUNK_PA
 ## <a name='memo'></a>memo
 DRAFT HERE...
 ```sh
-#? memo sysadmin docker
-#? create dockerfile
+# memo sysadmin docker
+# create dockerfile
 cat > Dockerfile <<EOF
 FROM alpine
 MAINTAINER obama@us.gouv
 RUN apt update
 RUN apt install -y git vim python3.8
 EOF
-#? build docker image
+# build docker image
 docker build -t <your_username>/my-first-repo 
-#? run docker image
+# run docker image
 docker run <your_username>/my-first-repo.
 docker run -i --expose=9999 b5593e60c33b bash
 docker run -d -p 5801:5801 -p  9999:9999 .....
-#? push docker image
+# push docker image
 docker push <your_username>/my-first-repo 
+# get the volumes
+docker container inspect XXX |jq .[].Mounts
+tailf xxx/debug.log 
 ```
 ## <a name='tshoot'></a>tshoot
 ### <a name='no-space-left-on-device-error'></a>no-space-left-on-device-error

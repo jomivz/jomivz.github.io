@@ -4,7 +4,7 @@ title: TA0007 Discovery - T1046 Scanning Web Apps
 category: pen
 parent: cheatsheets
 modified_date: 2023-03-16
-permalink: /pen/scan-web
+permalink: /pen/web/scan
 tags: discovery scan nikto nuclei bypass-waf dirbuster
 ---
 

@@ -3,7 +3,7 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2023-06-15
+modified_date: 2023-07-12
 ---
 
 ## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
@@ -11,10 +11,13 @@ modified_date: 2023-06-15
 **MENU**
 
 <!-- vscode-markdown-toc -->
-* [methodoly](#methodoly)
-* [tools](#tools)
-* [sources](#sources)
-* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
+* [ #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️](#wowmindmapcybersysadmin)
+	* [101_AD](#AD)
+	* [101_OSINT](#OSINT)
+	* [101_WEB](#WEB)
+	* [tools](#tools)
+	* [sources](#sources)
+	* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -22,7 +25,7 @@ modified_date: 2023-06-15
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-### <a name='methodoly'></a>methodoly
+### <a name='AD'></a>101_AD
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
@@ -50,7 +53,18 @@ posterazor goad2negat.png
 * [/pen/cloud](/pen/cloud)
 * [/pen/web](/pen/web)
 
-### <a name='tools'></a>tools 
+### <a name='OSINT'></a>101_OSINT
+
+#### <a name='dorks'></a>👀🧠 dorks
+
+* [/pen/web/dorks-github.png](/pen/web/dorks-github.png)
+* [/pen/web/dorks-google.png](/pen/web/dorks-google.png)
+
+### <a name='WEB'></a>101_WEB
+
+![](/pen/web#attacks)
+
+### <a name='tools'></a>007_tools 
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
@@ -68,7 +82,7 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 * [/tool/tcpdump.png](/tool/tcpdump.png)
 * [/tool/wireshark.pdf](/tool//wireshark.pdf)
 
-### <a name='sources'></a>sources
+### <a name='sources'></a>007_sources
 
 * [Ignitetechnologies](https://github.com/Ignitetechnologies/Mindmap)
 * [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
