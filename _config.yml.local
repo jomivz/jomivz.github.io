@@ -19,9 +19,9 @@
 # in the templates via {{ site.myvariable }}.
 
 title: An other Cybersecurity Journey
-email: jonathan@jmv.work
+email: jonathan@jmvwork.xyz
 description: >- # this means to ignore newlines until "baseurl:"
-  I am Jonathan Michel-Villaz. This is my professional website as cybersecurity
+My name is Jonathan . This is my professional website as cybersecurity
   consultant. I am sharing here my sysadmin, certifications, research cheatsheets.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
