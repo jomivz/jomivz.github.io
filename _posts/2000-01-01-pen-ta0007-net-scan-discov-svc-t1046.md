@@ -23,6 +23,7 @@ tags: discovery scan nmap TA0007 T1595 T1046
 	* [icmp](#icmp)
 	* [kerberos](#kerberos)
 	* [kibana](#kibana)
+	* [ldap](#ldap)
 	* [mongodb](#mongodb)
 	* [mysql](#mysql)
 	* [mssql](#mssql)
@@ -55,18 +56,18 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 ## <a name='proto'></a>proto
 
-🔥 MUST-READ : [hacktricks.xyz](https://book.hacktricks.xyz) \\ **network-services-pentesting** 🔥
+🔥 MUST-READ : More network svc on [hacktricks.xyz](https://book.hacktricks.xyz) 🔥
 
 ### <a name='dns'></a>dns
 * default port: 53
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-dns)
 ```sh
 adidnsdump -u $zdom_fqdn\$ztarg_user_name -p $ztarg_user_pass $zdom_dc_fqdn
 ```
 
 ### <a name='docker'></a>docker
 * default port: 2375
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/2375-pentesting-docker)
 ```sh
 # scan nmap
 nmap -sV --script "docker-*" -p 2375 $ztarg_computer_ip
@@ -80,12 +81,30 @@ docker -H $ztarg_computer_ip:2375 version
 
 ### <a name='elasticsearch'></a>elasticsearch
 * default port: 9200
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/9200-pentesting-elasticsearch)
 ```sh
-nmap -sV --script "mongo* and default" -p 27017 $ztarg_computer_ip
+# scan nmap
+nmap -sV --script "" -p 9200 $ztarg_computer_ip
+
+# scan metasploit
+msf > use auxiliary/scanner/elasticsearch/indices_enum
+
+# scan shodan
+port:9200 elasticsearch
+
+# retrieve data
+curl --insecure https://$ztarg_computer_ip:9200
+curl --insecure https://$ztarg_computer_ip:9200/_security/role
+curl --insecure https://$ztarg_computer_ip:9200/_security/user
+curl --insecure https://$ztarg_computer_ip:9200/_security/user/$ztarg_user_name
+curl --insecure  -X GET https://$ztarg_user_name:$ztarg_user_pass@$ztarg_computer_ip:9200
+
+# dump
 ```
 
 ### <a name='ftp'></a>ftp
+* default port: 20,21
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ftp)
 ```sh
 # scan nmap
 sudo nmap -sV -p21 -sC -A  $ztarg_computer_ip
@@ -100,7 +119,7 @@ ftp $ztarg_computer_ip
 
 ### <a name='icmp'></a>icmp
 * default port: none
-* scan :
+* [hacktricks]()
 ```sh
 # Active ARP scan
 arp-scan 192.168.1.0/24 -I eth0
@@ -118,7 +137,7 @@ nmap -PEPM -sP -n -oA hosts_up $ztag_subnet
 
 ### <a name='kerberos'></a>kerberos
 * default port: 88
-* scan :
+* [hacktricks]()
 ```sh
 # scan
 nmap -p 88 --script=krb5-enum-users --script-args krb5-enum-users.realm=$zdom_fqdn,userdb=x.lst $ztarg_computer_ip
@@ -132,7 +151,7 @@ GetUserSPNs.py -request -dc-ip $zdom_dc_ip $zdom_fqdn/$ztarg_computer_name
 
 ### <a name='kibana'></a>kibana 
 * default port: 5601
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/5601-pentesting-kibana)
 ```sh
 #scan nmap https-like
 nmap -Pn -sS -sV --script "" -p 5601 $ztarg_computer_ip
@@ -141,24 +160,31 @@ nmap -Pn -sS -sV --script "" -p 5601 $ztarg_computer_ip
 https://$ztarg_computer_ip:5601
 ```
 
+### <a name='ldap'></a>ldap
+* default port: 389
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap)
+```sh
+nmap -sV --script "" -p 389 $ztarg_computer_ip
+```
+
 
 ### <a name='mongodb'></a>mongodb
 * default port: 27017
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/27017-27018-mongodb)
 ```sh
 nmap -sV --script "mongo* and default" -p 27017 $ztarg_computer_ip
 ```
 
 ### <a name='mysql'></a>mysql
 * default port: 3306
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mysql)
 ```sh
 nmap -Pn -sS -sV --script "" -p 3306 $ztarg_computer_ip
 ```
 
 ### <a name='mssql'></a>mssql
 * default port: 1433
-* scan :
+* [hacktricks]()
 ```sh
 # scan nmap
 sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=ntgis,mssql.password=Password1,mssql-instance-name=LUXSI -Pn -sV -p 1433 $ztarg_computer_ip
@@ -166,7 +192,7 @@ sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-c
 
 ### <a name='neo4j'></a>neo4j
 * default port: 7474
-* scan :
+* [hacktricks]()
 ```sh
 #scan nmap https-like
 nmap -Pn -sS -sV --script "" -p 7474 $ztarg_computer_ip
@@ -178,7 +204,7 @@ https://$ztarg_computer_ip:7474
 
 ### <a name='nfs'></a>nfs
 * default port: 2049
-* scan :
+* [hacktricks]()
 ```sh
 # scan nmap
 nmap --script "nfs-showmount or nfs-statfs" -p 2049 -T4 $ztarg_computer_ip
@@ -187,15 +213,20 @@ msf> scanner/nfs/nfsmount
 ```
 
 ### <a name='postgresql'></a>postgresql
-* default port: 
-* scan :
+* default port: 5432
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-postgresql)
 ```sh
+# scan nmap
 
+# login 
+psql -U <myuser> # Open psql console with user
+psql -h <host> -U <username> -d <database> # Remote connection
+psql -h <host> -p <port> -U <username> -W <password> <database> 
 ```
 
 ### <a name='rdp'></a>rdp
 * default port: 3389
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-rdp)
 ```sh
 # scan nmap
 nmap --script "rdp-enum-encryption or rdp-vuln-ms12-020 or rdp-ntlm-info" -p 3389 -T4 $ztarg_computer_ip
@@ -209,7 +240,7 @@ rdp_check.py $zz
 
 ### <a name='smb'></a>smb
 * default port: 139,445
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-smb)
 ```sh
 # scan nmap
 nmap -p 445 --script smb2-security-mode $ztarg_subnet -o output.txt
@@ -224,7 +255,7 @@ python3 ntlmrelayx.py -tf targets.txt -smb2support
 
 ### <a name='tcp'></a>tcp
 * default port: 1-65535
-* scan :
+* [hacktricks]()
 ```sh
 #? NMAP TCP SYN/Top 100 ports scan
 nmap -F -sS -Pn -oA nmap_tcp_fastscan $ztarg_subnet
@@ -237,7 +268,7 @@ sudo nmap -sV -Pn -p0- -T4 -A --stats-every 60s --reason -oA nmap_tcp_fullscan -
 
 ### <a name='udp'></a>udp
 * default port: 1-65535
-* scan :
+* [hacktricks]()
 ```sh
 # NMAP UDP/Fast Scan
 nmap -F -sU -Pn -oA nmap_udp_fastscan $ztarg_subnet
@@ -252,11 +283,23 @@ sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-r
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan -iL hosts_up
 ```
 
+### vnc
+* default port: 5900
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-vnc)
+```sh
+# scna nmap
+nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -p <PORT> <IP>
+#scan metasploit
+msf> use auxiliary/scanner/vnc/vnc_none_auth
+```
+
 ### <a name='winrm'></a>winrm
 * default port: 5985,5986
-* scan :
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/5985-5986-pentesting-winrm)
 ```sh
+# scan nmap
 nmap -Pn -sS -sV -p 5985,5986 $ztarg_computer_ip
+# login
 evil-winrm -u $ztarg_user_name -p $ztarg_user_pass -i $ztarg_computer_ip
 evil-winrm -u $ztarg_user_name -H $ztarg_user_nthash -i $ztarg_computer_ip
 ```
