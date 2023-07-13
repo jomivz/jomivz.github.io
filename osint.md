@@ -1,13 +1,15 @@
 ---
 layout: category
 title: OSINT
-categories: osint
+category: osint
 parent: cheatsheets
-permalink: /:category
+permalink: /osint
 ---
 
 <!-- vscode-markdown-toc -->
+* [cryptocurrency](#cryptocurrency)
 * [company](#company)
+* [dataleak](#dataleak)
 * [personal data](#personaldata)
 	* [face recognition](#facerecognition)
 	* [phone](#phone)
@@ -23,14 +25,14 @@ permalink: /:category
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## cryptocurrency
+## <a name='cryptocurrency'></a>cryptocurrency
 * 🛠️ [0rbit](https://github.com/s0md3v/Orbit)
 
 ## <a name='company'></a>company
 * 🌎 [analyzeid.com](https://www.analyzeid.com)
 * 🌎 [apollo.io](https://www.appollo.io)
 
-## dataleak
+## <a name='dataleak'></a>dataleak
 
 * 🌎 [filepursuit.com](https://filepursuit.com)
 * 🌎 [haveibeenpwned.com](https://haveibeenpwned.com)
