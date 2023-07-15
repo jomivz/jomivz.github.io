@@ -68,8 +68,9 @@ modified_date: 2022-05-02
 ### <a name='BLUE'></a>📚📘 BLUE 
 
 
-| 📚 **Top Wow Repos**												|
+| 📚 **Top BLUE ressources**												|
 |-----------------------------------------------------------------------|
+| 📘 [backdoorsandbreaches](https://play.backdoorsandbreaches.com/) / [cards list](https://docs.google.com/spreadsheets/d/1RNBFr4o9OPYWwR7mxdadHQwxRayylZewcphdS3K6-og/edit?pli=1#gid=0) / [solutions](https://docs.google.com/spreadsheets/d/1R4Za4jGgzn5LLQJia1CCZVuAVdcvOR9FQO7B7ZeBXGw/edit#gid=1959042953) |
 | 📘 [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
 | 📘 [Awesome DFIR](https://awesomedfir.com) |
 | 📘 [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |

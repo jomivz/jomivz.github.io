@@ -105,7 +105,8 @@ curl --insecure  -X GET https://$ztarg_user_name:$ztarg_user_pass@$ztarg_compute
 
 ### <a name='ftp'></a>ftp
 * default port: 20,21
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ftp)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ftp) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/ftp)
+
 ```sh
 # scan nmap
 sudo nmap -sV -p21 -sC -A  $ztarg_computer_ip
@@ -139,7 +140,7 @@ nmap -PEPM -sP -n -oA hosts_up $ztag_subnet
 
 ### <a name='kerberos'></a>kerberos
 * default port: 88
-* [hacktricks](xxx)
+* [hacktricks](xxx) / [thehacker.recipes](https://www.thehacker.recipes/ad/movement/kerberos)
 
 ```sh
 # scan
@@ -166,7 +167,7 @@ https://$ztarg_computer_ip:5601
 
 ### <a name='ldap'></a>ldap
 * default port: 389
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap) / [politoinic](https://www.politoinic.com/post/ldap-queries-for-offensive-and-defensive-operations)
 
 ```sh
 nmap -sV --script "" -p 389 $ztarg_computer_ip
@@ -191,7 +192,7 @@ nmap -Pn -sS -sV --script "" -p 3306 $ztarg_computer_ip
 
 ### <a name='mssql'></a>mssql
 * default port: 1433
-* [hacktricks](xxx)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server)
 
 ```sh
 # scan nmap
@@ -213,7 +214,7 @@ https://$ztarg_computer_ip:7474
 
 ### <a name='nfs'></a>nfs
 * default port: 2049
-* [hacktricks](xxx)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/nfs-service-pentesting) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/nfs)
 
 ```sh
 # scan nmap
@@ -252,7 +253,7 @@ rdp_check.py $zz
 
 ### <a name='smb'></a>smb
 * default port: 139,445
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-smb)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-smb) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/smb)
 
 ```sh
 # scan nmap
@@ -261,10 +262,23 @@ nmap -p 445 --script smb2-security-mode $ztarg_subnet -o output.txt
 # scan metasploit
 msf > auxiliary/scanner/smb/smb_version
 
-# STEP 2: set up impacket/ntlmrelayx
+# login 
+atexec.py $zz@$ztarg_computer_ip systeminfo
+dcomexec.py $zz@$ztarg_computer_ip
+psexec.py $zz@$ztarg_computer_ip
+smbexec.py $zz@$ztarg_computer_ip
+wmiexec.py $zz@$ztarg_computer_ip
+
+# mitm
 grep -B 9 "not required" output.txt |sed -E '/.*\((.*\..*\..*\..*)\)$/!d' |sed -E 's/.*\((.*\..*\..*\..*)\)$/\1/' > targets.txt
 python3 ntlmrelayx.py -tf targets.txt -smb2support
+
 ```
+
+### ssh
+
+* defaut port: 22
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/ssh)
 
 ### <a name='tcp'></a>tcp
 * default port: 1-65535
@@ -303,15 +317,15 @@ sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-r
 * [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-vnc)
 
 ```sh
-# scna nmap
+# scan nmap
 nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -p <PORT> <IP>
-#scan metasploit
+# scan metasploit
 msf> use auxiliary/scanner/vnc/vnc_none_auth
 ```
 
 ### <a name='winrm'></a>winrm
 * default port: 5985,5986
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/5985-5986-pentesting-winrm)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/5985-5986-pentesting-winrm) / [nse script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
 
 ```sh
 # scan nmap
@@ -320,7 +334,7 @@ nmap -Pn -sS -sV -p 5985,5986 $ztarg_computer_ip
 evil-winrm -u $ztarg_user_name -p $ztarg_user_pass -i $ztarg_computer_ip
 evil-winrm -u $ztarg_user_name -H $ztarg_user_nthash -i $ztarg_computer_ip
 ```
-- [WinRM nmap script](https://github.com/RicterZ/My-NSE-Scripts/blob/master/scripts/winrm.nse)
+
 
 ## <a name='theory'></a>theory
 
