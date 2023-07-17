@@ -35,6 +35,8 @@ permalink: /pen/ad/discov/win
 		* [shoot-spn](#shoot-spn)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-dacl](#shoot-dacl)
+		* [shoot-laps](#shoot-laps)
+		* [shoot-gmsa](#shoot-gmsa)
 * [iter](#iter)
 	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
@@ -203,8 +205,6 @@ get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 # TO DEBUG : get-forest error ...
 $search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
 Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-
-
 ```
 
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
@@ -363,10 +363,10 @@ sources:
 - [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
 - BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
-#### shoot-laps
+#### <a name='shoot-laps'></a>shoot-laps
 * [DirSync](https://github.com/simondotsh/DirSync)
 
-#### shoot-gmsa
+#### <a name='shoot-gmsa'></a>shoot-gmsa
 
 https://github.com/micahvandeusen/gMSADumper
 
