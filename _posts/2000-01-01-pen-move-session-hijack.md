@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1563 Remote session hijacking
+title:  pen / move / session-hijack
 category: pen
 parent: cheatsheets
 modified_date: 2023-03-16

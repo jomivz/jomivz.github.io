@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / win / exec
+title: pen / win / exec
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-16
@@ -11,10 +11,6 @@ permalink: /pen/win/exec
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [payload](#payload)
-	* [pbuild](#pbuild)
-	* [psign](#psign)
-	* [sources](#sources)
 * [dl](#dl)
 * [rshell](#rshell)
 * [escalation](#escalation)

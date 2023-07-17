@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1210 RCE 2017 - Sambacry
+title: pen / rce / sambacry
 category: pen
 parent: cheatsheets
 modified_date: 2022-02-15
-permalink: /pen/rce-sambacry
+permalink: /pen/rce/sambacry
 ---
 
 **Mitre Att&ck Entreprise**: 

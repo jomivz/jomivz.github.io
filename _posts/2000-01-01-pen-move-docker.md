@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / move / docker
+title: pen / move / docker
 category: pen
 parent: cheatsheets
 modified_date: 2023-02-14

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / win / build
+title: pen / win / build
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-17

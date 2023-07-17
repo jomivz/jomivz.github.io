@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / ad / discov / win 
+title: pen / ad / discov / win 
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-03
