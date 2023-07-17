@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1021 Docker
+title: / pen / move / docker
 category: pen
 parent: cheatsheets
 modified_date: 2023-02-14

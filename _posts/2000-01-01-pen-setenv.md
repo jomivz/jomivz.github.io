@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PEN T0000 Initialize Pentest Environment
+title: / pen / setenv
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-21

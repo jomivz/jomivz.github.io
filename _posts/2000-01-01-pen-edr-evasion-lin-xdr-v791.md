@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0005 Defense Evasion - EDR - XDR v7.9.1
+title: / pen / lin / evasion / xdr-v791
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-26
-permalink: /pen/lin/defeva/xdr-v791
+permalink: /pen/lin/evasion/xdr-v791
 ---
 
 # Linux XDR v7.9.1

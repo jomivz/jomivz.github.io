@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Active Directory - Privilege Escalation
+title: / pen / ad / privesc
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-04

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - MITM
+title: / pen / net / mitm
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-16

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1021 VNC
+title: / pen / move / vnc
 category: pen
 parent: cheatsheets
 modified_date: 2023-02-07

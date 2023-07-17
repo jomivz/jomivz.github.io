@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - AD Collection & Enumeration - Windows
+title: / pen / ad / discov / win 
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-03

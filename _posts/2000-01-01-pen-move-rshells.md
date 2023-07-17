@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - S0000 - Remote Shells
+title: / pen / move / rshells
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - AD Collection & Enumeration - Linux
+title: / pen / ad / discov /
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-26

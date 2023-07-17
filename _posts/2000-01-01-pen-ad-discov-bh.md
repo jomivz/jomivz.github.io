@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - AD BloodHound
+title: / pen / ad / discov / bh
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-11

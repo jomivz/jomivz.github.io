@@ -88,9 +88,7 @@ Copy-Item -Path $zfile_uri -Destination $zul
 $zcmd = 'net share ' + $zshare + ' /delete'
 $zsb = [scriptblock]::create($zcmd)
 Invoke-Command -Session $zs -ScriptBlock $zsb
-```
-
-[Yesterday 1:41 PM] MICHEL-VILLAZ Jonathan 
+``` 
 
 ## <a name='transfer-http'></a>transfer-http
 ```

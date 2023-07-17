@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - T1046 Scanning Web Apps
+title: / pen / web / scan
 category: pen
 parent: cheatsheets
 modified_date: 2023-03-16

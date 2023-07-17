@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0007 Discovery - T1046 Scanning the Network
+title: / pen / net / scan
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-13
@@ -15,6 +15,7 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 **Menu**
 <!-- vscode-markdown-toc -->
+* [appliance](#appliance)
 * [proto](#proto)
 	* [dns](#dns)
 	* [docker](#docker)
@@ -32,8 +33,10 @@ tags: discovery scan nmap TA0007 T1595 T1046
 	* [postgresql](#postgresql)
 	* [rdp](#rdp)
 	* [smb](#smb)
+	* [ssh](#ssh)
 	* [tcp](#tcp)
 	* [udp](#udp)
+	* [vnc](#vnc)
 	* [winrm](#winrm)
 * [theory](#theory)
 	* [NMAP Note 0 : Default Behavior](#NMAPNote0:DefaultBehavior)
@@ -54,7 +57,7 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 
-## appliance
+## <a name='appliance'></a>appliance
 
 * [palo-v6](https://troopers.de/media/filer_public/a5/4d/a54da07e-3780-4f83-b4ac-8c620666a60a/paloalto_troopers.pdf)
 * [palo-config-master-key](https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/certificate-management/configure-the-master-key)
@@ -283,7 +286,7 @@ python3 ntlmrelayx.py -tf targets.txt -smb2support
 
 ```
 
-### ssh
+### <a name='ssh'></a>ssh
 
 * defaut port: 22
 * [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ssh) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/ssh)
@@ -320,7 +323,7 @@ sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-r
 sudo nmap -sU -Pn -p0- --reason --stats-every 60s --max-rtt-timeout=50ms --max-retries=1 -oA nmap_udp_fullscan -iL hosts_up
 ```
 
-### vnc
+### <a name='vnc'></a>vnc
 * default port: 5900
 * [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-vnc)
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0006 Credentials Steal - Linux
+title: / pen / lin / creds
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
