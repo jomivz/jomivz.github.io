@@ -1,10 +1,10 @@
 ---
 layout: post
-title: T0000 Setup OS Debian 11 
+title:  pen / setup / debian11
 category: pen
 parent: cheatsheets
 modified_date: 2022-12-09
-permalink: /pen/setup-debian
+permalink: /pen/setup/debian11
 ---
 
 <!-- vscode-markdown-toc -->

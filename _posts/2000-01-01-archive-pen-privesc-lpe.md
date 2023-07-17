@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TA0004 Privilege Escalation - T1068 LPE
+title: pen / lpe
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-03

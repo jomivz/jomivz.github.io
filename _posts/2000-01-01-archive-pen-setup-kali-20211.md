@@ -1,10 +1,10 @@
 ---
 layout: post
-title: T0000 Setup OS Kali 2021.1 
+title: pen / setup / kali 2021.1
 category: pen
 parent: cheatsheets
 modified_date: 2022-03-09
-permalink: /pen/setup-kali
+permalink: /pen/setup/kali2021.1
 ---
 
 <!-- vscode-markdown-toc -->

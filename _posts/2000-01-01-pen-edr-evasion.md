@@ -1,6 +1,6 @@
 ---
 layout: post
-title: /pen / edr / evasion
+title: pen / edr / evasion
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-02

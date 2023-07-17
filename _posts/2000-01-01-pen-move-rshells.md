@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / move / rshells
+title: pen / move / rshells
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
@@ -54,7 +54,7 @@ permalink: /pen/move/rshells
 ##  6. <a name='winrm'></a>winrm
 
 * [Evil-winrm](https://github.com/Hackplayers/evil-winrm):
-```
+```sh
 evil-winrm -i $ztarg_computer_ip -u $ztarg_user_name -p $ztarg_user_pass
 evil-winrm -i $ztarg_computer_ip -u $ztarg_user_name -H $ztarg_user_nthash
 ```

