@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / win / creds
+title: pen / win / creds
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08

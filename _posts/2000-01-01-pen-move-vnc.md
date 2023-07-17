@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / move / vnc
+title: pen / move / vnc
 category: pen
 parent: cheatsheets
 modified_date: 2023-02-07

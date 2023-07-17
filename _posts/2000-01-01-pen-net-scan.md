@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / net / scan
+title: pen / net / scan
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-13

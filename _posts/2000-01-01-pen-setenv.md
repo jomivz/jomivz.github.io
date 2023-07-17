@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / setenv
+title: pen / setenv
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-21

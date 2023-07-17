@@ -1,6 +1,6 @@
 ---
 layout: post
-title: / pen / lin / evasion / xdr-v791
+title: pen / lin / evasion / xdr-v791
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-26
