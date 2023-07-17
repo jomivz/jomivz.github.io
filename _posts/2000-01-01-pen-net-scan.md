@@ -54,6 +54,14 @@ tags: discovery scan nmap TA0007 T1595 T1046
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 
+## appliance
+
+* [palo-v6](https://troopers.de/media/filer_public/a5/4d/a54da07e-3780-4f83-b4ac-8c620666a60a/paloalto_troopers.pdf)
+* [palo-config-master-key](https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/certificate-management/configure-the-master-key)
+* [pulse-version-scanner](https://gist.github.com/rxwx/d07495f790d62029b12065c38ac2a86a)
+* [pulse-cve-2019-11510](https://github.com/pwn3z/CVE-2019-11510-PulseVPN/blob/master/pulse-secure.sh)
+* [vcenter](https://vdc-repo.vmware.com/vmwb-repository/dcr-public/d04445f7-15ff-4d2b-882d-0beae102c581/d11b9282-71e1-43ef-8ec3-baab9b00d690/doc/GUID-05180452-92D6-45FF-A348-0C0698331E24.html)
+
 ## <a name='proto'></a>proto
 
 🔥 MUST-READ : More network svc on [hacktricks.xyz](https://book.hacktricks.xyz) 🔥
@@ -167,7 +175,7 @@ https://$ztarg_computer_ip:5601
 
 ### <a name='ldap'></a>ldap
 * default port: 389
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap) / [politoinic](https://www.politoinic.com/post/ldap-queries-for-offensive-and-defensive-operations)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap) / [politoinic](https://www.politoinic.com/post/ldap-queries-for-offensive-and-defensive-operations) / [theitbros](https://theitbros.com/ldap-query-examples-active-directory/) / [specterops](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) 
 
 ```sh
 nmap -sV --script "" -p 389 $ztarg_computer_ip
@@ -192,7 +200,7 @@ nmap -Pn -sS -sV --script "" -p 3306 $ztarg_computer_ip
 
 ### <a name='mssql'></a>mssql
 * default port: 1433
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server) / [mdf](https://docs.fileformat.com/database/mdf/) / 
 
 ```sh
 # scan nmap
@@ -253,7 +261,7 @@ rdp_check.py $zz
 
 ### <a name='smb'></a>smb
 * default port: 139,445
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-smb) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/smb)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-smb) / [thehacker.recipes](https://www.thehacker.recipes/infra/protocols/smb) / [rpcclient](https://www.samba.org/samba/docs/current/man-html/rpcclient.1.html)
 
 ```sh
 # scan nmap

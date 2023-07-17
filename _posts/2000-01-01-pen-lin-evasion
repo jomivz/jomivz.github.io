@@ -4,7 +4,7 @@ title: TA0005 Defense Evasion - Linux OS
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-03
-permalink: /pen/lin/defeva
+permalink: /pen/lin/evasion
 ---
 
 **Mitre Att&ck Entreprise**: [TA0005 - Defense Evasion](https://attack.mitre.org/tactics/TA0005/)

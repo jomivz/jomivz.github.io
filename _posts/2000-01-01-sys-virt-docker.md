@@ -95,7 +95,7 @@ sudo docker exec -it $snapshot /bin/grep -v ^$ conf/neo4j.conf | grep -v "^#"
 sudo docker exec -it $snapshot /bin/grep dbms.memory conf/neo4j.conf
 ```
 
-* optimize the memory setting :
+* [optimize the memory setting](https://neo4j.com/developer/memory-management/) :
 ```sh
 # run memory recommendation
 docker exec -it $snapshot bin/neo4j-admin memrec
@@ -264,7 +264,9 @@ docker pull splunk/splunk
 docker run -d -p 8000:8000 -e "SPLUNK_START_ARGS=--accept-license" -e "SPLUNK_PASSWORD=<password>" --name splunk splunk/splunk:latest
 ```
 ## <a name='memo'></a>memo
-DRAFT HERE...
+
+[cli cheatsheet](https://f.hubspotusercontent10.net/hubfs/1699665/Docker_CLI_Cheat_Sheet_2021-01-12a.pdf) / [podman](https://docs.podman.io/en/latest/markdown/podman-pull.1.html)
+
 ```sh
 # memo sysadmin docker
 # create dockerfile

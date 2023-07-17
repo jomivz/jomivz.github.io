@@ -98,6 +98,10 @@ klist -k -Ke
 
 ### <a name='get-status-fw'></a>get-status-fw
 
+### get-sshd-logs 
+
+* [linoxide](https://linoxide.com/enable-sshd-logging/)
+
 ## <a name='tamper'></a>tamper
 
 ### <a name='add-account'></a>add-account

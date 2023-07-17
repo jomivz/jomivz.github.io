@@ -322,13 +322,21 @@ i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's
 
 ## <a name='refresh'></a>refresh
 
-### <a name='check-computer-access'></a>check-computer-access
+### <a name='check-computer-access'></a>check-computer-sessions
+```sh
+netview.py $zz -target $ztarg_computer_ip
+netview.py $zz -target $ztarg_computer_ip -user $ztarg_user_name
+```
+
 ### <a name='last-logons'></a>last-logons
 ```sh
 pywerview get-netgroupmember --groupname "Domain Admins" -u $ztarg_user_name -p $ztarg_user_pass -w $zdom_fqdn --dc-ip $zdom_dc_ip -r --full-data | grep -i "samaccountname\|pwdlastset"
 pywerview get-netgroupmember --groupname "Domain Admins" -u $ztarg_user_name -p $ztarg_user_pass -w $zdom_fqdn --dc-ip $zdom_dc_ip -r --full-data | grep -i "samaccountname\|pwdlastset\|lastlogontimestamp"
 ```
 ### <a name='last-logons-computer'></a>last-logons-computer
+```sh
+```
+
 ### <a name='last-logons-ou'></a>last-logons-ou
 
 Who is logged on a computer:

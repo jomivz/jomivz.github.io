@@ -4,7 +4,7 @@ title: TA0008 Lateral Movement - T1021 VNC
 category: pen
 parent: cheatsheets
 modified_date: 2023-02-07
-permalink: /pen/vnc
+permalink: /pen/move/vnc
 ---
 
 **Mitre Att&ck Entreprise**: 

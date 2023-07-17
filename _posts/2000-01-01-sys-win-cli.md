@@ -40,10 +40,12 @@ permalink: /sys/win
 	* [unset-cred-guard](#unset-cred-guard)
 	* [unset-ppl](#unset-ppl)
 	* [unset-sigcheck](#unset-sigcheck)
+	* [unset-restricted-admin-mode](#unset-restricted-admin-mode)
 	* [dl-ps-ad-module](#dl-ps-ad-module)
 * [harden](#harden)
 	* [disable-llmnr](#disable-llmnr)
 	* [disable-ms-msdt](#disable-ms-msdt)
+	* [schtasks-secure-pwd](#schtasks-secure-pwd)
 * [bypass](#bypass)
 	* [bypass-uac](#bypass-uac)
 	* [bypass-lsaprotection](#bypass-lsaprotection)
@@ -321,7 +323,7 @@ bcdedit.exe /set nointegritychecks on
 bcdedit.exe /set testsigning on
 ```
 
-### unset-restricted-admin-mode
+### <a name='unset-restricted-admin-mode'></a>unset-restricted-admin-mode
 ```powershell
 # no need to reboot
 reg add HKLM\SYSTEM\CurrentControlSet\Control\LSA /v 1
@@ -344,6 +346,10 @@ REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ”Enabl
 # MS-MSDT protocol used by follina exploit, CVE-2022-30190
 RED DEL "HKEY_CLASSES_ROOT\ms-msdt" /f
 ```
+
+### <a name='schtasks-secure-pwd'></a>schtasks-secure-pwd
+
+* [duffney.io](https://duffney.io/create-scheduled-tasks-secure-passwords-with-powershell/)
 
 ## <a name='bypass'></a>bypass
 

@@ -1,16 +1,17 @@
 ---
 layout: page
 title: Cyber Wow Trainings
-permalink: /training/
+permalink: /training
 nav_order: 4
-modified_date: 2022-12-12
+modified_date: 2023-07-17
 ---
 
-## #cyber 🔫 #wow 👀 #trainings 🚲
+**Menu**
 
 <!-- vscode-markdown-toc -->
-* [training platforms](#trainingplatforms)
-* [cloud providers](#cloudproviders)
+* [infamous](#infamous)
+* [cloud](#cloud)
+* [oscp](#oscp)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -19,7 +20,7 @@ modified_date: 2022-12-12
 <!-- /vscode-markdown-toc -->---
 
 
-## <a name='trainingplatforms'></a>training platforms
+## <a name='infamous'></a>infamous
 
 
 Here are interesting cybersecurity training platforms :
@@ -41,10 +42,15 @@ Here are interesting cybersecurity training platforms :
 | [ctf365.com](https://ctf365.com/) |  |
 | [ozint.eu](https://ozint.eu/) | |
 
-## <a name='cloudproviders'></a>cloud providers
+## <a name='cloud'></a>cloud
 
 | **Provider** | **Links** | 
 |---------------|------------------|
 | GCP | [cloudonair](https://cloudonair.withgoogle.com/security) |
 | AWS | [learnsecurity](https://learnsecurity.amazon.com/en/index.html) |
 | Azure | []() |
+
+
+## <a name='oscp'></a>oscp
+
+* [elinpf](https://github.com/Elinpf/OSCP-survival-guide/blob/master/README.md)

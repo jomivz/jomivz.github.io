@@ -30,10 +30,14 @@ permalink: /awesome-ad
 | [GOAD tutorial](https://mayfly277.github.io/categories/ad/) | Best to practice, prepare tooling. | mayfly277 |
 | [activedirectoryrights](https://learn.microsoft.com/fr-fr/dotnet/api/system.directoryservices.activedirectoryrights?view=windowsdesktop-7.0) | List of ActiveDirectoryRights values. | Microsoft |
 | [well-known SIDs](https://learn.microsoft.com/en-us/windows/win32/secauthz/well-known-sids) | List of Well-Known SIDs. | Microsoft |
+| [SDDL](https://itconnect.uw.edu/tools-services-support/it-systems-infrastructure/msinf/other-help/understanding-sddl-syntax/) | Understand ACE premissions. | |
 | [Attack bookmarks](https://github.com/infosecn1nja/AD-Attack-Defense) | Curated list to deepdive a particluar topic. | infosecn1nja |
 | [Dog Whisperer](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/ERNW_DogWhispererHandbook.pdf) | How-to for Bloodhound and more. | SadProcessor |
 | [Cypher Queries](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/)  | Hunting with BloodHound. STEP 2 after the pre-built queries. | hausec | 
 | [KRB Attacks 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
+| [harden](https://activedirectorypro.com/active-directory-security-best-practices/) | | |
+| [harden](https://www.pwndefend.com/2022/02/26/rapid-active-directory-hardening-checklist/) | | |
+| [commandline.ninja](https://www.commandline.ninja/tag/active-directory/) | | |
 
 ## <a name='azure'></a>azure
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)

@@ -25,7 +25,7 @@ permalink: /osint/links
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-MUST-READ : [jivoi osint](https://github.com/jivoi/awesome-osint)
+MUST-READ : [awesome-osint](https://github.com/jivoi/awesome-osint)
 
 ## <a name='cryptocurrency'></a>cryptocurrency
 * 🛠️ [0rbit](https://github.com/s0md3v/Orbit)

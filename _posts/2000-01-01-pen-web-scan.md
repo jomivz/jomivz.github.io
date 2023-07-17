@@ -68,6 +68,7 @@ docker run --network host -it mubeng -a localhost:8089 -f http.txt -r 10 -m rand
 
 * [/pen/web/http-status-code.png](/pen/web/http-status-code.png)
 * [/pen/web-api](https://dsopas.github.io/MindAPI/play/) (🔗 [begineer guide](https://danaepp.com/beginners-guide-to-api-hacking))
+* [http-headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)
 
 ## <a name='tools'></a>👀🧠 tools
 
@@ -110,3 +111,11 @@ docker run --network host -it 7209816c0627 --host='contoso.com' --proxy='http://
 * [vulnhub box](https://github.com/Ignitetechnologies/Web-Application-Cheatsheet)
 * [takito1812 playground](https://github.com/takito1812/web-hacking-playground/tree/main/Solutions)
 * [burp BSCP exam notes](https://github.com/botesjuan/Burp-Suite-Certified-Practitioner-Exam-Study)
+
+## jwt
+
+* [](https://stackoverflow.com/questions/31309759/what-is-secret-key-for-jwt-based-authentication-and-how-to-generate-it)
+* [](https://jwt.io/)
+* [](https://medium.com/dataseries/public-claims-and-how-to-validate-a-jwt-1d6c81823826)
+* [](https://developer.okta.com/blog/2018/06/20/what-happens-if-your-jwt-is-stolen)
+* [](https://www.c-sharpcorner.com/article/how-to-add-jwt-bearer-token-authorization-functionality-in-swagger/)

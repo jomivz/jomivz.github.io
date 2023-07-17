@@ -4,7 +4,7 @@ title: TA0008 Lateral Movement - T1563 Remote session hijacking
 category: pen
 parent: cheatsheets
 modified_date: 2023-03-16
-permalink: /pen/session-hijack
+permalink: /pen/move/session-hijack
 ---
 
 **Mitre Att&ck Entreprise**: 

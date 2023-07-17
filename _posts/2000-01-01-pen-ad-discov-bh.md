@@ -11,10 +11,12 @@ permalink: /pen/ad/discov/bh
 
 **Menu**
 <!-- vscode-markdown-toc -->
+* [tips](#tips)
 * [dacl](#dacl)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
+		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
 		* [shoot-shares](#shoot-shares)
@@ -22,17 +24,25 @@ permalink: /pen/ad/discov/bh
 		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-dacl](#shoot-dacl)
+	* [shoot-spfs](#shoot-spfs)
 		* [shoot-gpos](#shoot-gpos)
 		* [shoot-can-dcsync](#shoot-can-dcsync)
 		* [shoot-dormant-accounts](#shoot-dormant-accounts)
 		* [shoot-gpos](#shoot-gpos-1)
 * [iter](#iter)
+	* [iter-next-hops](#iter-next-hops)
+	* [iter-sessions-da](#iter-sessions-da)
+	* [iter-sessions-owned](#iter-sessions-owned)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## <a name='tips'></a>tips
+
+* [iccardo.ancarani94](https://medium.com/@riccardo.ancarani94/bloodhound-tips-and-tricks-e1853c4b81ad) / 2019-08-11
 
 ## <a name='dacl'></a>dacl
 
@@ -66,7 +76,7 @@ MATCH p=(u:User)-[r1]->(n) WHERE r1.isacl=true and not tolower(u.name) contains 
 echo $ztarg_user_name@$zdom_fqdn
 MATCH p=(n:User {name:"X@Y.COM"})-[r:MemberOf*1..]->(g:Group) RETURN p
 ```
-#### shoot-delegations
+#### <a name='shoot-delegations'></a>shoot-delegations
 ```sh
 # find all computers with Unconstrained Delegation
 MATCH (c:Computer {unconstraineddelegation:true}) return c
@@ -220,7 +230,7 @@ MATCH (n:User {admincount:False}) MATCH p=allShortestPaths((n)-[r:AllExtendedRig
 MATCH (n:User {admincount:False}) MATCH p=allShortestPaths((n)-[r:AddMember*1..]->(m:Group)) RETURN p
 ```
 
-### shoot-spfs
+### <a name='shoot-spfs'></a>shoot-spfs
 ```sh
 # SPF to Domain Admins group from computers:          
 MATCH (n:Computer),(m:Group {name:'DOMAIN ADMINS@DOMAIN.GR'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]->(m)) RETURN p
@@ -272,7 +282,7 @@ Get-GPPPassword.py $zz
 
 ## <a name='iter'></a>iter
 
-### iter-next-hops
+### <a name='iter-next-hops'></a>iter-next-hops
 ```sh
 # find All edges any owned user has on a computer
 MATCH p=shortestPath((m:User)-[r]->(b:Computer)) WHERE m.owned RETURN p
@@ -285,7 +295,7 @@ match p=(g:Group)-[:CanRDP]->(c:Computer) where g.objectid ENDS WITH '-513'  AND
 match p=(g:Group)-[:CanRDP]->(c:Computer) where  g.objectid ENDS WITH '-513'  AND c.operatingsystem CONTAINS 'Server' return p   
 ```
 
-### iter-sessions-da
+### <a name='iter-sessions-da'></a>iter-sessions-da
 ```sh
 # DA sessions not on a certain group (e.g. domain controllers)
 OPTIONAL MATCH (c:Computer)-[:MemberOf]->(t:Group) WHERE NOT t.name = 'DOMAIN CONTROLLERS@TESTLAB.LOCAL' WITH c as NonDC MATCH p=(NonDC)-[:HasSession]->(n:User)-[:MemberOf]->(g:Group {name:”DOMAIN ADMINS@TESTLAB.LOCAL”}) RETURN DISTINCT (n.name) as Username, COUNT(DISTINCT(NonDC)) as Connexions ORDER BY COUNT(DISTINCT(NonDC)) DESC
@@ -295,7 +305,7 @@ MATCH p=shortestPath((m:User)-[r:MemberOf*1..]->(n:Group {name: "DOMAIN ADMINS@I
 
 ```
 
-### iter-sessions-owned
+### <a name='iter-sessions-owned'></a>iter-sessions-owned
 ```sh
 MATCH p=(m:Computer)-[r:HasSession]->(n:User {domain: "TEST.LOCAL"}) RETURN p
 ```

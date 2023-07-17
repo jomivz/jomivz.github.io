@@ -97,10 +97,14 @@ modified_date: 2022-07-17
 | Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
 | Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
 
+* [anaconda](https://www.anaconda.com/download-success)
+* [keepassxc](https://keepassxc.org/download/#windows)
+* [mobaxterm](https://mobaxterm.mobatek.net/download-home-edition.html)
+* [sysinternals](https://learn.microsoft.com/fr-fr/sysinternals/downloads/sysinternals-suite)
+* [visualstudiocode](https://code.visualstudio.com/download)
+* [winscp](https://winscp.net/eng/downloads.php)
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
 
 > You may be interested into my :
-* [the book of secret knowledge](https://github.com/trimstray/the-book-of-secret-knowledge#hackingpenetration-testing-toc)
 * [cybersecurity PDFs collection (2y old)](https://github.com/jomivz/cybrary).
-* [caiyoongji/emoji-list](https://github.com/caiyongji/emoji-list)

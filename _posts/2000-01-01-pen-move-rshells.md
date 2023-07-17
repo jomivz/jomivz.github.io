@@ -4,7 +4,7 @@ title: TA0008 Lateral Movement - S0000 - Remote Shells
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/rshell
+permalink: /pen/move/rshells
 ---
 
 **Mitre Att&ck Entreprise**: [TA0008 - Lateral Movement](https://attack.mitre.org/tactics/TA0008/)
@@ -26,6 +26,10 @@ permalink: /pen/rshell
 ** Administrative Services **
 
 ![](/assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
+
+## database
+
+* [SAP Hana](https://help.sap.com/docs/SAP_HANA_PLATFORM/6b94445c94ae495c83a19646e7c3fd56/c2a6d9cbbb5710148afea455ba5746c0.html?version=2.0.03&locale=en-US)
 
 ##  2. <a name='powershell'></a>powershell
 

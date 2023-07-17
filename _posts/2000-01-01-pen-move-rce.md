@@ -11,6 +11,11 @@ permalink: /pen/rce
 * [TA0006 - Credentials Access](https://attack.mitre.org/tactics/TA0006/)
 * [T1021  - Remote Services](https://attack.mitre.org/techniques/T1021/)
 
+* [vfeed 2021](https://vfeed.io/top-twenty-most-exploited-vulnerabilities-in-2021/)
+* [vfeed 2020](https://vfeed.io/2020-top-10-most-exploited-vulnerabilities/)
+* [vfeed 2019](https://vfeed.io/5-critical-2019-cves-that-every-ciso-must-patch-before-he-get-fired/)
+* [vfeed 2016](https://vfeed.io/how-vfeed-vulnerability-intel-tackles-the-top-10-most-exploited-vulnerabilities-2016-2019/)
+
 <table class="sortable">
 <col width="20%">
 <col width="80%">
