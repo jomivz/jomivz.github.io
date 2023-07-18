@@ -34,11 +34,13 @@ permalink: /pen/edr/evasion
 
 [open in browser](/assets/images/pen-edr-bypass.png) 
 
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/CMEPW/BypassAV"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var mm = ["https://api.github.com/repos/CMEPW/BypassAV"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="mm">
     <table id="mm_list" class="sortable">
-      <tr><th>mindmaprepo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
     </table>
 </div>    
 
@@ -59,6 +61,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var mloader = ["https://api.github.com/repos/ReversingID/Shellcode-Loader"]; for (rep in mloader) {$.ajax({type: "GET", url: mloader[rep], dataType: "json", success: function(result) {$("#mloader_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="mloader">
     <table id="mloader_list" class="sortable">
       <tr><th>loader</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -69,6 +73,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var aloader = ["https://api.github.com/repos/TheD1rkMtr/D1rkLdr","https://api.github.com/repos/xuanxuan0/driploader","https://github.com/hagrid29/peloader","https://api.github.com/repos/vic4key/qloader","https://api.github.com/repos/cribdragg3r/alaris","https://api.github.com/repos/trustedsec/coffloader","https://api.github.com/repos/CMEPW/selha","https://github.com/aeverj/nimshellcodeloader","https://api.github.com/repos/sh3d0ww01f/nim_shellloader","https://api.github.com/repos/EddieIvan01/gld","https://api.github.com/repos/zha0gongz1/DesertFox","https://api.github.com/repos/b1tg/rs-shellcode","https://api.github.com/repos/cr7pt0pl4gu3/pestilence","https://api.github.com/repos/icyguider/shhhloader","https://github.com/simplylu/WeaponizeCrystal"]; for (rep in aloader) {$.ajax({type: "GET", url: aloader[rep], dataType: "json", success: function(result) {$("#mloader_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="aloader">
     <table id="aloader_list" class="sortable">
       <tr><th>loader</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -79,6 +85,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var genshell = [""]; for (rep in genshell) {$.ajax({type: "GET", url: genshell[rep], dataType: "json", success: function(result) {$("#genshell_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="genshell">
     <table id="genshell_list" class="sortable">
       <tr><th>generate shellcode</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -89,6 +97,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var mobfuscat = ["https://api.github.com/repos/thewover/dinvoke"]; for (rep in mobfuscat) {$.ajax({type: "GET", url: mobfuscat[rep], dataType: "json", success: function(result) {$("#mobfuscat_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="mobfuscat">
     <table id="mobfuscat_list" class="sortable">
       <tr><th>obfuscator</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -99,6 +109,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var aobfuscat = ["https://api.github.com/repos/"]; for (rep in aobfuscat) {$.ajax({type: "GET", url: aobfuscat[rep], dataType: "json", success: function(result) {$("#aobfuscat_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="aobfuscat">
     <table id="aobfuscat_list" class="sortable">
       <tr><th>obfuscator</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -109,6 +121,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var pinject = ["https://api.github.com/repos/LloydLabs/ntqueueapcthreadex-ntdll-gadget-injection","https://api.github.com/repos/fancycode/memorymodule","https://api.github.com/repos/"]; for (rep in pinject) {$.ajax({type: "GET", url: pinject[rep], dataType: "json", success: function(result) {$("#pinject_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="pinject">
     <table id="pinject_list" class="sortable">
       <tr><th>process injection</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -119,6 +133,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var detectvm = ["https://api.github.com/repos/CMEPW/bof-collection/","https://github.com/a0rtega/pafish"]; for (rep in detectvm) {$.ajax({type: "GET", url: detectvm[rep], dataType: "json", success: function(result) {$("#detectvm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="detectvm">
     <table id="detectvm_list" class="sortable">
       <tr><th>detect VM</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -129,6 +145,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var peshell = ["https://api.github.com/repos/S4ntiagoP/donut/tree/syscalls","https://api.github.com/repos/hasherezade/pe_to_shellcode","https//api.github.com/repos/monoxgas/sRDI"]; for (rep in peshell) {$.ajax({type: "GET", url: peshell[rep], dataType: "json", success: function(result) {$("#peshell_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="peshell">
     <table id="peshell_list" class="sortable">
       <tr><th>pe to shellcode</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -139,6 +157,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var abeacon = ["https://api.github.com/repos/Ccob/BOF.NET"]; for (rep in abeacon) {$.ajax({type: "GET", url: abeacon[rep], dataType: "json", success: function(result) {$("#abeacon_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="abeacon">
     <table id="abeacon_list" class="sortable">
       <tr><th>alive beacon</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
@@ -149,6 +169,8 @@ permalink: /pen/edr/evasion
 
 <script>$(window).load(function() {var repos = ["https://api.github.com/repos/wavestone-cdt/EDRSandblast", "https://api.github.com/repos/MrEmpy/Awesome-AV-EDR-XDR-Bypass","https://api.github.com/repos/jthuraisamy/TelemetrySourcerer","https://api.github.com/repos/KiFilterFiberContext/warbird-hook","https://api.github.com/repos/hlldz/RefleXXion","https://api.github.com/repos/optiv/ScareCrow","https://api.github.com/repos/PwnDexter/SharpEDRChecker","https://api.github.com/repos/secretsquirrel/SigThief","https://api.github.com/repos/optiv/Freeze"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
 <div id="repos">
     <table id="repo_list" class="sortable">
       <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
