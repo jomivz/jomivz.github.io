@@ -22,7 +22,7 @@ permalink: /pen/ad/discov
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
 		* [shoot-dcs](#shoot-dcs)
-		* [shoot-pwd-desc](#shoot-pwd-desc)
+		* [shoot-desc-users](#shoot-desc-users)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
@@ -90,13 +90,9 @@ bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pas
 ### <a name='dnschef'></a>dnschef
 * set up a nameserver in localhost :
 ```sh
-sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q                                                                                                                                                                        
+sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q
 ```
-* add the ns option to bloodhood.py:
-```sh
--ns 127.0.0.1
-``` 
-
+* add the ns option to bloodhood.py ```-ns 127.0.0.1``` 
 
 ## <a name='shoot'></a>shoot
 
@@ -156,7 +152,7 @@ nmap $zdom_fqdn --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_
 nbtscan -r 10.0.0.0/24
 ```
 
-#### <a name='shoot-pwd-desc'></a>shoot-desc-users
+#### <a name='shoot-desc-users'></a>shoot-desc-users
 ```sh
 cme ldap -u $ztarg_user_name -p $ztarg_user_pass -kdcHost $zdom_dc_fqdn -d $zdom_fqdn -M get-desc-users > $zcase"_cme_ldap_get-desc-users.txt"
 grep -i "pass|pw|=" $zcase"_cme_ldap_get-desc-users.txt"
@@ -268,7 +264,7 @@ GetNPUsers.py $zz -dc-ip $zdom_dc_ip -request >> np_users.txt
 ```
 
 #### <a name='shoot-gpos'></a>shoot-gpos
-```
+```sh
 ```
 
 ## <a name='iter'></a>iter
@@ -294,9 +290,12 @@ pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass 
 pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > $zcase"_getnetcomputer_xxx.txt"
 
 # Get the machines based on an adspath / OU
-ztarg_ou = "OU=Workstations,"$zdom_fqdn
-ztarg_adspath = "ldap://" + $ztarg_ou
+ztarg_ou="OU=Workstations,"$zdom_fqdn
+ztarg_adspath="ldap://$ztarg_ou"
 pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip | grep -v "^$" | cut -f2 -d" " > $zcase"_getnetcomputer_ou_x.txt"
+
+# Get the GPO based on an adspath / OU
+pywerview.py get-netgpo -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a $ztarg_adspath --dc-ip $zdom_dc_ip > $zcase"_getnetgpo_ou_x.txt"
 ```
 
 ### <a name='iter-scope'></a>iter-scope
