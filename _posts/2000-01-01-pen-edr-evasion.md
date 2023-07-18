@@ -40,7 +40,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="mm">
     <table id="mm_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -53,7 +53,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="dropper">
     <table id="dropper_list" class="sortable">
-      <tr><th>dropper</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -66,20 +66,20 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="mloader">
     <table id="mloader_list" class="sortable">
-      <tr><th>loader</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
 ## <a name='automatic-loader'></a>automatic-loader
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var aloader = ["https://api.github.com/repos/TheD1rkMtr/D1rkLdr","https://api.github.com/repos/xuanxuan0/driploader","https://github.com/hagrid29/peloader","https://api.github.com/repos/vic4key/qloader","https://api.github.com/repos/cribdragg3r/alaris","https://api.github.com/repos/trustedsec/coffloader","https://api.github.com/repos/CMEPW/selha","https://github.com/aeverj/nimshellcodeloader","https://api.github.com/repos/sh3d0ww01f/nim_shellloader","https://api.github.com/repos/EddieIvan01/gld","https://api.github.com/repos/zha0gongz1/DesertFox","https://api.github.com/repos/b1tg/rs-shellcode","https://api.github.com/repos/cr7pt0pl4gu3/pestilence","https://api.github.com/repos/icyguider/shhhloader","https://github.com/simplylu/WeaponizeCrystal"]; for (rep in aloader) {$.ajax({type: "GET", url: aloader[rep], dataType: "json", success: function(result) {$("#mloader_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var aloader = ["https://api.github.com/repos/TheD1rkMtr/D1rkLdr","https://api.github.com/repos/xuanxuan0/driploader","https://github.com/hagrid29/peloader","https://api.github.com/repos/vic4key/qloader","https://api.github.com/repos/cribdragg3r/alaris","https://api.github.com/repos/trustedsec/coffloader","https://api.github.com/repos/CMEPW/selha","https://github.com/aeverj/nimshellcodeloader","https://api.github.com/repos/sh3d0ww01f/nim_shellloader","https://api.github.com/repos/EddieIvan01/gld","https://api.github.com/repos/zha0gongz1/DesertFox","https://api.github.com/repos/b1tg/rs-shellcode","https://api.github.com/repos/cr7pt0pl4gu3/pestilence","https://api.github.com/repos/icyguider/shhhloader","https://github.com/simplylu/WeaponizeCrystal"]; for (rep in aloader) {$.ajax({type: "GET", url: aloader[rep], dataType: "json", success: function(result) {$("#aloader_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
 <div id="aloader">
     <table id="aloader_list" class="sortable">
-      <tr><th>loader</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -92,7 +92,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="genshell">
     <table id="genshell_list" class="sortable">
-      <tr><th>generate shellcode</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -105,7 +105,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="mobfuscat">
     <table id="mobfuscat_list" class="sortable">
-      <tr><th>obfuscator</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -118,7 +118,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="aobfuscat">
     <table id="aobfuscat_list" class="sortable">
-      <tr><th>obfuscator</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -131,7 +131,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="pinject">
     <table id="pinject_list" class="sortable">
-      <tr><th>process injection</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -144,7 +144,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="detectvm">
     <table id="detectvm_list" class="sortable">
-      <tr><th>detect VM</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -157,7 +157,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="peshell">
     <table id="peshell_list" class="sortable">
-      <tr><th>pe to shellcode</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -170,7 +170,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="abeacon">
     <table id="abeacon_list" class="sortable">
-      <tr><th>alive beacon</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
@@ -183,7 +183,7 @@ permalink: /pen/edr/evasion
 <script src="/sortable.js"></script>
 <div id="repos">
     <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>language</th></tr>
+      <tr><th>_repo</th><th>_last update</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
     </table>
 </div>    
 
