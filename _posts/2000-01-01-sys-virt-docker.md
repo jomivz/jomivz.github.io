@@ -3,17 +3,14 @@ layout: post
 title: SYS docker #imgomy #imgsec #memo #tshoot   
 category: sys
 parent: cheatsheets
-modified_date: 2023-06-26
+modified_date: 2023-07-19
 permalink: /sys/docker
 ---
-
-**Must**
-
-* [docker post-install](https://docs.docker.com/engine/install/linux-postinstall/)
 
 **Menu**
 
 <!-- vscode-markdown-toc -->
+* [install](#install)
 * [imgomy](#imgomy)
 	* [alpine](#alpine)
 	* [jekyll](#jekyll)
@@ -22,8 +19,9 @@ permalink: /sys/docker
 	* [python2](#python2)
 	* [postgres](#postgres)
 * [imgsec](#imgsec)
-	* [impacket](#impacket)
+	* [exegol](#exegol)
 	* [kerbrute](#kerbrute)
+	* [impacket](#impacket)
 	* [nuclei](#nuclei)
 	* [spiderfoot](#spiderfoot)
 	* [testssl](#testssl)
@@ -38,6 +36,10 @@ permalink: /sys/docker
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## <a name='install'></a>install 
+* [debian install](https://docs.docker.com/engine/install/debian/)
+* [docker post-install](https://docs.docker.com/engine/install/linux-postinstall/)
 
 ## <a name='imgomy'></a>imgomy
 ### <a name='alpine'></a>alpine
@@ -193,7 +195,7 @@ create table ips_bogon (ipr cidr not null);
 select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS NULL;  
 ```
 ## <a name='imgsec'></a>imgsec
-### <a name='impacket'></a>exegol
+### <a name='exegol'></a>exegol
 * extracted from the exegol [readthedocs](https://exegol.readthedocs.io/en/latest/getting-started/install.html#requirements):
 ```sh
 python3 -m pip install exegol

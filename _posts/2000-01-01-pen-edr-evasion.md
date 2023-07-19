@@ -30,6 +30,8 @@ permalink: /pen/edr/evasion
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+🔥 [GEMINI YT Channel](https://www.youtube.com/playlist?list=PL0UJtYdHHM44uqGlDN-DQUYzoOj5Mp3ZF) 🔥
+
 ## <a name='articles'></a>articles
 
 | **Date** | **EDR** | **Version** | **Bypass** | **Author** |
