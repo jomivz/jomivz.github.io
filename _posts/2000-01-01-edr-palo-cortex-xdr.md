@@ -76,6 +76,20 @@ ps -aux | grep cortex
 ```
 ![ps aux](/assets/images/xdr-psaux.png)
 
+## <a name='files'></a>lin-files
+
+* palo xdr 7.9.1 file ```ltee_decryptor.json```:
+```bash
+jq /opt/traps/ltee/lted/ltee_ecryptor.json
+```
+![ps aux](/assets/images/xdr-file-ltee_decryptor.json.png)
+
+* palo xdr 7.9.1 file ```service_main.json```:
+```bash
+jq /opt/traps/python/scripts/service_main.json
+```
+![ps aux](/assets/images/xdr-file-services.json.png)
+
 
 ## <a name='xql'></a>xql
 
