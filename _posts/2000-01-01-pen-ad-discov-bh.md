@@ -3,11 +3,9 @@ layout: post
 title: pen / ad / discov / bh
 category: pen
 parent: cheatsheets
-modified_date: 2023-07-11
+modified_date: 2023-07-20
 permalink: /pen/ad/discov/bh
 ---
-
-**Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
 
 **Menu**
 <!-- vscode-markdown-toc -->
@@ -33,6 +31,7 @@ permalink: /pen/ad/discov/bh
 	* [iter-next-hops](#iter-next-hops)
 	* [iter-sessions-da](#iter-sessions-da)
 	* [iter-sessions-owned](#iter-sessions-owned)
+	* [iter-memberof](#iter-memberof)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -40,15 +39,9 @@ permalink: /pen/ad/discov/bh
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='tips'></a>tips
-
-* [iccardo.ancarani94](https://medium.com/@riccardo.ancarani94/bloodhound-tips-and-tricks-e1853c4b81ad) / 2019-08-11
-
-## <a name='dacl'></a>dacl
-
-credit: [thehacker.repices](https://thehacker.repices/ad/movement/dacl)
-![ad privesc DACLs](/assets/images/pen-privesc-dacl.png)
-
+**Must-watch**
+* [Hausec Cypher Queries](https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/)  
+* [iccardo.ancarani94 tips](https://medium.com/@riccardo.ancarani94/bloodhound-tips-and-tricks-e1853c4b81ad) / 2019-08-11
 
 ## <a name='shoot'></a>shoot
 ### <a name='shoot-forest'></a>shoot-forest
@@ -67,25 +60,18 @@ MATCH p = (d:Domain)-[r:Contains*1..]->(n:User) RETURN p
 # overall map
 MATCH q=(d:Domain)-[r:Contains*1..]->(n:Group)<-[s:MemberOf]-(u:User) RETURN q
 
-# show the ACL users
-MATCH p=(u:User)-[r1]->(n) WHERE r1.isacl=true
-# show the ACL users 4 GOAD
-MATCH p=(u:User)-[r1]->(n) WHERE r1.isacl=true and not tolower(u.name) contains 'vagrant' RETURN p
-
-# show the memberof graph 
-echo $ztarg_user_name@$zdom_fqdn
-MATCH p=(n:User {name:"X@Y.COM"})-[r:MemberOf*1..]->(g:Group) RETURN p
 ```
 #### <a name='shoot-delegations'></a>shoot-delegations
 ```sh
+# find any computer that is NOT a domain controller and it is trusted to perform unconstrained delegation
+MATCH (c1:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectid ENDS WITH '-516' WITH COLLECT(c1.name) AS domainControllers MATCH (c2:Computer {unconstraineddelegation:true}) WHERE NOT c2.name IN domainControllers RETURN c2.name,c2.operatingsystem ORDER BY c2.name ASC
+
 # find all computers with Unconstrained Delegation
 MATCH (c:Computer {unconstraineddelegation:true}) return c
 
 # display in BH a specific user with constrained deleg and his targets where he allowed to delegate
 MATCH (u:User {name:'USER@DOMAIN.GR'}),(c:Computer),p=((u)-[r:AllowedToDelegate]->(c)) RETURN p
 
-# find any computer that is NOT a domain controller and it is trusted to perform unconstrained delegation
-MATCH (c1:Computer)-[:MemberOf*1..]->(g:Group) WHERE g.objectid ENDS WITH '-516' WITH COLLECT(c1.name) AS domainControllers MATCH (c2:Computer {unconstraineddelegation:true}) WHERE NOT c2.name IN domainControllers RETURN c2.name,c2.operatingsystem ORDER BY c2.name ASC
 
 # find all users trusted to perform constrained delegation. The result is ordered by the amount of computers
 MATCH (u:User)-[:AllowedToDelegate]->(c:Computer) RETURN u.name,COUNT(c) ORDER BY COUNT(c) DESC
@@ -263,21 +249,16 @@ Match (n:GPO) WHERE n.name CONTAINS "SERVER" return n
 
 #### <a name='shoot-dormant-accounts'></a>shoot-dormant-accounts
 
-* Queries:
-```powershell
-
-pwdLastSet
+```sh
+# pwdLastSet
 ```
+
 * [Description](https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_user_accounts_dormant)
 
 
 #### <a name='shoot-gpos-1'></a>shoot-gpos
-```bash
-# cme
-crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_pasword
-crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_autologin
-# impacket
-Get-GPPPassword.py $zz
+```sh
+### 
 ```
 
 ## <a name='iter'></a>iter
@@ -308,4 +289,9 @@ MATCH p=shortestPath((m:User)-[r:MemberOf*1..]->(n:Group {name: "DOMAIN ADMINS@I
 ### <a name='iter-sessions-owned'></a>iter-sessions-owned
 ```sh
 MATCH p=(m:Computer)-[r:HasSession]->(n:User {domain: "TEST.LOCAL"}) RETURN p
+```
+
+### <a name='iter-memberof'></a>iter-memberof
+```sh
+MATCH p=(n:User {name:"X@Y.COM"})-[r:MemberOf*1..]->(g:Group) RETURN p
 ```
