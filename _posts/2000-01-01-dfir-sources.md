@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR Ressources
+title: dfir / sources
 category: dfir
 parent: cheatsheets
 modified_date: 2023-06-09

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DEV GIT Cheatsheet
+title: dev / git
 category: dev
 parent: cheatsheets
 modified_date: 2021-11-19

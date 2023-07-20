@@ -1,26 +1,32 @@
 ---
 layout: post
-title: DFIR SYS Dumping memory
+title: dfir / memdump
 category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06
 permalink: /dfir/memdump
 ---
 
-## Dumping Memory of a VirtualBox Machine
+<!-- vscode-markdown-toc -->
+* 1. [virtualbox](#virtualbox)
+* 2. [libvirt](#libvirt)
+
+<!-- vscode-markdown-toc-config
+	numbering=false
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='virtualbox'></a>virtualbox
 ```sh
-#? dump memory virtualbox
-#
 # STEP 1: launch the VM in debug mode using CLI
-#
 > vboxmanage list vms
 > virtualbox  --dbg --startvm <VM name>
-#
 # STEP 2 : click on the "Debug" menu -> "Command line...". VBoxDbg > .pgmphystofile   <VM name>.mm
 #
-
 ```
-## Dumping Memory via libvirt
+
+##  2. <a name='libvirt'></a>libvirt
 
 Libvirt supports Xen, Qemu, KVM, OpenVZ, virtualbox, VMware ESX and LXC hypervisors.
 

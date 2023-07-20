@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR NET Tshark
+title: dfir / net / tshark
 category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06

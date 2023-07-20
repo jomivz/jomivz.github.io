@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR AD Remediation
+title: dfir / ad
 category: dfir
 parent: cheatsheets
 modified_date: 2023-07-03

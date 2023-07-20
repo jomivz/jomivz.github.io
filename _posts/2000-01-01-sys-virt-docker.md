@@ -97,7 +97,8 @@ sudo docker exec -it $snapshot /bin/grep -v ^$ conf/neo4j.conf | grep -v "^#"
 sudo docker exec -it $snapshot /bin/grep dbms.memory conf/neo4j.conf
 ```
 
-* [optimize the memory setting](https://neo4j.com/developer/memory-management/) :
+* [optimize the memory setting](https://neo4j.com/developer/memory-management/):
+
 ```sh
 # run memory recommendation
 docker exec -it $snapshot bin/neo4j-admin memrec
@@ -197,6 +198,7 @@ select ip from X LEFT OUTER JOIN ips_bogon ON network(ip) <<= ipr WHERE ipr IS N
 ## <a name='imgsec'></a>imgsec
 ### <a name='exegol'></a>exegol
 * extracted from the exegol [readthedocs](https://exegol.readthedocs.io/en/latest/getting-started/install.html#requirements):
+
 ```sh
 python3 -m pip install exegol
 # autocompletion

@@ -33,7 +33,8 @@ permalink: /pen/edr/evasion
 **MUST-WATCH**
 
 🔥 [GEMINI YT Channel](https://www.youtube.com/playlist?list=PL0UJtYdHHM44uqGlDN-DQUYzoOj5Mp3ZF) 🔥
-🔥 [CMEPW mindmap](/assets/images/pen-edr-evasion-mindmap-cmepw.png) 🔥
+
+🔥 [CMEPW BypassAV mindmap](/assets/images/pen-edr-evasion-mindmap-cmepw.png) 🔥
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>$(window).load(function() {var mm = ["https://api.github.com/repos/CMEPW/BypassAV"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>

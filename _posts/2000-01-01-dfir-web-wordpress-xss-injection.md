@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR WEB Wordpress XSS injection
+title: dfir / web / wordpress
 category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06

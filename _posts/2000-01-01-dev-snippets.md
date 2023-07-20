@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DEV - Snippets
+title: dev / snippets
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-08

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: OSINT links
+title: osint / links
 category: osint
 parent: cheatsheets
 permalink: /osint/links

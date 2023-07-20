@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR WIN Binaries
+title: dfir / win / pe 
 parent: cheatsheets
 category: dfir
 modified_date: 2023-06-07

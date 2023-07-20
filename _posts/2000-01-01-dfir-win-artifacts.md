@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR WIN Artifacts
+title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
 modified_date: 2023-06-08

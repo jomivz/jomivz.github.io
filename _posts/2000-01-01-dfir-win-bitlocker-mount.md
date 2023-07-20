@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR WIN Mounting bitlocker partition
+title: difr / win / bitlocker
 category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06

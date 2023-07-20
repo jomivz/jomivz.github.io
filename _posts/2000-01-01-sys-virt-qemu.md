@@ -8,13 +8,15 @@ permalink: /sys/qemu
 ---
 
 <!-- vscode-markdown-toc -->
-* [LibVirtd](#LibVirtd)
-	* [Converting OVA to QCOW](#ConvertingOVAtoQCOW)
-	* [ Network Settings](#NetworkSettings)
-	* [ netfilter](#netfilter)
-* [Proxmox](#Proxmox)
-	* [Converting to VMDK for ProxMox](#ConvertingtoVMDKforProxMox)
-	* [ VM config files](#VMconfigfiles)
+* [libvirtd](#libvirtd)
+	* [converting-ova-to-qcow](#converting-ova-to-qcow)
+	* [setting-network](#setting-network)
+	* [netfilter](#netfilter)
+* [proxmox](#proxmox)
+	* [converting-to-vmdk](#converting-to-vmdk)
+	* [importing-vmdk](#importing-vmdk)
+	* [vms-config-files](#vms-config-files)
+	* [guest-additions](#guest-additions)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -22,13 +24,13 @@ permalink: /sys/qemu
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->---
 
-## <a name='LibVirtd'></a>LibVirtd
+## <a name='libvirtd'></a>libvirtd
 
-- (qemu.readthedocs.io)[https://qemu.readthedocs.io/en/latest/index.html]
-- (proxmox pve wiki)[https://pve.proxmox.com/wiki/Main_Page]
-- (promoxpve docs)[https://pve.proxmox.com/pve-docs/]
+- [qemu.readthedocs.io](https://qemu.readthedocs.io/en/latest/index.html)
+- [proxmox pve wiki]([https://pve.proxmox.com/wiki/Main_Page)
+- [promoxpve docs](https://pve.proxmox.com/pve-docs/)
 
-### <a name='ConvertingOVAtoQCOW'></a>Converting OVA to QCOW
+### <a name='converting-ova-to-qcow'></a>converting-ova-to-qcow
 ```sh
 tar xvf anothertrainingbox64.ova
 ls
@@ -36,7 +38,7 @@ anothertrainingbox64.vmdk
 qemu-img convert anothertrainingbox64.vmdk xin-box-64.qemu2 -O qcow2
 ```
 
-### <a name='NetworkSettings'></a>Network Settings
+### <a name='setting-network'></a>setting-network
 
 Set the network as per below:
 ![.](/assets/images/qemu-vm-network-settings.png)
@@ -70,9 +72,9 @@ systemctl restart systemd-networkd
 ### <a name='netfilter'></a>netfilter
 
 
-## <a name='Proxmox'></a>Proxmox
+## <a name='proxmox'></a>proxmox
 
-### <a name='ConvertingtoVMDKforProxMox'></a>Converting to VMDK for ProxMox
+### <a name='converting-to-vmdk'></a>converting-to-vmdk
 ```sh
 # sysinternals disk2vhd vms
 qemu-img convert -O vmdk /data/source.vhdx /data/output.vmdk
@@ -81,18 +83,18 @@ qemu-img convert -O vmdk /data/source.vhdx /data/output.vmdk
 qemu-img convert -O vmdk /data/source.vdi /data/output.vmdk
 ```
 
-### <a name='ConvertingtoVMDKforProxMox'></a>Importing VMDK
+### <a name='importing-vmdk'></a>importing-vmdk
 ```
 qm importdisk 888 image-flat.vmdk local-storage --format vmdk
 ```
 
-### <a name='VMconfigfiles'></a>VM config files 
+### <a name='vms-config-files'></a>vms-config-files
 
 ```
 /etc/pve/qemu-server/*.conf
 ```
 
-### <a name='VMconfigfiles'></a>Guest additions (SPICE)
+### <a name='guest-additions'></a>guest-additions
 
 Link to **SPICE** documentation :
 - [remote admin, copy/paste, video](https://pve.proxmox.com/wiki/SPICE)

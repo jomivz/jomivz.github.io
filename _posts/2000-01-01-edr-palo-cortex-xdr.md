@@ -1,6 +1,6 @@
 ---
 layout: post
-title: EDR Palo Alto Cortex XDR
+title: edr / xdr
 parent: cheatsheets
 category: edr
 modified_date: 2023-06-27

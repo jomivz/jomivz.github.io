@@ -1,6 +1,6 @@
 ---
 layout: post
-title: T0000 Awesome AD Security
+title: awesome-ad
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-06
@@ -37,7 +37,6 @@ permalink: /awesome-ad
 | [KRB Attacks 101](https://m0chan.github.io/2019/07/31/How-To-Attack-Kerberos-101.html) | Good redacting effort. | m0chan |
 | [harden](https://activedirectorypro.com/active-directory-security-best-practices/) | | |
 | [harden](https://www.pwndefend.com/2022/02/26/rapid-active-directory-hardening-checklist/) | | |
-| [commandline.ninja](https://www.commandline.ninja/tag/active-directory/) | | |
 
 ## <a name='azure'></a>azure
 - [O365 ATP cheatsheet](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/O365%20ATP%20Datasheet.pdf)

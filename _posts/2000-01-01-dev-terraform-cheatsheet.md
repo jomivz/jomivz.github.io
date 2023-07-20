@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DEV Terraform with DigitalOcean
+title: dev / terraform
 category: dev
 parent: cheatsheets
 modified_date: 2023-06-03

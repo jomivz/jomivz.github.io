@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR WIN Persistence
+title: dfir / win / persistence
 category: dfir
 parent: cheatsheets
 modified_date: 2023-01-04

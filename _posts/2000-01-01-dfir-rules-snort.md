@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR RULES Snort
+title: dfir / rules / snort
 category: dfir
 parent: cheatsheets
 modified_date: 2023-06-08
