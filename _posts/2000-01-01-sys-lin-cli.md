@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS LIN CLI
+title: sys / lin
 category: sys
 parent: cheatsheets
 modified_date: 2023-07-18

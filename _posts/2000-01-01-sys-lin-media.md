@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS LIN BASH
+title: sys / lin / media
 category: sys
 parent: cheatsheets
 modified_date: 2023-07-19
-permalink: /sys/lin/bash
+permalink: /sys/lin/media
 ---
 <!-- vscode-markdown-toc -->
 * [ebooks](#ebooks)

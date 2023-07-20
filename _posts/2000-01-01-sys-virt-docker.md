@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS docker #imgomy #imgsec #memo #tshoot   
+title: sys / docker
 category: sys
 parent: cheatsheets
 modified_date: 2023-07-19

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS VIRT VirtualBox
+title: sys / virtualbox
 category: sys
 parent: cheatsheets
 modified_date: 2022-08-16

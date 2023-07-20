@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS WIN CLI
+title: sys / win 
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-05

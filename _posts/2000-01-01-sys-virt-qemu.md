@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS VIRT QEMU / Proxmox
+title: sys / qemu
 category: sys
 parent: cheatsheets
 modified_date: 2021-08-31

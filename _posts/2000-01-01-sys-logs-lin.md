@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS LOGS Linux
+title: sys / logs / lin
 category: sys
 parent: cheatsheets
 modified_date: 2023-01-10
-permalink: /sys/logs-lin
+permalink: /sys/logs/lin
 ---
 
 <!-- vscode-markdown-toc -->

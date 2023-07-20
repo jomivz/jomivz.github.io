@@ -3,14 +3,14 @@ layout: post
 title: pen / edr / evasion
 category: pen
 parent: cheatsheets
-modified_date: 2023-07-18
+modified_date: 2023-07-19
 permalink: /pen/edr/evasion
 ---
 
+**MENU**
 <!-- vscode-markdown-toc -->
 * [articles](#articles)
 * [eol](#eol)
-* [mindmap](#mindmap)
 * [tools](#tools)
 	* [all-in-one](#all-in-one)
 	* [dropper](#dropper)
@@ -30,7 +30,21 @@ permalink: /pen/edr/evasion
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+**MUST-WATCH**
+
 🔥 [GEMINI YT Channel](https://www.youtube.com/playlist?list=PL0UJtYdHHM44uqGlDN-DQUYzoOj5Mp3ZF) 🔥
+🔥 [CMEPW mindmap](/assets/images/pen-edr-evasion-mindmap-cmepw.png) 🔥
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var mm = ["https://api.github.com/repos/CMEPW/BypassAV"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="mm">
+    <table id="mm_list" class="sortable">
+      <tr><th>_repo</th><th>_last_pushed</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
+    </table>
+</div>
 
 ## <a name='articles'></a>articles
 
@@ -48,20 +62,6 @@ permalink: /pen/edr/evasion
 * [carbon black](https://community.carbonblack.com/t5/Documentation-Downloads/Carbon-Black-EDR-Supported-Versions-Grid/ta-p/85714)
 * [palo alto XDR](https://www.paloaltonetworks.com/services/support/end-of-life-announcements/end-of-life-summary#traps-esm-and-cortex)
 
-## <a name='mindmap'></a>mindmap
-
-[open in browser](/assets/images/pen-edr-evasion-mindmap-cmepw.png)
-
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var mm = ["https://api.github.com/repos/CMEPW/BypassAV"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="mm">
-    <table id="mm_list" class="sortable">
-      <tr><th>_repo</th><th>_last_pushed</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
-    </table>
-</div>
 
 ## <a name='tools'></a>tools
 
