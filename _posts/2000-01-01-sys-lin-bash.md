@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SYS LIN BASH
+title: sys / lin / bash
 category: sys
 parent: cheatsheets
 modified_date: 2023-07-19
@@ -8,12 +8,8 @@ permalink: /sys/lin/bash
 ---
 <!-- vscode-markdown-toc -->
 * [loop](#loop)
-* [Archive servers](#Archiveservers)
 * [sed](#sed)
 * [find](#find)
-* [PDF & ebooks](#PDFebooks)
-* [Images treatment](#Imagestreatment)
-* [Miscellaneous](#Miscellaneous)
 
 <!-- vscode-markdown-toc-config
 	numbering=false

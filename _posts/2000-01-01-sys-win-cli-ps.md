@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  SYS WIN CLI powershell
+title:  sys / powershell
 category: sys
 parent: cheatsheets
 modified_date: 2023-06-08

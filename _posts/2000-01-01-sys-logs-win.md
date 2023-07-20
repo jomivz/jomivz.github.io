@@ -1,10 +1,10 @@
 ---
 layout: post
-title: SYS LOGS Windows
+title: sys / logs / win
 category: sys
 parent: cheatsheets
 modified_date: 2023-01-16
-permalink: /sys/logs-win
+permalink: /sys/logs/win
 ---
 
 **MENU**
