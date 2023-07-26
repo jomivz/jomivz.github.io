@@ -25,6 +25,11 @@ modified_date: 2022-07-17
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+### <a name='DashboardOnlineTools'></a>🌎 Daily
+
+* [anssi](https://www.cert.ssi.gouv.fr/)
+* [cisa alerts](https://www.cisa.gov/news-events/cybersecurity-advisories?f%5B0%5D=advisory_type%3A94)
+
 ### <a name='DashboardOnlineTools'></a>🌎🤝 Dashboard Online Tools
 
 

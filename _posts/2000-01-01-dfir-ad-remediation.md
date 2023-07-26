@@ -3,7 +3,7 @@ layout: post
 title: dfir / ad
 category: dfir
 parent: cheatsheets
-modified_date: 2023-07-03
+modified_date: 2023-07-26
 permalink: /dfir/ad
 ---
 
@@ -118,6 +118,16 @@ pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $
 ## <a name='check-pwdlastset'></a>check-pwdlastset
 
 ### <a name='pwdlastset-hva'></a>pwdlastset-hva
+```sh
+# STEP 1: create a new dir
+mkdir _hva; cd _hva
+# SPTE 2: fill the txt with hva accounts
+touch hva_accnt.txt
+# STEP 3: get 1 getnetuser txt / hva accounts
+for zhva_accnt in `cat hva_accnt.txt`; do pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $zhva_accnt > $zcase"_getnetuser_"$zhva_accnt".txt"; done
+# STEP 4: grep into the txt
+grep pwdlastset *getnetuser* | sed 's/.*getnetuser_\(.*\)\.txt.*\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\ [0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}.*[-+][0-9]\{2\}:[0-9]\{2\}\)/\2,\1/' | sort -u | csvlook -H
+```
 
 ### <a name='pwdlastset-bh-pwnable'></a>pwdlastset-bh-pwnable
 

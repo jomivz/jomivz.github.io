@@ -38,6 +38,7 @@ MUST-READ : [awesome-osint](https://github.com/jivoi/awesome-osint)
 
 * 🌎 [filepursuit.com](https://filepursuit.com)
 * 🌎 [haveibeenpwned.com](https://haveibeenpwned.com)
+* 🌎 [grayhatwarfare](https://buckets.grayhatwarfare.com/)
 * google dorks / 
 
 ## <a name='personaldata'></a>personal data

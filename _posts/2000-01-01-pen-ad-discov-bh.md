@@ -98,28 +98,8 @@ OPTIONAL MATCH (u:User {sensitive:false, admincount:true}) WITH u.name AS POSSIB
 # show the privileged accounts graphs (per builtin group and per SID-RID)
 # $builtin = @("Account Operators", "Domain Admins", "Administrators", "Server Operators", "DHCP Administrators", "Enterprise Admins", "Schema Admins", "DnsAdmins", "Group Policy Creator Owners", "Backup Operators", "Cert Publishers", "Event Log Readers", "Hyper-V Administrators", "Network Configuration Operators")
 
-MATCH p = (m:Group {name: "DOMAIN ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
 
 MATCH p = (m:Group {name: "ADMINISTRATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "SERVER OPERATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "DHCP ADMINISTRATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "ENTERPRISE ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "SCHEMA ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "DNSADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
-MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
-
-MATCH p = (m:Group {name: "GROUP POLICY CREATOR OWNERS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
 MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
 
 MATCH p = (m:Group {name: "BACKUP OPERATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
@@ -128,7 +108,22 @@ MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" 
 MATCH p = (m:Group {name: "CERT PUBLISHERS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
 MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
 
+MATCH p = (m:Group {name: "DHCP ADMINISTRATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "DNSADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "DOMAIN ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "ENTERPRISE ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
 MATCH p = (m:Group {name: "EVENT LOG READERS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "GROUP POLICY CREATOR OWNERS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
 MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
 
 MATCH p = (m:Group {name: "HYPER-V ADMINISTRATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
@@ -136,6 +131,13 @@ MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" 
 
 MATCH p = (m:Group {name: "NETWORK CONFIGURATION OPERATORS"})-[r:Contains*1..]->(n:User) RETURN p
 MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "SCHEMA ADMINS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
+MATCH p = (m:Group {name: "SERVER OPERATORS@INTERNAL.LOCAL"})-[r:Contains*1..]->(n:User) RETURN p
+MATCH p = (n:Group)<-[:MemberOf*1..]-(m) WHERE n.objectid =~ "(?i)S-1-5-.*-512" RETURN p
+
 
 # show spf to builtin groups 
 MATCH (n:User), (m:Group {name: "DOMAIN ADMINS@INTERNAL.LOCAL"}), p=shortestPath((n)-[*1..]->(m)) RETURN p
@@ -175,12 +177,13 @@ MATCH p = (n:Computer) WHERE n.operatingsystem =~ "(?i).*(2000|2003|2008|xp|vist
 MATCH (c:Computer {unconstraineddelegation:true}) return c
 ```
 #### <a name='shoot-shares'></a>shoot-shares
-#### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
 #### <a name='shoot-spns'></a>shoot-spns
 ```sh
-#has spn
+# has spn
 MATCH (n:User)WHERE n.hasspn=true
 RETURN n
+# export it to graph.json, then list them
+cat graph.json | jq -r 'nodes[].props.serviceprincipalnames | to_entries[] | .value' > spn.lst
 
 # spn with passwords last set > 5 years ago       
 MATCH (u:User) WHERE u.hasspn=true AND u.pwdlastset < (datetime().epochseconds - (1825 * 86400)) AND NOT u.pwdlastset IN [-1.0, 0.0]
@@ -188,6 +191,10 @@ RETURN u.name, u.pwdlastset order by u.pwdlastset
 
 # kerberoastable users with path to DA
 MATCH (u:User {hasspn:true}) MATCH (g:Group) WHERE g.name CONTAINS 'DOMAIN ADMINS' MATCH p = shortestPath( (u)-[*1..]->(g) ) RETURN p
+```
+#### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
+```sh
+grep -i mssql spn.lst
 ```
 
 #### <a name='shoot-npusers'></a>shoot-npusers

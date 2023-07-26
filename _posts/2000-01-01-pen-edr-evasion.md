@@ -52,6 +52,7 @@ permalink: /pen/edr/evasion
 | **Date** | **EDR** | **Version** | **Bypass** | **Author** |
 | 2023-02 | Palo Alto XDR | - | [auditconf](https://github.com/Laokoon-SecurITy/Cortex-XDR-Config-Extractor) | |
 | 2022-09 | Palo Alto XDR | 7.8.0 | [regnreboot](https://medium.com/@bentamam/bypassing-cortex-xdr-a-case-study-in-the-power-of-simplicity-b436f4f570ad) | @bentamam |
+| 2022-03 | ALL | ALL | [reflectiveDump](https://s3cur3th1ssh1t.github.io/Reflective-Dump-Tools/) | s3cur3th1ssh1t |
 | 2021-10 | Windows Defender | x | [viperone](https://viperone.gitbook.io/pentest-everything/everything/everything-active-directory/defense-evasion/disable-defender) | |
 | 2021-07 | Palo Alto XDR | 7.4.0 | [privescndisable](https://mrd0x.com/cortex-xdr-analysis-and-bypass/) | @mrdox |
 | 2021-02 | ALL | ALL | [scarecrow part 1](https://www.optiv.com/insights/source-zero/blog/endpoint-detection-and-response-how-hackers-have-evolved) | Optiv |
