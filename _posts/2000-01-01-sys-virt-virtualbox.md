@@ -3,11 +3,14 @@ layout: post
 title: sys / virtualbox
 category: sys
 parent: cheatsheets
-modified_date: 2022-08-16
+modified_date: 2023-07-27
 permalink: /sys/virtualbox
 ---
 
 <!-- vscode-markdown-toc -->
+* [vagrant](#vagrant)
+	* [plugins](#plugins)
+	* [vagrantfile](#vagrantfile)
 * [convert-ova-to-vmdk](#convert-ova-to-vmdk)
 * [debian-guest-addtions](#debian-guest-addtions)
 
@@ -16,6 +19,21 @@ permalink: /sys/virtualbox
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->---
+
+## <a name='vagrant'></a>vagrant
+
+### <a name='plugins'></a>plugins
+```sh
+# plugins to install to run windows boxes
+vagrant plugin install vagrant-vbguest
+vagrant plugin install winrm
+vagrant plugin install winrm-fs
+vagrant plugin install winrm-elevated
+```
+
+### <a name='vagrantfile'></a>vagrantfile
+```sh
+```
 
 ## <a name='convert-ova-to-vmdk'></a>convert-ova-to-vmdk
 
@@ -52,4 +70,4 @@ cd /mnt/
 sudo ./VBoxLinuxAdditions.run
 ```
 
-- STEP 4: **Reboot** the Guest VM 
+- STEP 4: **Reboot** the Guest VM  

