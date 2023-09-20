@@ -8,8 +8,10 @@ permalink: /dfir/memdump
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [virtualbox](#virtualbox)
-* 2. [libvirt](#libvirt)
+* [windows](#windows)
+* [linux](#linux)
+* [virtualbox](#virtualbox)
+* [libvirt](#libvirt)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -17,7 +19,15 @@ permalink: /dfir/memdump
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='virtualbox'></a>virtualbox
+## <a name='windows'></a>windows
+
+* [WinPMEM](https://github.com/Velocidex/WinPmem)
+
+## <a name='linux'></a>linux 
+
+* [LinPMEM](https://github.com/Velocidex/Linpmem]
+
+## <a name='virtualbox'></a>virtualbox
 ```sh
 # STEP 1: launch the VM in debug mode using CLI
 > vboxmanage list vms
@@ -26,7 +36,7 @@ permalink: /dfir/memdump
 #
 ```
 
-##  2. <a name='libvirt'></a>libvirt
+## <a name='libvirt'></a>libvirt
 
 Libvirt supports Xen, Qemu, KVM, OpenVZ, virtualbox, VMware ESX and LXC hypervisors.
 

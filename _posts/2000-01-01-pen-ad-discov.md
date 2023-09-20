@@ -32,12 +32,16 @@ permalink: /pen/ad/discov
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
+		* [shoot-gpo](#shoot-gpo)
 		* [shoot-gpp](#shoot-gpp)
 		* [shoot-shares](#shoot-shares)
 		* [shoot-mssql-servers](#shoot-mssql-servers)
 		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
+		* [shoot-dacl](#shoot-dacl)
+		* [shoot-gmsa](#shoot-gmsa)
 * [iter](#iter)
+	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
 	* [iter-scope](#iter-scope)
 	* [iter-dacl](#iter-dacl)
@@ -147,10 +151,10 @@ for i in `cat $zcase"_trusts_clean.txt"`; do ping -a $i; done
 # https://dirkjanm.io/getting-in-the-zone-dumping-active-directory-dns-with-adidnsdump/
 
 # get DNS zones
-adidnsdump -u $zdom"\\"$ztarg_user_name --print-zones $zdom_dc_fqdn
+adidnsdump -u $zdom"\\"$ztarg_user_name -p $ztarg_user_pass --print-zones $zdom_dc_ip
 
 # get zone content, generate 'results.csv' in the current dir
-adidnsdump -u $zdom"\\"$ztarg_user_name --zone $zdom_fqdn $zdom_dc_fqdn
+adidnsdump -u $zdom"\\"$ztarg_user_name -p $ztarg_user_pass --zone $zdom_fqdn $zdom_dc_ip
 
 # keywords per target
 # vcenter vmw hyper adm docker ilo pam vdi vault
@@ -190,7 +194,11 @@ nbtscan -r 10.0.0.0/24
 
 #### <a name='shoot-adcs'></a>shoot-adcs
 ```sh
+# audit the certificate templates
 certipy find -u $ztarg_user_name -p $ztarg_user_pass $zdom_fqdn 
+
+# who can manage certificates ?
+
 ```
 
 #### <a name='shoot-desc-users'></a>shoot-desc-users
@@ -218,11 +226,11 @@ source: [learn.microsoft](https://learn.microsoft.com/en-us/archive/blogs/russel
 
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```sh
-crackmapexec smb $ztarg_dc_ip -u $ztarg_user_name -p $ztarg_user_pass --pass-pol
+crackmapexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass --pass-pol
 
 # Get the domain pasword policy
 # rpcclient -U $ztarg_user_name --password $ztarg_user_pass -I $ztarg_dc_ip (DEPRECATED)
-rpcclient -k -I $ztarg_dc_ip  
+rpcclient -k -I $zdom_dc_ip  
 rpcclient> getdompwinfo
 ```
 
@@ -305,6 +313,10 @@ DS-Replication-Get-Changes-In-Filtered-Set
 
 ```
 
+#### <a name='shoot-gpo'></a>shoot-gpo
+```bash
+```
+
 #### <a name='shoot-gpp'></a>shoot-gpp
 ```bash
 # cme
@@ -332,7 +344,19 @@ grep "krb5tgs" getuserspns_$zdom_dc".data" > getuserspns_$zdom_dc".tgs"
 GetNPUsers.py $zz -dc-ip $zdom_dc_ip -request >> np_users.txt 
 ```
 
+#### <a name='shoot-dacl'></a>shoot-dacl
+```bash
+```
+
+#### <a name='shoot-gmsa'></a>shoot-gmsa
+```bash
+```
+
 ## <a name='iter'></a>iter
+
+### <a name='iter-sid'></a>iter-sid
+```bash
+```
 
 ### <a name='iter-memberof'></a>iter-memberof
 User groups:
@@ -396,6 +420,11 @@ credit: [thehacker.repices](https://thehacker.repices/ad/movement/dacl)
 
 ### <a name='iter-gpos'></a>iter-gpos
 ```sh
+# gui
+gpedit.msc
+# cli
+rsop 
+gpresult /Z /scope:computer > XXX_gpresult_computer.txt
 ```
 
 ## <a name='refresh'></a>refresh

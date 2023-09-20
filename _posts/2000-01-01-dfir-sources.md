@@ -1,11 +1,31 @@
 ---
 layout: post
-title: dfir / sources
+title: dfir
 category: dfir
 parent: cheatsheets
-modified_date: 2023-06-09
-permalink: /dfir/sources
+modified_date: 2023-09-20
+permalink: /dfir
 ---
+
+<!-- vscode-markdown-toc -->
+* 1. [tools](#tools)
+* 2. [kb](#kb)
+
+<!-- vscode-markdown-toc-config
+	numbering=true
+	autoSave=true
+	/vscode-markdown-toc-config -->
+<!-- /vscode-markdown-toc -->
+
+##  1. <a name='tools'></a>tools
+
+| **Tool** | **URL** | **Description** |
+|----------------------|------------------------|-------------------|
+| 📃 Windows Security Logging | [EVTX](https://github.com/omerbenamram/evtx] | Multi-threaded EVTX parser supporting both XML and JSON EVTX. |
+| 📃 KDC Security Logging | [LogonTracer](https://github.com/JPCERTCC/LogonTracer) | Generates graphs of the Logons Activity. |
+| Filesystem | [sleuthkit](https://github.com/sleuthkit/sleuthkit) | Forensics tools to investigate volume and file system data. |
+
+##  2. <a name='kb'></a>kb 
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
@@ -17,5 +37,8 @@ permalink: /dfir/sources
 | 🗑️ Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
 | 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
 | 🐧 Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
+| 🐧 Linux                | [explainshell](https://explainshell.com/)  | explain command-lines FU. |
 | 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
 | 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
+| 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
+

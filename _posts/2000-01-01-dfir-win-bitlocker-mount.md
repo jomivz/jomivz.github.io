@@ -8,12 +8,11 @@ permalink: /dfir/win/bitlocker
 ---
 
 <!-- vscode-markdown-toc -->
-* [Mounting bitlocker partition on Linux](#MountingbitlockerpartitiononLinux)
-* [Mounting bitlocker partition on Windows](#MountingbitlockerpartitiononWindows)
-	* [Convert Raw Image Files to VHD Compatible File](#ConvertRawImageFilestoVHDCompatibleFile)
-	* [VHD Tool 2.0 Usage](#VHDTool2.0Usage)
-	* [Mount VHD via Windows Disk Management Tool](#MountVHDviaWindowsDiskManagementTool)
-	* [Unmount VHD via Windows Disk Management Tool](#UnmountVHDviaWindowsDiskManagementTool)
+* [lin-host-mount](#lin-host-mount)
+* [win-host-mount](#win-host-mount)
+	* [convert-raw-2-vhd](#convert-raw-2-vhd)
+	* [mount-vhd](#mount-vhd)
+	* [unmount-vhd](#unmount-vhd)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -23,7 +22,7 @@ permalink: /dfir/win/bitlocker
 
 The bitlocker Key is 48 digits long.
 
-## <a name='MountingbitlockerpartitiononLinux'></a>Mounting bitlocker partition on Linux
+## <a name='lin-host-mount'></a>lin-host-mount
 ```sh
 #? mount bitlocker partition on linux
 dislocker -v -V /dev/sdb1 -p123456-123456-123456-123456-123456-123456-123456-123456 -- /mnt/tmp
@@ -32,21 +31,18 @@ mount -o loop,ro /mnt/tmp/dislocker-file /mnt/dis
 ls /mnt/dis/
 
 ```
-## <a name='MountingbitlockerpartitiononWindows'></a>Mounting bitlocker partition on Windows
+## <a name='win-host-mount'></a>win-host-mount
 
-### <a name='ConvertRawImageFilestoVHDCompatibleFile'></a>Convert Raw Image Files to VHD Compatible File 
+### <a name='convert-raw-2-vhd'></a>convert-raw-2-vhd 
 
 Virtual Hard Disk (VHD) tool is an unmanaged code command-line tool which provides useful VHD manipulation functions including instant creation of large fixed-size VHDs.
-
 VHD Tool 2.0 tool can be obtained [here](http://archive.msdn.microsoft.com/vhdtool/Release/ProjectReleases.aspx?ReleaseId=5344).
  
-### <a name='VHDTool2.0Usage'></a>VHD Tool 2.0 Usage 
-
 1. Download the VhdTool.exe to D:\.
 2. Open an elevated command prompt and navigate to D:\.
 3. Execute the following command: VhdTool.exe /convert raw_disk_image_filename.ntfs.
 
-### <a name='MountVHDviaWindowsDiskManagementTool'></a>Mount VHD via Windows Disk Management Tool
+### <a name='mount-vhd'></a>mount-vhd
 1. Open Disk Management via Start > Run > diskmgmt.msc. 
 2. On the Menu bar, Action > Attach VHD.
 3. Browse to the location of the raw disk image folder. Ensure that All files (*.*) is selected.  
@@ -58,12 +54,9 @@ NOTE: Do not checked Read-only else even when the correct recovery key is entere
  
 NOTE: Every recovery key has a password ID. Ensure that the recovery key entered is for the password ID shown to you.
  
-### <a name='UnmountVHDviaWindowsDiskManagementTool'></a>Unmount VHD via Windows Disk Management Tool
+### <a name='unmount-vhd'></a>unmount-vhd
  
 1. Right click on the mounted VHD and click on Detach VHD.
-
-On “acme.corp”, right click and choose “Find”
-     
-Choose “Computer”, type the computer name, click on “Find Now”. On section “Search Results”, pick the computer.
-   
-Go to “BitLocker Recovery” tab to retrieve BitLocker Recovery Password   
+2. On “acme.corp”, right click and choose “Find”
+3. Choose “Computer”, type the computer name, click on “Find Now”. On section “Search Results”, pick the computer.
+4. Go to “BitLocker Recovery” tab to retrieve BitLocker Recovery Password   

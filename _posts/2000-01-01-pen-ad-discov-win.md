@@ -3,7 +3,7 @@ layout: post
 title: pen / ad / discov / win 
 category: pen
 parent: cheatsheets
-modified_date: 2023-06-03
+modified_date: 2023-09-18
 permalink: /pen/ad/discov/win
 ---
 
@@ -24,25 +24,31 @@ permalink: /pen/ad/discov/win
 * [collect](#collect)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
+	* [shoot-dns](#shoot-dns)
 	* [shoot-dom](#shoot-dom)
+		* [shoot-dcs](#shoot-dcs)
+		* [shoot-adcs](#shoot-adcs)
+		* [shoot-desc-users](#shoot-desc-users)
+		* [shoot-laps](#shoot-laps)
 		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
 		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-delegations](#shoot-delegations)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
 		* [shoot-gpo](#shoot-gpo)
+		* [shoot-gpp](#shoot-gpp)
 		* [shoot-shares](#shoot-shares)
 		* [shoot-mssql-servers](#shoot-mssql-servers)
-		* [shoot-spn](#shoot-spn)
+		* [shoot-spns](#shoot-spns)
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-dacl](#shoot-dacl)
-		* [shoot-laps](#shoot-laps)
 		* [shoot-gmsa](#shoot-gmsa)
 * [iter](#iter)
 	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
-	* [iter-dacl](#iter-dacl)
 	* [iter-scope](#iter-scope)
+	* [iter-dacl](#iter-dacl)
+	* [iter-gpos](#iter-gpos)
 * [refresh](#refresh)
 	* [check-computer-access](#check-computer-access)
 	* [last-logons](#last-logons)
@@ -181,32 +187,36 @@ Get-NetForestTrust -Forest $zforest
 Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 ```
 
-### <a name='shoot-dom'></a>shoot-dom
-
-Domain properties:
-
+### <a name='shoot-dns'></a>shoot-dns
 ```powershell
-# check the domain object (fsmo, DCs, ntds replication, dns servers, machineaccountquota)
-Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+```
 
-# list the domain controllers
+### <a name='shoot-dom'></a>shoot-dom
+```powershell
+# get the domain properties: fsmo, DCs, ntds replication, dns servers, machineaccountquota
+Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+```
+
+#### <a name='shoot-dcs'></a>shoot-dcs
+```powershell
 nltest /dclist:$zdom_fqdn
 Get-NetDomainController -Domain $zdom_fqdn -Server $zdom_dc_fqdn
-
-# who can dcsync
-get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 #get the domain's distinguisedname attribute
-$zdom_dn = "DC=" + $zdom + ",DC=" + $zforest # only valid if 2 levels
-# TO DEBUG : get-forest error ...
-get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -ResolveGUIDs | ? {
-	($_.ObjectType -match 'replication-get') -or
-	($_.ActiveDirectoryRights -match 'GenericAll')
-} 
-
-# audit the permissions of AdminSDHolder, resolving GUIDs
-# TO DEBUG : get-forest error ...
-$search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
-Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
+
+#### <a name='shoot-adcs'></a>shoot-adcs
+```powershell
+certify.exe find /vulnerable /domain:$zdom_fqdn /path:$zpki_dn
+```
+
+#### <a name='shoot-desc-users'></a>shoot-desc-users
+```powershell
+```
+
+#### <a name='shoot-laps'></a>shoot-laps
+* [DirSync](https://github.com/simondotsh/DirSync)
+```powershell
+```
+
 #### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
 ```powershell
 # ActiveDirectory module 
@@ -227,11 +237,6 @@ $zdom_fqdn_pos.SystemAccess # password age/etc.
 ```
 
 #### <a name='shoot-delegations'></a>shoot-delegations
-
-Kerberos Delegations
-
-Easy enumeration with **Impacket\FindDelegation.py**:
-
 ```powershell
 # with password in the CLI
 $zz = $zdom_fqdn + '/' + $ztarg_user_name + ':' + $ztarg_user_pass
@@ -246,13 +251,21 @@ References :
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
 
 #### <a name='shoot-priv-users'></a>shoot-priv-users
-
-Privileged Users
-
-- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
-- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
-
 ```powershell
+# DCSync
+get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 #get the domain's distinguisedname attribute
+$zdom_dn = "DC=" + $zdom + ",DC=" + $zforest # only valid if 2 levels
+# TO DEBUG : get-forest error ...
+get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -ResolveGUIDs | ? {
+	($_.ObjectType -match 'replication-get') -or
+	($_.ActiveDirectoryRights -match 'GenericAll')
+} 
+
+# AdminSDHolder
+$search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
+Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+
+# Privileged Groups
 $ztarg_grp="Domain Admins"
 #$ztarg_grp="Enterprise Admins"
 #$ztarg_grp="Backup Operators"
@@ -260,20 +273,15 @@ $ztarg_grp="Domain Admins"
 #$ztarg_grp="DNSAdmins"
 Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 
-# protected users / works with Win Server 2012 R2 and above
+# Protected Users 
 Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select membername
 Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
-
-# users who can perform DCsync
-Get-DomainObjectAcl $zdom_dn -ResolveGUIDs  -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? {
-    ($_.ObjectType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')
-}
 ```
 
+- [Well-known Microsoft SID List](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-dtyp/81d92bba-d22b-4a8c-908a-554ab29148ab?redirectedfrom=MSDN)
+- [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
+
 #### <a name='shoot-priv-machines'></a>shoot-priv-machines
-
-Privileged Machines
-
 ```powershell
 # find any machine accounts in privileged groups
 Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
@@ -290,6 +298,9 @@ SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author $zdom_fqdn\$zta
 # find cpassword
 findstr /S /I cpassword \\$zdom_fqdn\sysvol\$zdom_fqdn\policies\*.xml
 Get-GPPPassword.ps1
+```
+#### <a name='shoot-gpp'></a>shoot-gpp
+```sh
 ```
 
 #### <a name='shoot-shares'></a>shoot-shares
@@ -323,7 +334,7 @@ References:
  Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
 ```
 
-#### <a name='shoot-spn'></a>shoot-spn
+#### <a name='shoot-spns'></a>shoot-spns
 
 T1046 SERVICES LOOTS
 
@@ -347,6 +358,9 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -Domai
 
 #### <a name='shoot-npusers'></a>shoot-npusers
 
+```powershell
+```
+
 #### <a name='shoot-dacl'></a>shoot-dacl
 ```powershell
 # STEP 1: global gathering
@@ -368,12 +382,8 @@ sources:
 - [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
 - BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
-#### <a name='shoot-laps'></a>shoot-laps
-* [DirSync](https://github.com/simondotsh/DirSync)
-
 #### <a name='shoot-gmsa'></a>shoot-gmsa
-
-https://github.com/micahvandeusen/gMSADumper
+* [gMSADumper](https://github.com/micahvandeusen/gMSADumper)
 
 ## <a name='iter'></a>iter
 
@@ -384,9 +394,9 @@ To ITERate when owning new privileges (aka new account with new user groups):
 - impacket : PTH, PTT, clear password
 
 ### <a name='iter-sid'></a>iter-sid
-```
+```powershell
 whoami /priv
-wmic useraccount where name='melanie' get sid
+wmic useraccount where name=$ztarg_user_name get sid
 ```
 
 ### <a name='iter-memberof'></a>iter-memberof
@@ -399,14 +409,6 @@ get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, when
 get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn, whenCreated, accountExpires, pwdLastSet, lastLogon, logonCount, badPasswordTime, badPwdCount | ft -autosize | Sort-Object -Descending -Property whenCreated >> .\auth_xxx.txt
 ```
 
-### <a name='iter-dacl'></a>iter-dacl
-```powershell
-$(Get-ADUser anakin -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
-
-# enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-```
-
 ### <a name='iter-scope'></a>iter-scope
 ```powershell
 # STEP 1: if new groups, find where the account is local admin
@@ -417,6 +419,18 @@ get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -Doma
 
 # STEP 2.2: get the OS of the owned machines 
 get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property cn,operatingSystem | ft -autosize >> .\owned_machines_w_ou.csv
+```
+
+### <a name='iter-dacl'></a>iter-dacl
+```powershell
+$(Get-ADUser anakin -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
+
+# enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
+Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+```
+
+### <a name='iter-gpos'></a>iter-gpos
+```powershell
 ```
 
 ## <a name='refresh'></a>refresh

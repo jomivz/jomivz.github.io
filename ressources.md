@@ -45,19 +45,19 @@ modified_date: 2022-07-17
 | ⚙️ [cyberchef](https://gchq.github.io/CyberChef/)	| 🔎 [osv.dev](https://osv.dev/list) | 🛸 [browserling](https://www.browserling.com/) | 📡 [fofa](https://www.browserling.com/browse/win/7/chrome/109/https%3A%2F%2Ffofa.info) 🇨🇳 |
 | 🚦🔎 [redcanary](https://redcanary.com/threat-detection-report/threats/) 📈 | 🔎 [nuclei-templates](https://nuclei-templates.netlify.app)| 🛸 [polyswarm](https://polyswarm.network/)| 🎣 [checkphish](https://checkphish.ai/) |
 | 🚦🧅 [exonerator](https://metrics.torproject.org/exonerator.html) | | 🇼 [C2 Matrix](https://docs.google.com/spreadsheets/d/1b4mUxa6cDQuTV2BPC6aA-GR4zGZi0ooPYtBe4IgPsSc/edit#gid=0) | 🧅 [torwhois](https://torwhois.com/) |
-| 🚦🔎 [maltiverse](https://maltiverse.com) | | | |
+| 🚦🔎 [maltiverse](https://maltiverse.com) | | | 🕸️ [aadinternals](https://aadinternals.com/osint/) |
 | 🚦🔎 [red.flags.domain](https://red.flag.domains) | | | |
 
 ### <a name='RED'></a>📚📕 RED
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
 <div id="repos">
     <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th></tr>
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>web</th></tr>
     </table>
 </div>
 
@@ -76,31 +76,29 @@ modified_date: 2022-07-17
 
 ### <a name='BLUE'></a>📚📘 BLUE 
 
-
 | 📚 **Top BLUE ressources**												|
 |-----------------------------------------------------------------------|
-| [backdoorsandbreaches](https://play.backdoorsandbreaches.com/) / [cards list](https://docs.google.com/spreadsheets/d/1RNBFr4o9OPYWwR7mxdadHQwxRayylZewcphdS3K6-og/edit?pli=1#gid=0) / [solutions](https://docs.google.com/spreadsheets/d/1R4Za4jGgzn5LLQJia1CCZVuAVdcvOR9FQO7B7ZeBXGw/edit#gid=1959042953) |
-| [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
-| [Awesome DFIR](https://awesomedfir.com) |
-| [cugu awesome forensics](https://github.com/cugu/awesome-forensics) |
 | [CERT SG IRM](https://github.com/certsocietegenerale/IRM) |
 | [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | [C2 Matrix](https://www.thec2matrix.com/matrix) |
 | [owasp](https://cheatsheetseries.owasp.org/) |
+| [jmvwork.xyz/dfir](https://jmvwork.xyz/dfir) | tools and knowledges|
+| [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
 | [A-poc\Blueteam-tools](https://github.com/A-poc/BlueTeam-Tools/blob/main/README.md) 🧰 |
-|️ [explainshell](https://explainshell.com/) |
-
+| [forensics tools classification](https://github.com/cugu/awesome-forensics) |
+| [backdoorsandbreaches](https://play.backdoorsandbreaches.com/) / [cards list](https://docs.google.com/spreadsheets/d/1RNBFr4o9OPYWwR7mxdadHQwxRayylZewcphdS3K6-og/edit?pli=1#gid=0) / [solutions](https://docs.google.com/spreadsheets/d/1R4Za4jGgzn5LLQJia1CCZVuAVdcvOR9FQO7B7ZeBXGw/edit#gid=1959042953) |
 
 ### <a name='TOOLS'></a>📚🛠️ TOOLS
 
-| **Category**    | **Description** |
-|-----------------|-----------------|
-| IDS | [SELKS](https://www.stamus-networks.com/selks) |
-| LAB | [GOAD](https://github.com/Orange-Cyberdefense/GOAD) |
-| 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) |
-| 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) |
-| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) |
-| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) |
+| **Category**    | **Links** | **Authors** | 
+|-----------------|-----------------|--------------|
+| LAB | [GOAD](https://github.com/Orange-Cyberdefense/GOAD) / [Articles](https://mayfly277.github.io/categories/ad/)| [mayfly](https://mayfly277.github.io/categories/ad/)|
+| IDS | [SELKS](https://www.stamus-networks.com/selks)  | [stamus-networks](https://www.stamus-networks.com/) |
+| IDS | [Jupyter Notebooks](https://www.stamus-networks.com/blog/jupyter-playbooks-for-suricata-part-1) | | [stamus-networks](https://www.stamus-networks.com/) |
+| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | |
+| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | [Mandiant](https://mandiant.com)|
+| 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) | |
+| 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) | |
 
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
