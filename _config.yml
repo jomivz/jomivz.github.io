@@ -98,7 +98,6 @@ plugins:
   - jekyll-toc
 
 gems:
-  - jemoji
 
 kramdown:
   syntax_highlighter_opts:
