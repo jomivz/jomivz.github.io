@@ -30,6 +30,16 @@ modified_date: 2023-09-20
 * [anssi](https://www.cert.ssi.gouv.fr/)
 * [cisa alerts](https://www.cisa.gov/news-events/cybersecurity-advisories?f%5B0%5D=advisory_type%3A94)
 
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool","https://api.github.com/repos//certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts/", "https://api.github.com/repos/A-poc/BlueTeam-Tools/"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>web</th></tr>
+    </table>
+</div>
 
 ### <a name='DashboardOnlineTools'></a>🌎🤝 Dashboard Online Tools
 
@@ -51,17 +61,6 @@ modified_date: 2023-09-20
 
 ### <a name='RED'></a>📚📕 RED
 
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="repos">
-    <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>web</th></tr>
-    </table>
-</div>
-
 
 | 📚 **Websites** 			| 🎞️ **Video Channels** | 🎙️ **Podcasts** |
 |---------------------------|------------------------|------------------------|
@@ -76,17 +75,6 @@ modified_date: 2023-09-20
 
 
 ### <a name='BLUE'></a>📚📘 BLUE 
-
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos//certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts/", "https://api.github.com/repos/A-poc/BlueTeam-Tools/"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="repos">
-    <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>web</th></tr>
-    </table>
-</div>
 
 | 📚 **Top BLUE ressources**												|
 |-----------------------------------------------------------------------|
