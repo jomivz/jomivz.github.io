@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR Splunk Suricata
+title: dfir / splunk / suricata
 category: dfir
 parent: cheatsheets
 modified_date: 2023-09-21

@@ -14,19 +14,25 @@ permalink: /sys/win
 	* [get-os](#get-os)
 	* [get-kb](#get-kb)
 	* [get-network](#get-network)
+	* [get-ca](#get-ca)
 	* [get-shares](#get-shares)
 	* [get-users](#get-users)
+	* [get-gpo](#get-gpo)
 	* [get-products](#get-products)
 	* [get-processes](#get-processes)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
+	* [get-path](#get-path)
+	* [get-pipes](#get-pipes)
 * [enum-sec](#enum-sec)
 	* [get-status-fw](#get-status-fw)
 	* [get-status-proxy](#get-status-proxy)
 	* [get-status-defender](#get-status-defender)
 	* [get-status-cred-guard](#get-status-cred-guard)
 	* [get-status-ppl](#get-status-ppl)
+* [install](#install)
+	* [gpedit-win-10-home](#gpedit-win-10-home)
 * [tamper](#tamper)
 	* [add-account](#add-account)
 	* [set-kb](#set-kb)
@@ -97,7 +103,7 @@ route -n
 netstat -ano
 ```
 
-### get-ca
+### <a name='get-ca'></a>get-ca
 ```powershell
 # run it on CA servers
 certutil -scroot update
@@ -125,7 +131,7 @@ net localgroup
 net localgroup Administrators
 ```
 
-### get-gpo
+### <a name='get-gpo'></a>get-gpo
 ```powershell
 rsop
 gpresult /Z /scope:computer 
@@ -175,12 +181,12 @@ Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} -Max 80 | W
 Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
 ```
 
-### get-path
+### <a name='get-path'></a>get-path
 ```powershell
 gci env:path | fl *
 ```
 
-### get-pipes
+### <a name='get-pipes'></a>get-pipes
 ```powershell
 # printnightmare / CVE-2021-1675/CVE-2021-34527 / 
 ls \\localhost\pipe\spoolss
@@ -236,9 +242,9 @@ Reference :
 
 ### <a name='get-status-ppl'></a>get-status-ppl
 
-## install
+## <a name='install'></a>install
 
-### gpedit-win-10-home
+### <a name='gpedit-win-10-home'></a>gpedit-win-10-home
 ```powershell
 # useful for commando VM
 FOR %F IN ("%SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientTools-Package~*.mum") DO (DISM /Online /NoRestart /Add-Package:"%F")

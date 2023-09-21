@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR Splunk Windows 
+title: dfir / splunk / win
 category: dfir
 parent: cheatsheets
 modified_date: 2023-09-21

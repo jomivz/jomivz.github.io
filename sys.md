@@ -3,5 +3,5 @@ layout: category
 title: Sysadmin
 category: sys
 parent: cheatsheets
-permalink: /sys
+permalink: /cheatsheets/sys
 ---

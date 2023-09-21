@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DFIR Splunk Network
+title: dfir / splunk / net
 category: dfir
 parent: cheatsheets
 modified_date: 2023-09-21
