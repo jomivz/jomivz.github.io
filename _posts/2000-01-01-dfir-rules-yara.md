@@ -11,6 +11,7 @@ permalink: /dfir/rules/yara
 <!-- vscode-markdown-toc -->
 * [elastic](#elastic)
 
+
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
@@ -24,6 +25,10 @@ permalink: /dfir/rules/yara
 ## <a name='elastic'></a>elastic
 
 * [github.com/elastic/protections-artifacts/tree/main/yara/rules](https://github.com/elastic/protections-artifacts/tree/main/yara/rules)
+
+## stalkphish
+
+* [PhishingKit](https://github.com/t4d/PhishingKit-Yara-Rules)
 
 ## yara-ci
 

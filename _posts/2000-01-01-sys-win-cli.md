@@ -97,8 +97,14 @@ route -n
 netstat -ano
 ```
 
-### <a name='get-shares'></a>get-shares
+### get-ca
+```powershell
+# run it on CA servers
+certutil -scroot update
 ```
+
+### <a name='get-shares'></a>get-shares
+```powershell
 # listing network shares
 wmic netuse list brief
 net use
@@ -117,6 +123,12 @@ wmic netlogin list brief
 net user
 net localgroup
 net localgroup Administrators
+```
+
+### get-gpo
+```powershell
+rsop
+gpresult /Z /scope:computer 
 ```
 
 ### <a name='get-products'></a>get-products
@@ -161,6 +173,17 @@ $ztarg_usersid=''
 $ztarg_username='' #username only, no '$zdom\' prefix
 Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} -Max 80 | Where-Object -Property Message -Match $ztarg_username|  select ID,TaskDisplayName,TimeCreated
 Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
+```
+
+### get-path
+```powershell
+gci env:path | fl *
+```
+
+### get-pipes
+```powershell
+# printnightmare / CVE-2021-1675/CVE-2021-34527 / 
+ls \\localhost\pipe\spoolss
 ```
 
 ## <a name='enum-sec'></a>enum-sec
@@ -212,6 +235,15 @@ Reference :
  - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
 
 ### <a name='get-status-ppl'></a>get-status-ppl
+
+## install
+
+### gpedit-win-10-home
+```powershell
+# useful for commando VM
+FOR %F IN ("%SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientTools-Package~*.mum") DO (DISM /Online /NoRestart /Add-Package:"%F")
+FOR %F IN ("%SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientExtensions-Package~*.mum") DO (DISM /Online /NoRestart /Add-Package:"%F")
+```
 
 ## <a name='tamper'></a>tamper
 

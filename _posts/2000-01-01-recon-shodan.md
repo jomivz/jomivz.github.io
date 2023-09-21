@@ -4,7 +4,7 @@ title:  recon
 parent: cheatsheets
 category: recon
 permalink: /recon/shodan
-modified_date: 2023-07-24
+modified_date: 2023-09-21
 ---
 
 <!-- vscode-markdown-toc -->
@@ -127,8 +127,12 @@ http.title:"Metasploit - Setup and Configuration"
 
 ### <a name='mikrotik'></a>mikrotik
 ```sh
+# last update: 20230921
+# CVE-2018-7445 / RCE up to 6.38.4
+# https://thehackernews.com/2021/12/over-300000-mikrotik-devices-found.html
 http.title:"RouterOS router configuration page"
 http.title:"Router"
+os:"MikroTik"
 ```
 
 ### <a name='oracle-e-business'></a>oracle-e-business
@@ -179,8 +183,8 @@ ZTE corp
 
 ## <a name='organization'></a>organization 
 ```sh
-# asn
-(autonomous_system.description: contoso)
+asn:123456
+org:contoso
 ```
 
 ## <a name='services'></a>services

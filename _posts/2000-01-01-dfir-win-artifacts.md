@@ -3,7 +3,7 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2023-06-08
+modified_date: 2023-09-21
 permalink: /dfir/win/artifacts
 ---
 
@@ -40,6 +40,8 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 
 ## <a name='dll'></a>dll
 
+* [dll hijacking](https://www.ired.team/offensive-security/privilege-escalation/t1038-dll-hijacking#observations)
+
 ## <a name='eventlogs'></a>eventlogs
 
 Eventlogs Files :
@@ -52,6 +54,8 @@ Eventlogs Files :
 - %SystemRoot%\System32\winevt\logs\Security.evtx
 - %SystemRoot%\System32\winevt\logs\System.evtx
 - %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
+
+* Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
 
 #### <a name='eventlogs-dns'></a>eventlogs-dns 
 
@@ -72,10 +76,8 @@ By default, the locations for storing DNS logs are :
 - %SystemRoot%\System32\Dns\Dns.log
 
 To verify it, open a console (`cmd.exe`) and run the commands:
-```batch
-reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
-```
 ```powershell
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
 Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
 ```
 
@@ -99,9 +101,10 @@ NTFS metafiles :
 
 ## <a name='ntds-dit'></a>ntds-dit
 
-NTDS.dit
-
-systemroot\NTDS\Ntds.dit
+```powershell
+# file present on DCs
+ls %SystemRoot%\NTDS\Ntds.dit
+```
 
 ## <a name='reg'></a>reg
 
