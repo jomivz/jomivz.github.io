@@ -45,8 +45,8 @@ permalink: /dfir/ad
 
 ### <a name='can-dcsync'></a>can-dcsync
 - [T1003.006](https://attack.mitre.org/techniques/T1003/006) DCSYNC
-```sh
 
+```sh
 # 01 : bh pre built query to find dcsync principal
 MATCH p=()-[:DCSync|AllExtendedRights|GenericAll]->(:Domain {name: ""}) RETURN p
 # export json, name it 'dcsync.json'
@@ -131,7 +131,6 @@ grep pwdlastset *getnetuser* | sed 's/.*getnetuser_\(.*\)\.txt.*\([0-9]\{4\}-[0-
 
 ### <a name='pwdlastset-bh-pwnable'></a>pwdlastset-bh-pwnable
 
-
 * Extract JSON from BH prebuilt queries (Dangerous Privs, KRB interactions, SPF)
 * Format the JSON to CSV :
 ```sh
@@ -140,7 +139,6 @@ cat $bh_query.json | jq -r '.spotlight[] | join(",")' > $bh_query.csv
 ```
 
 #### <a name='bh-pwnable-users'></a>bh-pwnable-users
-
 ```sh
 for user in `grep -i user $bh_query".csv" | cut -f1 -d, | sed 's/\(.*\)\@.*$/\1/'`; 
   do pywerview get-netuser -w $zdom_fqdn -u $ztarg_user_name -p $ztarg_user_pass -t $zdom_dc_ip --username $user | grep "samaccountname\|pwdlastset" | awk '{print $2}' | paste -s -d, -; 
@@ -181,7 +179,6 @@ ad_rights="write_owner"
 ad_rights="extended_right"
 
 grep -A 7 -B 7 $ad_rights $zcase"_get-objectacl_"$ztarg_sam".txt" | awk '{  if ($1 ~ /objectdn/) {split($0,a,":"); od=a[2]} else if ($1 ~ /acetype/) {split($0,a,":"); at=a[2]} else if ($1 ~ /activedirectoryrights/) {split($0,a,":"); ar=a[2]} else if ($1 ~ /isinherited/) {split($0,a,":"); ii=a[2]} else if ($1 ~ /securityidentifier/) {split($0,a,":"); print at";"od";"a[2]";"ar";"ii}}'
-
 ```
 
 ### <a name='check-dacl-all-with-aced'></a>check-dacl-all-with-aced

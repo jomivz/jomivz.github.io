@@ -31,13 +31,13 @@ modified_date: 2023-09-20
 * [cisa alerts](https://www.cisa.gov/news-events/cybersecurity-advisories?f%5B0%5D=advisory_type%3A94)
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool","https://api.github.com/repos//certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts/", "https://api.github.com/repos/A-poc/BlueTeam-Tools/"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool","https://api.github.com/repos/certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts", "https://api.github.com/repos/A-poc/BlueTeam-Tools"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.updated_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
 <div id="repos">
     <table id="repo_list" class="sortable">
-      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th><th>web</th></tr>
+      <tr><th>repo</th><th>last update</th><th>stars</th><th>watch</th></tr>
     </table>
 </div>
 
@@ -81,7 +81,7 @@ modified_date: 2023-09-20
 | [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | [C2 Matrix](https://www.thec2matrix.com/matrix) |
 | [owasp](https://cheatsheetseries.owasp.org/) |
-| [jmvwork.xyz/dfir](https://jmvwork.xyz/dfir) | tools and knowledges|
+| [jmvwork.xyz/dfir](https://jmvwork.xyz/dfir) |
 | [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
 | [forensics tools classification](https://github.com/cugu/awesome-forensics) |
 | [backdoorsandbreaches](https://play.backdoorsandbreaches.com/) / [cards list](https://docs.google.com/spreadsheets/d/1RNBFr4o9OPYWwR7mxdadHQwxRayylZewcphdS3K6-og/edit?pli=1#gid=0) / [solutions](https://docs.google.com/spreadsheets/d/1R4Za4jGgzn5LLQJia1CCZVuAVdcvOR9FQO7B7ZeBXGw/edit#gid=1959042953) |
@@ -92,9 +92,9 @@ modified_date: 2023-09-20
 |-----------------|-----------------|--------------|
 | LAB | [GOAD](https://github.com/Orange-Cyberdefense/GOAD) / [Articles](https://mayfly277.github.io/categories/ad/)| [mayfly](https://mayfly277.github.io/categories/ad/)|
 | IDS | [SELKS](https://www.stamus-networks.com/selks)  | [stamus-networks](https://www.stamus-networks.com/) |
-| IDS | [Jupyter Notebooks](https://www.stamus-networks.com/blog/jupyter-playbooks-for-suricata-part-1) | | [stamus-networks](https://www.stamus-networks.com/) |
-| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | |
-| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | [Mandiant](https://mandiant.com)|
+| IDS | [Jupyter Notebooks](https://www.stamus-networks.com/blog/jupyter-playbooks-for-suricata-part-1) | [stamus-networks](https://www.stamus-networks.com/) |
+| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS |
+| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | [Mandiant](https://mandiant.com) |
 | 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) | |
 | 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) | |
 
