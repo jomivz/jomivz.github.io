@@ -97,8 +97,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-toc
 
-gems:
-
 kramdown:
   syntax_highlighter_opts:
     block:
