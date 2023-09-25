@@ -31,7 +31,7 @@ modified_date: 2023-09-20
 * [cisa alerts](https://www.cisa.gov/news-events/cybersecurity-advisories?f%5B0%5D=advisory_type%3A94)
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool","https://api.github.com/repos/certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts", "https://api.github.com/repos/A-poc/BlueTeam-Tools"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/" ]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/repos/lutzenfried/Methodology","https://github.com/vjeantet/hugo-theme-docdock","https://api.github.com/repos/swisskyrepo/PayloadsAllTheThings/","https://api.github.com/repos/snovvcrash/PPN","https://api.github.com/repos/mantvydasb/RedTeaming-Tactics-and-Techniques","https://api.github.com/repos/toolswatch/blackhat-arsenal-tools","https://api.github.com/repos/infosecn1nja/Red-Teaming-Toolkit","https://api.github.com/repos/bigb0sss/RedTeam-OffensiveSecurity","https://api.github.com/repos/S3cur3Th1sSh1t/Pentest-Tool","https://api.github.com/repos/certsocietegenerale/IRM","https://api.github.com/repos/elastic/protections-artifacts", "https://api.github.com/repos/A-poc/BlueTeam-Tools","https://api.github.com/repos/ekristen/cast"]; var repname = ["","","PayloadsAllTheThings","The PPN notebook", "ired.team"]; var replnk = ["","https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/","https://ppn.snovvcrash.rocks/", "https://www.ired.team/", "https://github.com/mandiant/commando-vm","https://github.com/mandiant/flare-vm"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
@@ -42,7 +42,6 @@ modified_date: 2023-09-20
 </div>
 
 ### <a name='DashboardOnlineTools'></a>🌎🤝 Dashboard Online Tools
-
 
 | 🔥 **IOC assessment**									| 😈 **CVEs and Exploits** 							|  👾 **Binaries and Sandboxing**								| 🌎 **Recon**						|
 |-------------------------------------------------------|---------------------------------------------------|----------------------------------------------------------------|-------------------------------------------|
@@ -61,7 +60,6 @@ modified_date: 2023-09-20
 
 ### <a name='RED'></a>📚📕 RED
 
-
 | 📚 **Websites** 			| 🎞️ **Video Channels** | 🎙️ **Podcasts** |
 |---------------------------|------------------------|------------------------|
 | [payloadAllTheThings](https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/) |  🔴 [HackerSploit](https://www.youtube.com/@HackerSploit/playlists) 🥇 |  |
@@ -73,11 +71,11 @@ modified_date: 2023-09-20
 | [ired.team](https://www.ired.team/) | | |
 | [bloodhound](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html) 🐶 | 🔴 [Proc tutos](https://www.youtube.com/@processusthief) / [Hackintux](https://www.youtube.com/channel/UCasgryuegAnsvZ4CZlBL9ZQ) / [pr 1nf0](https://www.youtube.com/@Pour1nfo)  🇫🇷 | 🎙️  🇫🇷 |
 
-
 ### <a name='BLUE'></a>📚📘 BLUE 
 
-| 📚 **Top BLUE ressources**												|
-|-----------------------------------------------------------------------|
+| 📚 **Top BLUE ressources**	    										|
+|----------------------------------------------------------------------------|
+| [The DFIR Report](https://thedfirreport.com/) | 
 | [Mitre Att&ck navigator](https://mitre-attack.github.io/attack-navigator/) |
 | [C2 Matrix](https://www.thec2matrix.com/matrix) |
 | [owasp](https://cheatsheetseries.owasp.org/) |
@@ -93,11 +91,12 @@ modified_date: 2023-09-20
 | LAB | [GOAD](https://github.com/Orange-Cyberdefense/GOAD) / [Articles](https://mayfly277.github.io/categories/ad/)| [mayfly](https://mayfly277.github.io/categories/ad/)|
 | IDS | [SELKS](https://www.stamus-networks.com/selks)  | [stamus-networks](https://www.stamus-networks.com/) |
 | IDS | [Jupyter Notebooks](https://www.stamus-networks.com/blog/jupyter-playbooks-for-suricata-part-1) | [stamus-networks](https://www.stamus-networks.com/) |
-| Offensive VM    | [C2 slingshot VM](https://www.sans.org/tools/slingshot/) | SANS |
-| Offensive VM    | [Commando VM](https://github.com/mandiant/commando-vm) | [Mandiant](https://mandiant.com) |
+| VM    | [REMnux](https://docs.remnux.org/install-distro/get-virtual-appliance) | SANS |
+| VM    | [SIFT](https://www.sans.org/tools/sift-workstation/) | SANS |
+| VM    | [Slingshot CE](https://www.sans.org/tools/slingshot/) | SANS |
+
 | 🔎 Top by Stars, Contributors | [opensourcesecindex](https://opensourcesecurityindex.io/) | |
 | 🔎 Awesome search engine | [awesomeopensource](https://awesomeopensource.com/) | |
-
 
 ### <a name='MISC'></a>👀🔫 MISC ❓
 
