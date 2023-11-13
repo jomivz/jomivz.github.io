@@ -4,7 +4,7 @@ title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
 modified_date: 2023-09-21
-permalink: /dfir/win/artifacts
+permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
@@ -151,34 +151,28 @@ for i in `ls ntuser_*.dat`; do regripper -r $i -p autoruns; done
 for i in `ls usrclass_*.dat`; do regripper -r $i -p clsid; done
 ```
 
-| **TTP** |  **Hive**  | **RegRipper Plugin** | **Powershell Live** 	|
-|---------|------------|----------------------|-------------------------|
-| INIT    | system     | usbstore 	      | dir HKLM:\SYSTEM\ControlSet001\Enum\USBSTOR |
-| INIT    |            | 		      | dir "HKCU:\Software\Microsoft\Internet Explorer\TypedURLs*"
-dir "HKCU:\Software\Microsoft\Internet Explorer\Download*" 		|
-| LAT MOV | ntuser.dat | rdphint 	      | 			|
-| PERSIST | ntuser.dat | startup 	      | (ProfilePath)\Start Menu\Programs\Startup |
-| EXEC    | ntuser.dat | autoruns             | dir HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run*
-dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Run*
-dir HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce* 		|
-| EXEC    | XXX        | autoruns             | dir HKLM:\Software\Microsoft\Windows\CurrentVersion\Runonce*
-dir HKLM:\Software\Microsoft\Windows\CurrentVersion\policies\Explorer\Run*
-dir HKLM:\Software\Microsoft\Windows\CurrentVersion\Run* 		|
-| EXEC    | ntuser.dat | officedocs           | 			|
-| EXEC    | ntuser.dat | officedocs2010       | 			|
-| EXEC    | ntuser.dat | recentdocs           | 			|
-| EXEC    | ntuser.dat | run  		      | dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU*
-dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist*|
-| 	  | usrclass.dat | clsid              | 			|
-| EXEC    | usrclass.dat | cmd_shell_u        | 			|
-|         | software | clsid                  | 			|
-| EXEC    | software | cmd_shell  	      | 			|
-|         | software | dcom 		      | 			|
-|         | software | inprocserver 	      | 			|
-| EXEC    | software | run 		      | 			|
-| EXEC    | system   | prefetch 	      | 			|
-|         | all      | sizes 		      | 			|
-|         |          |                        | dir HKLM:\SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces\* |
+| **Tactic** |  **Hive**  | **RegRipper Plugin** | **Powershell Live** 	|
+|------------|------------|----------------------|-------------------------|
+| INIT       | system     | usbstore 	         | dir HKLM:\SYSTEM\ControlSet001\Enum\USBSTOR |
+| INIT       |            | 		         | dir "HKCU:\Software\Microsoft\Internet Explorer\TypedURLs*", dir "HKCU:\Software\Microsoft\Internet Explorer\Download*" 		        |
+| LAT MOV    | ntuser.dat | rdphint 	         | 			|
+| PERSIST    | ntuser.dat | startup 	         | (ProfilePath)\Start Menu\Programs\Startup |
+| PERSIST    | ntuser.dat | autoruns             | dir HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run*, dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Run*, dir HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce* 	                                                        |
+| PERSIST    | XXX        | autoruns             | dir HKLM:\Software\Microsoft\Windows\CurrentVersion\Runonce*, dir HKLM:\Software\Microsoft\Windows\CurrentVersion\policies\Explorer\Run*, dir HKLM:\Software\Microsoft\Windows\CurrentVersion\Run* 		                                        |
+| PERSIST    | software   | run 		 | dir "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search\JumpList*" 			|
+| EXEC       | ntuser.dat | officedocs           | 			|
+| EXEC       | ntuser.dat | officedocs2010       | 			|
+| EXEC       | ntuser.dat | recentdocs           | 			|
+| EXEC       | ntuser.dat | run  		 | dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU*, dir HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist* |
+| 	     | usrclass.dat | clsid              | 			|
+| EXEC       | usrclass.dat | cmd_shell_u        | 			|
+|            | software | clsid                  | 			|
+| EXEC       | software | cmd_shell  	         | 			|
+|            | software | dcom 		         | 			|
+|            | software | inprocserver 	         | 			|
+| EXEC       | system   | prefetch 	         | 			|
+|            | all      | sizes 		 | 			|
+|            |          |                        | dir HKLM:\SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces\*                                                           |
 
 ### <a name='reg-history'></a>reg-history 
 
