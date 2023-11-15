@@ -197,8 +197,8 @@ ls \\localhost\pipe\spoolss
 
 ### <a name='get-file-hash'></a>get-file-hash
 ```batch
-# logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 certutil -hashfile X SHA256
+get-filehash X
 ```
 
 ### <a name='get-status-fw'></a>get-status-fw
