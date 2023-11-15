@@ -3,7 +3,7 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2023-06-05
+modified_date: 2023-11-15
 permalink: /sys/win
 ---
 
@@ -26,6 +26,7 @@ permalink: /sys/win
 	* [get-path](#get-path)
 	* [get-pipes](#get-pipes)
 * [enum-sec](#enum-sec)
+	* [get-file-hash](#get-file-hash)
 	* [get-status-fw](#get-status-fw)
 	* [get-status-proxy](#get-status-proxy)
 	* [get-status-defender](#get-status-defender)
@@ -193,6 +194,12 @@ ls \\localhost\pipe\spoolss
 ```
 
 ## <a name='enum-sec'></a>enum-sec
+
+### <a name='get-file-hash'></a>get-file-hash
+```batch
+# logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
+certutil -hashfile X SHA256
+```
 
 ### <a name='get-status-fw'></a>get-status-fw
 ```batch
