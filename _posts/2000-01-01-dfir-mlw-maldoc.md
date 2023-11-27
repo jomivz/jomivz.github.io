@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / mlw / maldoc
+title: dfir / mlw / ole
 category: dfir
 parent: cheatsheets
 modified_date: 2023-09-21
-permalink: /dfir/mlw/maldoc
+permalink: /dfir/mlw/ole
 ---
 
 ## maldoc 2023
