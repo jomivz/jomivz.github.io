@@ -9,6 +9,8 @@ permalink: /dfir
 
 <!-- vscode-markdown-toc -->
 * 1. [tools](#tools)
+* 1.1 [collect](#collect)
+* 1.2 [triage](#triage)
 * 2. [kb](#kb)
 
 <!-- vscode-markdown-toc-config
@@ -19,7 +21,18 @@ permalink: /dfir
 
 ##  1. <a name='tools'></a>tools
 
-| **Artefact** | **Tool** | **Description** |
+###  1.1 <a name='collect'></a>collect
+
+| **Evidence** | **Tool** |
+|----------------------|------------------------|
+| 💿 Harddisk image | [guymanager](https://sourceforge.net/projects/guymager/), [dc3dd](https://www.kali.org/tools/dc3dd/) |
+| 🖥️ Live Windows | [dfir-orc](https://github.com/dfir-orc), [doc](https://dfir-orc.github.io/) | 
+| 🖥️ Live Windows | [KAPE](https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor-kape) |
+| 🖥️ Live Windows | [fastir](https://github.com/OWNsecurity/fastir_artifacts) |
+
+###  1.2 <a name='triage'></a>triage
+
+| **Evidence** | **Tool** | **Description** |
 |----------------------|------------------------|-------------------|
 | 💿 Harddisk image | [sleuthkit](https://github.com/sleuthkit/sleuthkit), [doc](http://wiki.sleuthkit.org/index.php?title=TSK_Tool_Overview) | Forensics tools to investigate volume and file system data: img_stat, mmls, ils, blkls, fls, fsstat |
 | 📂 NTFS METAfiles | [analyzeMFT](https://github.com/dkovar/analyzeMFT) | ADS, Anti-forensics (SNI,FN), Downloads from the internet. Process($LogFile, $UsnJrnl, AmCache) & Network Acivity ($LogFmt). |
