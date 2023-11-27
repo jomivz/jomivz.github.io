@@ -25,9 +25,9 @@ permalink: /dfir
 | 📂 NTFS METAfiles | [analyzeMFT](https://github.com/dkovar/analyzeMFT) | ADS, Anti-forensics (SNI,FN), Downloads from the internet. Process($LogFile, $UsnJrnl, AmCache) & Network Acivity ($LogFmt). |
 | 📃 Logs Security KDC | [LogonTracer](https://github.com/JPCERTCC/LogonTracer) | Generates graphs of the Logons Activity. |
 | 📃 Logs Security Windows | [EVTX](https://github.com/omerbenamram/evtx) | Multi-threaded EVTX parser supporting both XML and JSON EVTX. |
-| File OLE | [/dfir/mlw/pdf](/dfir/mlw/ole) | |
+| File OLE | [/dfir/mlw/ole](/dfir/mlw/ole) | |
 | File PDF | [/dfir/mlw/pdf](/dfir/mlw/pdf) | |
-| File LNK | [/dfir/mlw/pdf](/dfir/mlw/lnk) | |
+| File LNK | [/dfir/mlw/lnk](/dfir/mlw/lnk) | |
 | File PNG | [/dfir/mlw/png](/dfir/mlw/png) | |
 
 ##  2. <a name='kb'></a>kb 
