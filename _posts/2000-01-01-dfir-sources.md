@@ -19,11 +19,16 @@ permalink: /dfir
 
 ##  1. <a name='tools'></a>tools
 
-| **Tool** | **URL** | **Description** |
+| **Artefact** | **Tool** | **Description** |
 |----------------------|------------------------|-------------------|
-| 📃 Windows Security Logging | [EVTX](https://github.com/omerbenamram/evtx] | Multi-threaded EVTX parser supporting both XML and JSON EVTX. |
-| 📃 KDC Security Logging | [LogonTracer](https://github.com/JPCERTCC/LogonTracer) | Generates graphs of the Logons Activity. |
-| Filesystem | [sleuthkit](https://github.com/sleuthkit/sleuthkit) | Forensics tools to investigate volume and file system data. |
+| 💿 Harddisk image | [sleuthkit](https://github.com/sleuthkit/sleuthkit), [doc](http://wiki.sleuthkit.org/index.php?title=TSK_Tool_Overview) | Forensics tools to investigate volume and file system data: img_stat, mmls, ils, blkls, fls, fsstat |
+| 📂 NTFS METAfiles | [analyzeMFT](https://github.com/dkovar/analyzeMFT) | ADS, Anti-forensics (SNI,FN), Downloads from the internet. Process($LogFile, $UsnJrnl, AmCache) & Network Acivity ($LogFmt). |
+| 📃 Logs Security KDC | [LogonTracer](https://github.com/JPCERTCC/LogonTracer) | Generates graphs of the Logons Activity. |
+| 📃 Logs Security Windows | [EVTX](https://github.com/omerbenamram/evtx) | Multi-threaded EVTX parser supporting both XML and JSON EVTX. |
+| File OLE | [/dfir/mlw/pdf](/dfir/mlw/ole) | |
+| File PDF | [/dfir/mlw/pdf](/dfir/mlw/pdf) | |
+| File LNK | [/dfir/mlw/pdf](/dfir/mlw/lnk) | |
+| File PNG | [/dfir/mlw/png](/dfir/mlw/png) | |
 
 ##  2. <a name='kb'></a>kb 
 
