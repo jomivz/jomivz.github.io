@@ -61,7 +61,7 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```
 
-### <a name='Authentications'></a>Authentications
+### <a name='Authentications'></a>authentications
 
 ![windows log for authentications](/assets/images/for-win-logs-auth.png)
 
@@ -100,11 +100,11 @@ $secEvents = get-winevent -listprovider "microsoft-windows-security-auditing"
 $SecEvents.events[100]
 ```
 
-### <a name='ProcessExecutions'></a>Process Executions
+### <a name='ProcessExecutions'></a>proc-execs
 
 ![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
-### <a name='NetworkConnections'></a>Network Connections
+### <a name='NetworkConnections'></a>net-conns
 
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
@@ -251,10 +251,15 @@ To get the EVTX filenames and paths, go to [jmvwork.xyz/forensics/for-win-artifa
 
 To count the logs / EID, use the commands below:
 ```powershell
-# by category: Security, Application, System, Windows Powershell,...
-Get-WinEvent -FilterHashTable @{Logname='<event_log>’ | Group-Object id -NoElement | Sort-Object count
+# count the security logs per ID
+# Path: 
+Get-WinEvent -Path 'C:\Windows\System32\winevt\logs\Security.evtx' | Group-Object id -NoElement | Sort-Object count 
 
-# with the evtx file path
+# count the security logs of day per ID
+# logname: Security, Application, System, Windows Powershell,...
+Get-Winevent -FilterHashtable @{logname='Security’; starttime=(get-date).date} | Group-Object id -NoElement | Sort-Object count
+
+# count the security logs per ID
 Get-WinEvent -Path 'C:\Windows\System32\winevt\logs\Security.evtx' | Group-Object id -NoElement | Sort-Object count 
 ```
 
