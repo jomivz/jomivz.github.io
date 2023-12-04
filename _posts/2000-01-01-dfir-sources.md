@@ -44,6 +44,7 @@ permalink: /dfir
 | 👾 File PDF | [/dfir/mlw/pdf](/dfir/mlw/pdf) | Cheatsheet for [dist67/malicious PDF workshop](https://www.youtube.com/watch?v=F3rpZT0gKXw&list=PLa-ohdLO29_Y2FeT24w-c9nA_AH84MIpp) with ['pdfid.py' and 'pdf-parser.py'](https://blog.didierstevens.com/programs/pdf-tools/) tools. |
 | 👾 File LNK | [/dfir/mlw/lnk](/dfir/mlw/lnk) | editing in progress... |
 | 👾 File PNG | [/dfir/mlw/png](/dfir/mlw/png) | editing in progress... |
+| 👾 ADS Motw | [PS live: Get-Item, Get-Content -Stream](https://outflank.nl/blog/2020/03/30/mark-of-the-web-from-a-red-teams-perspective/) | Covers also, bypass with softwares unsupporting-ADS (7Z,CSPROJ) & container files (ISO,VHD). |
 
 ##  2. <a name='kb'></a>kb 
 
