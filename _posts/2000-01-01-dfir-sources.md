@@ -50,16 +50,14 @@ permalink: /dfir
 
 | **Operating System** | **KnowledgeBase (KB)** | **Description** |
 |----------------------|------------------------|-------------------|
-| 🗑️ Windows              | [STRONTIC](https://strontic.github.io/xcyclopedia/) | First place to look for what is a binary about. |
-| 🗑️ Windows              | [Project Windows Processes](https://winprocs.dfir.tips) | Crucial informations regarding how Windows processes work. How many instances, etc. |
-| 🗑️ Windows              | [Project Windows Drivers](https://loldrivers.io) | CuratedList of LOL drivers used adversaries to bypass sec contorlsand carry out attacks. |
-| 🗑️ Windows              | [Project LOLBAS](https://lolbas-project.github.io) | Windows LOLBAS offensive security techniques used for download, execute and bypass. |
-| 🗑️ Windows              | [Project wadcoms](https://wadcoms.github.io) | Windows/AD offensive security techniques. |
-| 🗑️ Windows              | [Project Hickjack Libs](https://hijacklibs.net) | |
-| 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
-| 🐧 Linux                | [Project GTFO](https://gtfobins.github.io) | Linux GTFO offensive security techniques used for download, execute and bypass. |
-| 🐧 Linux                | [explainshell](https://explainshell.com/)  | explain command-lines FU. |
-| 📃 Windows Security Logging | [Project Windows Events](https://evids.dfir.tips) | - |
-| 📃 Windows Security Logging | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | - |
-| 🗑️ Windows              | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | Advanced project on security informations regarding Windows Named pipes. |
+| 📃 Windows | [Project Windows Events](https://evids.dfir.tips) | ARTIFACT: Exhaustive artifacts list tagged with categories: File Download, Program Execution, Deleted File or File Knowledge, Network Activity, Physical Location File/Folder, Opening Account, Usage External Device/USB, Usage Browser Usage. |
+| 📃 Windows | [UltimateWindowsSecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/) | LOGS: Encyclopedia for the Windows Security Logs. |
+| 🗑️ Windows | [STRONTIC](https://strontic.github.io/xcyclopedia/) | EXE: First place to look for what is a binary about. |
+| 🗑️ Windows | [Project Windows Drivers](https://loldrivers.io) | SYS: CuratedList of LOL drivers used adversaries to bypass sec contorlsand carry out attacks. |
+| 🗑️ Windows | [Project LOLBAS](https://lolbas-project.github.io) | LOLBAS: Windows LOLBAS offensive security techniques used for download, execute and bypass. |
+| 🗑️ Windows | [Project wadcoms](https://wadcoms.github.io) | AD: Windows/AD offensive security techniques. |
+| 🗑️ Windows | [Project Hickjack Libs](https://hijacklibs.net) | LIB: ... |
+| 🗑️ Windows | [csandker.io - redteam TTPs over Windows Named Pipes](https://csandker.io/2021/01/10/Offensive-Windows-IPC-1-NamedPipes.html) | PIPES: Advanced project on security informations regarding Windows Named pipes. |
+| 🐧 Linux                | [Project GTFO](https://gtfobins.github.io) | GTFO: Linux GTFO offensive security techniques used for download, execute and bypass. |
+| 🐧 Linux                | [explainshell](https://explainshell.com/)  | SHELL: explain command-lines FU. |
 
