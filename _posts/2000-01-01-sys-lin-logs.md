@@ -20,6 +20,18 @@ permalink: /sys/lin/logs
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+## sed
+```
+# remove data after the last '}'
+%s/\(.*\)}.*$/\1}",/
+
+# print first line of a file
+sed -n 1p foo.csv
+
+# print lines 2,3 and 4
+sed -n 2,4p foo.csv
+```
+
 ## <a name='linux'></a>linux
 ```sh
 # listing the first and last date of log files 
