@@ -1,4 +1,4 @@
----
+| select(.age > 25)---
 layout: post
 title: sys / lin / logs
 category: sys
@@ -19,6 +19,22 @@ permalink: /sys/lin/logs
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+## jq
+```
+| select(.age > 25)
+| length
+jq 'map(.sendbytes) | add' netflow.json
+jq 'map(select(.type == "local").sendbytes) | add' netflow.json
+
+##########
+# OKTA
+##########
+
+jq -r '. | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.client.userAgent.browser,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
+# okta failure hits
+jq -r '. | select(.outcome.result=="FAILURE") | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
+```
 
 ## sed
 ```
