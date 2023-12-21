@@ -27,13 +27,20 @@ permalink: /sys/lin/logs
 jq 'map(.sendbytes) | add' netflow.json
 jq 'map(select(.type == "local").sendbytes) | add' netflow.json
 
-##########
-# OKTA
-##########
 
+############################
+# OKTA
 jq -r '. | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.client.userAgent.browser,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
 # okta failure hits
 jq -r '. | select(.outcome.result=="FAILURE") | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
+
+############################
+# PROOFPOINT TAP Forensics
+# get all urls
+cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="url") | .what.url' 
+
+# get all drive by download + hashes
+cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="file") | [.what.sha256,.what.path]| @csv' | tr -d \" > drive-by-dl.csv'
 ```
 
 ## sed
