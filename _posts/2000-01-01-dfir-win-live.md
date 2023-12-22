@@ -43,12 +43,10 @@ Remove-Item -LiteralPath E:\$([char]0xA0)\ -Force
 ```
 
 ## <a name='get-adcomputer'></a>mark-of-the-web
-```
-# ADS Motw
+```powershell
 # https://outflank.nl/blog/2020/03/30/mark-of-the-web-from-a-red-teams-perspective/
-Get-Item toto.doc -Stream *
-Get-Content toto.doc -Stream Zone.Identifier
-
-# Bypass with softwares unsupporting-ADS (7Z,CSPROJ) & container files (ISO,VHD).
+$files = Get-Item $env:userprofile/Downloads/m* 
+Foreach ($file in $files) {$file; Get-Content –Stream Zone.Identifier $file; echo "`n"} 
+```
 ```
  
