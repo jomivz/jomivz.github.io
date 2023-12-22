@@ -206,3 +206,13 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
+## web-browser
+
+| OS         | Path |
+|------------|------|
+| WinXP      | %Rootdrive%\Users\%userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
+| Windows 10 | %Rootdrive%\Users\%userprofile%\AppData\Local\Google\Chrome\User Data\ |
+| Linux/Unix | /home/%username%/.config/google-chrome/Default |
+| Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
+| iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
+| Android    | /userdata/data/com.android.chrome/app_chrome/Default |
