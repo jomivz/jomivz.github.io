@@ -11,6 +11,7 @@ permalink: /dfir/win/live
 * [infection-usb-andromeda](#infection-usb-andromeda)
 * [infection-webshell-coldfusion](#infection-webshell-coldfusion)
 * [mark-of-the-web](#mark-of-the-web)
+* [code-signing-cert-cloning](#code-signing-cert-cloning)
 
 ## get-clsid-exec-rundll32
 ```powershell
@@ -40,6 +41,7 @@ Remove-Item -LiteralPath E:\$([char]0xA0)\ -Force
 ## <a name='get-adcomputer'></a>infection-webshell-coldfusion
 ```powershell
 # child above 160 characters
+grep -R -e "*.cfm" /var/log/*.
 ```
 
 ## <a name='get-adcomputer'></a>mark-of-the-web
@@ -48,5 +50,7 @@ Remove-Item -LiteralPath E:\$([char]0xA0)\ -Force
 $files = Get-Item $env:userprofile/Downloads/m* 
 Foreach ($file in $files) {$file; Get-Content –Stream Zone.Identifier $file; echo "`n"} 
 ```
-```
- 
+
+## <a name='get-adcomputer'></a>code-signing-cert-cloning
+```powershell
+``` 
