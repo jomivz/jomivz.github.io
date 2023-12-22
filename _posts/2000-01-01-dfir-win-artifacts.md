@@ -3,7 +3,7 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2023-09-21
+modified_date: 2023-12-22
 permalink: /dfir/win
 ---
 
@@ -11,15 +11,16 @@ permalink: /dfir/win
 * [amcache](#amcache)
 * [dll](#dll)
 * [eventlogs](#eventlogs)
-		* [eventlogs-all](#eventlogs-all)
-		* [eventlogs-dns](#eventlogs-dns)
+  * [eventlogs-all](#eventlogs-all)
+  * [eventlogs-dns](#eventlogs-dns)
 * [ntfs](#ntfs)
 * [ntds-dit](#ntds-dit)
 * [reg](#reg)
-	* [regripper](#regripper)
-	* [reg-history](#reg-history)
-	* [reg-extra](#reg-extra)
-
+  * [regripper](#regripper)
+  * [reg-history](#reg-history)
+  * [reg-extra](#reg-extra)
+* [web-browser](#web-browser)
+  
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
