@@ -44,36 +44,36 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 
 ## <a name='eventlogs'></a>eventlogs
 
-Eventlogs Files :
+### <a name='eventlogs-all'></a>eventlogs-all
 
-#### <a name='eventlogs-all'></a>eventlogs-all
+```powershell
+# all Windows Versions
 
-* All Windows Versions :
-
-- %SystemRoot%\System32\winevt\logs\Application.evtx
-- %SystemRoot%\System32\winevt\logs\Security.evtx
-- %SystemRoot%\System32\winevt\logs\System.evtx
-- %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
+%SystemRoot%\System32\winevt\logs\Application.evtx
+%SystemRoot%\System32\winevt\logs\Security.evtx
+%SystemRoot%\System32\winevt\logs\System.evtx
+%SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
+```
 
 * Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
 
-#### <a name='eventlogs-dns'></a>eventlogs-dns 
-
-* Windows DNS Server :
+### <a name='eventlogs-dns'></a>eventlogs-dns 
 
 1/ Are the DNS debug logs activated ?
 
-Open a console (`cmd.exe`) and run the command: 
-```
-# check the parameter `dwDebugLevel`. It value must be `00006101`.
+```powershell
+# open a console (`cmd.exe`) and run the command 
+# to check the parameter `dwDebugLevel`. It value must be `00006101`.
 dnscmd /Info
 ```
 
 2/ Where are located the DNS debug logs ?
 
 By default, the locations for storing DNS logs are :
-- %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
-- %SystemRoot%\System32\Dns\Dns.log
+```powershell
+%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
+%SystemRoot%\System32\Dns\Dns.log
+```
 
 To verify it, open a console (`cmd.exe`) and run the commands:
 ```powershell
