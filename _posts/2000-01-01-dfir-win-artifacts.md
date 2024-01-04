@@ -209,19 +209,19 @@ cd HKLM:
 ```
 ## web-browser
 
-| OS         | Browser | Path |
-|------------|---------|------|
-| Windows    | Edge    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default |
-| Windows    | Edge    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default\Cache |
-| Windows    | Mozilla | %APPDATA%\Mozilla\Firefox\Profiles\<ProfileName>\ |
-| Windows XP | Chrome  | %Rootdrive%\Users\%userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
-| Windows 10 | Chrome  | %Rootdrive%\Users\%userprofile%\AppData\Local\Google\Chrome\User Data\ |
-| Linux      | Chrome  | /home/%username%/.config/google-chrome/Default |
-| Linux      | Mozilla | ~/.mozilla/firefox/<ProfileName> |
-| Mac OS X   | Chrome  | /Users/<username>/Library/Application Support/Google/Chrome/Default |
-| Mac OS X   | Mozilla | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
-| iOS        | Chrome  | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
-| Android    | Chrome  | /userdata/data/com.android.chrome/app_chrome/Default |
+| Browser    | OS         | Path                                                               |
+|------------|------------|--------------------------------------------------------------------|
+| Edge       | Windows    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default |
+| Edge       | Windows    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default\Cache |
+| Chrome     | Windows XP | %Rootdrive%\Users\%userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
+| Chrome     | Windows 10 | %Rootdrive%\Users\%userprofile%\AppData\Local\Google\Chrome\User Data\ |
+| Chrome     | Linux      | /home/%username%/.config/google-chrome/Default |
+| Chrome     | Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
+| Chrome     | iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
+| Chrome     | Android    | /userdata/data/com.android.chrome/app_chrome/Default |
+| Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\<ProfileName>\ |
+| Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
+| Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 
 **References**
 - [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
