@@ -16,7 +16,7 @@ modified_date: 2023-07-12
 	* [101_OSINT](#OSINT)
 	* [101_WEB](#WEB)
 	* [101_NET](#WEB)
-	* [tools](#tools)
+	* [007_hacktools](#hacktools)
 	* [sources](#sources)
 	* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
 
@@ -71,7 +71,7 @@ posterazor goad2negat.png
 * DNSsec
 * SSL 
 
-### <a name='tools'></a>007_tools 
+### <a name='hacktools'></a>007_hacktools 
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
