@@ -132,6 +132,21 @@ echo "" > ~/.bash_history
 ### <a name='get-kb'></a>get-kb
 ### <a name='get-netconf'></a>get-netconf
 ```
+# network card
+ip link
+
+# arp table
+arp -a
+
+# listening socket
+netstat -nap and
+lsof –i
+
+# network connections
+netstat -ntaupe
+netstat -ant
+watch ss -tt
+
 # dns
 cat /etc/hosts
 cat /etc/resolv.conf
@@ -139,8 +154,28 @@ cat /etc/resolv.conf
 
 ### <a name='get-shares'></a>get-shares
 ### <a name='get-users'></a>get-users
+```
+cat /etc/passwd
+cat /etc/group
+cat /etc/shadow
+```
+
 ### <a name='get-processes'></a>get-processes
+```
+ps –aux
+lsof -p [pid]
+```
+### <a name='get--scheduled-tasks'></a>get-scheduled-tasks
+```
+crontab -u root -l
+cat /etc/crontab
+ls –la /etc/cron.*
+```
 ### <a name='get-services'></a>get-services
+```
+chkconfig --list
+```
+
 ### <a name='get-sessions'></a>get-sessions
 ```
 w
