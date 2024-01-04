@@ -213,7 +213,7 @@ cd HKLM:
 |------------|---------|------|
 | Windows    | Edge    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default |
 | Windows    | Edge    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default\Cache |
-| Windows    | Mozilla | %APPDATA%\Mozilla\Firefox\Profiles\<ProfileName> |
+| Windows    | Mozilla | %APPDATA%\Mozilla\Firefox\Profiles\<ProfileName>\ |
 | Windows XP | Chrome  | %Rootdrive%\Users\%userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
 | Windows 10 | Chrome  | %Rootdrive%\Users\%userprofile%\AppData\Local\Google\Chrome\User Data\ |
 | Linux      | Chrome  | /home/%username%/.config/google-chrome/Default |
@@ -222,3 +222,6 @@ cd HKLM:
 | Mac OS X   | Mozilla | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 | iOS        | Chrome  | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
 | Android    | Chrome  | /userdata/data/com.android.chrome/app_chrome/Default |
+
+**References**
+- [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
