@@ -219,7 +219,7 @@ cd HKLM:
 | Chrome     | Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
 | Chrome     | iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
 | Chrome     | Android    | /userdata/data/com.android.chrome/app_chrome/Default |
-| Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\\<ProfileName>\ |
+| Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\\ <ProfileName>\ |
 | Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
 | Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 
