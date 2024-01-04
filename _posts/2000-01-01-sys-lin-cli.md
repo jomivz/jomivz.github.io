@@ -34,6 +34,7 @@ permalink: /sys/lin
 	* [get-boot-integrity](#get-boot-integrity)
 	* [get-krb-config](#get-krb-config)
 	* [get-status-fw](#get-status-fw)
+	* [get-status-proxy](#get-status-proxy)
 	* [get-sshd-logs](#get-sshd-logs)
 * [harden](#harden)
 	* [disable-llmnr](#disable-llmnr)
@@ -130,6 +131,12 @@ echo "" > ~/.bash_history
 ### <a name='get-os'></a>get-os
 ### <a name='get-kb'></a>get-kb
 ### <a name='get-netconf'></a>get-netconf
+```
+# dns
+cat /etc/hosts
+cat /etc/resolv.conf
+```
+
 ### <a name='get-shares'></a>get-shares
 ### <a name='get-users'></a>get-users
 ### <a name='get-processes'></a>get-processes
@@ -170,7 +177,7 @@ echo $KRB5_KTNAME
 
 * display the service configuration file:
 ```
-cat etc/krb5.conf
+cat /etc/krb5.conf
 echo $KRB5_CLIENT_KTNAME
 ```
 
@@ -180,6 +187,16 @@ klist -k -Ke
 ```
 
 ### <a name='get-status-fw'></a>get-status-fw
+```
+iptables --list-rules
+```
+
+### <a name='get-status-proxy'></a>get-status-proxy
+```
+echo $HTTPS_PROXY
+echo $HTTP_PROXY
+echo $FTP_PROXY
+```
 
 ### <a name='get-sshd-logs'></a>get-sshd-logs 
 
