@@ -15,6 +15,7 @@ modified_date: 2023-07-12
 	* [101_AD](#AD)
 	* [101_OSINT](#OSINT)
 	* [101_WEB](#WEB)
+	* [101_NET](#WEB)
 	* [tools](#tools)
 	* [sources](#sources)
 	* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
@@ -63,6 +64,12 @@ posterazor goad2negat.png
 ### <a name='WEB'></a>101_WEB
 
 ![](/pen/web#attacks)
+
+### <a name='WEB'></a>101_NET
+
+* DNS
+* DNSsec
+* SSL 
 
 ### <a name='tools'></a>007_tools 
 
