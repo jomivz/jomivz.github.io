@@ -193,6 +193,7 @@ iptables --list-rules
 
 ### <a name='get-status-proxy'></a>get-status-proxy
 ```
+# https://www.shellhacks.com/linux-proxy-server-settings-set-proxy-command-line/
 echo $HTTPS_PROXY
 echo $HTTP_PROXY
 echo $FTP_PROXY
