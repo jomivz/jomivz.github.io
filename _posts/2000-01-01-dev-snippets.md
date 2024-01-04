@@ -53,6 +53,19 @@ Type $ResultFileName
 
 ## <a name='python'></a>python
 
+### <a name='python-dl'></a>python-traceroute
+```python
+# https://stackoverflow.com/questions/53112554/tcp-traceroute-in-python
+# pip install libpcap
+# pip install scapy
+
+from scapy.all import *
+target = ["172.217.17.46"]
+result, unans = sr(IP(dst=target, ttl=(1, 10)) / TCP(dport=22, flags="S"))
+for snd, rcv in result:
+  print(snd.ttl, rcv.src, snd.sent_time, rcv.time)
+```
+
 ### <a name='python-dl'></a>python-dl
 ```python
 import requests
