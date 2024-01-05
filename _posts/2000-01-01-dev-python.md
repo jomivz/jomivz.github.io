@@ -54,7 +54,9 @@ deactivate.bat
 ###  1.2. <a name='pip-ingore-ssl-verification'></a>pip-ingore-ssl-verification
 ```
 # https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi#29751768
+# https://jupyter.org/install
 pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org notebook
+jupyter notebook
 ```
 
 ##  2. <a name='lib'></a>lib
