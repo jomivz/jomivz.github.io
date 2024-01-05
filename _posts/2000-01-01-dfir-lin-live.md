@@ -22,11 +22,14 @@ permalink: /dfir/lin/live
 | Tool | Tactic | Technic |
 |-------------------------------------------------------------------------|----------------------|------------------------------------------------|
 | [sudo_killer](https://github.com/TH3xACE/SUDO_KILLER)                   | privilege escalation | sudo | 
+|[lynis](https://github.com/CISOfy/lynis)                                 |                      |      |
 
+```
 cat /home/user/myvpn.ovpn
  cat /etc/openvpn/auth.txt
 cat ~/.bash_history | grep -i passw
 cat /home/user/.irssi/config | grep -i passw
+```
 
 ## References
 
