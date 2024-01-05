@@ -27,3 +27,10 @@ cat /home/user/myvpn.ovpn
  cat /etc/openvpn/auth.txt
 cat ~/.bash_history | grep -i passw
 cat /home/user/.irssi/config | grep -i passw
+
+## References
+
+- [JMVWORK / sys / lin](/sys/lin)
+- [CERT SG IRM-3-UnixLinuxIntrusionDetection](https://raw.githubusercontent.com/certsocietegenerale/IRM/main/EN/IRM-3-UnixLinuxIntrusionDetection.pdf)
+- [Linux-Incident-Response](https://github.com/vm32/Linux-Incident-Response)
+- [linux-forensics-command-cheat-sheet](https://fahmifj.github.io/blog/linux-forensics-command-cheat-sheet/)
