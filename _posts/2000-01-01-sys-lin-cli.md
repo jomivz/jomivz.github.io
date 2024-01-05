@@ -315,10 +315,3 @@ mount /home
 ### <a name='sources-list'></a>sources-list
 
 * [debian](https://wiki.debian.org/SourcesList)
-
-
-## references
-
-- [CERT SG IRM-3-UnixLinuxIntrusionDetection](https://raw.githubusercontent.com/certsocietegenerale/IRM/main/EN/IRM-3-UnixLinuxIntrusionDetection.pdf)
-- [Linux-Incident-Response](https://github.com/vm32/Linux-Incident-Response)
-- [linux-forensics-command-cheat-sheet](https://fahmifj.github.io/blog/linux-forensics-command-cheat-sheet/)
