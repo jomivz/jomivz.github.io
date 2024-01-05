@@ -55,8 +55,9 @@ deactivate.bat
 ```
 # https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi#29751768
 # https://jupyter.org/install
-pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org notebook
-jupyter notebook
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org IPython kernelspec install-self
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org voila
+voila
 ```
 
 ##  2. <a name='lib'></a>lib
