@@ -8,8 +8,9 @@ permalink: /dev/python
 ---
 
 <!-- vscode-markdown-toc -->
-* 1. [snippet](#snippet)
+* 1. [install](#install)
 	* 1.1. [venv](#venv)
+	* 1.2. [pip-ingore-ssl-verification](#pip-ingore-ssl-verification)
 * 2. [lib](#lib)
 	* 2.1. [lib-net](#lib-net)
 	* 2.2. [lib-sys](#lib-sys)
@@ -25,7 +26,7 @@ permalink: /dev/python
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='snippet'></a>i
+##  1. <a name='install'></a>install
 
 ###  1.1. <a name='venv'></a>venv
 
@@ -49,6 +50,13 @@ cd env/Scripts
 activate.bat //In CMD
 deactivate.bat
 ```
+
+###  1.2. <a name='pip-ingore-ssl-verification'></a>pip-ingore-ssl-verification
+```
+# https://stackoverflow.com/questions/25981703/pip-install-fails-with-connection-error-ssl-certificate-verify-failed-certi#29751768
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org notebook
+```
+
 ##  2. <a name='lib'></a>lib
 
 ###  2.1. <a name='lib-net'></a>lib-net
