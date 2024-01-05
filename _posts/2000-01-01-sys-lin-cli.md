@@ -158,12 +158,16 @@ cat /etc/resolv.conf
 cat /etc/passwd
 cat /etc/group
 cat /etc/shadow
+
+# dfir
+grep :0: /etc/passwd
 ```
 
 ### <a name='get-processes'></a>get-processes
 ```
 ps –aux
 lsof -p [pid]
+ps -eo pid,tt,user,fname,rsz
 ```
 ### <a name='get--scheduled-tasks'></a>get-scheduled-tasks
 ```
@@ -173,7 +177,14 @@ ls –la /etc/cron.*
 ```
 ### <a name='get-services'></a>get-services
 ```
+# List all services and their current states.
 chkconfig --list
+
+# Show status of all services.
+service --status-all
+
+# List running services (systemd)
+systemctl list-units --type=service
 ```
 
 ### <a name='get-sessions'></a>get-sessions
@@ -304,3 +315,10 @@ mount /home
 ### <a name='sources-list'></a>sources-list
 
 * [debian](https://wiki.debian.org/SourcesList)
+
+
+## references
+
+- [CERT SG IRM-3-UnixLinuxIntrusionDetection](#[https://github.com/vm32/Linux-Incident-Response](https://raw.githubusercontent.com/certsocietegenerale/IRM/main/EN/IRM-3-UnixLinuxIntrusionDetection.pdf))
+- [Linux-Incident-Response](#https://github.com/vm32/Linux-Incident-Response)
+- [linux-forensics-command-cheat-sheet](#https://fahmifj.github.io/blog/linux-forensics-command-cheat-sheet/)
