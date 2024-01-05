@@ -25,7 +25,7 @@ permalink: /dev/python
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-##  1. <a name='snippet'></a>snippet
+##  1. <a name='snippet'></a>i
 
 ###  1.1. <a name='venv'></a>venv
 
