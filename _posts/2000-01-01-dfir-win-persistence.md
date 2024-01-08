@@ -21,7 +21,14 @@ permalink: /dfir/win/persistence
 <!-- /vscode-markdown-toc -->
 
 [TA0003](https://attack.mitre.org/tactics/TA0003) 
-
+    
+    AutoStart Locations, RunKeys
+    Service Creation/Replacement
+    Service Failure Recovery
+    Scheduled Tasks
+    DLL Hijacking Attacks
+    WMI Event Consumers
+    
 ## <a name='autorunsc'></a>autorunsc
 
 * CLI full-report with autorunsc
