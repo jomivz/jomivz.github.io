@@ -39,19 +39,15 @@ sed -n "X,/*/p" toto.txt
 # sed insert a space between 2 IPs - solving copy/paste issue of nessus reports
 sed '%s/.([0-9]+)192./.\1 192./g' 
 
-### <a name='oneliners'></a>oneliners
-# oneliner howto - grep into jmvwork.xyz cheatsheets
-# takes the pattern as first argument
-# takes the file as second argument
-# if multiple match, print howto for the first pattern found
-function howto { line=`grep -n $1 $2 |sed -n 1p |cut -f1 -d":"`; sed -n "${line},/.?/p" $2 |awk '$0 ~/^#$/ { exit; } $0 { print;}'; } 
-function gstart { line=`grep -n "^#? getting-start" |grep -n $1 $2 |sed -n 1p |cut -f1 -d":"`; sed -n "${line},/.?/p" $2 |awk '$0 ~/^```.*$/ { exit; } $0 { print;}'; } 
-
 # oneliner howto example 1
 howto "docker install spiderfoot" 2021-10-26-sys-cli-docker.md
 
 # oneliner howto example 2
 howto "# oneliner .* ex" 2021-10-26-sys-cli-lin.md
+
+# removes the DOS carrier return
+# to get the character, type Ctrl+Q, then Ctrl+M OR Ctrl+V, then Ctrl+M  
+:%s/^M$//g
 
 ```
 ## <a name='find'></a>find
