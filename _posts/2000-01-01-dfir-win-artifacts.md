@@ -107,6 +107,17 @@ NTFS metafiles :
 ls %SystemRoot%\NTDS\Ntds.dit
 ```
 
+## powershell-history
+```
+# https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlineoption?view=powershell-7.4&viewFallbackFrom=powershell-6
+
+# path
+$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
+
+# enable / disable history
+Set-PSReadlineOption -HistorySaveStyle SaveNothing
+```
+
 ## <a name='reg'></a>reg
 
 **What is it ?** Files listed are the evidences to collect for the forensics. 
