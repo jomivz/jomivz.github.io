@@ -110,6 +110,7 @@ ls %SystemRoot%\NTDS\Ntds.dit
 ## powershell-history
 ```
 # https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlineoption?view=powershell-7.4&viewFallbackFrom=powershell-6
+Get-PSReadLineOption
 
 # path
 $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
