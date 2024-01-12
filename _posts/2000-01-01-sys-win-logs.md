@@ -3,7 +3,7 @@ layout: post
 title: sys / win / logs
 category: sys
 parent: cheatsheets
-modified_date: 2023-01-16
+modified_date: 2024-01-12
 permalink: /sys/win/logs
 ---
 
@@ -51,7 +51,7 @@ permalink: /sys/win/logs
 
 🔥 FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/) 🔥
 
-### <a name='Figureoutactivity'></a>Figure out activity
+## <a name='Figureoutactivity'></a>providers
 ```powershell
 # listing categories sort descending by recordcount
 Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object LogName, RecordCount, IsClassicLog, IsEnabled, LogMode, LogType | Sort-Object -Descending -Property RecordCount | FT -autosize
@@ -61,50 +61,41 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```
 
-### <a name='Authentications'></a>authentications
+## logon
 
-![windows log for authentications](/assets/images/for-win-logs-auth.png)
+![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
 
+### <a name='Authentications'></a>logon-interactive
 ```powershell
-# get the security backlog period
-Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624} -Oldest -Max 1 | Select TimeCreated
-
-# logon/logoff history of an user account 
-$ztarg_usersid = ''
-$ztarg_username = ''
-Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$ztarg_usersid} -Max 80 |  select ID,TaskDisplayName,TimeCreated
-Get-WinEvent -FilterHashtable @{'Logname'='Security';'id'=4624,4634} | Where-Object -Property Message -Match $ztarg_username|  select ID,TaskDisplayName,TimeCreated
-
-# network logon/logoff history of an user account with source IP
-#Get-WinEvent -FilterHashtable @{Logname='Security';ID=4624,4634;Data=$sid} -Max 10 | select ID,TaskDisplayName,TimeCreated
-#Get-WinEvent -ProviderName 'Microsoft-Windows-Security-Auditing' -FilterXPath "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='2']]" -MaxEvents 1
-
-[xml[]]$xml = Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624} | ForEach-Object{$_.ToXml()}
-$test = $xml.Event
-
-#$names = $test.SelectNodes("/Event/EventData/Datacity[=23]")
-#$names = $xml.SelectNodes("/Event/EventData/Data/KeyLength[=128]")
-$names = $test.SelectNodes("/EventData/Data")
-$sno = 0
-foreach($node in $names) {
-    $sno++
-    $dom = $node.getAttribute("TargetDomainName")
-    $user = $node.getAttribute("TargetUserName")
-    $ip = $node.getAttribute("IpAddress")
-    $port = $node.getAttribute("IpPort")
-    $lt = $node.getAttribute("LogonType")
-    Write-Host $dom $user $ip $port $lt
+$xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']] and *[EventData[Data[@Name='LogonType']!='3']]"
+Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
+    $xml = [xml]$_.ToXml()
+    $hash = [ordered]@{ 'TimeCreated' = $xml.Event.System.TimeCreated.SystemTime }
+    $xml.Event.EventData.Data | where Name -in 'TargetUserName','WorkStationName','LogonType' | Foreach-Object {
+    	$hash[$_.Name] = $_.'#text'
+    }
+    [pscustomobject]$hash
 }
-
-$secEvents = get-winevent -listprovider "microsoft-windows-security-auditing"
-$SecEvents.events[100]
 ```
 
-### <a name='ProcessExecutions'></a>proc-execs
+### <a name='Authentications'></a>logon-network
+```powershell
+$xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']] and *[EventData[Data[@Name='LogonType']='3']]"
+Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
+    $xml = [xml]$_.ToXml()
+    $hash = [ordered]@{ 'TimeCreated' = $xml.Event.System.TimeCreated.SystemTime }
+    $xml.Event.EventData.Data | where Name -in 'TargetUserName','LogonType','IPAddress' | Foreach-Object {
+    	$hash[$_.Name] = $_.'#text'
+    }
+    [pscustomobject]$hash
+}
+```
+
+## <a name='ProcessExecutions'></a>proc-execs
 
 ![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
-### <a name='NetworkConnections'></a>net-conns
+## <a name='NetworkConnections'></a>net-conns
 
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
@@ -114,7 +105,8 @@ $SecEvents.events[100]
 Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
 ```
 
-### <a name='ADAbuseofDelegation'></a>AD Abuse of Delegation
+## ad
+### <a name='ADAbuseofDelegation'></a>ad-abuse-of-delegation
 
 ```powershell
 # hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
@@ -127,7 +119,7 @@ Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
 Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
 ```
 
-### <a name='ADDSReplication'></a>AD DS Replication
+### <a name='ADDSReplication'></a>ad-ds-replication
 
 * hunting for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
 
@@ -141,7 +133,7 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
-### <a name='WindowsDefenderlogs'></a>Windows Defender logs
+### <a name='WindowsDefenderlogs'></a>windows-defender
 
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
 - [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
@@ -155,19 +147,19 @@ Get-WinEvent –FilterHashtable @{'logname'='application'; 'id'=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 ```
 
-### <a name='Potentiallogstampering'></a>Potential logs tampering
+### <a name='Potentiallogstampering'></a>logs-tampering
 
 - [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
 - [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
 - [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
 
-### <a name='EmailCompromise'></a>Email Compromise
+### <a name='EmailCompromise'></a>email-compromise
 
 - [Microsoft-eventlog-mindmap \ windows-email-compromise-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
 
-## <a name='Logsactivation'></a>Logs activation
+## <a name='Logsactivation'></a>logs-activation
 
-### <a name='ActivateAMSIlogging'></a>Activate AMSI logging
+### <a name='ActivateAMSIlogging'></a>activate-amsi-logs
 ```powershell
 $AutoLoggerName = 'MyAMSILogger'
 $AutoLoggerGuid = "{$((New-Guid).Guid)}"
@@ -175,7 +167,7 @@ New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
 Add-EtwTraceProvider -AutologgerName $AutoLoggerName -Guid '{2A576B87-09A7-520E-C21A-4942F0271D67}' -Level 0xff -MatchAnyKeyword ([UInt64] (0x8000000000000001 -band ([UInt64]::MaxValue))) -Property 0x41
 ```
 
-### <a name='ActivateDNSdebuglogs'></a>Activate DNS debug logs
+### <a name='ActivateDNSdebuglogs'></a>activate-dns-debug-logs
 ```
 # Default path:
 #  - %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
@@ -193,7 +185,7 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
-### <a name='ActivateFirewalllogs'></a>Activate Firewall logs
+### <a name='ActivateFirewalllogs'></a>activate-firewall-logs
 ```powershell
 # Run this command to check if the logging is enabled
 netsh advfirewall show allprofiles
@@ -223,7 +215,7 @@ Select-String -Path $fwlog -Pattern “drop”
 Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
 ```
 
-### <a name='ActivateFirewalllogsManaged'></a>Activate Firewall logs / Managed 
+### <a name='ActivateFirewalllogsManaged'></a>activate-firewall-logs-managed 
 
 ```powershell
 # Prefer the GUID than the subcategory name / avoid OS language issues
@@ -243,9 +235,9 @@ eventvwr.msc
 - Filter event IDs 5152,5156,5158 :
 [Firewall EIDs | 4949 to 4958](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
 
-## <a name='Extras'></a>Extras
+## <a name='Extras'></a>extras
 
-### <a name='Artifacts'></a>Artifacts
+### <a name='Artifacts'></a>artifacts
 
 To get the EVTX filenames and paths, go to [jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles](https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles).
 
