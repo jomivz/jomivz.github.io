@@ -67,8 +67,24 @@ $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 
 ### <a name='Authentications'></a>logon-interactive
 ```powershell
-$xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']] and *[EventData[Data[@Name='LogonType']!='3']]"
+# 'C:\Windows\System32\winevt\logs\Security.evtx'
+$xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']]]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
+    $xml = [xml]$_.ToXml()
+    $hash = [ordered]@{ 'TimeCreated' = $xml.Event.System.TimeCreated.SystemTime }
+    $xml.Event.EventData.Data | where Name -in 'TargetUserName','WorkStationName','LogonType' | Foreach-Object {
+    	$hash[$_.Name] = $_.'#text'
+    }
+    [pscustomobject]$hash
+}
+
+$date1 = [datetime]"1/12/2024"
+$date2 = [datetime]"1/15/2024"
+$time  = [datetime]"1/13/2021 8:00:37"
+$xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM'] and TimeCreated[timediff(@SystemTime) <= 300000]]]"
+Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path 'C:\Windows\System32\winevt\logs\Security.evtx' |
+# Where-Object { ($_.TimeCreated.AddTicks(-$_.TimeCreated.Ticks % [timespan]::TicksPerSecond)) -eq $time } | Foreach-Object { 
+Where-Object {$_.TimeCreated -gt $date1 -and $_.TimeCreated -lt $date2} | Foreach-Object {
     $xml = [xml]$_.ToXml()
     $hash = [ordered]@{ 'TimeCreated' = $xml.Event.System.TimeCreated.SystemTime }
     $xml.Event.EventData.Data | where Name -in 'TargetUserName','WorkStationName','LogonType' | Foreach-Object {
