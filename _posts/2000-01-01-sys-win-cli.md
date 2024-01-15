@@ -162,6 +162,10 @@ wmic process get CSName,Description,ExecutablePath,ProcessId /format:csv
 ```batch
 # listing the active sessions
 quser
+qwinsta
+
+# display the list of the running processes in the specific RDP session (the session ID is specified):
+qprocess /id:5
 
 # killing a session / below '2' is the session ID
 logoff 2
