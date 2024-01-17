@@ -27,6 +27,9 @@ permalink: /sys/lin/logs
 jq 'map(.sendbytes) | add' netflow.json
 jq 'map(select(.type == "local").sendbytes) | add' netflow.json
 
+############################
+# YWH
+cat ywh_export_report_2024_01_17_14_50_01.json | jq -r '.[] | [.company,.title,.scope,.ips] | @csv ' > ywh_impacted_assets.csv
 
 ############################
 # OKTA
