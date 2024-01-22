@@ -52,29 +52,63 @@ permalink: /edr/falcon
 ```bash
 ```
 
-## <a name='xql'></a>
+## <a name='fql'></a>
 
-### <a name='get-pub-ip'></a>get-pub-ip
+### ia-get-bulk-dl-files
+```
+# INITIAL ACCESS (ia) / ON MANY ASSETS (bulk) / File downloaded (pdf, word, tar, zip, etc.)  
+#
+# Description: Useful to determine the scope targeted that may require further investigations. 
+# For a file related to a phishing campain, if the client (used for the download) is a web browser, should have an ADS with Zone.identifier = 3. If the client (used for the download) is the “outlook heavy client”, it remains to check.
+#
+# Incident Type(s): Malware / Phishing .
+#
+# Event simple name for file: PngFileWritten, PdfFileWritten RtfFileWritten MSXlsxFileWritten MSDocxFileWritten 
+# RarFileWritten SevenZipFileWritten TarFileWritten ZipFileWritten NewExecutableWritten PeFileWritten
+
+FileName= event_simpleName=PdfFileWritten  
+| rename ContextTimeStamp_decimal as writtenTime 
+| eval fileSizeMB=round(((Size_decimal/1024)/1024),2) 
+| table ComputerName FileName FilePath writtenTime fileSizeMB 
+| convert ctime(writtenTime)  
 ```
 
+### <a name='get-flow'></a>----ia-get-dl-files
+```
+# INITIAL ACCESS / ONE TARGET / Files downloaded from the Internet 
+#
+# Useful for: the Zone identifier stores whether the file was downloaded from the internet.
+# Type 3 Zone Identifiers show the URL the file was downloaded from. 
+
+#
+ComputerName=  event_simpleName=MotwWritten  ZoneIdentifier_decimal=3
+| table _time event_simpleName FileName Zone* HostUrl ReferrerUrl 
 ```
 
-
-### <a name='get-flow'></a>get-flow
-
-List of local open sessions sorted by descendant hits for PC001
+### <a name='get-flow-wan'></a>----ia-get-usb-conns
 ```
-```
-
-### <a name='get-flow-wan'></a>get-flow-wan
-Network activity with the Internet for PC001:
-```
+ComputerName= event_simpleName=RemovableMedia* OR event_simpleName IN (DcUsbDeviceDisconnected,DcUsbDeviceConnected)
+| table _time aid event_simpleName ComputerName VolumeDriveLetter DiskParentDeviceInstanceId DeviceManufacturer DeviceProduct DeviceInstanceId DeviceSerialNumber VolumeName
+| rename DiskParentDeviceInstanceId as "Device Hardware/Vendor ID", VolumeDriveLetter as "Volume Drive Letter", ComputerName as "Hostname", aid as AID, DeviceInstanceId as "Device Hardware/Vendor ID (External HDD)", DeviceSerialNumber as "Serial Number"  
+| sort _time
 ```
 
-### <a name='get-flow-lan'></a>get-flow-lan
-
-Network activity over the LAN for PC001:
+### <a name='get-flow-lan'></a>-ia-lm-get-ssh-conns-lin
 ```
+event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, EnvironmentVariableName IN (SSH_CONNECTION, USER)  
+| eventstats list(EnvironmentVariableName) as EnvironmentVariableName,list(EnvironmentVariableValue) as EnvironmentVariableValue by aid, ContextProcessId_decimal 
+| eval tempData=mvzip(EnvironmentVariableName,EnvironmentVariableValue,":") 
+| rex field=tempData "SSH_CONNECTION\:((?<clientIP>\d+\.\d+\.\d+\.\d+)\s+(?<rPort>\d+)\s+(?<serverIP>\d+\.\d+\.\d+\.\d+)\s+(?<lPort>\d+))" 
+| rex field=tempData "USER\:(?<userName>.*)" 
+| where isnotnull(clientIP) 
+| search NOT clientIP IN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1)  
+| iplocation clientIP 
+| lookup local=true aid_master aid OUTPUT Version as osVersion, Country as sshServerCountry 
+| fillnull City, Country, Region value="-" 
+| table _time aid ComputerName sshServerCountry osVersion serverIP lPort userName clientIP rPort City Region Country 
+| where isnotnull(userName) 
+| sort +ComputerName, +_time 
+| search NOT clientIP IN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1) 
 ```
 
 ### <a name='get-flow-smb'></a>get-flow-smb
