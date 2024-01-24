@@ -39,10 +39,6 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
-## <a name='dll'></a>dll
-
-* [dll hijacking](https://www.ired.team/offensive-security/privilege-escalation/t1038-dll-hijacking#observations)
-
 ## <a name='eventlogs'></a>eventlogs
 
 ### <a name='eventlogs-all'></a>eventlogs-all
