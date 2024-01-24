@@ -3,22 +3,29 @@ layout: post
 title:  dfir / win /live
 category: sys
 parent: cheatsheets
-modified_date: 2023-12-05
+modified_date: 2024-01-24
 permalink: /dfir/win/live
 ---
 
 <!-- vscode-markdown-toc -->
+* [dll-behind-clsid-InprocServer32](#dll-behind-clsid-InprocServer32)
 * [infection-usb-andromeda](#infection-usb-andromeda)
 * [infection-webshell-coldfusion](#infection-webshell-coldfusion)
 * [mark-of-the-web](#mark-of-the-web)
 * [code-signing-cert-cloning](#code-signing-cert-cloning)
 * [powershell-history-file](#powershell-history-file)
   
-## get-clsid-exec-rundll32
+## dll-behind-clsid-InprocServer32
 ```powershell
+# return the DLL behind a CLSID (PS object)
 get-item "HKCU:\SOFTWARE\Classes\CLSID\*"
-get-item "HKLM:\SOFTWARE\Classes\CLSID\*"
+get-itemproperty "HKLM:\SOFTWARE\Classes\CLSID\{FFFDC614-B694-4AE6-AB38-5D6374584B52}\InprocServer32"
+
+# 3AD05575-8857-4850-9277-11B85BDB8E09 => UAC bypass => TTP "COM surrogate" => write DLL in 'system32'
+reg query hkey_classes_root\clsid\{3AD05575-8857-4850-9277-11B85BDB8E09}
 ```
+- [DLL hijack of CFF](https://www.ired.team/offensive-security/privilege-escalation/t1038-dll-hijacking#observations)
+- [COM Surrogate IFileOperation](https://www.elastic.co/security-labs/exploring-windows-uac-bypasses-techniques-and-detection-strategies)
 
 ## <a name='get-adcomputer'></a>infection-usb-andromeda
 ```powershell
