@@ -21,7 +21,7 @@ permalink: /dfir/win/live
 get-item "HKCU:\SOFTWARE\Classes\CLSID\*"
 get-itemproperty "HKLM:\SOFTWARE\Classes\CLSID\{FFFDC614-B694-4AE6-AB38-5D6374584B52}\InprocServer32"
 
-# 3AD05575-8857-4850-9277-11B85BDB8E09 => UAC bypass => TTP "COM surrogate" => write DLL in 'system32'
+# special CLSID => 3AD05575-8857-4850-9277-11B85BDB8E09 => UAC bypass => TTP "COM surrogate" => write DLL in 'system32'
 reg query hkey_classes_root\clsid\{3AD05575-8857-4850-9277-11B85BDB8E09}
 ```
 - [DLL hijack of CFF](https://www.ired.team/offensive-security/privilege-escalation/t1038-dll-hijacking#observations)
