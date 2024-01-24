@@ -9,7 +9,6 @@ permalink: /dfir/win
 
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
-* [dll](#dll)
 * [eventlogs](#eventlogs)
   * [eventlogs-all](#eventlogs-all)
   * [eventlogs-dns](#eventlogs-dns)
