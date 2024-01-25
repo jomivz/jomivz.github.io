@@ -257,8 +257,8 @@ Stopped  fpeca              Forcepoint Endpoint Context Agent
 Stopped  fpneonetworksvc    Forcepoint Network Proxy
 
 # 03 # service status detailed
-sc queryex type=service state=all | findstr /i WSPXY
-sc queryex type=service state=all | findstr /i FPDIAG
+sc query WSPXY
+sc query FPDIAG
 ```
 
 ### <a name='get-status-defender'></a>get-status-defender
