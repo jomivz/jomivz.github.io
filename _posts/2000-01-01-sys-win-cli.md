@@ -156,6 +156,13 @@ Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
 ```powershell
 # listing windows processes
 wmic process get CSName,Description,ExecutablePath,ProcessId /format:csv
+
+# services by status
+Get-Service | Where-Object {$_.Status -eq "Running"}
+Get-Service | Where-Object {$_.Status -eq "Stopped"}
+
+#service specific
+Get-Service | Where-Object {$_.Name -like "**"}
 ```
 
 ### <a name='get-sessions'></a>get-sessions
@@ -214,12 +221,16 @@ netsh firewall show portopening
 
 ### <a name='get-status-proxy'></a>get-status-proxy
 ```powershell
-#V1
+# Windows
 netsh winhttp show proxy
-#V2
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
-# V3
 (Get-ItemProperty -Path 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable
+
+# ForcePoint WebSense
+dir HKLM:\SOFTWARE\Websense
+Invoke-WebRequest -URI http://query.webdefence.global.blackspider.com/?with=all
+sc queryex type=service state=all | findstr /i forcepoint
+sc queryex type=service state=all | findstr /i websense
 ```
 
 ### <a name='get-status-defender'></a>get-status-defender
