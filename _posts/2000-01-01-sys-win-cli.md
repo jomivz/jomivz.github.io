@@ -221,16 +221,44 @@ netsh firewall show portopening
 
 ### <a name='get-status-proxy'></a>get-status-proxy
 ```powershell
-# Windows
+##############################
+#
+#          Windows
+#
 netsh winhttp show proxy
 reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 (Get-ItemProperty -Path 'Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings').ProxyEnable
 
-# ForcePoint WebSense
+##############################
+#
+#      ForcePoint WebSense
+#
+#
+# 01 # config local and saas
 dir HKLM:\SOFTWARE\Websense
 Invoke-WebRequest -URI http://query.webdefence.global.blackspider.com/?with=all
-sc queryex type=service state=all | findstr /i forcepoint
-sc queryex type=service state=all | findstr /i websense
+#
+# 02 # service names and status
+Get-Service | Where-Object{$_.DisplayName -like "*websense*"}
+
+Status   Name               DisplayName
+------   ----               -----------
+Stopped  WSDLP              Websense Client Agent
+Running  WSPXY              Websense SaaS Service
+Stopped  WSRF               Websense Desktop Client
+Stopped  WSTS               Websense DCEP Service
+
+Get-Service | Where-Object{$_.DisplayName -like "*Forcepoint*"}
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  FPDIAG             Forcepoint Endpoint Diagnostics
+Stopped  fpeca              Forcepoint Endpoint Context Agent
+Stopped  fpneonetworksvc    Forcepoint Network Proxy
+
+# 03 # service status detailed
+sc queryex type=service state=all | findstr /i WSPXY
+sc queryex type=service state=all | findstr /i FPDIAG
 ```
 
 ### <a name='get-status-defender'></a>get-status-defender
