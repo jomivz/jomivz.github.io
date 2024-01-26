@@ -71,9 +71,12 @@ reg delete hklm\software\microsoft\Windows\CurrentVersion\Run /v 139750_owned
 
 1/ How-to investigate such abuse:
 
-```
 # method 1: Listing the parameters of each service in the group in arg of svchost with -k option
-for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')" 
+```cmd
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')"
+```
+```powershell
+foreach ($i in (Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST' | select -expandProperty LocalServiceNoNetwork)) { (Get-ItemProperty hklm:\system\CurrentControlSet\Services\$i).Description } 
 ```
 
 2/ To list exhaustively the scheduled tasks, run the cmd:
