@@ -3,18 +3,40 @@ layout: post
 title:  dfir / win /live
 category: sys
 parent: cheatsheets
-modified_date: 2024-01-24
+modified_date: 2024-01-26
 permalink: /dfir/win/live
 ---
 
 <!-- vscode-markdown-toc -->
+
+* [execution-via-svchost](#execution-via-svchost)
+* [uncommon-dll-paths](#uncommon-dll-paths)
 * [dll-behind-clsid-InprocServer32](#dll-behind-clsid-InprocServer32)
 * [infection-usb-andromeda](#infection-usb-andromeda)
 * [infection-webshell-coldfusion](#infection-webshell-coldfusion)
 * [mark-of-the-web](#mark-of-the-web)
 * [code-signing-cert-cloning](#code-signing-cert-cloning)
 * [powershell-history-file](#powershell-history-file)
-  
+
+## execution-via-svchost
+```powershell
+# The process **svchost** loads services group via the **-k** parameter.
+# Services group are listed in the registry key `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SVCHOST`.
+# Services declared in the groups have an entry in `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services`.
+# list out  with cmd.exe
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')"
+# powershell list out
+foreach ($i in (Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST' | select -expandProperty LocalServiceNoNetwork)) { (Get-ItemProperty hklm:\system\CurrentControlSet\Services\$i).Description } 
+```
+
+## uncommon-dll-paths
+```powershell
+# list out ServiceDLL value for all system services
+# look for DLLs that are loaded from suspicious locations (i.e non c:\windows\system32)
+# https://www.ired.team/offensive-security/persistence/persisting-in-svchost.exe-with-a-service-dll-servicemain
+Get-ItemProperty hklm:\SYSTEM\ControlSet001\Services\*\Parameters | ? { $_.servicedll } | select psparentpath, servicedll
+```
+
 ## dll-behind-clsid-InprocServer32
 ```powershell
 # return the DLL behind a CLSID (PS object)
