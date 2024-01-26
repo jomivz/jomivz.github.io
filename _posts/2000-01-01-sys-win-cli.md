@@ -20,6 +20,7 @@ permalink: /sys/win
 	* [get-gpo](#get-gpo)
 	* [get-products](#get-products)
 	* [get-processes](#get-processes)
+ 	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
@@ -150,6 +151,11 @@ wmic PRODUCT get Description,InstallDate,InstallLocation,PackageCache,Vendor,Ver
 wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /format:csv
 # winrm service
 Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
+```
+
+### <a name='get-services'></a>get-scheduled-tasks
+```powershell
+schtasks /query /fo LIST /v
 ```
 
 ### <a name='get-services'></a>get-services
