@@ -44,14 +44,14 @@ permalink: /sys/win/logs
 
 
 
-## <a name='WindowsUse-cases'></a>Windows Use-cases
+## <a name='WindowsUse-cases'></a>wow-sources
 
 | Reference | Description |
 |-----------|-------------|
 | [UWS securitylog encyclopedia](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx) | Full Security logs listing (format, fields, values). |
 | [UWS securitylog cheatsheet](https://github.com/jomivz/cybrary/blob/master/uws_securitylog_cheatsheet.pdf) | authentication, users and groups changes. |
 | [EHM classified events](https://www.eyehatemalwares.com/incident-response/eventlog-analysis/) | Account, Process & PS exec, Files access, Network share, Service, Scheduled tasks, FW, Applocker, Audit log, USB, Registry. |
-| [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png) | 🔥 Full classification (DDL load, code integrity, windows updates, GPO, bitlocker and all classics! | 
+| [mdecrevoisier mindmap](/assets/images/for-win-logs-auditing-baseline-map.png) | 🔥 Full classification (DLL load, code integrity, windows updates, GPO, bitlocker and all classics! | 
 
 ## <a name='Figureoutactivity'></a>providers
 ```powershell
