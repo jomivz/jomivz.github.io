@@ -43,13 +43,15 @@ permalink: /sys/win/logs
 <!-- /vscode-markdown-toc -->
 
 
+
 ## <a name='WindowsUse-cases'></a>Windows Use-cases
 
-🔥 ENCYCLOPEDIA: [ultimatewindowssecurity](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx) 🔥
-
-🔥 EXHAUSTIVE USE-CASES LISTING: [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)  🔥
-
-🔥 FORENSICS USE-CASES LISTING: [eyehatemalwares](https://eyehatemalwares.com/incident-response/eventlog-analysis/) 🔥
+| Reference | Description |
+|-----------|-------------|
+| [UWS securitylog encyclopedia](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx) | Full Security logs listing (format, fields, values). |
+| [UWS securitylog cheatsheet](https://github.com/jomivz/cybrary/blob/master/uws_securitylog_cheatsheet.pdf) | authentication, users and groups changes. |
+| [EHM classified events](https://www.eyehatemalwares.com/incident-response/eventlog-analysis/) | Account, Process & PS exec, Files access, Network share, Service, Scheduled tasks, FW, Applocker, Audit log, USB, Registry. |
+| [mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png) | 🔥 Full classification (DDL load, code integrity, windows updates, GPO, bitlocker and all classics! | 
 
 ## <a name='Figureoutactivity'></a>providers
 ```powershell
@@ -61,7 +63,7 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```
 
-## logon
+## account logon
 
 ![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
 
@@ -123,6 +125,8 @@ Client = $event.UserData.EventXML.Param3
 } $EventData | FT
 ```
 
+## account changes
+
 ## <a name='ProcessExecutions'></a>proc-execs
 
 ![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
@@ -135,6 +139,46 @@ Client = $event.UserData.EventXML.Param3
 ```powershell
 # cisco anyconnect
 Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
+```
+
+## Files access
+```powershell
+```
+
+## Network share
+```powershell
+```
+
+## Services
+```powershell
+```
+
+## Scheduled tasks
+```powershell
+```
+
+## firewall
+```powershell
+```
+
+## AMSI
+```powershell
+```
+
+## Applocker
+```powershell
+```
+
+## Audit log
+```powershell
+```
+
+## USB
+```powershell
+```
+
+## Registry
+```powershell
 ```
 
 ## ad
