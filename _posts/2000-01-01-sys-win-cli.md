@@ -155,6 +155,10 @@ Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
 
 ### <a name='get-services'></a>get-scheduled-tasks
 ```powershell
+# list a specific tasks
+schtasks /query /TN "Bitlocker" /fo LIST
+
+# list all tasks
 schtasks /query /fo LIST /v
 ```
 
