@@ -56,6 +56,11 @@ permalink: /sys/mac
 
 ```
 
+### set-filevault
+```sh
+sudo fdesetup enable
+```
+
 ### <a name='set-krb'></a>set-krb
 ```sh
 # list the DC
@@ -122,6 +127,13 @@ echo "" > ~/.bash_history
 
 ### <a name='get-os'></a>get-os
 ### <a name='get-kb'></a>get-kb
+```
+# To list available updates
+sudo softwareupdate --list
+ 
+# To install all available updates
+sudo softwareupdate --install --all  
+```
 ### <a name='get-netconf'></a>get-netconf
 ```
 # network card
@@ -138,6 +150,9 @@ lsof –i
 netstat -ntaupe
 netstat -ant
 watch ss -tt
+
+# check if remote control is disabled
+sudo systemsetup -getdisableremotecontrol        
 
 # dns
 cat /etc/hosts
@@ -178,6 +193,21 @@ service --status-all
 # List running services (systemd)
 systemctl list-units --type=service
 ```
+### <a name='get-services'></a>get-periodic-scripts
+```
+# get periodic scripts
+find /etc/periodic -type f -exec ls -l {} \;
+
+# get periodic executions
+grep "periodic" /var/log/system.log
+
+# set back to default permissions
+sudo chmod -R 755 /etc/periodic
+sudo chown -R root:wheel /etc/periodic
+
+# disable script
+sudo chmod -x /etc/periodic/daily/500.daily
+```
 
 ### <a name='get-sessions'></a>get-sessions
 ```
@@ -190,14 +220,23 @@ last | grep -v 00:
 ```
 
 ## <a name='enum-sec'></a>enum-sec
+### <a name='get-boot-integrity'></a>get-login-hook
+```sh
+# Login and Logout hooks are defined in the com.apple.loginwindow.plist file located in the ~/Library/Preferences/
+# Ensure that only authorized users have write access to the com.apple.loginwindow.plist file.
+sudo chmod 644 ~/Library/Preferences/com.apple.loginwindow.plist
+sudo chown root:wheel ~/Library/Preferences/com.apple.loginwindow.plist
+```
 
 ### <a name='get-boot-integrity'></a>get-app-integrity
 ```sh
 spctl -a -vvv -t install /Volumes/Install/Installer.app
+codesign --verify --verbose /path/to/library.dylib
 ```
 
-### <a name='get-boot-integrity'></a>get-boot-integrity
+### <a name='get-boot-integrity'></a>get-startup-items
 ```sh
+ls /Library/StartupItems/
 ```
 
 ### <a name='get-apt-history'></a>get-port-history
