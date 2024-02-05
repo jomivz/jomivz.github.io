@@ -30,8 +30,9 @@ permalink: /sys/mac
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
 * [enum-sec](#enum-sec)
+	* [get-app-integrity](#get-port-history)
+        * [get-boot-integrity](#get-boot-integrity)
 	* [get-port-history](#get-port-history)
-	* [get-boot-integrity](#get-boot-integrity)
 	* [get-krb-config](#get-krb-config)
 	* [get-status-fw](#get-status-fw)
 	* [get-status-proxy](#get-status-proxy)
@@ -190,13 +191,18 @@ last | grep -v 00:
 
 ## <a name='enum-sec'></a>enum-sec
 
-### <a name='get-apt-history'></a>get-port-history
-```
+### <a name='get-boot-integrity'></a>get-app-integrity
+```sh
+spctl -a -vvv -t install /Volumes/Install/Installer.app
 ```
 
 ### <a name='get-boot-integrity'></a>get-boot-integrity
 ```sh
 ```
+
+### <a name='get-apt-history'></a>get-port-history
+```
+``` 
 
 ### <a name='get-krb-config'></a>get-krb-config
 
