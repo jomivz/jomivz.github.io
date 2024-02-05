@@ -61,6 +61,23 @@ permalink: /sys/mac
 sudo fdesetup enable
 ```
 
+### set-syslogd
+```sh
+#
+# 01 ### server-side # ensure the syslog daemon is running with networking enabled.
+sudo /usr/sbin/syslogd -s   # ‘-s’ enables network socket
+#
+# 02 ### client-side # edit /etc/syslog.conf
+echo "*.* @loghost.example.com" | sudo tee -a /etc/syslog.conf   # Replace 'loghost.example.com' with your remote log host
+#
+# 03 ### server-side # restart syslogd
+sudo launchctl unload /System/Library/LaunchDaemons/com.apple.syslogd.plist
+#
+# 04 ### server-side # validate the log collection
+tail -f /var/log/syslog   # Run this on the remote log host
+#
+```
+
 ### <a name='set-krb'></a>set-krb
 ```sh
 # list the DC
@@ -280,9 +297,26 @@ echo $FTP_PROXY
 * [linoxide](https://linoxide.com/enable-sshd-logging/)
 
 ## <a name='harden'></a>harden
+### get-security-logs
+```sh
+grep “SecurityAlert” /var/log/syslog 
+```
 
 ### <a name='disable-llmnr'></a>disable-llmnr
 ```
-# Edit the line LLMNR=yes to LLMNR=no in /etc/systemd/resolved.conf
-nano /etc/systemd/resolved.conf
+Configuring Audit Control:
+
+Edit the /etc/security/audit_control file to specify the auditing policies.
+
+sudo nano /etc/security/audit_control
+
+Modify the file to include the desired flags and event classes.
+
+Starting the Audit Daemon:
+
+sudo audit -s
+
+Verifying Audit Configuration:
+
+sudo audit -l
 ```
