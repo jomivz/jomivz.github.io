@@ -218,9 +218,9 @@ cd HKLM:
 
 | Browser    | OS         | Path                                                               |
 |------------|------------|--------------------------------------------------------------------|
-| Edge       | Windows    | C:\Users\<username>\AppData\Local\Microsoft\Edge\User Data\Default |
-| Chrome     | Windows XP | %Rootdrive%\Users\\%userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
-| Chrome     | Windows 10 | %Rootdrive%\Users\\%userprofile%\AppData\Local\Google\Chrome\User Data\Default |
+| Edge       | Windows    | %userprofile%\AppData\Local\Microsoft\Edge\User Data\Default |
+| Chrome     | Windows XP | %userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
+| Chrome     | Windows 10 | %userprofile%\AppData\Local\Google\Chrome\User Data\Default |
 | Chrome     | Linux      | /home/%username%/.config/google-chrome/Default |
 | Chrome     | Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
 | Chrome     | iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
