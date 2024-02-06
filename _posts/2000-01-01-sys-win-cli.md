@@ -3,7 +3,7 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2023-11-15
+modified_date: 2024-02-06
 permalink: /sys/win
 ---
 
@@ -51,6 +51,7 @@ permalink: /sys/win
 	* [unset-restricted-admin-mode](#unset-restricted-admin-mode)
 	* [dl-ps-ad-module](#dl-ps-ad-module)
 * [harden](#harden)
+	* [set-msdefender](#set-msdefender)
 	* [disable-llmnr](#disable-llmnr)
 	* [disable-ms-msdt](#disable-ms-msdt)
 	* [schtasks-secure-pwd](#schtasks-secure-pwd)
@@ -439,6 +440,15 @@ iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com
 ```
 
 ## <a name='harden'></a>harden
+
+### <a name='disable-llmnr'></a>set-msdefender
+```powershell
+# disable monitoring
+Set-MpPreference -DisableRealtimeMonitoring 0
+# enable monitoring
+Set-MpPreference -DisableRealtimeMonitoring 1
+```
+
 ### <a name='disable-llmnr'></a>disable-llmnr
 ```
 REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
