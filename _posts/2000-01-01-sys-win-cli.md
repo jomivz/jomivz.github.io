@@ -126,9 +126,14 @@ nltest /dclist:dom.corp
 
 ### <a name='get-users'></a>get-users
 ```powershell
-# listing local users
+# get local users
 wmic netlogin list brief
 net user
+
+# get acconut creation date
+dir /tc C:\Users
+
+# get local groups and members 
 net localgroup
 net localgroup Administrators
 ```
