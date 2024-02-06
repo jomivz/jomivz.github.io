@@ -26,3 +26,9 @@ permalink: /dfir/mlw/pe
 | get bin signatures | hashdump |
 | dump strings | strings, floss, xorsearch; PEStudio |
 | detect packing | exeinfo, |
+
+## <a name='flare'></a>virustotal
+```sh
+# VT malware download
+curl -k  --insecure --request GET -L --output my_malware --url https://www.virustotal.com/api/v3/files/<my_malware_id>/download --header 'x-apikey:'
+```
