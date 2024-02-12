@@ -232,11 +232,12 @@ cd HKLM:
 
 ## wer
 ```powershell
+# 2024-02-12 / Persistence / POC
 # https://github.com/0xHossam/WERPersistence/tree/main
 C:\ProgramData\Microsoft\Windows\WER\ReportQueue\*.wer
 
+# 2023-01-04 / Execution / pupy RAT / DLL side-loading / APT33 
 # https://www.bleepingcomputer.com/news/security/hackers-abuse-windows-error-reporting-tool-to-deploy-malware/
-# APT33 / pupy RAT / DLL side-loading 
 werfault.dll
 ```
 **References**
