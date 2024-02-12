@@ -3,7 +3,7 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2023-12-22
+modified_date: 2024-02-12
 permalink: /dfir/win
 ---
 
@@ -19,6 +19,7 @@ permalink: /dfir/win
   * [reg-history](#reg-history)
   * [reg-extra](#reg-extra)
 * [web-browser](#web-browser)
+* [wer](#wer)
   
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -229,5 +230,14 @@ cd HKLM:
 | Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
 | Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 
+## wer
+```powershell
+# https://github.com/0xHossam/WERPersistence/tree/main
+C:\ProgramData\Microsoft\Windows\WER\ReportQueue\*.wer
+
+# https://www.bleepingcomputer.com/news/security/hackers-abuse-windows-error-reporting-tool-to-deploy-malware/
+# APT33 / pupy RAT / DLL side-loading 
+werfault.dll
+```
 **References**
 - [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
