@@ -13,8 +13,7 @@ permalink: /edr/falcon
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
 	* [lin-ps](#lin-ps)
-* [xql](#xql)
-	* [get-pub-ip](#get-pub-ip)
+* [spl](#spl)
 	* [get-flow](#get-flow)
 	* [get-flow-wan](#get-flow-wan)
 	* [get-flow-lan](#get-flow-lan)
@@ -109,6 +108,28 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 | where isnotnull(userName) 
 | sort +ComputerName, +_time 
 | search NOT clientIP IN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1) 
+```
+## <a name='get-flow-smb'></a>jq
+
+### jq-rtr
+```
+############################
+# CROWDSTRIKE FALCON
+# get commands run by scheduled tasks
+cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Enabled") | .Task_To_Run'
+
+# get 
+# count the scheduled tasks enabled
+cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
+```
+
+### jq-events
+```
+# detection TCP/IP traffic
+
+# detection dns
+
+# detection hash, filename, gp
 ```
 
 ### <a name='get-flow-smb'></a>get-flow-smb
