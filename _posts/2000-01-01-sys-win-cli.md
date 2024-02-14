@@ -131,6 +131,11 @@ nltest /dclist:dom.corp
 wmic netlogin list brief
 net user
 
+# get local users, SID
+Get-WmiObject win32_useraccount | Select name,sid
+wmic useraccount get name,sid
+wmic useraccount where name=john.doe get sid 
+
 # get acconut creation date
 dir /tc C:\Users
 
