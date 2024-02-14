@@ -122,11 +122,16 @@ cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Ena
 
 ### jq-over-spl-export-json
 ```
-# detection TCP/IP traffic
+# get ioc from detection events
+# DOMAINS
+cat detections.json | jq -r '.result."DnsRequests{}.DomainName"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' > ioc_doms.txt
+cut -f2,3 -d. ioc_doms.txt | sort -u > ioc_top_doms.txt
 
-# detection dns
+# PUBLIC IPs
+cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_ip.txt
 
-# detection hash, filename, gp
+# MD5 hashes
+cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
 ```
 
 ### <a name='get-flow-smb'></a>get-flow-smb
