@@ -40,20 +40,17 @@ permalink: /edr/falcon
 ## <a name='enum'></a>enum
 
 ### <a name='win-enum'></a>win-enum
-
-* enum falcon on windows OS:
 ```powershell
-
+Get-Service | Where-Object{$_.DisplayName -like "*falcon*"}
 ```
 
 ### <a name='lin-enum'></a>lin-enum
-
 ```bash
 ```
 
 ## <a name='fql'></a>
 
-### ia-get-bulk-dl-files
+### get-bulk-dl-files
 ```
 # INITIAL ACCESS (ia) / ON MANY ASSETS (bulk) / File downloaded (pdf, word, tar, zip, etc.)  
 #
@@ -111,7 +108,7 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 ```
 ## <a name='get-flow-smb'></a>jq
 
-### jq-rtr
+### jq-over-rtr-scripts-json
 ```
 ############################
 # CROWDSTRIKE FALCON
@@ -123,7 +120,7 @@ cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Ena
 cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
 ```
 
-### jq-events
+### jq-over-spl-export-json
 ```
 # detection TCP/IP traffic
 
