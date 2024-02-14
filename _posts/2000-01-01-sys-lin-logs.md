@@ -45,13 +45,6 @@ cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="url") | .wha
 # get all drive by download + hashes
 cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="file") | [.what.sha256,.what.path]| @csv' | tr -d \" > drive-by-dl.csv'
 
-############################
-# CROWDSTRIKE FALCON
-# get commands run by scheduled tasks
-cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Enabled") | .Task_To_Run'
-
-# count the scheduled tasks enabled
-cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
 ```
 
 ## sed
