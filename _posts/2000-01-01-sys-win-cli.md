@@ -26,6 +26,7 @@ permalink: /sys/win
 	* [last-sessions](#last-sessions)
 	* [get-path](#get-path)
 	* [get-pipes](#get-pipes)
+ 	* [get-vss](#get-vss) 
 * [enum-sec](#enum-sec)
 	* [get-file-hash](#get-file-hash)
 	* [get-status-fw](#get-status-fw)
@@ -223,6 +224,17 @@ gci env:path | fl *
 ```powershell
 # printnightmare / CVE-2021-1675/CVE-2021-34527 / 
 ls \\localhost\pipe\spoolss
+```
+
+### <a name='get-vss'></a>get-vss
+```powershell
+# listing
+vssadmin list shadows
+vssadmin list shadowstorage
+vssadmin list volumes
+
+# create a shadow copy for C:
+vssadmin create shadow /for=c:
 ```
 
 ## <a name='enum-sec'></a>enum-sec
