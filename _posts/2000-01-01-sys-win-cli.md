@@ -26,6 +26,7 @@ permalink: /sys/win
 	* [last-sessions](#last-sessions)
 	* [get-path](#get-path)
 	* [get-pipes](#get-pipes)
+ 	* [get-usb-devices](#get-usb-devices)
  	* [get-vss](#get-vss) 
 * [enum-sec](#enum-sec)
 	* [get-file-hash](#get-file-hash)
@@ -224,6 +225,13 @@ gci env:path | fl *
 ```powershell
 # printnightmare / CVE-2021-1675/CVE-2021-34527 / 
 ls \\localhost\pipe\spoolss
+```
+
+### get-usb-devices
+```
+# https://www.shellhacks.com/windows-lsusb-equivalent-powershell/
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | Format-List
 ```
 
 ### <a name='get-vss'></a>get-vss
