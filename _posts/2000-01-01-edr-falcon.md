@@ -288,32 +288,4 @@ cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/
 cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
 ```
 
-### <a name='get-sensitive-services'></a>get-sensitive-services
-```
-```
-
-### <a name='get-registry-activity'></a>get-registry-activity
-```
-```
-
-### <a name='get-creds'></a>get-creds
-```sh
-```
-
-| loots | $_KEYWORD_$ |
-|-------|----------------------------|
-| Kubernetes | "kubectl config set-credentials" |
-| Container Registry X | "docker login" |  
-| Container Registry Azure | "azucr." |
-| DB sysdba | "sysdba" |
-| DB x | "sqlplus -s " |
-| password | " -pass" |
-| password | " -p " |
-| password | " -cred" |
-| psexec | "psexec " |
-
-* Looking for the Windows registry ([T1552.002](https://attack.mitre.org/techniques/T1552/002/)):
-```sh
-```
-
 
