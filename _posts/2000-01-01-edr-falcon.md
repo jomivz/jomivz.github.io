@@ -12,7 +12,7 @@ permalink: /edr/falcon
 * [enum](#enum)
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
-* [cql-detetions](#cql-detetions)
+* [cql-detections](#cql-detections)
 * [cql-exe](#cql-exe)
 	* [exe-lolbas-1](#exe-lolbas-1)
 	* [exe-lolbas-2](#exe-lolbas-2)
@@ -38,8 +38,8 @@ permalink: /edr/falcon
 	* [added-local-admin](#added-local-admin)
 	* [added-scheduled-tasks](#added-scheduled-tasks)
 * [jq](#jq)
-	* [jq-over-rtr-scripts-json](#jq-over-rtr-scripts-json)
-	* [jq-over-spl-export-json](#jq-over-spl-export-json)
+	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
+	* [jq-over-detections-export](#jq-over-detections-export)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -64,7 +64,7 @@ Get-Service | Where-Object{$_.DisplayName -like "*falcon*"}
 ```bash
 ```
 
-## <a name='cql-detetions'></a>cql-detetions
+## <a name='cql-detections'></a>cql-detections
 ```
 # 60 DAYS DETECTION BACKLOG FOR A COMPUTER
 ExternalApiType=Event_DetectionSummaryEvent ComputerName=
@@ -279,7 +279,7 @@ event_platform=win event_simpleName=ScheduledTask*
 
 ## <a name='jq'></a>jq
 
-### <a name='jq-over-rtr-scripts-json'></a>jq-over-rtr-scripts-json
+### <a name='jq-over-rtr-scripts'></a>jq-over-rtr-scripts
 ```
 ############################
 # CROWDSTRIKE FALCON
@@ -291,7 +291,7 @@ cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Ena
 cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
 ```
 
-### <a name='jq-over-spl-export-json'></a>jq-over-spl-export-json
+### <a name='jq-over-detections-export'></a>jq-over-detections-export
 ```
 # get IOC DOMAINS
 cat detections.json | jq -r '.result."DnsRequests{}.DomainName"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' > ioc_doms.txt
