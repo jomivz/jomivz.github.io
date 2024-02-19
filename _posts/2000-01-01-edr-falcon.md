@@ -3,7 +3,7 @@ layout: post
 title: edr / falcon
 parent: cheatsheets
 category: edr
-modified_date: 2023-11-16
+modified_date: 2024-02-19
 permalink: /edr/falcon
 ---
 
@@ -48,20 +48,119 @@ Get-Service | Where-Object{$_.DisplayName -like "*falcon*"}
 ```bash
 ```
 
-## <a name='fql'></a>
+## cql-detetions
+```
+# 60 DAYS DETECTION BACKLOG FOR A COMPUTER
+ExternalApiType=Event_DetectionSummaryEvent ComputerName=
+#
+# 60 DAYS DETECTION BACKLOG FOR COMPUTERS SCOPE
+ExternalApiType=Event_DetectionSummaryEvent  
+| where like (ComputerName,”UK%”)
+```
 
-### get-bulk-dl-files
+## <a name='cql'></a> cql-exe
+
+### <a name='get-flow-lan'></a>exe-lolbas-1
+```
+event_simpleName=ProcessRollup2 AND FileName="bcdedit.exe" 
+| where like(ComputerName,"DC%")
+| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+```
+
+### <a name='get-flow-lan'></a>exe-lolbas-2
+```
+event_simpleName=ProcessRollup2 AND FileName="msedge.exe"  
+| WHERE like(ComputerName,"DC%") AND like(CommandLine,"%msedge.exe%network.mojom.NetworkService%") 
+| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+```
+
+### <a name='get-flow-lan'></a>exe-pe
+```
+ComputerName= event_simpleName="PeFileWritten" FileName IN ("*.exe*") 
+| table _time, event_simpleName, SHA256HashData,FileName,FilePath,OriginalFilename 
+| sort - _time
+```
+![](/assets/images/edr_falcon_cql_exe_pe.png)
+
+### <a name='get-flow-lan'></a>exe-pe-randomized
+```
+# FilePath and FileName randomized
+# Pattern found from the commandline detected / blocked 
+ComputerName= sourcetype=ImageHashV6-v02  
+ | where like (ImageFileName,"%\ProgramData\%Driver%") 
+ | table _time, MD5HashData, FileName, FilePath
+```
+![](/assets/images/edr_falcon_cql_exe_pe_random.png)
+
+### <a name='get-flow-lan'></a>exe-powershell-1
+```
+Wallpaper.ps1 
+| where isnotnull (DetectId)  
+| table _time, UserName, DetectName, CommandLine 
+```
+![](/assets/images/edr_falcon_cql_ps1.png)
+
+### <a name='get-flow-lan'></a>exe-powershell-2
+```
+ComputerName= event_simpleName="NewScriptWritten" FileName IN ("*.ps*") 
+| table _time, event_simpleName, SHA256HashData,FileName,FilePath,OriginalFilename 
+| sort - _time 
+```
+![](/assets/images/edr_falcon_cql_ps2.png)
+
+### <a name='get-flow-lan'></a>exe-utilman-abuse
+```
+ComputerName= Utilman ImageFileName!="*conhost.exe" 
+| search NOT event_simpleName IN (PeVersionInfo, ClassifiedModuleLoad, ImageHash) 
+|  table _time event_simpleName  ParentBaseFileName  ImageFileName CommandLine RegObjectName RegValueName TargetFileName RemoteAddressIP4
+| sort 0 –_time
+```
+![](/assets/images/edr_falcon_cql_utilman.png)
+
+
+## <a name='get-flow-wan'></a>cql-fs-io
+
+### <a name='get-flow-wan'></a>fs-conns-usb
+* CQL 1 : get connected usb media
+```
+ComputerName= event_simpleName=RemovableMedia* OR event_simpleName IN (DcUsbDeviceDisconnected,DcUsbDeviceConnected)
+| table _time aid event_simpleName ComputerName VolumeDriveLetter DiskParentDeviceInstanceId DeviceManufacturer DeviceProduct DeviceInstanceId DeviceSerialNumber VolumeName
+| rename DiskParentDeviceInstanceId as "Device Hardware/Vendor ID", VolumeDriveLetter as "Volume Drive Letter", ComputerName as "Hostname", aid as AID, DeviceInstanceId as "Device Hardware/Vendor ID (External HDD)", DeviceSerialNumber as "Serial Number"  
+| sort _time
+```
+* CQL 2 : get files written to usb media
+```
+ComputerName= (((event_simpleName=DcUsbDeviceConnected AND DevicePropertyDeviceDescription="USB Mass Storage Device" AND DeviceInstanceId="USB*" )) OR (event_simpleName="*written*" AND DiskParentDeviceInstanceId="USB*"))| eval matchfield=coalesce(DeviceInstanceId,DiskParentDeviceInstanceId) | table _time, ComputerName, event_simpleName, DeviceManufacturer, DeviceProduct, DeviceSerialNumber, DiskParentDeviceInstanceId, TargetFileName
+```
+![](edr_falcon_cql_fsio_usb_2.png)
+
+### <a name='get-flow-lan'></a>fs-deleted-exe
+```
+ComputerName= sourcetype="ExecutableDeleted*"
+| table _time, TargetFileName 
+```
+
+### <a name='get-flow'></a>fs-dl-files
+```
+# INITIAL ACCESS / ONE TARGET / Files downloaded from the Internet 
+#
+# Useful for: the Zone identifier stores whether the file was downloaded from the internet.
+# Type 3 Zone Identifiers show the URL the file was downloaded from. 
+#
+ComputerName=  event_simpleName=MotwWritten  ZoneIdentifier_decimal=3
+| table _time event_simpleName FileName Zone* HostUrl ReferrerUrl 
+```
+
+### fs-dl-files-bulk
 ```
 # INITIAL ACCESS (ia) / ON MANY ASSETS (bulk) / File downloaded (pdf, word, tar, zip, etc.)  
 #
 # Description: Useful to determine the scope targeted that may require further investigations. 
 # For a file related to a phishing campain, if the client (used for the download) is a web browser, should have an ADS with Zone.identifier = 3. If the client (used for the download) is the “outlook heavy client”, it remains to check.
 #
-# Incident Type(s): Malware / Phishing .
-#
 # Event simple name for file: PngFileWritten, PdfFileWritten RtfFileWritten MSXlsxFileWritten MSDocxFileWritten 
 # RarFileWritten SevenZipFileWritten TarFileWritten ZipFileWritten NewExecutableWritten PeFileWritten
-
+#
 FileName= event_simpleName=PdfFileWritten  
 | rename ContextTimeStamp_decimal as writtenTime 
 | eval fileSizeMB=round(((Size_decimal/1024)/1024),2) 
@@ -69,27 +168,17 @@ FileName= event_simpleName=PdfFileWritten
 | convert ctime(writtenTime)  
 ```
 
-### <a name='get-flow'></a>----ia-get-dl-files
-```
-# INITIAL ACCESS / ONE TARGET / Files downloaded from the Internet 
-#
-# Useful for: the Zone identifier stores whether the file was downloaded from the internet.
-# Type 3 Zone Identifiers show the URL the file was downloaded from. 
+## <a name='cql'></a> cql-net
 
-#
-ComputerName=  event_simpleName=MotwWritten  ZoneIdentifier_decimal=3
-| table _time event_simpleName FileName Zone* HostUrl ReferrerUrl 
+### net-conns-krb
+```
+ComputerName= event_platform=win event_simpleName=UserLogon
+| eval LogonType = case(LogonType_decimal==2 , "Interactive, ex: typing user name and password on Windows logon prompt", LogonType_decimal==3, "Network;access from the network", LogonType_decimal==4, "Batch,processes  executing on behalf of a user; ex : scheduled task", LogonType_decimal==5, "Service;  service  configured to log on as a user started by the Service Control Manage.",LogonType_decimal==7, "Workstation Unlocked", LogonType_decimal==8, "Network_ClearText; ex : IIS", LogonType_decimal==9, "New_Credentials", LogonType_decimal==10, "RemoteInteractive; remote connection using Terminal Services or Remote Desktop",LogonType_decimal==11, "Cached Interactive ; network credentials stored locally used, not DC", LogonType_decimal==12, "Cached Remote Interactive", LogonType_decimal==13, "Cached Unlock")  
+| table _time ComputerName UserName ClientComputerName LogonDomain RemoteAddressIP4 LogonType_decimal LogonType 
+| sort - _time
 ```
 
-### <a name='get-flow-wan'></a>----ia-get-usb-conns
-```
-ComputerName= event_simpleName=RemovableMedia* OR event_simpleName IN (DcUsbDeviceDisconnected,DcUsbDeviceConnected)
-| table _time aid event_simpleName ComputerName VolumeDriveLetter DiskParentDeviceInstanceId DeviceManufacturer DeviceProduct DeviceInstanceId DeviceSerialNumber VolumeName
-| rename DiskParentDeviceInstanceId as "Device Hardware/Vendor ID", VolumeDriveLetter as "Volume Drive Letter", ComputerName as "Hostname", aid as AID, DeviceInstanceId as "Device Hardware/Vendor ID (External HDD)", DeviceSerialNumber as "Serial Number"  
-| sort _time
-```
-
-### <a name='get-flow-lan'></a>-ia-lm-get-ssh-conns-lin
+### <a name='get-flow-lan'></a>net-conns-ssh-lin
 ```
 event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, EnvironmentVariableName IN (SSH_CONNECTION, USER)  
 | eventstats list(EnvironmentVariableName) as EnvironmentVariableName,list(EnvironmentVariableValue) as EnvironmentVariableValue by aid, ContextProcessId_decimal 
@@ -106,6 +195,72 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 | sort +ComputerName, +_time 
 | search NOT clientIP IN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1) 
 ```
+
+### <a name='get-flow-lan'></a>net-conns-teamviewer
+```
+(RPort=5938 OR RPort=5939) event_simpleName=NetworkConnectIP4 
+| where cidrmatch("192.168.110.0/24",LocalIP) AND like(ComputerName,"DC%") 
+| table _time, ComputerName, LPort, LocalIP, RemoteIP, RPort  
+| sort _time 
+```
+
+### <a name='get-flow-lan'></a>net-conns-smb
+```
+(RPort=5938 OR RPort=5939) event_simpleName=NetworkConnectIP4 
+| where cidrmatch("192.168.110.0/24",LocalIP) AND like(ComputerName,"DC%") 
+| table _time, ComputerName, LPort, LocalIP, RemoteIP, RPort  
+| sort _time 
+```
+
+### <a name='get-flow-lan'></a>net-conns-www
+```
+ComputerName= event_simpleName=NetworkConnectIP4 
+| where not (cidrmatch("192.168.0.0/16",RemoteIP) OR cidrmatch("172.16.0.0/12",RemoteIP) OR cidrmatch("10.0.0.0/8",RemoteIP) OR cidrmatch("224.0.0.0/4",RemoteIP))  
+| table _time, LPort, LocalIP, RemoteIP, RPort 
+```
+
+### <a name='get-flow-lan'></a>net-dns-req-1
+```
+ComputerName= event_simpleName=DnsRequest* 
+| table _time, CNAMERecords, DomaineName, IP4Records 
+```
+
+### <a name='get-flow-lan'></a>net-dns-req-2
+```
+ComputerName=  sourcetype="DnsRequest*"  
+| where not like(DomainName,"%in-addr.arpa") 
+| dedup DomainName 
+| table DomainName 
+```
+
+## cql-tamper
+
+### added-local-admin
+```
+ComputerName= (index=main sourcetype=UserAccountAddedToGroup* event_platform=win event_simpleName=UserAccountAddedToGroup) OR (index=main sourcetype=ProcessRollup2* event_platform=win event_simpleName=ProcessRollup2) 
+| eval falconPID=coalesce(TargetProcessId_decimal, RpcClientProcessId_decimal) 
+| rename UserName as responsibleUserName 
+| rename UserSid_readable as responsibleUserSID 
+| eval GroupRid_dec=tonumber(ltrim(tostring(GroupRid), "0"), 16) 
+| eval UserRid_dec=tonumber(ltrim(tostring(UserRid), "0"), 16) 
+| eval UserSid_readable=DomainSid. "-" .UserRid_dec 
+| lookup local=true userinfo.csv UserSid_readable OUTPUT UserName 
+| lookup local=true grouprid_wingroup.csv GroupRid_dec OUTPUT WinGroup 
+| fillnull value="-" UserName responsibleUserName 
+| stats dc(event_simpleName) as eventCount, values(ProcessStartTime_decimal) as processStartTime, values(FileName) as responsibleFile, values(CommandLine) as responsibleCmdLine, values(responsibleUserSID) as responsibleUserSID, values(responsibleUserName) as responsibleUserName, values(WinGroup) as windowsGroupName, values(GroupRid_dec) as windowsGroupRID, values(UserName) as addedUserName, values(UserSid_readable) as addedUserSID by aid, falconPID 
+| where eventCount>1  
+| eval ProcExplorer=case(falconPID!="","https://falcon.us-2.crowdstrike.com/investigate/process-explorer/" .aid. "/" . falconPID) 
+| convert ctime(processStartTime) 
+| table processStartTime, aid, responsibleUserSID, responsibleUserName, responsibleFile, responsibleCmdLine, addedUserSID, addedUserName, windowsGroupRID, windowsGroupName, ProcExplorer  
+```
+
+### <a name='get-flow-lan'></a>added-scheduled-tasks
+```
+event_platform=win event_simpleName=ScheduledTask*  
+| table ContextTimeStamp_decimal ComputerName UserName event_simpleName TaskAuthor Task*  
+| convert ctime(ContextTimeStamp_decimal) 
+```
+
 ## <a name='get-flow-smb'></a>jq
 
 ### jq-over-rtr-scripts-json
@@ -122,66 +277,26 @@ cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Ena
 
 ### jq-over-spl-export-json
 ```
-# get ioc from detection events
-# DOMAINS
+# get IOC DOMAINS
 cat detections.json | jq -r '.result."DnsRequests{}.DomainName"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' > ioc_doms.txt
 cut -f2,3 -d. ioc_doms.txt | sort -u > ioc_top_doms.txt
 
-# PUBLIC IPs
+# get IOC PUBLIC IPs
 cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_ip.txt
 
-# MD5 hashes
+# get IOC MD5 hashes
 cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
 ```
 
-### <a name='get-flow-smb'></a>get-flow-smb
-
-Spot SMB connections for IP 10.0.0.1
-```
-```
-
-### <a name='get-flow-origin'></a>get-flow-origin
-
-List network sessions with processes for a set of endpoints:
-```
-```
-
-### <a name='get-flow-origin'></a>get-ssh-origin
-
-List SSH connections for a set of endpoint:
-```
-ComputerName=XXXXXXW AND event_simpleName=CriticalEnvironmentVariableChanged, EnvironmentVariableName IN (SSH_CONNECTION, USER) 
-| eventstats list(EnvironmentVariableName) as EnvironmentVariableName,list(EnvironmentVariableValue) as EnvironmentVariableValue by aid, ContextProcessId_decimal
-| eval tempData=mvzip(EnvironmentVariableName,EnvironmentVariableValue,":")
-| rex field=tempData "SSH_CONNECTION\:((?<clientIP>\d+\.\d+\.\d+\.\d+)\s+(?<rPort>\d+)\s+(?<serverIP>\d+\.\d+\.\d+\.\d+)\s+(?<lPort>\d+))"
-| rex field=tempData "USER\:(?<userName>.*)"
-| where isnotnull(clientIP)
-| iplocation clientIP
-| lookup local=true aid_master aid OUTPUT Version as osVersion, Country as sshServerCountry
-| fillnull City, Country, Region value="-"
-| table _time aid ComputerName sshServerCountry osVersion serverIP lPort userName clientIP rPort City Region Country
-| where isnotnull(userName)
-| sort +ComputerName, +_time
-```
-
-### <a name='get-data-uploads'></a>get-data-uploads
-
-Top uploads by remote port:
-```
-```
-
 ### <a name='get-sensitive-services'></a>get-sensitive-services
-Public sensitive services exposed in the Internet:
 ```
 ```
 
 ### <a name='get-registry-activity'></a>get-registry-activity
-Get actions over the windows registry for PC001:
 ```
 ```
 
 ### <a name='get-creds'></a>get-creds
-* Looking for the process executions:
 ```sh
 ```
 
