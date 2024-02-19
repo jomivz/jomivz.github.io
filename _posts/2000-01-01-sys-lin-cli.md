@@ -26,6 +26,7 @@ permalink: /sys/lin
 	* [get-shares](#get-shares)
 	* [get-users](#get-users)
 	* [get-processes](#get-processes)
+	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
@@ -169,7 +170,7 @@ ps –aux
 lsof -p [pid]
 ps -eo pid,tt,user,fname,rsz
 ```
-### <a name='get--scheduled-tasks'></a>get-scheduled-tasks
+### <a name='get-scheduled-tasks'></a>get-scheduled-tasks
 ```
 crontab -u root -l
 cat /etc/crontab

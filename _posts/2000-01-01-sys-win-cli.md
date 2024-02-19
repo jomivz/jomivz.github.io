@@ -20,14 +20,14 @@ permalink: /sys/win
 	* [get-gpo](#get-gpo)
 	* [get-products](#get-products)
 	* [get-processes](#get-processes)
- 	* [get-scheduled-tasks](#get-scheduled-tasks)
+	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
 	* [last-sessions](#last-sessions)
 	* [get-path](#get-path)
 	* [get-pipes](#get-pipes)
- 	* [get-usb-devices](#get-usb-devices)
- 	* [get-vss](#get-vss) 
+	* [get-usb-devices](#get-usb-devices)
+	* [get-vss](#get-vss)
 * [enum-sec](#enum-sec)
 	* [get-file-hash](#get-file-hash)
 	* [get-status-fw](#get-status-fw)
@@ -166,7 +166,7 @@ wmic service get Caption,Name,PathName,ServiceType,Started,StartMode,StartName /
 Get-WmiObject -Class win32_service | Where-Object {$_.name -like "WinRM"}
 ```
 
-### <a name='get-services'></a>get-scheduled-tasks
+### <a name='get-scheduled-tasks'></a>get-scheduled-tasks
 ```powershell
 # list a specific tasks
 schtasks /query /TN "Bitlocker" /fo LIST
@@ -227,7 +227,7 @@ gci env:path | fl *
 ls \\localhost\pipe\spoolss
 ```
 
-### get-usb-devices
+### <a name='get-usb-devices'></a>get-usb-devices
 ```
 # https://www.shellhacks.com/windows-lsusb-equivalent-powershell/
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
@@ -466,7 +466,7 @@ iex (new-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com
 
 ## <a name='harden'></a>harden
 
-### <a name='disable-llmnr'></a>set-msdefender
+### <a name='set-msdefender'></a>set-msdefender
 ```powershell
 # disable monitoring
 Set-MpPreference -DisableRealtimeMonitoring 0

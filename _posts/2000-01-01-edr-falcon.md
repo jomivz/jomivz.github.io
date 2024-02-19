@@ -12,18 +12,34 @@ permalink: /edr/falcon
 * [enum](#enum)
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
-	* [lin-ps](#lin-ps)
-* [spl](#spl)
-	* [get-flow](#get-flow)
-	* [get-flow-wan](#get-flow-wan)
-	* [get-flow-lan](#get-flow-lan)
-	* [get-flow-smb](#get-flow-smb)
-	* [get-flow-origin](#get-flow-origin)
-	* [get-ssh-origin](#get-flow-origin)
-	* [get-data-uploads](#get-data-uploads)
-	* [get-sensitive-services](#get-sensitive-services)
-	* [get-registry-activity](#get-registry-activity)
-	* [get-creds](#get-creds)
+* [cql-detetions](#cql-detetions)
+* [cql-exe](#cql-exe)
+	* [exe-lolbas-1](#exe-lolbas-1)
+	* [exe-lolbas-2](#exe-lolbas-2)
+	* [exe-pe](#exe-pe)
+	* [exe-pe-randomized](#exe-pe-randomized)
+	* [exe-powershell-1](#exe-powershell-1)
+	* [exe-powershell-2](#exe-powershell-2)
+	* [exe-utilman-abuse](#exe-utilman-abuse)
+* [cql-fs-io](#cql-fs-io)
+	* [fs-conns-usb](#fs-conns-usb)
+	* [fs-deleted-exe](#fs-deleted-exe)
+	* [fs-dl-files](#fs-dl-files)
+	* [fs-dl-files-bulk](#fs-dl-files-bulk)
+* [ cql-net](#cql-net)
+	* [net-conns-krb](#net-conns-krb)
+	* [net-conns-ssh-lin](#net-conns-ssh-lin)
+	* [net-conns-teamviewer](#net-conns-teamviewer)
+	* [net-conns-smb](#net-conns-smb)
+	* [net-conns-www](#net-conns-www)
+	* [net-dns-req-1](#net-dns-req-1)
+	* [net-dns-req-2](#net-dns-req-2)
+* [cql-tamper](#cql-tamper)
+	* [added-local-admin](#added-local-admin)
+	* [added-scheduled-tasks](#added-scheduled-tasks)
+* [jq](#jq)
+	* [jq-over-rtr-scripts-json](#jq-over-rtr-scripts-json)
+	* [jq-over-spl-export-json](#jq-over-spl-export-json)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -48,7 +64,7 @@ Get-Service | Where-Object{$_.DisplayName -like "*falcon*"}
 ```bash
 ```
 
-## cql-detetions
+## <a name='cql-detetions'></a>cql-detetions
 ```
 # 60 DAYS DETECTION BACKLOG FOR A COMPUTER
 ExternalApiType=Event_DetectionSummaryEvent ComputerName=
@@ -58,23 +74,23 @@ ExternalApiType=Event_DetectionSummaryEvent
 | where like (ComputerName,”UK%”)
 ```
 
-## <a name='cql'></a> cql-exe
+## <a name='cql-exe'></a>cql-exe
 
-### <a name='get-flow-lan'></a>exe-lolbas-1
+### <a name='exe-lolbas-1'></a>exe-lolbas-1
 ```
 event_simpleName=ProcessRollup2 AND FileName="bcdedit.exe" 
 | where like(ComputerName,"DC%")
 | table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
 ```
 
-### <a name='get-flow-lan'></a>exe-lolbas-2
+### <a name='exe-lolbas-2'></a>exe-lolbas-2
 ```
 event_simpleName=ProcessRollup2 AND FileName="msedge.exe"  
 | WHERE like(ComputerName,"DC%") AND like(CommandLine,"%msedge.exe%network.mojom.NetworkService%") 
 | table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
 ```
 
-### <a name='get-flow-lan'></a>exe-pe
+### <a name='exe-pe'></a>exe-pe
 ```
 ComputerName= event_simpleName="PeFileWritten" FileName IN ("*.exe*") 
 | table _time, event_simpleName, SHA256HashData,FileName,FilePath,OriginalFilename 
@@ -82,7 +98,7 @@ ComputerName= event_simpleName="PeFileWritten" FileName IN ("*.exe*")
 ```
 ![](/assets/images/edr_falcon_cql_exe_pe.png)
 
-### <a name='get-flow-lan'></a>exe-pe-randomized
+### <a name='exe-pe-randomized'></a>exe-pe-randomized
 ```
 # FilePath and FileName randomized
 # Pattern found from the commandline detected / blocked 
@@ -92,7 +108,7 @@ ComputerName= sourcetype=ImageHashV6-v02
 ```
 ![](/assets/images/edr_falcon_cql_exe_pe_random.png)
 
-### <a name='get-flow-lan'></a>exe-powershell-1
+### <a name='exe-powershell-1'></a>exe-powershell-1
 ```
 Wallpaper.ps1 
 | where isnotnull (DetectId)  
@@ -100,7 +116,7 @@ Wallpaper.ps1
 ```
 ![](/assets/images/edr_falcon_cql_ps1.png)
 
-### <a name='get-flow-lan'></a>exe-powershell-2
+### <a name='exe-powershell-2'></a>exe-powershell-2
 ```
 ComputerName= event_simpleName="NewScriptWritten" FileName IN ("*.ps*") 
 | table _time, event_simpleName, SHA256HashData,FileName,FilePath,OriginalFilename 
@@ -108,7 +124,7 @@ ComputerName= event_simpleName="NewScriptWritten" FileName IN ("*.ps*")
 ```
 ![](/assets/images/edr_falcon_cql_ps2.png)
 
-### <a name='get-flow-lan'></a>exe-utilman-abuse
+### <a name='exe-utilman-abuse'></a>exe-utilman-abuse
 ```
 ComputerName= Utilman ImageFileName!="*conhost.exe" 
 | search NOT event_simpleName IN (PeVersionInfo, ClassifiedModuleLoad, ImageHash) 
@@ -118,9 +134,9 @@ ComputerName= Utilman ImageFileName!="*conhost.exe"
 ![](/assets/images/edr_falcon_cql_utilman.png)
 
 
-## <a name='get-flow-wan'></a>cql-fs-io
+## <a name='cql-fs-io'></a>cql-fs-io
 
-### <a name='get-flow-wan'></a>fs-conns-usb
+### <a name='fs-conns-usb'></a>fs-conns-usb
 * CQL 1 : get connected usb media
 ```
 ComputerName= event_simpleName=RemovableMedia* OR event_simpleName IN (DcUsbDeviceDisconnected,DcUsbDeviceConnected)
@@ -134,13 +150,13 @@ ComputerName= (((event_simpleName=DcUsbDeviceConnected AND DevicePropertyDeviceD
 ```
 ![](edr_falcon_cql_fsio_usb_2.png)
 
-### <a name='get-flow-lan'></a>fs-deleted-exe
+### <a name='fs-deleted-exe'></a>fs-deleted-exe
 ```
 ComputerName= sourcetype="ExecutableDeleted*"
 | table _time, TargetFileName 
 ```
 
-### <a name='get-flow'></a>fs-dl-files
+### <a name='fs-dl-files'></a>fs-dl-files
 ```
 # INITIAL ACCESS / ONE TARGET / Files downloaded from the Internet 
 #
@@ -151,7 +167,7 @@ ComputerName=  event_simpleName=MotwWritten  ZoneIdentifier_decimal=3
 | table _time event_simpleName FileName Zone* HostUrl ReferrerUrl 
 ```
 
-### fs-dl-files-bulk
+### <a name='fs-dl-files-bulk'></a>fs-dl-files-bulk
 ```
 # INITIAL ACCESS (ia) / ON MANY ASSETS (bulk) / File downloaded (pdf, word, tar, zip, etc.)  
 #
@@ -168,9 +184,9 @@ FileName= event_simpleName=PdfFileWritten
 | convert ctime(writtenTime)  
 ```
 
-## <a name='cql'></a> cql-net
+## <a name='cql-net'></a> cql-net
 
-### net-conns-krb
+### <a name='net-conns-krb'></a>net-conns-krb
 ```
 ComputerName= event_platform=win event_simpleName=UserLogon
 | eval LogonType = case(LogonType_decimal==2 , "Interactive, ex: typing user name and password on Windows logon prompt", LogonType_decimal==3, "Network;access from the network", LogonType_decimal==4, "Batch,processes  executing on behalf of a user; ex : scheduled task", LogonType_decimal==5, "Service;  service  configured to log on as a user started by the Service Control Manage.",LogonType_decimal==7, "Workstation Unlocked", LogonType_decimal==8, "Network_ClearText; ex : IIS", LogonType_decimal==9, "New_Credentials", LogonType_decimal==10, "RemoteInteractive; remote connection using Terminal Services or Remote Desktop",LogonType_decimal==11, "Cached Interactive ; network credentials stored locally used, not DC", LogonType_decimal==12, "Cached Remote Interactive", LogonType_decimal==13, "Cached Unlock")  
@@ -178,7 +194,7 @@ ComputerName= event_platform=win event_simpleName=UserLogon
 | sort - _time
 ```
 
-### <a name='get-flow-lan'></a>net-conns-ssh-lin
+### <a name='net-conns-ssh-lin'></a>net-conns-ssh-lin
 ```
 event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, EnvironmentVariableName IN (SSH_CONNECTION, USER)  
 | eventstats list(EnvironmentVariableName) as EnvironmentVariableName,list(EnvironmentVariableValue) as EnvironmentVariableValue by aid, ContextProcessId_decimal 
@@ -196,7 +212,7 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 | search NOT clientIP IN (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1) 
 ```
 
-### <a name='get-flow-lan'></a>net-conns-teamviewer
+### <a name='net-conns-teamviewer'></a>net-conns-teamviewer
 ```
 (RPort=5938 OR RPort=5939) event_simpleName=NetworkConnectIP4 
 | where cidrmatch("192.168.110.0/24",LocalIP) AND like(ComputerName,"DC%") 
@@ -204,7 +220,7 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 | sort _time 
 ```
 
-### <a name='get-flow-lan'></a>net-conns-smb
+### <a name='net-conns-smb'></a>net-conns-smb
 ```
 (RPort=5938 OR RPort=5939) event_simpleName=NetworkConnectIP4 
 | where cidrmatch("192.168.110.0/24",LocalIP) AND like(ComputerName,"DC%") 
@@ -212,20 +228,20 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 | sort _time 
 ```
 
-### <a name='get-flow-lan'></a>net-conns-www
+### <a name='net-conns-www'></a>net-conns-www
 ```
 ComputerName= event_simpleName=NetworkConnectIP4 
 | where not (cidrmatch("192.168.0.0/16",RemoteIP) OR cidrmatch("172.16.0.0/12",RemoteIP) OR cidrmatch("10.0.0.0/8",RemoteIP) OR cidrmatch("224.0.0.0/4",RemoteIP))  
 | table _time, LPort, LocalIP, RemoteIP, RPort 
 ```
 
-### <a name='get-flow-lan'></a>net-dns-req-1
+### <a name='net-dns-req-1'></a>net-dns-req-1
 ```
 ComputerName= event_simpleName=DnsRequest* 
 | table _time, CNAMERecords, DomaineName, IP4Records 
 ```
 
-### <a name='get-flow-lan'></a>net-dns-req-2
+### <a name='net-dns-req-2'></a>net-dns-req-2
 ```
 ComputerName=  sourcetype="DnsRequest*"  
 | where not like(DomainName,"%in-addr.arpa") 
@@ -233,9 +249,9 @@ ComputerName=  sourcetype="DnsRequest*"
 | table DomainName 
 ```
 
-## cql-tamper
+## <a name='cql-tamper'></a>cql-tamper
 
-### added-local-admin
+### <a name='added-local-admin'></a>added-local-admin
 ```
 ComputerName= (index=main sourcetype=UserAccountAddedToGroup* event_platform=win event_simpleName=UserAccountAddedToGroup) OR (index=main sourcetype=ProcessRollup2* event_platform=win event_simpleName=ProcessRollup2) 
 | eval falconPID=coalesce(TargetProcessId_decimal, RpcClientProcessId_decimal) 
@@ -254,16 +270,16 @@ ComputerName= (index=main sourcetype=UserAccountAddedToGroup* event_platform=win
 | table processStartTime, aid, responsibleUserSID, responsibleUserName, responsibleFile, responsibleCmdLine, addedUserSID, addedUserName, windowsGroupRID, windowsGroupName, ProcExplorer  
 ```
 
-### <a name='get-flow-lan'></a>added-scheduled-tasks
+### <a name='added-scheduled-tasks'></a>added-scheduled-tasks
 ```
 event_platform=win event_simpleName=ScheduledTask*  
 | table ContextTimeStamp_decimal ComputerName UserName event_simpleName TaskAuthor Task*  
 | convert ctime(ContextTimeStamp_decimal) 
 ```
 
-## <a name='get-flow-smb'></a>jq
+## <a name='jq'></a>jq
 
-### jq-over-rtr-scripts-json
+### <a name='jq-over-rtr-scripts-json'></a>jq-over-rtr-scripts-json
 ```
 ############################
 # CROWDSTRIKE FALCON
@@ -275,7 +291,7 @@ cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Ena
 cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
 ```
 
-### jq-over-spl-export-json
+### <a name='jq-over-spl-export-json'></a>jq-over-spl-export-json
 ```
 # get IOC DOMAINS
 cat detections.json | jq -r '.result."DnsRequests{}.DomainName"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' > ioc_doms.txt

@@ -10,23 +10,38 @@ permalink: /sys/win/logs
 **MENU**
 
 <!-- vscode-markdown-toc -->
-* [Windows Use-cases](#WindowsUse-cases)
-	* [Figure out activity](#Figureoutactivity)
-	* [Authentications](#Authentications)
-	* [Process Executions](#ProcessExecutions)
-	* [Network Connections](#NetworkConnections)
-	* [AD Abuse of Delegation](#ADAbuseofDelegation)
-	* [AD DS Replication](#ADDSReplication)
-	* [Windows Defender logs](#WindowsDefenderlogs)
-	* [Potential logs tampering](#Potentiallogstampering)
-	* [Email Compromise](#EmailCompromise)
-* [Logs activation](#Logsactivation)
-	* [Activate AMSI logging](#ActivateAMSIlogging)
-	* [Activate DNS debug logs](#ActivateDNSdebuglogs)
-	* [Activate Firewall logs](#ActivateFirewalllogs)
-	* [Activate Firewall logs / Managed](#ActivateFirewalllogsManaged)
-* [Extras](#Extras)
-	* [Artifacts](#Artifacts)
+* [wow-sources](#wow-sources)
+* [providers](#providers)
+* [account logon](#accountlogon)
+	* [logon-interactive](#logon-interactive)
+	* [logon-network](#logon-network)
+	* [rdp](#rdp)
+* [account changes](#accountchanges)
+* [proc-execs](#proc-execs)
+* [net-conns](#net-conns)
+* [Files access](#Filesaccess)
+* [Network share](#Networkshare)
+* [Services](#Services)
+* [Scheduled tasks](#Scheduledtasks)
+* [firewall](#firewall)
+* [AMSI](#AMSI)
+* [Applocker](#Applocker)
+* [Audit log](#Auditlog)
+* [USB](#USB)
+* [Registry](#Registry)
+* [ad](#ad)
+	* [ad-abuse-of-delegation](#ad-abuse-of-delegation)
+	* [ad-ds-replication](#ad-ds-replication)
+	* [windows-defender](#windows-defender)
+	* [logs-tampering](#logs-tampering)
+	* [email-compromise](#email-compromise)
+* [logs-activation](#logs-activation)
+	* [activate-amsi-logs](#activate-amsi-logs)
+	* [activate-dns-debug-logs](#activate-dns-debug-logs)
+	* [activate-firewall-logs](#activate-firewall-logs)
+	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
+* [extras](#extras)
+	* [artifacts](#artifacts)
 	* [MindMap for Windows OS](#MindMapforWindowsOS)
 	* [MindMap for MS Active Directory](#MindMapforMSActiveDirectory)
 	* [MindMap for MS Exchange](#MindMapforMSExchange)
@@ -44,7 +59,7 @@ permalink: /sys/win/logs
 
 
 
-## <a name='WindowsUse-cases'></a>wow-sources
+## <a name='wow-sources'></a>wow-sources
 
 | Reference | Description |
 |-----------|-------------|
@@ -53,7 +68,7 @@ permalink: /sys/win/logs
 | [EHM classified events](https://www.eyehatemalwares.com/incident-response/eventlog-analysis/) | Account, Process & PS exec, Files access, Network share, Service, Scheduled tasks, FW, Applocker, Audit log, USB, Registry. |
 | [mdecrevoisier mindmap](/assets/images/for-win-logs-auditing-baseline-map.png) | 🔥 Full classification (DLL load, code integrity, windows updates, GPO, bitlocker and all classics! | 
 
-## <a name='Figureoutactivity'></a>providers
+## <a name='providers'></a>providers
 ```powershell
 # listing categories sort descending by recordcount
 Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object LogName, RecordCount, IsClassicLog, IsEnabled, LogMode, LogType | Sort-Object -Descending -Property RecordCount | FT -autosize
@@ -63,11 +78,11 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```
 
-## account logon
+## <a name='accountlogon'></a>account logon
 
 ![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
 
-### <a name='Authentications'></a>logon-interactive
+### <a name='logon-interactive'></a>logon-interactive
 ```powershell
 # 'C:\Windows\System32\winevt\logs\Security.evtx'
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']]]"
@@ -96,7 +111,7 @@ Where-Object {$_.TimeCreated -gt $date1 -and $_.TimeCreated -lt $date2} | Foreac
 }
 ```
 
-### <a name='Authentications'></a>logon-network
+### <a name='logon-network'></a>logon-network
 ```powershell
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']] and *[EventData[Data[@Name='LogonType']='3']]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
@@ -109,7 +124,7 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
 }
 ```
 
-### rdp
+### <a name='rdp'></a>rdp
 ```powershell
 # EventID 1149: Remote Desktop Services: User authentication succeeded
 # Eventvwr.msc > Applications and Services Logs -> Microsoft -> Windows -> Terminal-Services-RemoteConnectionManager > Operational
@@ -125,13 +140,13 @@ Client = $event.UserData.EventXML.Param3
 } $EventData | FT
 ```
 
-## account changes
+## <a name='accountchanges'></a>account changes
 
-## <a name='ProcessExecutions'></a>proc-execs
+## <a name='proc-execs'></a>proc-execs
 
 ![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
-## <a name='NetworkConnections'></a>net-conns
+## <a name='net-conns'></a>net-conns
 
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
@@ -141,48 +156,48 @@ Client = $event.UserData.EventXML.Param3
 Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
 ```
 
-## Files access
+## <a name='Filesaccess'></a>Files access
 ```powershell
 ```
 
-## Network share
+## <a name='Networkshare'></a>Network share
 ```powershell
 ```
 
-## Services
+## <a name='Services'></a>Services
 ```powershell
 ```
 
-## Scheduled tasks
+## <a name='Scheduledtasks'></a>Scheduled tasks
 ```powershell
 ```
 
-## firewall
+## <a name='firewall'></a>firewall
 ```powershell
 ```
 
-## AMSI
+## <a name='AMSI'></a>AMSI
 ```powershell
 ```
 
-## Applocker
+## <a name='Applocker'></a>Applocker
 ```powershell
 ```
 
-## Audit log
+## <a name='Auditlog'></a>Audit log
 ```powershell
 ```
 
-## USB
+## <a name='USB'></a>USB
 ```powershell
 ```
 
-## Registry
+## <a name='Registry'></a>Registry
 ```powershell
 ```
 
-## ad
-### <a name='ADAbuseofDelegation'></a>ad-abuse-of-delegation
+## <a name='ad'></a>ad
+### <a name='ad-abuse-of-delegation'></a>ad-abuse-of-delegation
 
 ```powershell
 # hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
@@ -195,7 +210,7 @@ Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
 Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
 ```
 
-### <a name='ADDSReplication'></a>ad-ds-replication
+### <a name='ad-ds-replication'></a>ad-ds-replication
 
 * hunting for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
 
@@ -209,7 +224,7 @@ Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateTo
 (Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
 ```
 
-### <a name='WindowsDefenderlogs'></a>windows-defender
+### <a name='windows-defender'></a>windows-defender
 
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
 - [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
@@ -223,19 +238,19 @@ Get-WinEvent –FilterHashtable @{'logname'='application'; 'id'=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 ```
 
-### <a name='Potentiallogstampering'></a>logs-tampering
+### <a name='logs-tampering'></a>logs-tampering
 
 - [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
 - [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
 - [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
 
-### <a name='EmailCompromise'></a>email-compromise
+### <a name='email-compromise'></a>email-compromise
 
 - [Microsoft-eventlog-mindmap \ windows-email-compromise-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
 
-## <a name='Logsactivation'></a>logs-activation
+## <a name='logs-activation'></a>logs-activation
 
-### <a name='ActivateAMSIlogging'></a>activate-amsi-logs
+### <a name='activate-amsi-logs'></a>activate-amsi-logs
 ```powershell
 $AutoLoggerName = 'MyAMSILogger'
 $AutoLoggerGuid = "{$((New-Guid).Guid)}"
@@ -243,7 +258,7 @@ New-AutologgerConfig -Name $AutoLoggerName -Guid $AutoLoggerGuid -Start Enabled
 Add-EtwTraceProvider -AutologgerName $AutoLoggerName -Guid '{2A576B87-09A7-520E-C21A-4942F0271D67}' -Level 0xff -MatchAnyKeyword ([UInt64] (0x8000000000000001 -band ([UInt64]::MaxValue))) -Property 0x41
 ```
 
-### <a name='ActivateDNSdebuglogs'></a>activate-dns-debug-logs
+### <a name='activate-dns-debug-logs'></a>activate-dns-debug-logs
 ```
 # Default path:
 #  - %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
@@ -261,7 +276,7 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
-### <a name='ActivateFirewalllogs'></a>activate-firewall-logs
+### <a name='activate-firewall-logs'></a>activate-firewall-logs
 ```powershell
 # Run this command to check if the logging is enabled
 netsh advfirewall show allprofiles
@@ -291,7 +306,7 @@ Select-String -Path $fwlog -Pattern “drop”
 Get-Content c:\windows\system32\LogFiles\Firewall\pfirewall.log
 ```
 
-### <a name='ActivateFirewalllogsManaged'></a>activate-firewall-logs-managed 
+### <a name='activate-firewall-logs-managed'></a>activate-firewall-logs-managed 
 
 ```powershell
 # Prefer the GUID than the subcategory name / avoid OS language issues
@@ -311,9 +326,9 @@ eventvwr.msc
 - Filter event IDs 5152,5156,5158 :
 [Firewall EIDs | 4949 to 4958](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
 
-## <a name='Extras'></a>extras
+## <a name='extras'></a>extras
 
-### <a name='Artifacts'></a>artifacts
+### <a name='artifacts'></a>artifacts
 
 To get the EVTX filenames and paths, go to [jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles](https://www.jmvwork.xyz/forensics/for-win-artifacts/#EventlogsFiles).
 

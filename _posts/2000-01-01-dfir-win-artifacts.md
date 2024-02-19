@@ -10,17 +10,18 @@ permalink: /dfir/win
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
 * [eventlogs](#eventlogs)
-  * [eventlogs-all](#eventlogs-all)
-  * [eventlogs-dns](#eventlogs-dns)
+	* [eventlogs-all](#eventlogs-all)
+	* [eventlogs-dns](#eventlogs-dns)
 * [ntfs](#ntfs)
 * [ntds-dit](#ntds-dit)
+* [powershell-history](#powershell-history)
 * [reg](#reg)
-  * [regripper](#regripper)
-  * [reg-history](#reg-history)
-  * [reg-extra](#reg-extra)
+	* [regripper](#regripper)
+	* [reg-history](#reg-history)
+	* [reg-extra](#reg-extra)
 * [web-browser](#web-browser)
 * [wer](#wer)
-  
+
 <!-- vscode-markdown-toc-config
 	numbering=false
 	autoSave=true
@@ -103,7 +104,7 @@ NTFS metafiles :
 ls %SystemRoot%\NTDS\Ntds.dit
 ```
 
-## powershell-history
+## <a name='powershell-history'></a>powershell-history
 ```
 # https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlineoption?view=powershell-7.4&viewFallbackFrom=powershell-6
 Get-PSReadLineOption
@@ -215,7 +216,7 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
-## web-browser
+## <a name='web-browser'></a>web-browser
 
 | Browser    | OS         | Path                                                               |
 |------------|------------|--------------------------------------------------------------------|
@@ -230,7 +231,7 @@ cd HKLM:
 | Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
 | Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 
-## wer
+## <a name='wer'></a>wer
 ```powershell
 # 2024-02-12 / Persistence / POC
 # https://github.com/0xHossam/WERPersistence/tree/main
