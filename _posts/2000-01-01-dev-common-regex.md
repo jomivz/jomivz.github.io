@@ -1,4 +1,4 @@
----
+![image](https://github.com/jomivz/jomivz.github.io/assets/22774233/146a3cc7-0ac3-40fa-b934-6acb63f0d213)---
 layout: post
 title: dev / regex
 category: dev
@@ -50,6 +50,15 @@ Refer to the [Python regex cheatsheet](/docs/development/python-regular-expressi
 ```sh
 [^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+
 grep -Eiorh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})'
+```
+
+## <a name='email'></a>hexa bytes
+```sh
+# match 10 hexa bytes
+(([a-z|0-9]){2} ){10}
+
+# example: removing trailing hexa with sed
+| sed 's/\(\([a-z|0-9]\)\{2\} \)\{10\}.*$//'
 ```
 
 ## <a name='ipv4'></a>ipv4
