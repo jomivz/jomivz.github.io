@@ -12,6 +12,7 @@ permalink: /dev/regex
 * [date](#date)
 * [domain](#domain)
 * [email](#email)
+* [hexa bytes](#hexabytes)
 * [ipv4](#ipv4)
 * [ipv6](#ipv6)
 * [password](#password)
@@ -52,7 +53,7 @@ Refer to the [Python regex cheatsheet](/docs/development/python-regular-expressi
 grep -Eiorh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})'
 ```
 
-## <a name='email'></a>hexa bytes
+## <a name='hexabytes'></a>hexa bytes
 ```sh
 # match 10 hexa bytes
 (([a-z|0-9]){2} ){10}
