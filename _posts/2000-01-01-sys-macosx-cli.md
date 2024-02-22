@@ -160,8 +160,8 @@ ip link
 arp -a
 
 # listening socket
-netstat -nap and
-lsof –i
+netstat -nap
+lsof -nP -iTCP | grep LISTEN
 
 # network connections
 netstat -ntaupe
