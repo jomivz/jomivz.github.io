@@ -216,6 +216,7 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
+
 ## <a name='web-browser'></a>web-browser
 
 | Browser    | OS         | Path                                                               |
