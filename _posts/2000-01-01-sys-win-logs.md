@@ -78,9 +78,25 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```
 
-## <a name='accountlogon'></a>account logon
+## <a name='accountlogon'></a>account-logon
 
 ![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
+
+### logon
+```powershell
+#TO DEBUG
+cd C:\Windows\SysWOW64
+set "FROM=2024-02-25T00:00:00"
+set "TO=2024-02-27T00:00:00"
+set "XPATH=*[System[TimeCreated[@SystemTime >= '%FROM%' and @SystemTime < '%TO%'] and System[(EventID='4624')] and (EventData[Data[@Name='LogonType'] and (Data='2' or Data='7' or Data='10' or Data='11')]) and (EventData[Data[@Name='WorkstationName'] and (Data='DC01')]) and (EventData[Data[@Name='LogonProcessName'] and (Data='User32 ')])]"
+./wevtutil.exe qe Security /c:30 /rd:true /f:xml /e:root /q:"%XPATH%"
+./wevtutil.exe qe Security /q:"%XPATH%" /c:30 /rd:true /f:xml /e:Events
+
+
+./wevtutil.exe qe Security "/q:*[System[TimeCreated[timediff(@SystemTime) <= 5184000000]]  /c:1 /rd:true /f:xml /e:Events
+
+./wevtutil.exe qe Security "/q:*[System[TimeCreated[timediff(@SystemTime) <= 5184000000]] and System[(EventID='4624')] and (EventData[Data[@Name='LogonType'] and (Data='2' or Data='7' or Data='10' or Data='11')]) and (EventData[Data[@Name='WorkstationName'] and (Data='DC01')]) and (EventData[Data[@Name='LogonProcessName'] and (Data='User32 ')])]" /c:1 /rd:true /f:xml /e:Events
+```
 
 ### <a name='logon-interactive'></a>logon-interactive
 ```powershell
@@ -97,6 +113,8 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
 
 $date1 = [datetime]"1/12/2024"
 $date2 = [datetime]"1/15/2024"
+set "date1=2024-02-25T00:00:00"
+set "date2=2024-02-27T00:00:00"
 $time  = [datetime]"1/13/2021 8:00:37"
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM'] and TimeCreated[timediff(@SystemTime) <= 300000]]]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path 'C:\Windows\System32\winevt\logs\Security.evtx' |
@@ -124,7 +142,7 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
 }
 ```
 
-### <a name='rdp'></a>rdp
+### <a name='rdp'></a>logon-rdp
 ```powershell
 # EventID 1149: Remote Desktop Services: User authentication succeeded
 # Eventvwr.msc > Applications and Services Logs -> Microsoft -> Windows -> Terminal-Services-RemoteConnectionManager > Operational
@@ -140,11 +158,27 @@ Client = $event.UserData.EventXML.Param3
 } $EventData | FT
 ```
 
-## <a name='accountchanges'></a>account changes
+## <a name='accountchanges'></a>account-changes
 
-## <a name='proc-execs'></a>proc-execs
+## <a name='AMSI'></a>amsi
+```powershell
+```
 
-![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
+## <a name='Applocker'></a>applocker
+```powershell
+```
+
+## <a name='Auditlog'></a>audit-log
+```powershell
+```
+
+## <a name='Filesaccess'></a>files-access
+```powershell
+```
+
+## <a name='firewall'></a>firewall
+```powershell
+```
 
 ## <a name='net-conns'></a>net-conns
 
@@ -156,43 +190,27 @@ Client = $event.UserData.EventXML.Param3
 Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
 ```
 
-## <a name='Filesaccess'></a>Files access
+## <a name='Networkshare'></a>network-share
 ```powershell
 ```
 
-## <a name='Networkshare'></a>Network share
+## <a name='proc-execs'></a>proc-execs
+
+![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
+
+## <a name='Services'></a>services
 ```powershell
 ```
 
-## <a name='Services'></a>Services
+## <a name='Scheduledtasks'></a>scheduled-tasks
 ```powershell
 ```
 
-## <a name='Scheduledtasks'></a>Scheduled tasks
+## <a name='Registry'></a>registry
 ```powershell
 ```
 
-## <a name='firewall'></a>firewall
-```powershell
-```
-
-## <a name='AMSI'></a>AMSI
-```powershell
-```
-
-## <a name='Applocker'></a>Applocker
-```powershell
-```
-
-## <a name='Auditlog'></a>Audit log
-```powershell
-```
-
-## <a name='USB'></a>USB
-```powershell
-```
-
-## <a name='Registry'></a>Registry
+## <a name='USB'></a>usb
 ```powershell
 ```
 
