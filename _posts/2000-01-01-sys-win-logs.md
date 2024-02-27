@@ -86,9 +86,9 @@ $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 ```powershell
 #TO DEBUG
 cd C:\Windows\SysWOW64
-set "FROM=2024-02-25T00:00:00"
-set "TO=2024-02-27T00:00:00"
-set "XPATH=*[System[TimeCreated[@SystemTime >= '%FROM%' and @SystemTime < '%TO%'] and System[(EventID='4624')] and (EventData[Data[@Name='LogonType'] and (Data='2' or Data='7' or Data='10' or Data='11')]) and (EventData[Data[@Name='WorkstationName'] and (Data='DC01')]) and (EventData[Data[@Name='LogonProcessName'] and (Data='User32 ')])]"
+$date1=([datetime]"2/25/2024")
+$date2=([datetime]"2/26/2024")
+$XPATH=(*[System[TimeCreated[@SystemTime >= '%FROM%' and @SystemTime < '%TO%'] and System[(EventID='4624')] and (EventData[Data[@Name='LogonType'] and (Data='2' or Data='7' or Data='10' or Data='11')]) and (EventData[Data[@Name='WorkstationName'] and (Data='DC01')]) and (EventData[Data[@Name='LogonProcessName'] and (Data='User32 ')])])
 ./wevtutil.exe qe Security /c:30 /rd:true /f:xml /e:root /q:"%XPATH%"
 ./wevtutil.exe qe Security /q:"%XPATH%" /c:30 /rd:true /f:xml /e:Events
 
@@ -111,11 +111,6 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
     [pscustomobject]$hash
 }
 
-$date1 = [datetime]"1/12/2024"
-$date2 = [datetime]"1/15/2024"
-set "date1=2024-02-25T00:00:00"
-set "date2=2024-02-27T00:00:00"
-$time  = [datetime]"1/13/2021 8:00:37"
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM'] and TimeCreated[timediff(@SystemTime) <= 300000]]]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path 'C:\Windows\System32\winevt\logs\Security.evtx' |
 # Where-Object { ($_.TimeCreated.AddTicks(-$_.TimeCreated.Ticks % [timespan]::TicksPerSecond)) -eq $time } | Foreach-Object { 
@@ -406,6 +401,7 @@ Get-WinEvent -FilterHashtable @{Path=$env:systemroot+'\System32\winevt\logs\Secu
 # list events over a time period 
 $date1 = [datetime]"4/27/2018"
 $date2 = [datetime]"4/28/2018"
+$a = [DateTime] "07/06/2022 05:00 AM"
 Get-WinEvent –FilterHashtable @{logname=’application’; level=1,2,3} -ComputerName server01 | 
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
 
