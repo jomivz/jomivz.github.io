@@ -360,6 +360,13 @@ net localgroup Administrators test /ADD
 net localgroup Administrators corp\test /ADD
 
 ```
+
+### <a name='add-account'></a>del-registry-key
+```batch
+set "SID=1-5-21-XXX-500"
+reg delete HKEY_USERS\%SID%\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v abcdef123456 /f
+```
+
 ### <a name='set-kb'></a>set-kb
 ```powershell
 Set-WinUserLanguageList -Force "fr-FR"
