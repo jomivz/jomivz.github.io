@@ -230,7 +230,7 @@ ls \\localhost\pipe\spoolss
 ### <a name='get-usb-devices'></a>get-usb-devices
 ```
 # https://www.shellhacks.com/windows-lsusb-equivalent-powershell/
-Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' }
+Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | FT -autosize 
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | Format-List
 ```
 
