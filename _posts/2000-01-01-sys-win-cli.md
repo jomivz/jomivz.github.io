@@ -29,6 +29,7 @@ permalink: /sys/win
 	* [get-usb-devices](#get-usb-devices)
 	* [get-vss](#get-vss)
 * [enum-sec](#enum-sec)
+	* [get-certificate-info](get-certificate-info) 	
 	* [get-file-hash](#get-file-hash)
 	* [get-status-fw](#get-status-fw)
 	* [get-status-proxy](#get-status-proxy)
@@ -246,6 +247,13 @@ vssadmin create shadow /for=c:
 ```
 
 ## <a name='enum-sec'></a>enum-sec
+
+### <a name='get-certificate-info'></a>get-certificate-info
+```batch
+# certificates local stores: https://adamtheautomator.com/windows-certificate-manager/
+certutil dump toto.pem
+certutil dump toto.crt
+```
 
 ### <a name='get-file-hash'></a>get-file-hash
 ```batch
