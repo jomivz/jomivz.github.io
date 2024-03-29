@@ -21,6 +21,7 @@ permalink: /edr/falcon
 	* [exe-powershell-1](#exe-powershell-1)
 	* [exe-powershell-2](#exe-powershell-2)
 	* [exe-utilman-abuse](#exe-utilman-abuse)
+ 	* [exe-webbrowser](#exe-webbrowser) 
 * [cql-fs-io](#cql-fs-io)
 	* [fs-conns-usb](#fs-conns-usb)
 	* [fs-deleted-exe](#fs-deleted-exe)
@@ -133,6 +134,12 @@ ComputerName= Utilman ImageFileName!="*conhost.exe"
 ```
 ![](/assets/images/edr_falcon_cql_utilman.png)
 
+### <a name='exe-webrbowser'></a>exe-webbrowser
+```
+ComputerName= event_simpleName=ProcessRollup2 AND( FileName="msedge.exe" OR FileName="chrome.exe"  OR FileName="firefox.exe")
+| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine
+| stats count by  ParentBaseFileName
+```
 
 ## <a name='cql-fs-io'></a>cql-fs-io
 
