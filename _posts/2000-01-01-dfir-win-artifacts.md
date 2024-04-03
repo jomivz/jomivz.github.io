@@ -40,6 +40,7 @@ $params = "--tsource C:\ --tdest C:\kape\output --tflush --target FielSystem -zi
 Start-Process -FilePath $command -ArgumentList $params –Wait
 
 # convert the artifacts to CSV for timeline explorer
+cd C:\kape\Modules\bin
 MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
 MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
 ```
