@@ -103,7 +103,7 @@ NTFS metafiles :
 # kape collection
 Set-ExecutionPolicy –ExecutionPolicy Unrestricted
 $command = "C:\kape\kape.exe"
-$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem -zip kapeoutput" 
+$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem --zip kapeoutput" 
 Start-Process -FilePath $command -ArgumentList $params –Wait
 
 # convert the artifacts to CSV for timeline explorer
