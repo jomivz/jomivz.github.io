@@ -8,12 +8,12 @@ permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
-* [mft](#mft)
 * [amcache](#amcache)
 * [eventlogs](#eventlogs)
 	* [eventlogs-all](#eventlogs-all)
 	* [eventlogs-dns](#eventlogs-dns)
 * [ntfs](#ntfs)
+	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
 * [powershell-history](#powershell-history)
 * [reg](#reg)
@@ -30,20 +30,6 @@ permalink: /dfir/win
 <!-- /vscode-markdown-toc -->
 
 🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥
-
-## <a name='amcache'></a>mft
-```powershell
-# kape collection
-Set-ExecutionPolicy –ExecutionPolicy Unrestricted
-$command = "C:\kape\kape.exe"
-$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem -zip kapeoutput" 
-Start-Process -FilePath $command -ArgumentList $params –Wait
-
-# convert the artifacts to CSV for timeline explorer
-cd C:\kape\Modules\bin
-MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
-MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
-```
 
 ## <a name='amcache'></a>amcache
 
@@ -111,6 +97,20 @@ NTFS metafiles :
 - Path: \\.\C:\[SYSTEM]
 - Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
 - [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
+
+### <a name='amcache'></a>mft
+```powershell
+# kape collection
+Set-ExecutionPolicy –ExecutionPolicy Unrestricted
+$command = "C:\kape\kape.exe"
+$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem -zip kapeoutput" 
+Start-Process -FilePath $command -ArgumentList $params –Wait
+
+# convert the artifacts to CSV for timeline explorer
+cd C:\kape\Modules\bin
+MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
+MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
+```
 
 ## <a name='ntds-dit'></a>ntds-dit
 
