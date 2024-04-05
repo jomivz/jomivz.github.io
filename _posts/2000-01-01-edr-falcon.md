@@ -315,19 +315,19 @@ cat detections.json | jq -r '.result.MD5String,.result.AssociatedFiles' | sort -
 
 # get IOC Documents Accessed Filenames
 cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FileName"'
-cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u > ioc_docs_accessed.txt
 
 # get IOC Documents Accessed Paths
 cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FilePath"'
-cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u > ioc_docs_paths.txt
 
 # get IOC Executable Written Filenames
 cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FileName"'
-cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u > ioc_exes_written.txt
 
 # get IOC Executable Written Paths
 cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"'
-cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u > ioc_exes_paths.txt
 ```
 
 
