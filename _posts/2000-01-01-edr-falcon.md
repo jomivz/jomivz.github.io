@@ -309,6 +309,25 @@ cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/
 
 # get IOC MD5 hashes
 cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
+
+# get IOC Malware Filenames
+cat detections.json | jq -r '.result.MD5String,.result.AssociatedFiles' | sort -u > ioc_filenames.txt
+
+# get IOC Documents Accessed Filenames
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FileName"'
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u
+
+# get IOC Documents Accessed Paths
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FilePath"'
+cat detections.json | jq -r '.result.MD5String,.result."DocumentsAccessed{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u
+
+# get IOC Executable Written Filenames
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FileName"'
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FileName"' | grep '.*".*' | cut -d\" -f2 | sort -u
+
+# get IOC Executable Written Paths
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"'
+cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u
 ```
 
 
