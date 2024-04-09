@@ -308,7 +308,8 @@ cut -f2,3 -d. ioc_doms.txt | sort -u > ioc_top_doms.txt
 cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_ip.txt
 
 # get IOC MD5 hashes
-cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
+cat detections.json | jq -r '.result.MD5String,.result.IOCValue' | sort -u > ioc_md5sums.txt
+# cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
 
 # get IOC Malware Filenames
 cat detections.json | jq -r '.result.MD5String,.result.AssociatedFiles' | sort -u > ioc_filenames.txt
