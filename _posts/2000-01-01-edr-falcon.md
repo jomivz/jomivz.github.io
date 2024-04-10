@@ -286,8 +286,8 @@ event_platform=win event_simpleName=ScheduledTask*
 
 ### <a name='added-scheduled-tasks'></a>registry-io
 ```
-event_simpleName=*Reg* ComputerName= 
-|  table _time, ComputerName, event_simpleName, TargetFileName
+event_simpleName=RegGeneric*  ComputerName=
+|  table _time, ComputerName, event_simpleName, RegObjectName, RegValueName, RegStringValue 
 | sort - _time
 ```
 
