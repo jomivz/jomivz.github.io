@@ -284,6 +284,13 @@ event_platform=win event_simpleName=ScheduledTask*
 | convert ctime(ContextTimeStamp_decimal) 
 ```
 
+### <a name='added-scheduled-tasks'></a>registry-io
+```
+event_simpleName=*Reg* ComputerName= 
+|  table _time, ComputerName, event_simpleName, TargetFileName
+| sort - _time
+```
+
 ## <a name='jq'></a>jq
 
 ### <a name='jq-over-rtr-scripts'></a>jq-over-rtr-scripts
