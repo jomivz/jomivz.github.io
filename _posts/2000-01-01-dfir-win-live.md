@@ -36,9 +36,9 @@ $services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3
 
 # 03 # enum of the X service' properties
 $h = Get-ItemProperty -Path HKLM:\System\CurrentControlSet\Services\wuauserv
-$h['PSPath']
-$h['ImagePath']
-$h['DisplayName']
+$h.PSPath
+$h.ImagePath
+$h.DisplayName
 ```
 
 ### execution-via-svchost
