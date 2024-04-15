@@ -34,7 +34,7 @@ $services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3
 $services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3)} | select {$_.ImagePath}
 $services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3)} | select {$_.DisplayName}
 
-# 03 # enum of the X service' properties
+# 03 # enum of the Windows Update service' properties
 $h = Get-ItemProperty -Path HKLM:\System\CurrentControlSet\Services\wuauserv
 $h.PSPath
 $h.ImagePath
