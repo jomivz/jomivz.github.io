@@ -81,7 +81,11 @@ ExternalApiType=Event_DetectionSummaryEvent
 ```
 event_simpleName=ProcessRollup2 AND FileName="bcdedit.exe" 
 | where like(ComputerName,"DC%")
-| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine
+
+event_simpleName=ProcessRollup2 "svchost.exe"
+| table _time, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+| sort - _time
 ```
 
 ### <a name='exe-lolbas-2'></a>exe-lolbas-2
