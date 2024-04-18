@@ -38,6 +38,8 @@ permalink: /sys/win
 	* [get-status-ppl](#get-status-ppl)
 * [install](#install)
 	* [gpedit-win-10-home](#gpedit-win-10-home)
+* [run](#run)
+	* [network-capture](#network-capture)
 * [tamper](#tamper)
 	* [add-account](#add-account)
 	* [set-kb](#set-kb)
@@ -348,6 +350,14 @@ Reference :
 # useful for commando VM
 FOR %F IN ("%SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientTools-Package~*.mum") DO (DISM /Online /NoRestart /Add-Package:"%F")
 FOR %F IN ("%SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientExtensions-Package~*.mum") DO (DISM /Online /NoRestart /Add-Package:"%F")
+```
+
+## <a name='run'></a>run
+
+### <a name='network-capture'></a>network-capture
+```
+netsh trace start tracefile=C:\temp\trace.etl
+netsh trace stop
 ```
 
 ## <a name='tamper'></a>tamper
