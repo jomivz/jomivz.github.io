@@ -18,7 +18,30 @@ permalink: /dfir/win/live
 * [code-signing-cert-cloning](#code-signing-cert-cloning)
 * [powershell-history-file](#powershell-history-file)
 
-## execution-via-svchost
+## services
+
+### system-with-manual-start
+```powershell
+# https://medium.com/r3d-buck3t/abuse-service-registry-acls-windows-privesc-f88079140509
+# 01 # enum of services permissions
+Get-Acl -Path hklm:\System\CurrentControlSet\services\ | format-list
+$acl = get-acl HKLM:\SYSTEM\CurrentControlSet\Services
+ConvertFrom-SddlString -Sddl $acl.Sddl | Foreach-Object {$_.DiscretionaryAcl}
+
+# 02 # enum of services with SYSTEM permissions AND manual start
+$services = Get-ItemProperty -Path HKLM:\System\CurrentControlSet\Services\*
+$services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3)} | select {$_.PSPath}
+$services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3)} | select {$_.ImagePath}
+$services | Where-Object {($_.ObjectName -eq "LocalSystem") -and ($_.Start -eq 3)} | select {$_.DisplayName}
+
+# 03 # enum of the Windows Update service' properties
+$h = Get-ItemProperty -Path HKLM:\System\CurrentControlSet\Services\wuauserv
+$h.PSPath
+$h.ImagePath
+$h.DisplayName
+```
+
+### execution-via-svchost
 ```powershell
 # The process **svchost** loads services group via the **-k** parameter.
 # Services group are listed in the registry key `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SVCHOST`.

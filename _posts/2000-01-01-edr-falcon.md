@@ -81,7 +81,7 @@ ExternalApiType=Event_DetectionSummaryEvent
 ```
 event_simpleName=ProcessRollup2 AND FileName="bcdedit.exe" 
 | where like(ComputerName,"DC%")
-| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+| table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine
 ```
 
 ### <a name='exe-lolbas-2'></a>exe-lolbas-2
@@ -89,6 +89,12 @@ event_simpleName=ProcessRollup2 AND FileName="bcdedit.exe"
 event_simpleName=ProcessRollup2 AND FileName="msedge.exe"  
 | WHERE like(ComputerName,"DC%") AND like(CommandLine,"%msedge.exe%network.mojom.NetworkService%") 
 | table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+```
+
+### <a name='exe-lsass'></a>exe-lsass
+```
+event_simpleName=ProcessRollup2 "lsass.exe"  
+| table _time, ComputerName, ContextBaseFileName, DomainName, CNAMERecords, RemoteAddressIP4, RPort
 ```
 
 ### <a name='exe-pe'></a>exe-pe
@@ -125,6 +131,13 @@ ComputerName= event_simpleName="NewScriptWritten" FileName IN ("*.ps*")
 ```
 ![](/assets/images/edr_falcon_cql_ps2.png)
 
+### <a name='exe-lolbas-1'></a>exe-svchost
+```
+event_simpleName=ProcessRollup2 "svchost.exe"
+| table _time, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
+| sort - _time
+```
+
 ### <a name='exe-utilman-abuse'></a>exe-utilman-abuse
 ```
 ComputerName= Utilman ImageFileName!="*conhost.exe" 
@@ -133,6 +146,7 @@ ComputerName= Utilman ImageFileName!="*conhost.exe"
 | sort 0 –_time
 ```
 ![](/assets/images/edr_falcon_cql_utilman.png)
+
 
 ### <a name='exe-webrbowser'></a>exe-webbrowser
 ```
@@ -284,6 +298,13 @@ event_platform=win event_simpleName=ScheduledTask*
 | convert ctime(ContextTimeStamp_decimal) 
 ```
 
+### <a name='added-scheduled-tasks'></a>registry-io
+```
+event_simpleName=RegGeneric*  ComputerName=
+|  table _time, ComputerName, event_simpleName, RegObjectName, RegValueName, RegStringValue 
+| sort - _time
+```
+
 ## <a name='jq'></a>jq
 
 ### <a name='jq-over-rtr-scripts'></a>jq-over-rtr-scripts
@@ -308,7 +329,8 @@ cut -f2,3 -d. ioc_doms.txt | sort -u > ioc_top_doms.txt
 cat detections.json | jq -r '.result."NetworkAccesses{}.RemoteAddress"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_ip.txt
 
 # get IOC MD5 hashes
-cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
+cat detections.json | jq -r '.result.MD5String,.result.IOCValue' | sort -u > ioc_md5sums.txt
+# cat detections.json | jq -r '.result.MD5String' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' | sort -u > ioc_md5sums.txt
 
 # get IOC Malware Filenames
 cat detections.json | jq -r '.result.MD5String,.result.AssociatedFiles' | sort -u > ioc_filenames.txt
