@@ -1,13 +1,16 @@
-| select(.age > 25)---
+---
 layout: post
 title: sys / lin / logs
 category: sys
 parent: cheatsheets
-modified_date: 2023-01-10
+modified_date: 2024-05-16
 permalink: /sys/lin/logs
 ---
 
 <!-- vscode-markdown-toc -->
+* [timestamp](#timestamp)
+	* [epoch](#epoch)
+* [sed](#sed)
 * [linux](#linux)
 	* [sudolog-auditd](#sudolog-auditd)
 * [aws](#aws)
@@ -20,43 +23,19 @@ permalink: /sys/lin/logs
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## timestamp
+## <a name='timestamp'></a>timestamp
 
-### epoch
+### <a name='epoch'></a>epoch
 ```bash
 # get epoch timestamp 
 date --date='2024-01-01 7:36:12' +"%s"
 1704090972
+
+# get ISO timestamp
+echo 1704090972 | jq 'todate'
 ```
 
-## jq
-```
-| select(.age > 25)
-| length
-jq 'map(.sendbytes) | add' netflow.json
-jq 'map(select(.type == "local").sendbytes) | add' netflow.json
-
-############################
-# YWH
-cat ywh_export_report.json | jq -r '.[] | [.company,.title,.scope,.ips] | @csv ' > ywh_impacted_assets.csv
-
-############################
-# OKTA
-jq -r '. | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.client.userAgent.browser,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
-# okta failure hits
-jq -r '. | select(.outcome.result=="FAILURE") | [.published,.displayMessage,.outcome.result,.outcome.reason,.debugContext.debugData.result,.debugContext.debugData.smsProvider,.debugContext.debugData.phoneNumber,.actor.alternateId,.client.userAgent.os,.request.ipChain[0].ip,.client.ipAddress,.client.geographicalContext.city,.client.geographicalContext.country] | @csv' data_export.json
-
-############################
-# PROOFPOINT TAP Forensics
-# get all urls
-cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="url") | .what.url' 
-
-# get all drive by download + hashes
-cat forensics_reports_2023-MM-DD.json | jq -r '.[] | select(.type=="file") | [.what.sha256,.what.path]| @csv' | tr -d \" > drive-by-dl.csv'
-
-```
-
-## sed
+## <a name='sed'></a>sed
 ```
 # remove data after the last '}'
 %s/\(.*\)}.*$/\1}",/
