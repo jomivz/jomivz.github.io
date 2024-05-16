@@ -20,6 +20,15 @@ permalink: /sys/lin/logs
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
+## timestamp
+
+### epoch
+```bash
+# get epoch timestamp 
+date --date='2024-01-01 7:36:12' +"%s"
+1704090972
+```
+
 ## jq
 ```
 | select(.age > 25)
