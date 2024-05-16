@@ -189,6 +189,12 @@ Get-Service | Where-Object {$_.Status -eq "Stopped"}
 
 #service specific
 Get-Service | Where-Object {$_.Name -like "**"}
+
+#service full details
+gwmi win32_service|?{$_.name -eq "CSFalconService"}|select *
+
+#service executable path
+gwmi win32_service|?{$_.name -eq "CSFalconService"}|select pathname
 ```
 
 ### <a name='get-sessions'></a>get-sessions
