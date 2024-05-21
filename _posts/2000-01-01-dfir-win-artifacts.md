@@ -236,6 +236,7 @@ cd HKLM:
 
 | Browser    | OS         | Path                                                               |
 |------------|------------|--------------------------------------------------------------------|
+| Brave      | Windows    | %AppDataM\Local\Brave\User Data\Default |
 | Edge       | Windows    | %userprofile%\AppData\Local\Microsoft\Edge\User Data\Default |
 | Chrome     | Windows XP | %userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
 | Chrome     | Windows 10 | %userprofile%\AppData\Local\Google\Chrome\User Data\Default |
@@ -246,6 +247,7 @@ cd HKLM:
 | Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\\ <ProfileName>\ |
 | Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
 | Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
+| Vivaldi    | Windows    | %AppDataM\Local\Vivaldi\User Data\Default |
 
 ## <a name='wer'></a>wer
 ```powershell
