@@ -160,6 +160,7 @@ ComputerName= event_simpleName=ProcessRollup2 AND( FileName="msedge.exe" OR File
 ### <a name='fs-conns-usb'></a>fs-conns-usb
 * CQL 1 : get connected usb media
 ```
+# the 'RemovableMediaVolumeMounted' events confirm the volume name and drive letter
 ComputerName= event_simpleName=RemovableMedia* OR event_simpleName IN (DcUsbDeviceDisconnected,DcUsbDeviceConnected)
 | table _time aid event_simpleName ComputerName VolumeDriveLetter DiskParentDeviceInstanceId DeviceManufacturer DeviceProduct DeviceInstanceId DeviceSerialNumber VolumeName
 | rename DiskParentDeviceInstanceId as "Device Hardware/Vendor ID", VolumeDriveLetter as "Volume Drive Letter", ComputerName as "Hostname", aid as AID, DeviceInstanceId as "Device Hardware/Vendor ID (External HDD)", DeviceSerialNumber as "Serial Number"  
