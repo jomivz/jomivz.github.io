@@ -48,14 +48,13 @@ permalink: /edr/falcon
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='defeva'></a>defeva
-
-| Falcon version | OS |
-|-------------------|----|
-
-
 ## <a name='enum'></a>enum
 
+### timepicker
+```
+# advanced
+2023-11-13T23:45:22.000
+```
 ### <a name='win-enum'></a>win-enum
 ```powershell
 Get-Service | Where-Object{$_.DisplayName -like "*falcon*"}
