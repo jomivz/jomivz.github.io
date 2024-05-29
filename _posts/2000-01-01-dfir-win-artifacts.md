@@ -125,7 +125,7 @@ ls %SystemRoot%\NTDS\Ntds.dit
 Get-PSReadLineOption
 
 # path
-$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
+$env:APPDATA\Roaming\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
 
 # enable / disable history
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
