@@ -147,6 +147,9 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 | HKCU\UserProfile | %UserProfile%\NTuser.dat |
 | HKCU\Software\Classes | %UserProfile%\AppData\Local\Microsoft\Windows\UsrClass.dat |
 
+* [retrieve the transaction logs | andrafortunea | python](https://andreafortuna.org/2021/02/06/windows-registry-transaction-logs-in-forensic-analysis/)
+* [registry transaction logs | goocle cloud](https://cloud.google.com/blog/topics/threat-intelligence/digging-up-the-past-windows-registry-forensics-revisited/?hl=en)
+
 ### <a name='regripper'></a>regripper
 
 * credits: [hexacorn](https://hexacorn.com/tools/3r.html)
