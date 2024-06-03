@@ -10,7 +10,9 @@ permalink: /dfir/win
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
 * [autoruns](#autoruns)
-* [eventlogs](#eventlogs)
+* [dirs](#dirs)
+	* [temp](#temp)
+* [logs](#logs)
 	* [logs-all](#logs-all)
 	* [logs-dns](#logs-dns)
  	* [logs-svcs](#logs-svcs)
@@ -52,7 +54,13 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
-## <a name='eventlogs'></a>eventlogs
+## <a name='dirs'></a>dirs
+### <a name='temp'></a>temp
+```powershell
+.\Get-TempDirListing.ps1 | Out-GridView
+```
+
+## <a name='logs'></a>logs
 
 ### <a name='logs-all'></a>logs-all
 
