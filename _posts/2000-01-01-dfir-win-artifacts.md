@@ -3,23 +3,28 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2024-02-12
+modified_date: 2024-06-03
 permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
+* [autoruns](#autoruns)
 * [eventlogs](#eventlogs)
-	* [eventlogs-all](#eventlogs-all)
-	* [eventlogs-dns](#eventlogs-dns)
+	* [logs-all](#logs-all)
+	* [logs-dns](#logs-dns)
+ 	* [logs-svcs](#logs-svcs)
+	* [logs-wmi](#logs-wmi) 
 * [ntfs](#ntfs)
 	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
 * [powershell-history](#powershell-history)
+* [prefetch](#prefetch)
 * [reg](#reg)
 	* [regripper](#regripper)
 	* [reg-history](#reg-history)
 	* [reg-extra](#reg-extra)
+* [shimcache](#shimcache)
 * [web-browser](#web-browser)
 * [wer](#wer)
 
@@ -30,6 +35,12 @@ permalink: /dfir/win
 <!-- /vscode-markdown-toc -->
 
 🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥
+
+## <a name='autoruns'></a>autoruns
+```powershell
+autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
+.\Get-ASEPImagePathLaunchStringMD5UnsignedStack.ps1 > asep-workstation-stack.csv
+```
 
 ## <a name='amcache'></a>amcache
 
@@ -43,7 +54,7 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 
 ## <a name='eventlogs'></a>eventlogs
 
-### <a name='eventlogs-all'></a>eventlogs-all
+### <a name='logs-all'></a>logs-all
 
 ```powershell
 # all Windows Versions
@@ -52,11 +63,14 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 %SystemRoot%\System32\winevt\logs\Security.evtx
 %SystemRoot%\System32\winevt\logs\System.evtx
 %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
+
+# KANSA 
+.\Modules\Log\Get-LogWinEvent.ps1 security | Out-GridView
 ```
 
 * Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
 
-### <a name='eventlogs-dns'></a>eventlogs-dns 
+### <a name='logs-dns'></a>logs-dns 
 
 1/ Are the DNS debug logs activated ?
 
@@ -88,6 +102,30 @@ Open a console (`cmd.exe`) and run the commands:
 dnscmd.exe localhost /Config /LogLevel 0x6101
 # set the log file path
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
+```
+### <a name='logs-svcs'></a>logs-svcs
+```powershell
+.\Get-LogparserStack.ps1 -FilePattern *SvcAll.csv -Delimiter "," -Direction asc -OutFile svcAll_stack.csv
+# Answer these questions as follows:
+# Enter the field to pass to COUNT(): Name
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: Name
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: DisplayName
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: PathName
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: quit
+```
+
+### <a name='logs-svcs'></a>logs-wmi
+```powershell
+# OPTION 1  
+.\Modules\Process\Get-ProcsWMI.ps1 | Out-GridView
+
+# OPTION 2
+.\Get-LogparserStack.ps1 -FilePattern *WmiEvtFilter.csv -Delimiter "," -Direction asc -OutFile wmiEvtFilter_stack.csv
+# Answer these questions as follows:
+# Enter the field to pass to COUNT(): Name
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: Name
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: Query
+# Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: quit
 ```
 
 ## <a name='ntfs'></a>ntfs
@@ -233,6 +271,10 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 
 # powershell: browsing a hive with the interpreter
 cd HKLM:
+```
+
+## <a name='shimcache'></a>shimcache
+```powershell
 ```
 
 ## <a name='web-browser'></a>web-browser
