@@ -36,6 +36,8 @@ permalink: /sys/win
 	* [get-status-defender](#get-status-defender)
 	* [get-status-cred-guard](#get-status-cred-guard)
 	* [get-status-ppl](#get-status-ppl)
+* [exec](#exec)
+	* [decode-base64](#decode-base64)
 * [install](#install)
 	* [gpedit-win-10-home](#gpedit-win-10-home)
 * [run](#run)
@@ -348,6 +350,13 @@ Reference :
  - [MSDN - Credential Guard Management](https://docs.microsoft.com/en-us/windows/security/identity-protection/credential-guard/credential-guard-manage)
 
 ### <a name='get-status-ppl'></a>get-status-ppl
+
+## <a name='exec'></a>exec
+
+### <a name='decode-base64'></a>decode-base64
+```powershell
+echo "" | base64 -d | iconv -f UTF-16LE -t UTF-8 
+```
 
 ## <a name='install'></a>install
 
