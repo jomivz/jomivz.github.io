@@ -16,7 +16,8 @@ permalink: /dfir/win
 	* [logs-all](#logs-all)
 	* [logs-dns](#logs-dns)
  	* [logs-svcs](#logs-svcs)
-	* [logs-wmi](#logs-wmi) 
+	* [logs-wmi](#logs-wmi)
+* [mplogs](#mplogs)
 * [ntfs](#ntfs)
 	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
@@ -26,6 +27,7 @@ permalink: /dfir/win
 	* [regripper](#regripper)
 	* [reg-history](#reg-history)
 	* [reg-extra](#reg-extra)
+* [shellbags](#shellbags)
 * [shimcache](#shimcache)
 * [web-browser](#web-browser)
 * [wer](#wer)
@@ -45,7 +47,9 @@ autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
 ```
 
 ## <a name='amcache'></a>amcache
-
+```
+appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
+```
 Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
@@ -136,6 +140,10 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 # Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: quit
 ```
 
+## <a name='mplogs'></a>mplogs
+```poweshell
+```
+
 ## <a name='ntfs'></a>ntfs
 
 NTFS metafiles : 
@@ -175,6 +183,15 @@ $env:APPDATA\Roaming\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_histo
 
 # enable / disable history
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
+```
+
+## <a name='prefetch'></a>prefetch
+```batch
+# one shot
+pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
+
+# timeline
+pecmd -d E:\C\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
 ```
 
 ## <a name='reg'></a>reg
@@ -281,8 +298,20 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 cd HKLM:
 ```
 
+## <a name='shellbags'></a>shellbags
+
+* USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
+* USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
+* NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
+* NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
+
+```powershell
+
+```
+
 ## <a name='shimcache'></a>shimcache
 ```powershell
+appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv f:\case_01 --csvf appcompatcache.csv
 ```
 
 ## <a name='web-browser'></a>web-browser
