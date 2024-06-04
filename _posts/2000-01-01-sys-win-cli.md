@@ -29,6 +29,7 @@ permalink: /sys/win
 	* [get-ca](#get-ca)
 	* [get-neighbors](#get-neighbors)
 	* [get-net-settings](#get-net-settings)
+	* [get-routes](#get-routes)
 	* [get-shares](#get-shares)
 * [enum-sec](#enum-sec)
 	* [get-certificate-info](get-certificate-info) 	
@@ -236,6 +237,13 @@ certutil -scroot update
 
 ### <a name='get-neighbors'></a>get-neighbors
 ```
+# show the mac address table
+arp -a
+
+# show a neighbor
+netstat -A 192.168.1.254
+
+# show ipv6 neighbors
 netsh interface ipv6 show neighbors
 ```
 
@@ -250,6 +258,18 @@ wmic nicconfig where IPEnabled='true' get Caption,DefaultIPGateway,Description,D
 ipconfig /all
 route -n
 netstat -ano
+```
+
+### <a name='get-net-settings'></a>get-routes
+```
+# Display all routing tables
+route print
+
+# Print IPv4 routing table
+route print -4
+
+# Print IPv6 routing table
+route print -6
 ```
 
 ### <a name='get-shares'></a>get-shares
