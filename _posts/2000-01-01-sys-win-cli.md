@@ -13,9 +13,6 @@ permalink: /sys/win
 * [enum](#enum)
 	* [get-os](#get-os)
 	* [get-kb](#get-kb)
-	* [get-network](#get-network)
-	* [get-ca](#get-ca)
-	* [get-shares](#get-shares)
 	* [get-users](#get-users)
 	* [get-gpo](#get-gpo)
 	* [get-products](#get-products)
@@ -28,6 +25,11 @@ permalink: /sys/win
 	* [get-pipes](#get-pipes)
 	* [get-usb-devices](#get-usb-devices)
 	* [get-vss](#get-vss)
+* [enum-net](#enum-net)
+	* [get-ca](#get-ca)
+	* [get-neighbors](#get-neighbors)
+	* [get-net-settings](#get-net-settings)
+	* [get-shares](#get-shares)
 * [enum-sec](#enum-sec)
 	* [get-certificate-info](get-certificate-info) 	
 	* [get-file-hash](#get-file-hash)
@@ -98,38 +100,6 @@ wmic qfe list full /format:table
 # listing KB ps
 powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.csv
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
-```
-
-### <a name='get-network'></a>get-network
-```powershell
-# listing network hardware
-wmic nic list brief
-ipconfig /all
-
-# listing network software 
-wmic nicconfig where IPEnabled='true' get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress
-ipconfig /all
-route -n
-netstat -ano
-```
-
-### <a name='get-ca'></a>get-ca
-```powershell
-# run it on CA servers
-certutil -scroot update
-```
-
-### <a name='get-shares'></a>get-shares
-```powershell
-# listing network shares
-wmic netuse list brief
-net use
-
-wmic share
-net share
-
-# listing the domain controllers
-nltest /dclist:dom.corp
 ```
 
 ### <a name='get-users'></a>get-users
@@ -254,6 +224,45 @@ vssadmin list volumes
 
 # create a shadow copy for C:
 vssadmin create shadow /for=c:
+```
+
+## <a name='enum-sec'></a>enum-net
+
+### <a name='get-ca'></a>get-ca
+```powershell
+# run it on CA servers
+certutil -scroot update
+```
+
+### <a name='get-neighbors'></a>get-neighbors
+```
+netsh interface ipv6 show neighbors
+```
+
+### <a name='get-net-settings'></a>get-net-settings
+```powershell
+# listing network hardware
+wmic nic list brief
+ipconfig /all
+
+# listing network software 
+wmic nicconfig where IPEnabled='true' get Caption,DefaultIPGateway,Description,DHCPEnabled,DHCPServer,IPAddress,IPSubnet,MACAddress
+ipconfig /all
+route -n
+netstat -ano
+```
+
+### <a name='get-shares'></a>get-shares
+```powershell
+# listing network shares
+wmic netuse list brief
+net use
+
+wmic share
+net share
+
+# listing the domain controllers
+nltest /dclist:dom.corp
 ```
 
 ## <a name='enum-sec'></a>enum-sec
