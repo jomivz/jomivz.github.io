@@ -31,6 +31,8 @@ permalink: /dfir/win
 * [shimcache](#shimcache)
 * [web-browser](#web-browser)
 * [wer](#wer)
+	* [werpersistence](#werpersistence)
+	* [lsass-shtinkering](#lsass-shtinkering)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -332,6 +334,7 @@ appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv f:\case_01 --c
 | Vivaldi    | Windows    | %AppDataM\Local\Vivaldi\User Data\Default |
 
 ## <a name='wer'></a>wer
+### werpersistence
 ```powershell
 # 2024-02-12 / Persistence / POC
 # https://github.com/0xHossam/WERPersistence/tree/main
@@ -343,3 +346,20 @@ werfault.dll
 ```
 **References**
 - [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
+
+### lsass-shtinkering
+
+• Artifact / Event Log
+	• Event ID 1000 is generated under “Windows Logs\Application”
+	• Event doesn’t specify the sender process
+
+• Artifact / Dump File:
+	• Dump files will be written to %LocalAppData%\CrashDumps
+	• For processes running as “NT AUTHORITY\SYSTEM”, the path is:
+```
+C:\Windows\system32\config\systemprofile\AppData\Local\CrashDumps
+```
+
+**References**
+-[DEFCON 30 - lsass shtinkering | talk](https://www.youtube.com/watch?v=-QRr_8pvOiY))
+-[DEFCON 30 - lsass shtinkering | slides](https://infocon.org/cons/DEF%20CON/DEF%20CON%2030/DEF%20CON%2030%20presentations/Asaf%20Gilboa%20-%20LSASS%20Shtinkering%20Abusing%20Windows%20Error%20Reporting%20to%20Dump%20LSASS.pdf)
