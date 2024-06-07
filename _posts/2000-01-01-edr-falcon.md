@@ -8,7 +8,6 @@ permalink: /edr/falcon
 ---
 
 <!-- vscode-markdown-toc -->
-* [defeva](#defeva)
 * [enum](#enum)
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
@@ -38,9 +37,10 @@ permalink: /edr/falcon
 * [cql-tamper](#cql-tamper)
 	* [added-local-admin](#added-local-admin)
 	* [added-scheduled-tasks](#added-scheduled-tasks)
+* [falconpy](#falconpy)
 * [jq](#jq)
 	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
-	* [jq-over-detections-export](#jq-over-detections-export)
+	* [jq-over-detections-export](#jq-over-detections-export) 
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -303,6 +303,21 @@ event_platform=win event_simpleName=ScheduledTask*
 event_simpleName=RegGeneric*  ComputerName=
 |  table _time, ComputerName, event_simpleName, RegObjectName, RegValueName, RegStringValue 
 | sort - _time
+```
+
+## <a name='falconpy'></a>falconpy
+```
+# STEP 01 | download anaconda | https://www.anaconda.com/download/
+
+# STEP 02 | install required python libs
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org crowdstrike-falconpy
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org p2j
+
+# STEP 03 | set %PATH%
+$pipPath = $env:LocalAppData + "\" + (ls "$env:LocalAppData\Packages\PythonSoftwareFoundation.Python.3.12_*").name 
+$env:PATH += ";$pipPath\LocalCache\local-packages\Python312\Scripts"
+$env:FALCON_CLIENT_ID = read-host "FALCON_CLIENT_ID: "
+$env:FALCON_CLIENT_SECRET = read-host "FALCON_CLIENT_SECRET: "
 ```
 
 ## <a name='jq'></a>jq
