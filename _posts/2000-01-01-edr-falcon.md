@@ -314,7 +314,7 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org crowds
 pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org p2j
 
 # STEP 03 | set %PATH%
-$pipPath = $env:LocalAppData + "\" + (ls "$env:LocalAppData\Packages\PythonSoftwareFoundation.Python.3.12_*").name 
+$pipPath = $env:LocalAppData + "\Packages\" + (ls "$env:LocalAppData\Packages\PythonSoftwareFoundation.Python.3.12_*").name 
 $env:PATH += ";$pipPath\LocalCache\local-packages\Python312\Scripts"
 $env:FALCON_CLIENT_ID = read-host "FALCON_CLIENT_ID: "
 $env:FALCON_CLIENT_SECRET = read-host "FALCON_CLIENT_SECRET: "
