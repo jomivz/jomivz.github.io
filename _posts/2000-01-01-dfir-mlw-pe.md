@@ -67,7 +67,8 @@ upx -d mlwr.exe -o mlwr.exe.unpacked
 yara64.exe -C yara-rules -rw C:\Windows > C:\windows\temp\yara_out.txt
 ```
 
-* [yara.readthedocs.io/en/stable/writingrules.html](https://yara.readthedocs.io/en/stable/writingrules.html)
+sources:
+* [yara.readthedocs.io/en/stable/writingrules.html](#https://yara.readthedocs.io/en/stable/writingrules.html)
 * [github.com/elastic](#https://github.com/elastic/protections-artifacts/tree/main/yara/rules)
 * [stalkphish | PhishingKit](#https://github.com/t4d/PhishingKit-Yara-Rules)
 * [yara-ci.cloud.virustotal.com)](#https://yara-ci.cloud.virustotal.com/)
