@@ -243,7 +243,7 @@ event_platform=lin event_simpleName=CriticalEnvironmentVariableChanged, Environm
 
 ### <a name='net-conns-smb'></a>net-conns-smb
 ```
-(RPort=5938 OR RPort=5939) event_simpleName=NetworkConnectIP4 
+RPort=445 event_simpleName=NetworkConnectIP4 
 | where cidrmatch("192.168.110.0/24",LocalIP) AND like(ComputerName,"DC%") 
 | table _time, ComputerName, LPort, LocalIP, RemoteIP, RPort  
 | sort _time 
@@ -311,7 +311,6 @@ event_simpleName=RegGeneric*  ComputerName=
 
 # STEP 02 | install required python libs
 pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org crowdstrike-falconpy
-pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org p2j
 
 # STEP 03 | set %PATH%
 $pipPath = $env:LocalAppData + "\Packages\" + (ls "$env:LocalAppData\Packages\PythonSoftwareFoundation.Python.3.12_*").name 
