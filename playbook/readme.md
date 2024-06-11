@@ -12,7 +12,8 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org networ
 pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org pandas
 ```
 
-# INSTALL V2 |  download the whl packages : https://pypi.org/project/msticpy/
+# INSTALL V2 |  download the whl packages
 ```
+# go to https://pypi.org/project/msticpy/
 pip install msticpy.whl -f ./ --no-index --no-deps
 ```
