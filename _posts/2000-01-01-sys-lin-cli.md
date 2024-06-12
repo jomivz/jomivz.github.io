@@ -61,10 +61,25 @@ permalink: /sys/lin
 
 ### <a name='add-account'></a>add-account
 ```sh
+# https://sysadminxpert.com/managing-user-accounts-and-permissions-in-linux/
+sudo useradd john_doe
+sudo usermod -c "John Doe" john_doe
+sudo userdel john_doe
+# reset password
+sudo passwd john_doe
+
+# service account
+sudo useradd -r -s /sbin/nologin myserviceaccount
+sudo passwd -l myserviceaccount
 ```
 
 ### <a name='add-group'></a>add-group
 ```sh
+sudo groupadd developers
+sudo usermod -aG developers john_doe
+
+# remove group membership
+sudo deluser john_doe developers
 ```
 
 ### <a name='set-krb'></a>set-krb
@@ -103,6 +118,15 @@ cat /usr/share/wireshark/manuf | grep -i Dell
 sudo ifconfig eth0 down
 sudo ifconfig eth0 hw ether E4:B9:7A:98:A1:12
 sudo ifconfig eth0 up
+```
+
+### <a name='set-sudoers'></a>set-ssh
+```sh
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+ssh-copy-id user@hostname
+vi /etc/ssh/sshd_config
+# set => PasswordAuthentication no
+sudo systemctl restart sshd
 ```
 
 ### <a name='set-sudoers'></a>set-sudoers
