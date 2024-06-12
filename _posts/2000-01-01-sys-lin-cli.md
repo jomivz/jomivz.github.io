@@ -3,7 +3,7 @@ layout: post
 title: sys / lin
 category: sys
 parent: cheatsheets
-modified_date: 2023-07-18
+modified_date: 2024-06-12
 permalink: /sys/lin
 ---
 
@@ -19,17 +19,21 @@ permalink: /sys/lin
 	* [set-rdp](#set-rdp)
 	* [unset-fw](#unset-fw)
 	* [clean-history](#clean-history)
+* [audit](#audit)
+	* [audit-fs-perms](#audit-fs-perms)
+	* [audit-logs](#audit-logs)
 * [enum](#enum)
-	* [get-os](#get-os)
+	* [get-cpu](#get-cpu)
+   	* [get-history](#get-history)
 	* [get-kb](#get-kb)
 	* [get-netconf](#get-netconf)
-	* [get-shares](#get-shares)
-	* [get-users](#get-users)
+  	* [get-os](#get-os)
 	* [get-processes](#get-processes)
+	* [get-shares](#get-shares)
 	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
-	* [last-sessions](#last-sessions)
+	* [get-users](#get-users)
 * [enum-sec](#enum-sec)
 	* [get-apt-history](#get-apt-history)
 	* [get-boot-integrity](#get-boot-integrity)
@@ -57,12 +61,10 @@ permalink: /sys/lin
 
 ### <a name='add-account'></a>add-account
 ```sh
-
 ```
 
 ### <a name='add-group'></a>add-group
 ```sh
-
 ```
 
 ### <a name='set-krb'></a>set-krb
@@ -108,7 +110,7 @@ sudo ifconfig eth0 up
 **opsec**: [hackingarticles - sudo LPE](https://www.hackingarticles.in/linux-privilege-escalation-using-exploiting-sudo-rights/)
 
 ### <a name='set-vpn'></a>set-vpn
-``` 
+```bash 
 cd /etc/openvpn
 # run the vpn
 sudo openvpn --config xxx.opvn
@@ -118,34 +120,93 @@ watch curl https://api.myip.com
 ```
 
 ### <a name='set-rdp'></a>set-rdp
+```bash
+```
 
 ### <a name='unset-fw'></a>unset-fw
+```bash
+```
 
 ### <a name='clean-history'></a>clean-history
-```
+```bash
 echo "" > ~/.zsh_history
 echo "" > ~/.bash_history
 ```
 
+## <a name='audit'></a>audit
+
+### <a name='audit-fs-perms'></a>audit-fs-perms
+```bash
+find /home/ -type f -size +512k -exec ls -lh {} \;
+find /etc/ -readable -type f 2>/dev/null
+find / –perm -4000 -user root -type f
+find / -mtime -0 -ctime -7
+find / -atime 2 -ls 2>/dev/null
+find / -mtime -2 -ls 2>/dev/null
+
+/home/<user>/.ssh/authorized_keys
+/home/<user>/.bashrc
+```
+
+### <a name='audit-logs'></a>audit-logs
+```bash
+lastlog
+cat /var/log/lastlog
+grep -v cron /var/log/auth.log* | grep -v sudo | grep -i user
+grep -v cron /var/log/auth.log* | grep -v sudo | grep -i Accepted
+grep -v cron /var/log/auth.log* | grep -v sudo | grep -i failed
+grep -v cron /var/log/auth.log* | grep i "login:session"
+```
+
+
 ## <a name='enum'></a>enum
 
-### <a name='get-os'></a>get-os
-### <a name='get-kb'></a>get-kb
-### <a name='get-netconf'></a>get-netconf
+### <a name='get-os'></a>get-cpu
+```bash
+uptime
+free
+df
+cat /proc/meminfo
+cat /proc/mounts
 ```
+
+### <a name='get-os'></a>get-history
+```bash
+history
+cat /home/$USER/.*_history
+cat /home/$USER/.bash_history
+cat /root/.bash_history
+cat /root/.mysql_history
+cat /home/$USER/.ftp_history
+```
+
+### <a name='get-kb'></a>get-kb
+```bash
+```
+
+### <a name='get-netconf'></a>get-netconf
+```bash
+$ netstat -rn
+$ route
+
 # network card
 ip link
+ifconfig
 
 # arp table
 arp -a
 
 # listening socket
-netstat -nap and
+sudo netstat -nap
 lsof –i
 
 # network connections
 netstat -ntaupe
-netstat -ant
+netstat -ano
+netstat -nap
+netstat -antp
+netstat -antp | grep "ESTAB"
+
 watch ss -tt
 
 # dns
@@ -153,31 +214,57 @@ cat /etc/hosts
 cat /etc/resolv.conf
 ```
 
-### <a name='get-shares'></a>get-shares
-### <a name='get-users'></a>get-users
-```
-cat /etc/passwd
-cat /etc/group
-cat /etc/shadow
-
-# dfir
-grep :0: /etc/passwd
+### <a name='get-os'></a>get-os
+```bash
+date
+cat /etc/timezone
+uname -a
+uname -m
+cat /etc/*-release
+hostname
+cat /etc/hostname
+echo $PATH
 ```
 
 ### <a name='get-processes'></a>get-processes
-```
-ps –aux
+```bash
 lsof -p [pid]
 ps -eo pid,tt,user,fname,rsz
+ps -aux
+ps aux --sort=-%mem | head -n 10
+top
+htop
+vmstat -s
+pstree
 ```
+
 ### <a name='get-scheduled-tasks'></a>get-scheduled-tasks
-```
+```bash
 crontab -u root -l
 cat /etc/crontab
 ls –la /etc/cron.*
+tail -f /etc/cron.*/*
+cat /etc/cron.daily
+cat /etc/cron.hourly
+cat /etc/cron.monthly
+cat /etc/cron.weekly
+
+/etc/cron*/
+/etc/incron.d/*
+/var/spool/cron/*
+/var/spool/incron/*
 ```
+
+### <a name='get-sessions'></a>get-sessions
+```bash
+w
+
+# last-sessions
+last | grep -v 00:
+```
+
 ### <a name='get-services'></a>get-services
-```
+```bash
 # List all services and their current states.
 chkconfig --list
 
@@ -186,16 +273,35 @@ service --status-all
 
 # List running services (systemd)
 systemctl list-units --type=service
+
+more /etc/hosts
+more /etc/resolv.conf
+
+# service daemons
+/etc/init.d/*
+/etc/rc*.d/*
+/etc/systemd/system/*
+
+/etc/update.d/*
+/var/run/motd.d/*
 ```
 
-### <a name='get-sessions'></a>get-sessions
-```
-w
+### <a name='get-shares'></a>get-shares
+```bash
 ```
 
-### <a name='last-sessions'></a>last-sessions
+### <a name='get-users'></a>get-users
 ```
-last | grep -v 00:
+echo $USER
+passwd -S <USER>
+
+cat /etc/passwd
+cat /etc/group
+cat /etc/shadow
+cat /etc/sudoers
+
+# dfir
+grep :0: /etc/passwd
 ```
 
 ## <a name='enum-sec'></a>enum-sec
