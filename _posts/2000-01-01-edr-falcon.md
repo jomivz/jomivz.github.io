@@ -3,7 +3,7 @@ layout: post
 title: edr / falcon
 parent: cheatsheets
 category: edr
-modified_date: 2024-02-19
+modified_date: 2024-06-14
 permalink: /edr/falcon
 ---
 
@@ -19,6 +19,8 @@ permalink: /edr/falcon
 	* [exe-pe-randomized](#exe-pe-randomized)
 	* [exe-powershell-1](#exe-powershell-1)
 	* [exe-powershell-2](#exe-powershell-2)
+ 	* [exe-rollup](#exe-rollup)
+  	* [exe-rollup-dc](#exe-rollup-dc)
 	* [exe-utilman-abuse](#exe-utilman-abuse)
  	* [exe-webbrowser](#exe-webbrowser) 
 * [cql-fs-io](#cql-fs-io)
@@ -129,6 +131,18 @@ ComputerName= event_simpleName="NewScriptWritten" FileName IN ("*.ps*")
 | sort - _time 
 ```
 ![](/assets/images/edr_falcon_cql_ps2.png)
+
+### <a name='exe-rollup'></a>exe-rollup
+```
+ComputerName=
+| stats count by FileName, FilePath, ParentBaseFileName
+```
+
+### <a name='exe-rollup-dc'></a>exe-rollup-dc
+```
+NOT ActiveDirectory* NOT IdpDcPerf* event_simpleName=ProcessRollup2  ComputerName=
+| stats count by FileName, FilePath, ParentBaseFileName
+```
 
 ### <a name='exe-lolbas-1'></a>exe-svchost
 ```
