@@ -3,7 +3,7 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2024-05-16
+modified_date: 2024-06-14
 permalink: /sys/win
 ---
 
@@ -11,19 +11,18 @@ permalink: /sys/win
 
 <!-- vscode-markdown-toc -->
 * [enum](#enum)
-	* [get-os](#get-os)
 	* [get-kb](#get-kb)
-	* [get-users](#get-users)
 	* [get-gpo](#get-gpo)
+	* [get-os](#get-os)
 	* [get-products](#get-products)
 	* [get-processes](#get-processes)
+	* [get-path](#get-path)
+	* [get-pipes](#get-pipes)
 	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
-	* [last-sessions](#last-sessions)
-	* [get-path](#get-path)
-	* [get-pipes](#get-pipes)
 	* [get-usb-devices](#get-usb-devices)
+	* [get-users](#get-users)
 	* [get-vss](#get-vss)
 * [enum-net](#enum-net)
 	* [get-ca](#get-ca)
@@ -86,12 +85,6 @@ permalink: /sys/win
 
 
 ## <a name='enum'></a>enum
-### <a name='get-os'></a>get-os
-```powershell
-# listing OS version
-wmic os list brief
-wmic os get MUILanguages
-```
 
 ### <a name='get-kb'></a>get-kb
 ```
@@ -103,29 +96,22 @@ powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.c
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-### <a name='get-users'></a>get-users
+### <a name='get-kb'></a>get-logs
 ```powershell
-# get local users
-wmic netlogin list brief
-net user
-
-# get local users, SID
-Get-WmiObject win32_useraccount | Select name,sid
-wmic useraccount get name,sid
-wmic useraccount where name=john.doe get sid 
-
-# get acconut creation date
-dir /tc C:\Users
-
-# get local groups and members 
-net localgroup
-net localgroup Administrators
+Get-WmiObject win32_nteventlogfile
 ```
 
 ### <a name='get-gpo'></a>get-gpo
 ```powershell
 rsop
 gpresult /Z /scope:computer 
+```
+
+### <a name='get-os'></a>get-os
+```powershell
+# listing OS version
+wmic os list brief
+wmic os get MUILanguages
 ```
 
 ### <a name='get-products'></a>get-products
@@ -181,10 +167,8 @@ qprocess /id:5
 
 # killing a session / below '2' is the session ID
 logoff 2
-```
 
-### <a name='last-sessions'></a>last-sessions
-```powershell
+# last-sessions
 # global view
 wmic netlogin get Name,LastLogon,LastLogoff,NumberOfLogons,BadPasswordCount
 
@@ -214,6 +198,25 @@ ls \\localhost\pipe\spoolss
 # https://www.shellhacks.com/windows-lsusb-equivalent-powershell/
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | FT -autosize 
 Get-PnpDevice -PresentOnly | Where-Object { $_.InstanceId -match '^USB' } | Format-List
+```
+
+### <a name='get-users'></a>get-users
+```powershell
+# get local users
+wmic netlogin list brief
+net user
+
+# get local users, SID
+Get-WmiObject win32_useraccount | Select name,sid
+wmic useraccount get name,sid
+wmic useraccount where name=john.doe get sid 
+
+# get acconut creation date
+dir /tc C:\Users
+
+# get local groups and members 
+net localgroup
+net localgroup Administrators
 ```
 
 ### <a name='get-vss'></a>get-vss
