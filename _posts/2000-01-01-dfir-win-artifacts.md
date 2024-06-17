@@ -215,13 +215,13 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 
 ```batch
 # prefetch caching enable/disabled in the SYSTEM registry
+dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
 # value: PrefetchParameters
 # type REG_DWORD
 # 0 = Disabled
 # 1 = Application launch prefetching enabled
 # 2 = Boot prefetching enabled
 # 3 = Application launch and boot enabled
-HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management/PrefetchParameters
 
 # one shot
 pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
