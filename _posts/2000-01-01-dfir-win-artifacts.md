@@ -9,13 +9,13 @@ permalink: /dfir/win
 
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
-* [appcompatcache](#appcompatcache)
 * [autoruns](#autoruns)
 * [dirs](#dirs)
 	* [temp](#temp)
 * [logs](#logs)
 	* [logs-all](#logs-all)
 	* [logs-dns](#logs-dns)
+   	* [logs-ps](#logs-ps)
  	* [logs-svcs](#logs-svcs)
 	* [logs-wmi](#logs-wmi)
 * [mplogs](#mplogs)
@@ -32,7 +32,7 @@ permalink: /dfir/win
 * [shimcache](#shimcache)
 * [web-browser](#web-browser)
 * [wer](#wer)
-	* [werpersistence](#werpersistence)
+	* [wer-persist](#wer-persist)
 	* [lsass-shtinkering](#lsass-shtinkering)
 
 <!-- vscode-markdown-toc-config
@@ -45,6 +45,7 @@ permalink: /dfir/win
 
 ## <a name='autoruns'></a>autoruns
 ```powershell
+# https://github.com/davehull/Kansa/blob/master/Analysis/asep/Get-ASEPImagePathLaunchStringMD5UnsignedTimeStack.ps1
 autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
 .\Get-ASEPImagePathLaunchStringMD5UnsignedStack.ps1 > asep-workstation-stack.csv
 ```
@@ -55,22 +56,23 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
-**References**
+**Sources**
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
-## <a name='appcompatcache'></a>appcompatcache
-
-* subsystem allowing a program to invoke properties of different OS versions
-* compatibility modes are called "shims"
-
-```
-appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
-```
-
 ## <a name='dirs'></a>dirs
+
 ### <a name='temp'></a>temp
 ```powershell
+# https://github.com/davehull/Kansa/blob/master/Modules/Disk/Get-TempDirListing.ps1
+# source-code of 'Get-TempDirListing.ps1'
+foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandProperty localpath)) {
+    if (Test-Path(($userpath + "\AppData\Local\Temp\"))) {
+        Get-ChildItem -Force ($userpath + "\AppData\Local\Temp\*") | Select-Object FullName, CreationTimeUtc, LastAccessTimeUtc, LastWriteTimeUtc
+    }
+}
+
+# GUI visualization 
 .\Get-TempDirListing.ps1 | Out-GridView
 ```
 
@@ -86,7 +88,7 @@ appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv g:\execution -
 %SystemRoot%\System32\winevt\logs\System.evtx
 %SystemRoot%\System32\winevt\logs\Windows Powershell.evtx
 
-# KANSA 
+# https://github.com/davehull/Kansa/blob/master/Modules/Log/Get-LogWinEvent.ps1
 .\Modules\Log\Get-LogWinEvent.ps1 security | Out-GridView
 ```
 
@@ -125,8 +127,14 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 # set the log file path
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
+
+### <a name='logs-ps'></a>logs-ps
+```powershell
+```
+
 ### <a name='logs-svcs'></a>logs-svcs
 ```powershell
+# https://github.com/davehull/Kansa/blob/master/Analysis/Get-LogparserStack.ps1
 .\Get-LogparserStack.ps1 -FilePattern *SvcAll.csv -Delimiter "," -Direction asc -OutFile svcAll_stack.csv
 # Answer these questions as follows:
 # Enter the field to pass to COUNT(): Name
@@ -138,10 +146,10 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 
 ### <a name='logs-svcs'></a>logs-wmi
 ```powershell
-# OPTION 1  
+# OPTION 1 : https://github.com/davehull/Kansa/blob/master/Modules/Process/Get-ProcsWMI.ps1
 .\Modules\Process\Get-ProcsWMI.ps1 | Out-GridView
 
-# OPTION 2
+# OPTION 2 : https://github.com/davehull/Kansa/blob/master/Analysis/Get-LogparserStack.ps1
 .\Get-LogparserStack.ps1 -FilePattern *WmiEvtFilter.csv -Delimiter "," -Direction asc -OutFile wmiEvtFilter_stack.csv
 # Answer these questions as follows:
 # Enter the field to pass to COUNT(): Name
@@ -152,6 +160,7 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 
 ## <a name='mplogs'></a>mplogs
 ```poweshell
+
 ```
 
 ## <a name='ntfs'></a>ntfs
@@ -197,6 +206,7 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 
 ## <a name='prefetch'></a>prefetch
 
+**Keypoints:**
 * artifact to prioritize for collection as it can be overwritten during DFIR execs
 * existence of prefetch does not mean the successful execution
 * digits in the filename stands for the PE path hash
@@ -225,9 +235,8 @@ pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
 
 ## <a name='reg'></a>reg
 
-**What is it ?** Files listed are the evidences to collect for the forensics. 
-
-**Note:** There is one NTuser.dat and one UsrClass.dat per user to collect.
+**Keypoints:**
+* There is 1 'NTUSER.DAT' and 1 'UsrClass.dat' / USER
 
 | **Hive** | **System Path** |
 |---------------|-------------|
@@ -329,19 +338,35 @@ cd HKLM:
 
 ## <a name='shellbags'></a>shellbags
 
-* USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
-* USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
-* NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
-* NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
-
 ```powershell
-
+# 
+USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
+USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
+NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
+NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 ```
 
 ## <a name='shimcache'></a>shimcache
-```powershell
-appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv f:\case_01 --csvf appcompatcache.csv
+
+
+**Keypoints:**
+* subsystem allowing a program to invoke properties of different OS versions
+* compatibility modes are called "shims"
+* data buffered in memory / committed in registry on shutdown and reboot
+* app is shimmed if rewritten, renamed, moved
+* existence of InsertFlag does not mean the successful execution (OS behavior variation)
+* 1 SDB / ControlSet 
+
 ```
+# parse all currentcontrolset
+appcompatcacheparser -f C:\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
+
+# check the CurrentControlSet
+dir HKLM:SYSTEM
+```
+
+**Sources:**
+* [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
 
 ## <a name='web-browser'></a>web-browser
 
@@ -360,8 +385,11 @@ appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv f:\case_01 --c
 | Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
 | Vivaldi    | Windows    | %AppDataM\Local\Vivaldi\User Data\Default |
 
+**Sources:**
+- [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
+
 ## <a name='wer'></a>wer
-### werpersistence
+### <a name='wer-persist'></a>wer-persist
 ```powershell
 # 2024-02-12 / Persistence / POC
 # https://github.com/0xHossam/WERPersistence/tree/main
@@ -371,22 +399,20 @@ C:\ProgramData\Microsoft\Windows\WER\ReportQueue\*.wer
 # https://www.bleepingcomputer.com/news/security/hackers-abuse-windows-error-reporting-tool-to-deploy-malware/
 werfault.dll
 ```
-**References**
-- [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
 
 ### lsass-shtinkering
 
-• Artifact / Event Log
-	• Event ID 1000 is generated under “Windows Logs\Application”
-	• Event doesn’t specify the sender process
-
-• Artifact / Dump File:
-	• Dump files will be written to %LocalAppData%\CrashDumps
-	• For processes running as “NT AUTHORITY\SYSTEM”, the path is:
+**Keypoints:**
+* Artifact / Event Log
+	* Event ID 1000 is generated under “Windows Logs\Application”
+ 	* Event doesn’t specify the sender process
+  * Artifact / Dump File:
+  	* Dump files will be written to %LocalAppData%\CrashDumps
+   	* For processes running as “NT AUTHORITY\SYSTEM”, the path is:
 ```
 C:\Windows\system32\config\systemprofile\AppData\Local\CrashDumps
 ```
 
-**References**
+**Sources**
 -[DEFCON 30 - lsass shtinkering | talk](https://www.youtube.com/watch?v=-QRr_8pvOiY))
 -[DEFCON 30 - lsass shtinkering | slides](https://infocon.org/cons/DEF%20CON/DEF%20CON%2030/DEF%20CON%2030%20presentations/Asaf%20Gilboa%20-%20LSASS%20Shtinkering%20Abusing%20Windows%20Error%20Reporting%20to%20Dump%20LSASS.pdf)
