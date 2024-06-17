@@ -3,12 +3,13 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2024-06-03
+modified_date: 2024-06-17
 permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
 * [amcache](#amcache)
+* [appcompatcache](#appcompatcache)
 * [autoruns](#autoruns)
 * [dirs](#dirs)
 	* [temp](#temp)
@@ -49,9 +50,7 @@ autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
 ```
 
 ## <a name='amcache'></a>amcache
-```
-appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
-```
+
 Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
@@ -59,6 +58,15 @@ Files in column of the table are in the directory `C:\Windows\AppCompat\Programs
 **References**
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
+
+## <a name='appcompatcache'></a>appcompatcache
+
+* subsystem allowing a program to invoke properties of different OS versions
+* compatibility modes are called "shims"
+
+```
+appcompatcacheparser -f e:\C\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
+```
 
 ## <a name='dirs'></a>dirs
 ### <a name='temp'></a>temp
@@ -188,12 +196,31 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 ```
 
 ## <a name='prefetch'></a>prefetch
+
+* artifact to prioritize for collection as it can be overwritten during DFIR execs
+* existence of prefetch does not mean the successful execution
+* digits in the filename stands for the PE path hash
+* multiple prefetch for the same PE, can mean different locations (different PE path hash)
+* exception: PE path hash for 'svchost', 'dllhost', 'backgroundtaskhost', 'rundll32' take into account the 'path + command-line'    
+
 ```batch
+# prefetch caching enable/disabled in the SYSTEM registry
+# value: PrefetchParameters
+# type REG_DWORD
+# 0 = Disabled
+# 1 = Application launch prefetching enabled
+# 2 = Boot prefetching enabled
+# 3 = Application launch and boot enabled
+HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management/PrefetchParameters
+
 # one shot
 pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
 
-# timeline
-pecmd -d E:\C\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
+# timeline V01
+pecmd -d C:\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
+
+# timeline V02
+pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
 ```
 
 ## <a name='reg'></a>reg
