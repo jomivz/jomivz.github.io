@@ -216,6 +216,7 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 ```batch
 # prefetch caching enable/disabled in the SYSTEM registry
 dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
+get-itemproperty 'HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management/PrefetchParameters'
 # value: PrefetchParameters
 # type REG_DWORD
 # 0 = Disabled
