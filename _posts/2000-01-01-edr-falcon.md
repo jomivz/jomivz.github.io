@@ -12,6 +12,8 @@ permalink: /edr/falcon
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
 * [cql-detections](#cql-detections)
+* [cql-enum](#cql-enum)
+	* [enum-configbuild](#enum-configbuild)
 * [cql-exe](#cql-exe)
 	* [exe-lolbas-1](#exe-lolbas-1)
 	* [exe-lolbas-2](#exe-lolbas-2)
@@ -74,6 +76,19 @@ ExternalApiType=Event_DetectionSummaryEvent ComputerName=
 # 60 DAYS DETECTION BACKLOG FOR COMPUTERS SCOPE
 ExternalApiType=Event_DetectionSummaryEvent  
 | where like (ComputerName,”UK%”)
+```
+
+## <a name='cql-exe'></a>cql-enum
+
+### <a name='exe-lolbas-1'></a>enum-configbuild
+```
+earliest=-7d event_platform=win event_simpleName=SensorHeartbeat ComputerName=
+| fields timestamp aid ComputerName ConfigBuild
+| stats first(timestamp) AS firstSeen by aid, ComputerName, ConfigBuild
+| eval firstSeen=firstSeen/1000
+| convert ctime(firstSeen)
+| stats values(firstSeen) values(ConfigBuild) by aid, ComputerName
+| sort + ComputerName
 ```
 
 ## <a name='cql-exe'></a>cql-exe
