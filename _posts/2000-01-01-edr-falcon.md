@@ -336,6 +336,9 @@ event_simpleName=RegGeneric*  ComputerName=
 ```
 
 ## <a name='falconpy'></a>falconps
+
+* [psfalcon/samples](https://github.com/CrowdStrike/psfalcon/tree/master/samples)
+
 ### <a name='falconpy'></a>get-hosts-info
 ```
 # This script is used to contain a list of hostnames found in Crowdstrike
