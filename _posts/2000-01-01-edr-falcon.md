@@ -354,9 +354,10 @@ $export_csv = ".\"+$import_csv+"_"+$date_exec+".csv"
 
 $workstationInfo = @()
 
-Write-Host "Import CSV"
-
+Write-Host ("Import CSV.")
 $W_List = Import-Csv -Path $import_csv
+
+Write-Host ("Query CS API.")
 foreach ($workstationl in $W_List) {
     $workstation = $workstationl.workstation
     $HostID=Get-FalconHost -Filter "hostname:['$workstation']" -Detailed
@@ -364,7 +365,7 @@ foreach ($workstationl in $W_List) {
     if ($HostID -ne $null){
         $tag=(Get-FalconHost -Filter "hostname:['$workstation']" | Get-FalconSensorTag)
         $tag2=$tag.tags
-        #Write-Host ($workstation+";"+$HostID.Status+";"+$HostID.product_type_desc+";"+$HostID.serial_number+";"+$tag2)
+        #Write-Host ($workstation+","+$HostID.Status+","+$HostID.product_type_desc+","+$HostID.serial_number+","+$tag2)
         $workstationInfo += [PSCustomObject]@{
             id=$HostID.device_id
             hostname = $workstation
@@ -376,10 +377,10 @@ foreach ($workstationl in $W_List) {
             }
     }    
 }
-Write-Host "Export CSV"
-$workstationInfo | Export-Csv -NoTypeInformation -Path $export_csv -delimiter ';' -Encoding UTF8 -Force;
-
-Write-Host $workstationInfo
+Write-Host "Export CSV."
+$workstationInfo | Export-Csv -NoTypeInformation -Path $export_csv -delimiter ',' -Encoding UTF8 -Force;
+Write-Host "View exported CSV."
+Import-Csv $export_csv | Out-GridView
 ```
 
 ### <a name='falconpy'></a>get-hosts-regkey
