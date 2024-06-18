@@ -350,7 +350,7 @@ Request-FalconToken -ClientID $creduser -ClientSecret $credpass -Cloud eu-1
 
 $import_csv = read-host "Hosts Input CSV: "
 $date_exec  = (Get-Date).tostring("dd-MM-yyyy_hh-mm-ss")
-$export_csv = ".\"+$import_csv+"_"+$date_exec+".csv"
+$export_csv = $import_csv+"_"+$date_exec+".csv"
 
 $workstationInfo = @()
 
@@ -368,8 +368,14 @@ foreach ($workstationl in $W_List) {
         #Write-Host ($workstation+","+$HostID.Status+","+$HostID.product_type_desc+","+$HostID.serial_number+","+$tag2)
         $workstationInfo += [PSCustomObject]@{
             id=$HostID.device_id
-            hostname = $workstation
-            status=$HostID.Status
+            hostname=$workstation
+            domain=$HostID.machine_domain
+            ou=$HostID.ou
+            local_ip=$HostID.local_ip
+            external_ip=$HostID.external_ip
+            cs_version=$HostID.agent_version
+            status=$HostID.status
+            last_seen=$HostID.last_seen
             os=$HostID.os_product_name
             entity=$tag2
             serial=$HostID.serial_number
