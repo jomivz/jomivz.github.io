@@ -46,8 +46,11 @@ permalink: /sys/win
 	* [network-capture](#network-capture)
 * [tamper](#tamper)
 	* [add-account](#add-account)
+	* [add-regkey](#del-regkey)
+ 	* [del-regkey](#del-regkey)
+ 	* [set-fs-perms](set-fs-perms)
 	* [set-kb](#set-kb)
-	* [set-network](#set-network)
+	* [set-network](#set-network)	
 	* [set-proxy](#set-proxy)
 	* [set-rdp](#set-rdp)
 	* [set-winrm](#set-winrm)
@@ -423,13 +426,34 @@ net user /ADD test * /DOMAIN
 # add the new user to administrators
 net localgroup Administrators test /ADD
 net localgroup Administrators corp\test /ADD
-
 ```
 
-### <a name='add-account'></a>del-registry-key
+### <a name='add-regkey'></a>add-regkey
+```batch
+```
+
+### <a name='del-regkey'></a>del-regkey
 ```batch
 set "SID=1-5-21-XXX-500"
 reg delete HKEY_USERS\%SID%\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /v abcdef123456 /f
+```
+
+### <a name='set-fs-perms'></a>set-fs-perms
+```powershell
+# https://superuser.com/questions/1002883/how-do-i-specify-chmod-744-in-powershell
+# Set Owner of a specific file
+icacls "test.txt" /setowner "administrator"
+
+# Grant Full Control
+icacls "test.txt" /grant:r "administrator:(F)" /C
+
+# Grant Read and Execute Access of a specific file
+icacls "test.txt" /grant:r "users:(RX)" /C
+icacls "test.txt" /grant:r "utilisateurs:(RX)" /C
+
+# Grant Read-only Access of a specific file
+icacls "test.txt" /grant:r "users:(R)" /C
+icacls "test.txt" /grant:r "utilisateurs:(RX)" /C
 ```
 
 ### <a name='set-kb'></a>set-kb
