@@ -3,13 +3,16 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2024-06-14
+modified_date: 2024-06-19
 permalink: /sys/win
 ---
 
 **MENU**
 
 <!-- vscode-markdown-toc -->
+* [copy](#copy)
+	* [copy-dir](#copy-dir)
+	* [copy-file](#copy-file)
 * [enum](#enum)
 	* [get-kb](#get-kb)
 	* [get-gpo](#get-gpo)
@@ -86,6 +89,17 @@ permalink: /sys/win
 
 * [windows logs](/sys/logs-win/)
 
+## <a name='copy'></a>copy
+### <a name='copy-file'></a>copy-dir
+```
+robocopy.exe "C:\windows\system32\winevt\logs\" "C:\windows\temp\logs"
+```
+
+### <a name='copy-file'></a>copy-file
+```
+# copy a single
+robocopy.exe /MIR "C:\windows\system32\winevt\logs\" "C:\windows\temp" Security.evtx
+```
 
 ## <a name='enum'></a>enum
 
