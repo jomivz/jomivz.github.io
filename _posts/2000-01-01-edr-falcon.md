@@ -427,9 +427,37 @@ event_simpleName=RegGeneric*  ComputerName=
 ### <a name='logscale-detections'></a>logscale-detections
 ### <a name='logscale-enum'></a>logscale-enum
 ### <a name='logscale-exe'></a>logscale-exe
+#### <a name='exe-pe'></a>exe-pe
+```
+#event_simpleName=/.*Written/
+| ComputerName=
+| FileName=/.+(?<Extension>\..+)/
+| Extension:=lower("Extension")
+| in(field="Extension", values=[".exe", ".msi"]) // add "!" before in (!in) to exclude these extensions
+| TheTime := formatTime("%Y-%m-%d %H:%M:%S", field=timestamp, locale=en_US, timezone=Z)
+| table([TheTime, event_simpleName, SHA256HashData, FileName, FilePath, OriginalFilename, ComputerName ], limit=1000, sortby=TheTime, order=desc)
+
+```
+
 ### <a name='logscale-fs-io'></a>logscale-fs-io
+#### <a name='fs-dl-files'></a>fs-dl-files
+```
+#event_simpleName="MotwWritten"
+| ComputerName=
+| ZoneIdentifier = 3
+| TheTime := formatTime("%Y-%m-%d %H:%M:%S", field=timestamp, locale=en_US, timezone=Z) // Z for Zulu aka UTC
+| table([theTime, event_simpleName, FileName, Zone, HostUrl, ReferrerUrl], limit=1000, sortby=failedLoginCount)
+```
+
 ### <a name='logscale-net'></a>logscale-net
 ### <a name='logscale-tamper'></a>logscale-tamper
+#### <a name='logscale-tamper'></a>added-scheduled-tasks
+```
+#event_simpleName=ScheduledTask*
+| event_platform=Win
+| TheTime := formatTime("%Y-%m-%d %H:%M:%S", field=timestamp, locale=en_US, timezone=Z)
+| table([theTime, ComputerName, Username, event_simpleName, TaskAuthor, TaskExecArguments, TaskExecCommand, TaskName, TaskXml])
+```
 
 ## <a name='jq'></a>jq
 
