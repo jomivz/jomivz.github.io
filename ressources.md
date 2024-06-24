@@ -56,7 +56,7 @@ modified_date: 2023-09-20
 | 🚦🔎 [redcanary](https://redcanary.com/threat-detection-report/threats/) 📈 | 🔎 [nuclei-templates](https://nuclei-templates.netlify.app)| 🛸 [polyswarm](https://polyswarm.network/)| 🎣 [checkphish](https://checkphish.ai/) |
 | 🚦🧅 [exonerator](https://metrics.torproject.org/exonerator.html) | | 🇼 [C2 Matrix](https://docs.google.com/spreadsheets/d/1b4mUxa6cDQuTV2BPC6aA-GR4zGZi0ooPYtBe4IgPsSc/edit#gid=0) | 🧅 [torwhois](https://torwhois.com/) |
 | 🚦🔎 [maltiverse](https://maltiverse.com) | | 🇼 [unprotect](https://www.unprotect.it/) | 🕸️ [aadinternals](https://aadinternals.com/osint/) |
-| 🚦🔎 [red.flags.domain](https://red.flag.domains) | | | |
+| 🚦🔎 [red.flags.domain](https://red.flag.domains) | | | 🎣 [Stellastra](https://stellastra.com/email-deliverability-check) |
 
 ### <a name='RED'></a>📚📕 RED
 
@@ -82,6 +82,7 @@ modified_date: 2023-09-20
 | [jmvwork.xyz/dfir](https://jmvwork.xyz/dfir) |
 | [eyehatemlw](https://eyehatemalwares.com/home/) 🥇	| 
 | [forensics tools classification](https://github.com/cugu/awesome-forensics) |
+| [TLS Cipher Suites](https://stellastra.com/cipher-suite) |
 | [backdoorsandbreaches](https://play.backdoorsandbreaches.com/) / [cards list](https://docs.google.com/spreadsheets/d/1RNBFr4o9OPYWwR7mxdadHQwxRayylZewcphdS3K6-og/edit?pli=1#gid=0) / [solutions](https://docs.google.com/spreadsheets/d/1R4Za4jGgzn5LLQJia1CCZVuAVdcvOR9FQO7B7ZeBXGw/edit#gid=1959042953) |
 
 ### <a name='TOOLS'></a>📚🛠️ TOOLS
