@@ -171,6 +171,10 @@ gwmi win32_service|?{$_.name -eq "CSFalconService"}|select *
 
 #service executable path
 gwmi win32_service|?{$_.name -eq "CSFalconService"}|select pathname
+
+#services launched via svchost (for service group LocalServiceNoNetwork) 
+#https://x.com/nas_bench/status/1432459464146309136/photo/1
+for /F %i in ('powershell.exe -Command "(Get-ItemProperty 'hklm:\software\Microsoft\Windows NT\CurrentVersion\SVCHOST') | select -expandProperty LocalServiceNoNetwork"') do powershell.exe -Command "(Get-ItemProperty 'hklm:\system\CurrentControlSet\Services\%i')" 
 ```
 
 ### <a name='get-sessions'></a>get-sessions
