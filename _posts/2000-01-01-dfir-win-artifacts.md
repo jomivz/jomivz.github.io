@@ -19,6 +19,7 @@ permalink: /dfir/win
  	* [logs-svcs](#logs-svcs)
 	* [logs-wmi](#logs-wmi)
 * [mplogs](#mplogs)
+* [named-pipes](#named-pipes)
 * [ntfs](#ntfs)
 	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
@@ -159,9 +160,25 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
 ## <a name='mplogs'></a>mplogs
-```poweshell
+```powershell
 
 ```
+
+## <a name='named-pipes'></a>named-pipes
+
+```powershell
+# https://www.microsoft.com/en-gb/download/details.aspx?id=17148
+PortQry.exe -n dc01.contoso.com -e 135
+
+# listing the named with dumpin (visual studio tool)
+Get-ChildItem -Path "C:\Windows\System32\" -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue | % { $out=$(C:\bin\dumpbin.exe /IMPORTS:rpcrt4.dll $_.VersionInfo.FileName); If($out -like "*RpcStringBindingCompose*"){ Write-Host "[+] Exe creates RPC Binding (potential RPC Client) : $($_.VersionInfo.FileName)"; Write-Output "[+] $($_.VersionInfo.FileName)`n`n $($out|%{"$_`n"})" | Out-File -FilePath EXEs_RpcClients.txt -Append } }
+```
+
+**Sources:**
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-1-RPC.html
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-2-RPC.html
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-3-RPC.html
+* https://www.elastic.co/guide/en/security/current/nullsessionpipe-registry-modification.html
 
 ## <a name='ntfs'></a>ntfs
 
