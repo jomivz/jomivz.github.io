@@ -43,6 +43,9 @@ permalink: /edr/falcon
 		* [net-conns-www](#net-conns-www)
 		* [net-dns-req-1](#net-dns-req-1)
 		* [net-dns-req-2](#net-dns-req-2)
+ 		* [net-scans-internal](#net-scans-internal)
+   		* [net-smb-sessions](#net-smb-sessions)
+  * STAYED TOO LONG IN THE BACKLOG / CANNOT IDENTIFY THE SOURCE PROCESS  
 	* [cql-tamper](#cql-tamper)
 		* [added-local-admin](#added-local-admin)
 		* [added-scheduled-tasks](#added-scheduled-tasks)
@@ -386,6 +389,23 @@ ComputerName=  sourcetype="DnsRequest*"
 | where not like(DomainName,"%in-addr.arpa") 
 | dedup DomainName 
 | table DomainName 
+```
+
+#### <a name='net-dns-req-2'></a>net-scans-internal
+```
+event_simpleName=networkConnectIP4 NOT ContextBaseFileName IN ("Ntrtscan.exe", "ACCS FTP.exe", "CSFalcon*", "rpcbind") RemoteAddressIP4 IN ("10.*", "172.*", "192.168.*")
+| where RPort < 1024
+| eval mitre=Tactic."/".Technique
+| stats dc(RPort) as number_rport values(RPort) as remote_port_list values(mitre) by ContextBaseFileName 
+| where number_rport > 5
+```
+
+#### <a name='net-dns-req-2'></a>net-smb-sessions
+```
+index=main ComputerName=XXXXXXXXXX *smb*
+| eval real_time=strftime(_time,"%Y-%m-%dT%H:%M:%S.%Q") 
+| eval conn=event_simpleName. " -> " .real_time
+| stats values(UserName) values(ClientComputerName) values(conn) by SmbShareName
 ```
 
 ### <a name='cql-tamper'></a>cql-tamper
