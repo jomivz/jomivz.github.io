@@ -45,7 +45,6 @@ permalink: /edr/falcon
 		* [net-dns-req-2](#net-dns-req-2)
  		* [net-scans-internal](#net-scans-internal)
    		* [net-smb-sessions](#net-smb-sessions)
-  * STAYED TOO LONG IN THE BACKLOG / CANNOT IDENTIFY THE SOURCE PROCESS  
 	* [cql-tamper](#cql-tamper)
 		* [added-local-admin](#added-local-admin)
 		* [added-scheduled-tasks](#added-scheduled-tasks)
