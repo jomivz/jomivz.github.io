@@ -53,11 +53,11 @@ autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
 
 ## <a name='amcache'></a>amcache
 
-Files in column of the table are in the directory `C:\Windows\AppCompat\Programs`.
+* **Location**: `C:\Windows\AppCompat\Programs\amcache.hve`.
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
-**Sources**
+* **Sources**:
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
@@ -79,8 +79,7 @@ foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandPro
 
 ## <a name='logs'></a>logs
 
-### <a name='logs-all'></a>logs-all
-
+* **Locations**:
 ```powershell
 # all Windows Versions
 
@@ -93,36 +92,29 @@ foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandPro
 .\Modules\Log\Get-LogWinEvent.ps1 security | Out-GridView
 ```
 
+* **Formatting**:
 * Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
 
 ### <a name='logs-dns'></a>logs-dns 
 
-1/ Are the DNS debug logs activated ?
-
+* **Status**:
 ```powershell
+# 01 # Are the DNS debug logs activated ?
 # open a console (`cmd.exe`) and run the command 
 # to check the parameter `dwDebugLevel`. It value must be `00006101`.
 dnscmd /Info
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
+Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
 ```
 
-2/ Where are located the DNS debug logs ?
-
-By default, the locations for storing DNS logs are :
+* **Location**:
 ```powershell
 %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
 %SystemRoot%\System32\Dns\Dns.log
 ```
 
-To verify it, open a console (`cmd.exe`) and run the commands:
+* **Configuration**:
 ```powershell
-reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
-Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
-```
-
-3/ How to activate the DNS logs ? How to define logs location ?
-
-Open a console (`cmd.exe`) and run the commands:
-```batch
 # set the debug mode
 dnscmd.exe localhost /Config /LogLevel 0x6101
 # set the log file path
@@ -134,6 +126,7 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
 ### <a name='logs-svcs'></a>logs-svcs
+* **Formatting**:
 ```powershell
 # https://github.com/davehull/Kansa/blob/master/Analysis/Get-LogparserStack.ps1
 .\Get-LogparserStack.ps1 -FilePattern *SvcAll.csv -Delimiter "," -Direction asc -OutFile svcAll_stack.csv
@@ -146,6 +139,7 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
 ### <a name='logs-svcs'></a>logs-wmi
+* **Formatting**:
 ```powershell
 # OPTION 1 : https://github.com/davehull/Kansa/blob/master/Modules/Process/Get-ProcsWMI.ps1
 .\Modules\Process\Get-ProcsWMI.ps1 | Out-GridView
@@ -210,13 +204,21 @@ ls %SystemRoot%\NTDS\Ntds.dit
 ```
 
 ## <a name='powershell-history'></a>powershell-history
-```
+
+* **Status**:
+```powershell
 # https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlineoption?view=powershell-7.4&viewFallbackFrom=powershell-6
 Get-PSReadLineOption
+```
 
+* **Location**:
+```
 # path
 $env:APPDATA\Roaming\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
+```
 
+* **Configure**:
+```
 # enable / disable history
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
 ```
