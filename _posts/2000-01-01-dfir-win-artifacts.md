@@ -3,7 +3,7 @@ layout: post
 title: dfir / win / artifacts
 parent: cheatsheets
 category: dfir
-modified_date: 2024-06-17
+modified_date: 2024-05-15
 permalink: /dfir/win
 ---
 
@@ -45,29 +45,61 @@ permalink: /dfir/win
 🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥
 
 ## <a name='autoruns'></a>autoruns
+
+🩺 **Status**:
 ```powershell
-# https://github.com/davehull/Kansa/blob/master/Analysis/asep/Get-ASEPImagePathLaunchStringMD5UnsignedTimeStack.ps1
+# https://live.sysinternals.com/autorunsc.exe
 autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
-.\Get-ASEPImagePathLaunchStringMD5UnsignedStack.ps1 > asep-workstation-stack.csv
+```
+
+📁 **Locations**:
+```powershell  
+HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run*
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Run*
+HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Runonce*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\policies\Explorer\Run*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Run*
+```
+
+📰 **Formatting**:
+```powershell
+autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner > .csv
+```
+
+💗 **Configure**:
+```powershell
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v MyCalc /t REG_SZ /d "C:\windows\syswow64\calc.exe"
 ```
 
 ## <a name='amcache'></a>amcache
 
-* **Location**: `C:\Windows\AppCompat\Programs\amcache.hve`.
+🩺 **Status**:
+```powershell
+```
 
-* **Formatting**:
+📁 **Location**: `C:\Windows\AppCompat\Programs\amcache.hve`.
+
+📰 **Formatting**:
 ```powershell
 # https://ericzimmerman.github.io/#!index.md # amcacheparser
 AmcacheParser.exe -f "samples/123456/Amcache.hve" --csv samples/123456 --csvf samples/123456/123456_DC01_amcache.csv
 ```
-
-![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
+💗 **Configure**:
+```powershell
+```
 
 * **Sources**:
 - ANSSI - [CoRIIN_2019 - Analysis AmCache](https://www.ssi.gouv.fr/uploads/2019/01/anssi-coriin_2019-analysis_amcache.pdf) - 07/2019
 - ANSSI - [SANS DFIR AmCache Investigation](https://www.youtube.com/watch?v=_DqTBYeQ8yA) - 02/2020 
 
+![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
+
 ## <a name='dirs'></a>dirs
+
+### <a name='jumplist'></a>jumplist
+```powershell
+```
 
 ### <a name='temp'></a>temp
 ```powershell
@@ -82,10 +114,13 @@ foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandPro
 # GUI visualization 
 .\Get-TempDirListing.ps1 | Out-GridView
 ```
+🩺💗📰📁
 
 ## <a name='logs'></a>logs
 
-* **Locations**:
+🩺 **Status**:
+
+📁 **Locations**:
 ```powershell
 # all Windows Versions
 
@@ -98,7 +133,7 @@ foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandPro
 .\Modules\Log\Get-LogWinEvent.ps1 security | Out-GridView
 ```
 
-* **Formatting**:
+📰 **Formatting**:
 ```powershell
 # 01 # https://ericzimmerman.github.io/#!index.md # evtxecmd
 EvtxECmd.exe -f "samples/123456/Microsoft-Windows-WMI-Activity%4Operational.evtx" --csv samples/123456 --csvf samples/123456/123456_DC01_evtx_wmi.csv
@@ -106,9 +141,13 @@ EvtxECmd.exe -f "samples/123456/Microsoft-Windows-WMI-Activity%4Operational.evtx
 # 02 # Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
 ```
 
+💗 **Configure**:
+```powershell
+```
+
 ### <a name='logs-dns'></a>logs-dns 
 
-* **Status**:
+🩺 **Status**:
 ```powershell
 # 01 # Are the DNS debug logs activated ?
 # open a console (`cmd.exe`) and run the command 
@@ -118,13 +157,17 @@ reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
 Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
 ```
 
-* **Location**:
+📰 **Formatting**:
+```powershell
+```
+
+📁 **Location**:
 ```powershell
 %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
 %SystemRoot%\System32\Dns\Dns.log
 ```
 
-* **Configuration**:
+💗 **Configuration**:
 ```powershell
 # set the debug mode
 dnscmd.exe localhost /Config /LogLevel 0x6101
@@ -133,11 +176,33 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
 
 ### <a name='logs-ps'></a>logs-ps
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configuration**:
 ```powershell
 ```
 
 ### <a name='logs-svcs'></a>logs-svcs
-* **Formatting**:
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
 ```powershell
 # https://github.com/davehull/Kansa/blob/master/Analysis/Get-LogparserStack.ps1
 .\Get-LogparserStack.ps1 -FilePattern *SvcAll.csv -Delimiter "," -Direction asc -OutFile svcAll_stack.csv
@@ -149,8 +214,21 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 # Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: quit
 ```
 
+💗 **Configuration**:
+```powershell
+```
+
 ### <a name='logs-svcs'></a>logs-wmi
-* **Formatting**:
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
 ```powershell
 # OPTION 1 : https://github.com/davehull/Kansa/blob/master/Modules/Process/Get-ProcsWMI.ps1
 .\Modules\Process\Get-ProcsWMI.ps1 | Out-GridView
@@ -164,19 +242,48 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 # Enter the fields you want to GROUP BY, one per line. Enter "quit" when finished: quit
 ```
 
-## <a name='mplogs'></a>mplogs
+💗 **Configuration**:
 ```powershell
+```
 
+## <a name='mplogs'></a>mplogs
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configuration**:
+```powershell
 ```
 
 ## <a name='named-pipes'></a>named-pipes
 
+🩺 **Status**:
 ```powershell
 # https://www.microsoft.com/en-gb/download/details.aspx?id=17148
 PortQry.exe -n dc01.contoso.com -e 135
 
 # listing the named with dumpin (visual studio tool)
 Get-ChildItem -Path "C:\Windows\System32\" -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue | % { $out=$(C:\bin\dumpbin.exe /IMPORTS:rpcrt4.dll $_.VersionInfo.FileName); If($out -like "*RpcStringBindingCompose*"){ Write-Host "[+] Exe creates RPC Binding (potential RPC Client) : $($_.VersionInfo.FileName)"; Write-Output "[+] $($_.VersionInfo.FileName)`n`n $($out|%{"$_`n"})" | Out-File -FilePath EXEs_RpcClients.txt -Append } }
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configuration**:
+```powershell
 ```
 
 * **Sources**:
@@ -194,7 +301,16 @@ NTFS metafiles :
 - [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
 
 ### <a name='amcache'></a>mft
-* **Collection**:
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+**Collection**:
 ```powershell
 # kape collection
 Set-ExecutionPolicy –ExecutionPolicy Unrestricted
@@ -203,12 +319,16 @@ $params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem --z
 Start-Process -FilePath $command -ArgumentList $params –Wait
 ```
 
-* **Formatting**:
+📰 **Formatting**:
 ```powershell
 # convert the artifacts to CSV for timeline explorer
 cd C:\kape\Modules\bin
 MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
 MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
+```
+
+💗 **Configuration**:
+```powershell
 ```
 
 ## <a name='ntds-dit'></a>ntds-dit
@@ -220,20 +340,20 @@ ls %SystemRoot%\NTDS\Ntds.dit
 
 ## <a name='powershell-history'></a>powershell-history
 
-* **Status**:
+🩺 **Status**:
 ```powershell
 # https://learn.microsoft.com/en-us/powershell/module/psreadline/set-psreadlineoption?view=powershell-7.4&viewFallbackFrom=powershell-6
 Get-PSReadLineOption
 ```
 
-* **Location**:
+📁 **Location**:
 ```
 # path
 $env:APPDATA\Roaming\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_history.txt
 ```
 
-* **Configure**:
-```
+💗 **Configuration**:
+```powershell
 # enable / disable history
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
 ```
@@ -247,9 +367,7 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 * multiple prefetch for the same PE, can mean different locations (different PE path hash)
 * exception: PE path hash for 'svchost', 'dllhost', 'backgroundtaskhost', 'rundll32' take into account the 'path + command-line'    
 
-* **Location**:```C:\Windows\Prefetch```
-
-* **Status**:
+🩺 **Status**:
 ```batch
 # prefetch caching enable/disabled in the SYSTEM registry
 dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
@@ -262,7 +380,9 @@ get-itemproperty 'HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory 
 # 3 = Application launch and boot enabled
 ```
 
-* **Formatting**:
+📁 **Location**:```C:\Windows\Prefetch```
+
+📰 **Formatting**:
 ```batch
 # one shot
 pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
@@ -272,6 +392,10 @@ pecmd -d C:\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
 
 # timeline V02
 pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
+```
+
+💗 **Configuration**:
+```powershell
 ```
 
 ## <a name='reg'></a>reg
@@ -379,6 +503,7 @@ cd HKLM:
 
 ## <a name='shellbags'></a>shellbags
 
+
 * **Location**:
 ```powershell
 # 
@@ -386,6 +511,10 @@ USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
 USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
 NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
 NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
+```
+
+📰 **Formatting**:
+```powershell
 ```
 
 ## <a name='shimcache'></a>shimcache
@@ -398,17 +527,25 @@ NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 * existence of InsertFlag does not mean the successful execution (OS behavior variation)
 * 1 SDB / ControlSet 
 
-* **Status**:
-```
+🩺 **Status**:
+```powershell
 ```
 
-* **Formatting**:
+📁 **Location**:
+```powershell
 ```
+
+📰 **Formatting**:
+```powershell
 # parse all currentcontrolset
 appcompatcacheparser -f C:\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
 
 # check the CurrentControlSet
 dir HKLM:SYSTEM
+```
+
+💗 **Configuration**:
+```powershell
 ```
 
 **Sources:**
