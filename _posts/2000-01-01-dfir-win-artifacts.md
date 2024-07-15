@@ -8,7 +8,14 @@ permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
-* [amcache](#amcache)
+* [execution](#execution)
+	* [amcache](#amcache)
+	* [bam](#bam)
+	* [jumplist](#jumplist)
+   	* [prefetch](#prefetch)
+   	* [shimcache](#shimcache)
+   	* [srum](#srum)
+	* [userassist](#userassist)
 * [autoruns](#autoruns)
 * [dirs](#dirs)
 	* [temp](#temp)
@@ -24,13 +31,11 @@ permalink: /dfir/win
 	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
 * [powershell-history](#powershell-history)
-* [prefetch](#prefetch)
 * [reg](#reg)
 	* [regripper](#regripper)
 	* [reg-history](#reg-history)
 	* [reg-extra](#reg-extra)
 * [shellbags](#shellbags)
-* [shimcache](#shimcache)
 * [web-browser](#web-browser)
 * [wer](#wer)
 	* [wer-persist](#wer-persist)
@@ -72,7 +77,9 @@ autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner > .csv
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v MyCalc /t REG_SZ /d "C:\windows\syswow64\calc.exe"
 ```
 
-## <a name='amcache'></a>amcache
+## <a name='execution'></a>execution
+
+### <a name='amcache'></a>amcache
 
 🩺 **Status**:
 ```powershell
@@ -95,11 +102,152 @@ AmcacheParser.exe -f "samples/123456/Amcache.hve" --csv samples/123456 --csvf sa
 
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
-## <a name='dirs'></a>dirs
 
-### <a name='jumplist'></a>jumplist
+### <a name='bam'></a>bam
+
+🩺 **Status**:
 ```powershell
 ```
+
+📁 **Locations**:
+```powershell  
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configure**:
+```powershell
+```
+
+### <a name='jumplist'></a>jumplist
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Locations**:
+```powershell  
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configure**:
+```powershell
+```
+
+### <a name='prefetch'></a>prefetch
+
+🔑 **Keypoints:**
+* artifact to prioritize for collection as it can be overwritten during DFIR execs
+* existence of prefetch does not mean the successful execution
+* digits in the filename stands for the PE path hash
+* multiple prefetch for the same PE, can mean different locations (different PE path hash)
+* exception: PE path hash for 'svchost', 'dllhost', 'backgroundtaskhost', 'rundll32' take into account the 'path + command-line'    
+
+🩺 **Status**:
+```batch
+# prefetch caching enable/disabled in the SYSTEM registry
+dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
+get-itemproperty 'HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management/PrefetchParameters'
+# value: PrefetchParameters
+# type REG_DWORD
+# 0 = Disabled
+# 1 = Application launch prefetching enabled
+# 2 = Boot prefetching enabled
+# 3 = Application launch and boot enabled
+```
+
+📁 **Location**:```C:\Windows\Prefetch```
+
+📰 **Formatting**:
+```batch
+# one shot
+pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
+
+# timeline V01
+pecmd -d C:\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
+
+# timeline V02
+pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
+```
+
+💗 **Configuration**:
+```powershell
+```
+
+### <a name='shimcache'></a>shimcache
+
+🔑 **Keypoints:**
+* subsystem allowing a program to invoke properties of different OS versions
+* compatibility modes are called "shims"
+* data buffered in memory / committed in registry on shutdown and reboot
+* app is shimmed if rewritten, renamed, moved
+* existence of InsertFlag does not mean the successful execution (OS behavior variation)
+* 1 SDB / ControlSet 
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
+```powershell
+# parse all currentcontrolset
+appcompatcacheparser -f C:\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
+
+# check the CurrentControlSet
+dir HKLM:SYSTEM
+```
+
+💗 **Configuration**:
+```powershell
+```
+
+### <a name='srum'></a>srum
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Locations**:
+```powershell  
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configure**:
+```powershell
+```
+
+### <a name='userassist'></a>userassist
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Locations**:
+```powershell  
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configure**:
+```powershell
+```
+
+
+## <a name='dirs'></a>dirs
 
 ### <a name='temp'></a>temp
 ```powershell
@@ -358,46 +506,6 @@ $env:APPDATA\Roaming\Microsoft\Windows\PowerShell\PSReadLine\$($Host.Name)_histo
 Set-PSReadlineOption -HistorySaveStyle SaveNothing
 ```
 
-## <a name='prefetch'></a>prefetch
-
-🔑 **Keypoints:**
-* artifact to prioritize for collection as it can be overwritten during DFIR execs
-* existence of prefetch does not mean the successful execution
-* digits in the filename stands for the PE path hash
-* multiple prefetch for the same PE, can mean different locations (different PE path hash)
-* exception: PE path hash for 'svchost', 'dllhost', 'backgroundtaskhost', 'rundll32' take into account the 'path + command-line'    
-
-🩺 **Status**:
-```batch
-# prefetch caching enable/disabled in the SYSTEM registry
-dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
-get-itemproperty 'HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management/PrefetchParameters'
-# value: PrefetchParameters
-# type REG_DWORD
-# 0 = Disabled
-# 1 = Application launch prefetching enabled
-# 2 = Boot prefetching enabled
-# 3 = Application launch and boot enabled
-```
-
-📁 **Location**:```C:\Windows\Prefetch```
-
-📰 **Formatting**:
-```batch
-# one shot
-pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
-
-# timeline V01
-pecmd -d C:\Windows\prefetch -q --csvf dc01_prefetch.csv --csv f:\case_01
-
-# timeline V02
-pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
-```
-
-💗 **Configuration**:
-```powershell
-```
-
 ## <a name='reg'></a>reg
 
 🔑 **Keypoints:**
@@ -516,37 +624,6 @@ NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 ```
 
 📰 **Formatting**:
-```powershell
-```
-
-## <a name='shimcache'></a>shimcache
-
-🔑 **Keypoints:**
-* subsystem allowing a program to invoke properties of different OS versions
-* compatibility modes are called "shims"
-* data buffered in memory / committed in registry on shutdown and reboot
-* app is shimmed if rewritten, renamed, moved
-* existence of InsertFlag does not mean the successful execution (OS behavior variation)
-* 1 SDB / ControlSet 
-
-🩺 **Status**:
-```powershell
-```
-
-📁 **Location**:
-```powershell
-```
-
-📰 **Formatting**:
-```powershell
-# parse all currentcontrolset
-appcompatcacheparser -f C:\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
-
-# check the CurrentControlSet
-dir HKLM:SYSTEM
-```
-
-💗 **Configuration**:
 ```powershell
 ```
 
