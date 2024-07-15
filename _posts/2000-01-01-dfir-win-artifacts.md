@@ -360,7 +360,7 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 
 ## <a name='prefetch'></a>prefetch
 
-**Keypoints:**
+🔑 **Keypoints:**
 * artifact to prioritize for collection as it can be overwritten during DFIR execs
 * existence of prefetch does not mean the successful execution
 * digits in the filename stands for the PE path hash
@@ -400,8 +400,10 @@ pecmd -d C:\Windows\prefetch -k "svchost, dllhost, backgroundtaskhost, rundll32"
 
 ## <a name='reg'></a>reg
 
-**Keypoints:**
+🔑 **Keypoints:**
 * There is 1 'NTUSER.DAT' and 1 'UsrClass.dat' / USER
+
+📁 **Location**:
 
 | **Hive** | **System Path** |
 |---------------|-------------|
@@ -519,7 +521,7 @@ NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 
 ## <a name='shimcache'></a>shimcache
 
-**Keypoints:**
+🔑 **Keypoints:**
 * subsystem allowing a program to invoke properties of different OS versions
 * compatibility modes are called "shims"
 * data buffered in memory / committed in registry on shutdown and reboot
@@ -552,6 +554,8 @@ dir HKLM:SYSTEM
  * [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
 
 ## <a name='web-browser'></a>web-browser
+
+📁 **Location**:
 
 | Browser    | OS         | Path                                                               |
 |------------|------------|--------------------------------------------------------------------|
