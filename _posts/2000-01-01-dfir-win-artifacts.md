@@ -8,7 +8,12 @@ permalink: /dfir/win
 ---
 
 <!-- vscode-markdown-toc -->
-* [execution](#execution)
+* [account_usage](#account_usage)
+* [activity_browser](#activity_browser)
+* [activity_network](#activity_network)
+   	* [logs-dns](#logs-dns)
+	* [named-pipes](#named-pipes)
+* [app_exec](#app_exec)
 	* [amcache](#amcache)
 	* [bam](#bam)
 	* [jumplist](#jumplist)
@@ -16,27 +21,31 @@ permalink: /dfir/win
    	* [shimcache](#shimcache)
    	* [srum](#srum)
 	* [userassist](#userassist)
-* [autoruns](#autoruns)
-* [dirs](#dirs)
+* [del_items_file_exist](#del_items_file_exist)
+	* [mft](#mft)
+	* [recycle_bin](#recycle_bin)
+* [external_device](#external_device)
+* [file_folder_opening](#file_folder_opening)
+	* [mru_open_save](#mru_open_save)
+   	* [mru_last_visited](#mru_last_visited)
+ 	* [shellbags](#shellbags)
+* [system_information](#system_information)  
+	* [autoruns](#autoruns)
 	* [temp](#temp)
+   
 * [logs](#logs)
 	* [logs-all](#logs-all)
-	* [logs-dns](#logs-dns)
    	* [logs-ps](#logs-ps)
  	* [logs-svcs](#logs-svcs)
 	* [logs-wmi](#logs-wmi)
 * [mplogs](#mplogs)
-* [named-pipes](#named-pipes)
-* [ntfs](#ntfs)
-	* [mft](#mft)
 * [ntds-dit](#ntds-dit)
 * [powershell-history](#powershell-history)
 * [reg](#reg)
 	* [regripper](#regripper)
 	* [reg-history](#reg-history)
 	* [reg-extra](#reg-extra)
-* [shellbags](#shellbags)
-* [web-browser](#web-browser)
+
 * [wer](#wer)
 	* [wer-persist](#wer-persist)
 	* [lsass-shtinkering](#lsass-shtinkering)
@@ -49,35 +58,102 @@ permalink: /dfir/win
 
 🔥 EXHAUSTIVE ARTIFACT LISTING: [dfir.tips](https://evids.dfir.tips) 🔥
 
-## <a name='autoruns'></a>autoruns
+## <a name='account_usage'></a>account_usage
+
+## <a name='activity_browser'></a>activity_browser
+
+📁 **Location**:
+
+| Browser    | OS         | Path                                                               |
+|------------|------------|--------------------------------------------------------------------|
+| Brave      | Windows    | %AppDataM\Local\Brave\User Data\Default |
+| Edge       | Windows    | %userprofile%\AppData\Local\Microsoft\Edge\User Data\Default |
+| Chrome     | Windows XP | %userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
+| Chrome     | Windows 10 | %userprofile%\AppData\Local\Google\Chrome\User Data\Default |
+| Chrome     | Linux      | /home/%username%/.config/google-chrome/Default |
+| Chrome     | Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
+| Chrome     | iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
+| Chrome     | Android    | /userdata/data/com.android.chrome/app_chrome/Default |
+| Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\\ <ProfileName>\ |
+| Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
+| Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
+| Vivaldi    | Windows    | %AppDataM\Local\Vivaldi\User Data\Default |
+
+**Sources:**
+- [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
+
+## <a name='activity_network'></a>activity_network
+
+### <a name='logs-dns'></a>logs-dns 
 
 🩺 **Status**:
 ```powershell
-# https://live.sysinternals.com/autorunsc.exe
-autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
-```
-
-📁 **Locations**:
-```powershell  
-HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run*
-HKCU:\Software\Microsoft\Windows\CurrentVersion\Run*
-HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce*
-HKLM:\Software\Microsoft\Windows\CurrentVersion\Runonce*
-HKLM:\Software\Microsoft\Windows\CurrentVersion\policies\Explorer\Run*
-HKLM:\Software\Microsoft\Windows\CurrentVersion\Run*
+# 01 # Are the DNS debug logs activated ?
+# open a console (`cmd.exe`) and run the command 
+# to check the parameter `dwDebugLevel`. It value must be `00006101`.
+dnscmd /Info
+reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
+Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
 ```
 
 📰 **Formatting**:
 ```powershell
-autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner > .csv
 ```
 
-💗 **Configure**:
+📁 **Location**:
 ```powershell
-reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v MyCalc /t REG_SZ /d "C:\windows\syswow64\calc.exe"
+%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
+%SystemRoot%\System32\Dns\Dns.log
 ```
 
-## <a name='execution'></a>execution
+💗 **Configuration**:
+```powershell
+# set the debug mode
+dnscmd.exe localhost /Config /LogLevel 0x6101
+# set the log file path
+dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
+```
+
+### <a name='named-pipes'></a>named-pipes
+
+🩺 **Status**:
+```powershell
+# https://www.microsoft.com/en-gb/download/details.aspx?id=17148
+PortQry.exe -n dc01.contoso.com -e 135
+
+# listing the named with dumpin (visual studio tool)
+Get-ChildItem -Path "C:\Windows\System32\" -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue | % { $out=$(C:\bin\dumpbin.exe /IMPORTS:rpcrt4.dll $_.VersionInfo.FileName); If($out -like "*RpcStringBindingCompose*"){ Write-Host "[+] Exe creates RPC Binding (potential RPC Client) : $($_.VersionInfo.FileName)"; Write-Output "[+] $($_.VersionInfo.FileName)`n`n $($out|%{"$_`n"})" | Out-File -FilePath EXEs_RpcClients.txt -Append } }
+```
+
+📁 **Location**:
+```powershell
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+💗 **Configuration**:
+```powershell
+```
+
+* **Sources**:
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-1-RPC.html
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-2-RPC.html
+* https://csandker.io/2021/02/21/Offensive-Windows-IPC-3-RPC.html
+* https://www.elastic.co/guide/en/security/current/nullsessionpipe-registry-modification.html
+
+## <a name='ntfs'></a>ntfs
+
+NTFS metafiles : 
+
+- Path: \\.\C:\[SYSTEM]
+- Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
+- [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
+
+
+## <a name='app_exec'></a>app_exec
+
 
 ### <a name='amcache'></a>amcache
 
@@ -246,8 +322,93 @@ dir HKLM:SYSTEM
 ```powershell
 ```
 
+## <a name='del_items_file_exist'></a>del_items_file_exist
 
-## <a name='dirs'></a>dirs
+### <a name='mft'></a>mft
+
+🩺 **Status**:
+```powershell
+```
+
+📁 **Location**:
+```powershell
+```
+
+**Collection**:
+```powershell
+# kape collection
+Set-ExecutionPolicy –ExecutionPolicy Unrestricted
+$command = "C:\kape\kape.exe"
+$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem --zip kapeoutput" 
+Start-Process -FilePath $command -ArgumentList $params –Wait
+```
+
+📰 **Formatting**:
+```powershell
+# convert the artifacts to CSV for timeline explorer
+cd C:\kape\Modules\bin
+MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
+MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
+```
+
+💗 **Configuration**:
+```powershell
+```
+
+### <a name='recycle_bin'></a>recycle_bin
+
+## <a name='external_device'></a>external_device
+
+## <a name='file_folder_opening'></a>file_folder_opening
+
+### <a name='shellbags'></a>shellbags
+
+* **Location**:
+```powershell
+# 
+USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
+USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
+NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
+NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
+```
+
+📰 **Formatting**:
+```powershell
+```
+
+**Sources:**
+ * [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
+
+
+## <a name='system_information'></a>system_information
+
+### <a name='autoruns'></a>autoruns
+
+🩺 **Status**:
+```powershell
+# https://live.sysinternals.com/autorunsc.exe
+autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
+```
+
+📁 **Locations**:
+```powershell  
+HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Windows\Run*
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Run*
+HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Runonce*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\policies\Explorer\Run*
+HKLM:\Software\Microsoft\Windows\CurrentVersion\Run*
+```
+
+📰 **Formatting**:
+```powershell
+autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner > .csv
+```
+
+💗 **Configure**:
+```powershell
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v MyCalc /t REG_SZ /d "C:\windows\syswow64\calc.exe"
+```
 
 ### <a name='temp'></a>temp
 ```powershell
@@ -293,35 +454,7 @@ EvtxECmd.exe -f "samples/123456/Microsoft-Windows-WMI-Activity%4Operational.evtx
 ```powershell
 ```
 
-### <a name='logs-dns'></a>logs-dns 
 
-🩺 **Status**:
-```powershell
-# 01 # Are the DNS debug logs activated ?
-# open a console (`cmd.exe`) and run the command 
-# to check the parameter `dwDebugLevel`. It value must be `00006101`.
-dnscmd /Info
-reg query HKLM\System\CurrentControlSet\Services\DNS\Parameters
-Get-ChildItem -Path HKLM:\System\CurrentControlSet\Services\DNS
-```
-
-📰 **Formatting**:
-```powershell
-```
-
-📁 **Location**:
-```powershell
-%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-DNSServer%4Analytical.etl
-%SystemRoot%\System32\Dns\Dns.log
-```
-
-💗 **Configuration**:
-```powershell
-# set the debug mode
-dnscmd.exe localhost /Config /LogLevel 0x6101
-# set the log file path
-dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
-```
 
 ### <a name='logs-ps'></a>logs-ps
 🩺 **Status**:
@@ -405,74 +538,6 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 
 📰 **Formatting**:
 ```powershell
-```
-
-💗 **Configuration**:
-```powershell
-```
-
-## <a name='named-pipes'></a>named-pipes
-
-🩺 **Status**:
-```powershell
-# https://www.microsoft.com/en-gb/download/details.aspx?id=17148
-PortQry.exe -n dc01.contoso.com -e 135
-
-# listing the named with dumpin (visual studio tool)
-Get-ChildItem -Path "C:\Windows\System32\" -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue | % { $out=$(C:\bin\dumpbin.exe /IMPORTS:rpcrt4.dll $_.VersionInfo.FileName); If($out -like "*RpcStringBindingCompose*"){ Write-Host "[+] Exe creates RPC Binding (potential RPC Client) : $($_.VersionInfo.FileName)"; Write-Output "[+] $($_.VersionInfo.FileName)`n`n $($out|%{"$_`n"})" | Out-File -FilePath EXEs_RpcClients.txt -Append } }
-```
-
-📁 **Location**:
-```powershell
-```
-
-📰 **Formatting**:
-```powershell
-```
-
-💗 **Configuration**:
-```powershell
-```
-
-* **Sources**:
-* https://csandker.io/2021/02/21/Offensive-Windows-IPC-1-RPC.html
-* https://csandker.io/2021/02/21/Offensive-Windows-IPC-2-RPC.html
-* https://csandker.io/2021/02/21/Offensive-Windows-IPC-3-RPC.html
-* https://www.elastic.co/guide/en/security/current/nullsessionpipe-registry-modification.html
-
-## <a name='ntfs'></a>ntfs
-
-NTFS metafiles : 
-
-- Path: \\.\C:\[SYSTEM]
-- Files: $MFT, $MFTMirr, $LogFile, $Volume, $AttrDef, . , $Bitmap, $Boot, $BadClus, $Secure, $UpCase, $Extend
-- [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
-
-### <a name='amcache'></a>mft
-
-🩺 **Status**:
-```powershell
-```
-
-📁 **Location**:
-```powershell
-```
-
-**Collection**:
-```powershell
-# kape collection
-Set-ExecutionPolicy –ExecutionPolicy Unrestricted
-$command = "C:\kape\kape.exe"
-$params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem --zip kapeoutput" 
-Start-Process -FilePath $command -ArgumentList $params –Wait
-```
-
-📰 **Formatting**:
-```powershell
-# convert the artifacts to CSV for timeline explorer
-cd C:\kape\Modules\bin
-MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
-MFTECmd.exe -f $Extend\$J --csv C:\Windows\Temp --csvf usrjrnl.csv
 ```
 
 💗 **Configuration**:
@@ -610,47 +675,6 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Control\hivelist\
 # powershell: browsing a hive with the interpreter
 cd HKLM:
 ```
-
-## <a name='shellbags'></a>shellbags
-
-
-* **Location**:
-```powershell
-# 
-USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
-USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\BagMRU
-NTUSER.DAT\Software\Microsoft\Windows\Shell\BagMRU
-NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
-```
-
-📰 **Formatting**:
-```powershell
-```
-
-**Sources:**
- * [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
-
-## <a name='web-browser'></a>web-browser
-
-📁 **Location**:
-
-| Browser    | OS         | Path                                                               |
-|------------|------------|--------------------------------------------------------------------|
-| Brave      | Windows    | %AppDataM\Local\Brave\User Data\Default |
-| Edge       | Windows    | %userprofile%\AppData\Local\Microsoft\Edge\User Data\Default |
-| Chrome     | Windows XP | %userprofile%\Local Settings\Application Data\Google\Chrome\User Data\Default |
-| Chrome     | Windows 10 | %userprofile%\AppData\Local\Google\Chrome\User Data\Default |
-| Chrome     | Linux      | /home/%username%/.config/google-chrome/Default |
-| Chrome     | Mac OS X   | /Users/<username>/Library/Application Support/Google/Chrome/Default |
-| Chrome     | iOS        | \Applications\com.google.chrome.ios\Library\Application Support\Google\Chrome\Default |
-| Chrome     | Android    | /userdata/data/com.android.chrome/app_chrome/Default |
-| Mozilla    | Windows    | %APPDATA%\Mozilla\Firefox\Profiles\\ <ProfileName>\ |
-| Mozilla    | Linux      | ~/.mozilla/firefox/<ProfileName> |
-| Mozilla    | Mac OS X   | ~/Library/Application Support/Firefox/Profiles/<ProfileName> |
-| Vivaldi    | Windows    | %AppDataM\Local\Vivaldi\User Data\Default |
-
-**Sources:**
-- [firefox profiles](https://support.mozilla.org/fr/kb/profils-la-ou-firefox-conserve-donnees-utilisateur?redirectslug=Profils+utilisateurs)
 
 ## <a name='wer'></a>wer
 ### <a name='wer-persist'></a>wer-persist
