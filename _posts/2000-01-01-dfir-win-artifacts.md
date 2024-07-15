@@ -55,6 +55,12 @@ autorunsc.exe /accepteula -a * -c -h -s '*' -nobanner
 
 * **Location**: `C:\Windows\AppCompat\Programs\amcache.hve`.
 
+* **Formatting**:
+```powershell
+# https://ericzimmerman.github.io/#!index.md # amcacheparser
+AmcacheParser.exe -f "samples/123456/Amcache.hve" --csv samples/123456 --csvf samples/123456/123456_DC01_amcache.csv
+```
+
 ![Amcache Artifacts](/assets/images/amcache_artifacts.PNG)
 
 * **Sources**:
@@ -93,7 +99,12 @@ foreach($userpath in (Get-WmiObject win32_userprofile | Select-Object -ExpandPro
 ```
 
 * **Formatting**:
-* Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
+```powershell
+# 01 # https://ericzimmerman.github.io/#!index.md # evtxecmd
+EvtxECmd.exe -f "samples/123456/Microsoft-Windows-WMI-Activity%4Operational.evtx" --csv samples/123456 --csvf samples/123456/123456_DC01_evtx_wmi.csv
+
+# 02 # Converting EVTX JSON or XML to CSV : [github.com/omerbenamram/EVTX](https://github.com/omerbenamram/evtx)
+```
 
 ### <a name='logs-dns'></a>logs-dns 
 
@@ -168,7 +179,7 @@ PortQry.exe -n dc01.contoso.com -e 135
 Get-ChildItem -Path "C:\Windows\System32\" -Filter "*.exe" -Recurse -ErrorAction SilentlyContinue | % { $out=$(C:\bin\dumpbin.exe /IMPORTS:rpcrt4.dll $_.VersionInfo.FileName); If($out -like "*RpcStringBindingCompose*"){ Write-Host "[+] Exe creates RPC Binding (potential RPC Client) : $($_.VersionInfo.FileName)"; Write-Output "[+] $($_.VersionInfo.FileName)`n`n $($out|%{"$_`n"})" | Out-File -FilePath EXEs_RpcClients.txt -Append } }
 ```
 
-**Sources:**
+* **Sources**:
 * https://csandker.io/2021/02/21/Offensive-Windows-IPC-1-RPC.html
 * https://csandker.io/2021/02/21/Offensive-Windows-IPC-2-RPC.html
 * https://csandker.io/2021/02/21/Offensive-Windows-IPC-3-RPC.html
@@ -183,13 +194,17 @@ NTFS metafiles :
 - [https://en.wikipedia.org/wiki/NTFS#Metafiles]() : descriptions table of the metaflies
 
 ### <a name='amcache'></a>mft
+* **Collection**:
 ```powershell
 # kape collection
 Set-ExecutionPolicy –ExecutionPolicy Unrestricted
 $command = "C:\kape\kape.exe"
 $params = "--tsource C:\ --tdest C:\kape\output --tflush --target FileSystem --zip kapeoutput" 
 Start-Process -FilePath $command -ArgumentList $params –Wait
+```
 
+* **Formatting**:
+```powershell
 # convert the artifacts to CSV for timeline explorer
 cd C:\kape\Modules\bin
 MFTECmd.exe -f $MFT --csv C:\Windows\Temp --csvf mft.csv
@@ -232,6 +247,9 @@ Set-PSReadlineOption -HistorySaveStyle SaveNothing
 * multiple prefetch for the same PE, can mean different locations (different PE path hash)
 * exception: PE path hash for 'svchost', 'dllhost', 'backgroundtaskhost', 'rundll32' take into account the 'path + command-line'    
 
+* **Location**:```C:\Windows\Prefetch```
+
+* **Status**:
 ```batch
 # prefetch caching enable/disabled in the SYSTEM registry
 dir "HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory Management"
@@ -242,7 +260,10 @@ get-itemproperty 'HKLM:/SYSTEM/CurrentControlSet/Control/Session Manager/Memory 
 # 1 = Application launch prefetching enabled
 # 2 = Boot prefetching enabled
 # 3 = Application launch and boot enabled
+```
 
+* **Formatting**:
+```batch
 # one shot
 pecmd -f E:\C\Windows\prefetch\XXX.EXE-12345678.pf
 
@@ -358,6 +379,7 @@ cd HKLM:
 
 ## <a name='shellbags'></a>shellbags
 
+* **Location**:
 ```powershell
 # 
 USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell\Bags
@@ -368,7 +390,6 @@ NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 
 ## <a name='shimcache'></a>shimcache
 
-
 **Keypoints:**
 * subsystem allowing a program to invoke properties of different OS versions
 * compatibility modes are called "shims"
@@ -377,6 +398,11 @@ NTUSER.DAT\Software\Microsoft\Windows\Shell\Bags
 * existence of InsertFlag does not mean the successful execution (OS behavior variation)
 * 1 SDB / ControlSet 
 
+* **Status**:
+```
+```
+
+* **Formatting**:
 ```
 # parse all currentcontrolset
 appcompatcacheparser -f C:\Windows\system32\config\SYSTEM --csv g:\execution --csvf appcompatcache.csv
@@ -386,7 +412,7 @@ dir HKLM:SYSTEM
 ```
 
 **Sources:**
-* [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
+ * [windows controlset](https://www.malekal.com/comprendre-hkey-local-machine-system-currentcontrol/)  
 
 ## <a name='web-browser'></a>web-browser
 
@@ -429,10 +455,12 @@ werfault.dll
   * Artifact / Dump File:
   	* Dump files will be written to %LocalAppData%\CrashDumps
    	* For processes running as “NT AUTHORITY\SYSTEM”, the path is:
+
+**Location:**
 ```
 C:\Windows\system32\config\systemprofile\AppData\Local\CrashDumps
 ```
 
-**Sources**
+**Sources**:
 -[DEFCON 30 - lsass shtinkering | talk](https://www.youtube.com/watch?v=-QRr_8pvOiY))
 -[DEFCON 30 - lsass shtinkering | slides](https://infocon.org/cons/DEF%20CON/DEF%20CON%2030/DEF%20CON%2030%20presentations/Asaf%20Gilboa%20-%20LSASS%20Shtinkering%20Abusing%20Windows%20Error%20Reporting%20to%20Dump%20LSASS.pdf)
