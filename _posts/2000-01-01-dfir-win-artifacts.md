@@ -123,6 +123,11 @@ dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 
 ### <a name='logs-teamviewer'></a>logs-teamviewer 
 
+📁 **Location**:
+```powershell
+C:\Program Files (x86)\Teamviewer\Connections_incoming.txt
+```
+
 ### <a name='named-pipes'></a>named-pipes
 
 🩺 **Status**:
