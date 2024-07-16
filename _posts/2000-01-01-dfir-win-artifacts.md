@@ -11,7 +11,10 @@ permalink: /dfir/win
 * [account_usage](#account_usage)
 * [activity_browser](#activity_browser)
 * [activity_network](#activity_network)
-   	* [logs-dns](#logs-dns)
+   	* [logs-anydesk](#logs-anydesk)
+  	* [logs-dns](#logs-dns)
+  	* [logs-firewall](#logs-firewall)
+   	* [logs-teamviewer](#logs-teamviewer)
 	* [named-pipes](#named-pipes)
 * [app_exec](#app_exec)
 	* [amcache](#amcache)
@@ -84,6 +87,8 @@ permalink: /dfir/win
 
 ## <a name='activity_network'></a>activity_network
 
+### <a name='logs-anydesk'></a>logs-anydesk 
+
 ### <a name='logs-dns'></a>logs-dns 
 
 🩺 **Status**:
@@ -113,6 +118,10 @@ dnscmd.exe localhost /Config /LogLevel 0x6101
 # set the log file path
 dnscmd.exe localhost /Config /LogFilePath "C:\Windows\System32\DNS\dns.log"
 ```
+
+### <a name='logs-firewall'></a>logs-firewall 
+
+### <a name='logs-teamviewer'></a>logs-teamviewer 
 
 ### <a name='named-pipes'></a>named-pipes
 
