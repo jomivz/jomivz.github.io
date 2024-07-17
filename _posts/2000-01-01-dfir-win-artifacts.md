@@ -304,10 +304,13 @@ dir HKLM:SYSTEM
 
 🩺 **Status**:
 ```powershell
+
 ```
 
 📁 **Locations**:
 ```powershell  
+C:\Windows\System32\SRU\SRUDB.dat
+HKLM:\SOFTWARE\Microsoft\WindowsNT\CurrentVersion\SRUM\Extensions
 ```
 
 📰 **Formatting**:
