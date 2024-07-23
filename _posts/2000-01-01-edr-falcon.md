@@ -52,9 +52,15 @@ permalink: /edr/falcon
  	* [logscale-detections](#logscale-detections)
  	* [logscale-enum](#logscale-enum)
  	* [logscale-exe](#logscale-exe)
+		* [exe-pe](#exe-pe)
  	* [logscale-fs-io](#logscale-fs-io)
+  		* [fs-dl-files](#fs-dl-files)
  	* [logscale-net](#logscale-net)
+		* [net-conns-krb](#net-conns-krb)
  	* [logscale-tamper](#logscale-tamper)
+		* [schtask-created](#schtask-created)
+		* [regkey-changed](#regkey-changed)
+
 * [jq](#jq)
 	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
 	* [jq-over-detections-export](#jq-over-detections-export) 
@@ -64,6 +70,17 @@ permalink: /edr/falcon
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
+
+#repo=base_sensor #event_simpleName=UserAccountAddedToGroup 
+| parseInt(GroupRid, as="GroupRid", radix="16", endian="big") 
+| parseInt(UserRid, as="UserRid", radix="16", endian="big") 
+| UserSid:=format(format="%s-%s", field=[DomainSid, UserRid]) 
+| match(file="falcon/investigate/grouprid_wingroup.csv", field="GroupRid", column=GroupRid_dec, include=WinGroup) 
+| groupBy([aid, UserSid, ContextProcessId], function=([selectFromMin(field="@timestamp", include=[ContextTimeStamp]), collect([ WinGroup, GroupRid])])) 
+| ContextTimeStamp:=ContextTimeStamp*1000 
+| ContextTimeStamp:=formatTime(format="%F %T", field="ContextTimeStamp") 
+| join(query={#repo=base_sensor #event_simpleName=UserLogon}, field=[aid, UserSid], include=[UserName], mode=left) 
+| default(value="-", field=[UserName]) 
 
 ## <a name='api'></a>api
 
@@ -469,8 +486,34 @@ event_simpleName=RegGeneric*  ComputerName=
 ```
 
 ### <a name='logscale-net'></a>logscale-net
+#### <a name='net-conns-krb'></a>net-conns-krb
+```
+#event_simpleName=UserLogon* UserName!="DWM*"  UserName!="UMFD*"  UserName!="lenovo*" 
+| $falcon/helper:enrich(field=LogonType) 
+| join(query={#repo=sensor_metadata #data_source_name=aidmaster #data_source_group=aidmaster-api}, field=[aid], include=[Version, AgentVersion, MachineDomain, OU, SiteName, Timezone,SensorGroupingTags]) 
+| default(value="-", field=[Version, AgentVersion, MachineDomain, OU, SiteName,Timezone], replaceEmpty=true) 
+| case { 
+UserIsAdmin=1 | UserIsAdmin_Readable := "True" ; 
+UserIsAdmin=0 | UserIsAdmin_Readable := "False" ; 
+* } 
+| table([@timestamp, ComputerName, UserName, LogonType,UserIsAdmin_Readable,LogonDomain,SensorGroupingTags]) 
+| LogonType!="Service" and LogonType!=0
+```
+
+#### <a name='net-dns-req'></a>net-dns-req
+```
+#event_simpleName=DnsRequest
+| table([@timestamp, aid, LocalAddressIP4, RemoteAddressIP4, ComputerName, DomainName, HttpHost, HttpPath, ContextBaseFileName])
+```
+
 ### <a name='logscale-tamper'></a>logscale-tamper
-#### <a name='logscale-tamper'></a>added-scheduled-tasks
+#### <a name='regkey-changed'></a>regkey-changed
+```
+(regedit DetectName="*Tamper*") 
+| table([@timestamp, ComputerName, #event_simpleName,DetectName,PatternDispositionDescription,RegObjectName,RegStringValue ,RegValueName,AsepClassName,AsepClassName])
+```
+
+#### <a name='schtask-created'></a>schtask-created
 ```
 #event_simpleName=ScheduledTask*
 | event_platform=Win
