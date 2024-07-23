@@ -58,6 +58,7 @@ permalink: /edr/falcon
  	* [logscale-net](#logscale-net)
 		* [net-conns-krb](#net-conns-krb)
  	* [logscale-tamper](#logscale-tamper)
+		* [account-added-to-group](#account-added-to-group)
 		* [schtask-created](#schtask-created)
 		* [regkey-changed](#regkey-changed)
 
@@ -70,17 +71,6 @@ permalink: /edr/falcon
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-#repo=base_sensor #event_simpleName=UserAccountAddedToGroup 
-| parseInt(GroupRid, as="GroupRid", radix="16", endian="big") 
-| parseInt(UserRid, as="UserRid", radix="16", endian="big") 
-| UserSid:=format(format="%s-%s", field=[DomainSid, UserRid]) 
-| match(file="falcon/investigate/grouprid_wingroup.csv", field="GroupRid", column=GroupRid_dec, include=WinGroup) 
-| groupBy([aid, UserSid, ContextProcessId], function=([selectFromMin(field="@timestamp", include=[ContextTimeStamp]), collect([ WinGroup, GroupRid])])) 
-| ContextTimeStamp:=ContextTimeStamp*1000 
-| ContextTimeStamp:=formatTime(format="%F %T", field="ContextTimeStamp") 
-| join(query={#repo=base_sensor #event_simpleName=UserLogon}, field=[aid, UserSid], include=[UserName], mode=left) 
-| default(value="-", field=[UserName]) 
 
 ## <a name='api'></a>api
 
@@ -507,6 +497,21 @@ UserIsAdmin=0 | UserIsAdmin_Readable := "False" ;
 ```
 
 ### <a name='logscale-tamper'></a>logscale-tamper
+
+#### <a name='account-added-to-group'></a>account-added-to-group
+```
+#repo=base_sensor #event_simpleName=UserAccountAddedToGroup 
+| parseInt(GroupRid, as="GroupRid", radix="16", endian="big") 
+| parseInt(UserRid, as="UserRid", radix="16", endian="big") 
+| UserSid:=format(format="%s-%s", field=[DomainSid, UserRid]) 
+| match(file="falcon/investigate/grouprid_wingroup.csv", field="GroupRid", column=GroupRid_dec, include=WinGroup) 
+| groupBy([aid, UserSid, ContextProcessId], function=([selectFromMin(field="@timestamp", include=[ContextTimeStamp]), collect([ WinGroup, GroupRid])])) 
+| ContextTimeStamp:=ContextTimeStamp*1000 
+| ContextTimeStamp:=formatTime(format="%F %T", field="ContextTimeStamp") 
+| join(query={#repo=base_sensor #event_simpleName=UserLogon}, field=[aid, UserSid], include=[UserName], mode=left) 
+| default(value="-", field=[UserName]) 
+```
+
 #### <a name='regkey-changed'></a>regkey-changed
 ```
 (regedit DetectName="*Tamper*") 
@@ -520,6 +525,7 @@ UserIsAdmin=0 | UserIsAdmin_Readable := "False" ;
 | TheTime := formatTime("%Y-%m-%d %H:%M:%S", field=timestamp, locale=en_US, timezone=Z)
 | table([theTime, ComputerName, Username, event_simpleName, TaskAuthor, TaskExecArguments, TaskExecCommand, TaskName, TaskXml])
 ```
+
 
 ## <a name='jq'></a>jq
 
