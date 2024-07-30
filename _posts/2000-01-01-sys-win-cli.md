@@ -29,6 +29,7 @@ permalink: /sys/win
 	* [get-vss](#get-vss)
 * [enum-net](#enum-net)
 	* [get-ca](#get-ca)
+ 	* [get-dc](#get-dc) 	
 	* [get-neighbors](#get-neighbors)
 	* [get-net-settings](#get-net-settings)
 	* [get-routes](#get-routes)
@@ -257,6 +258,11 @@ vssadmin create shadow /for=c:
 ```powershell
 # run it on CA servers
 certutil -scroot update
+```
+
+### <a name='get-dc'></a>get-dc
+```powershell
+echo %LOGONSERVER%
 ```
 
 ### <a name='get-neighbors'></a>get-neighbors
