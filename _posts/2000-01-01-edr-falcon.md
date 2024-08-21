@@ -22,8 +22,10 @@ permalink: /edr/falcon
  	* [logscale-enum](#logscale-enum)
  	* [logscale-exe](#logscale-exe)
 		* [exe-pe](#exe-pe)
+		* [exe-recycle-bin](#exe-recycle-bin)
+		* [exe-temp-folder](#exe-temp-folder)
  	* [logscale-fs-io](#logscale-fs-io)
-    		* [fs-conns-usb](#fs-conns-usb)
+		* [fs-conns-usb](#fs-conns-usb)
   		* [fs-dl-files](#fs-dl-files)
  	* [logscale-net](#logscale-net)
 		* [net-conns-krb](#net-conns-krb)
@@ -162,6 +164,21 @@ ExternalApiType=Event_DetectionSummaryEvent
 | table([TheTime, event_simpleName, SHA256HashData, FileName, FilePath, OriginalFilename, ComputerName ], limit=1000, sortby=TheTime, order=desc)
 ```
 
+#### <a name='exe-recycle-bin'></a>exe-recycle-bin
+```
+#event_simpleName=ProcessRollup2 FileName=*.exe FilePath=*Recycle.Bin*
+```
+
+#### <a name='exe-temp-folder'></a>exe-temp-folder
+```
+#event_simpleName=ProcessRollup2 ComputerName!="none" FileName=*.exe | in(field=FilePath, values=["*\\tmp*", "*\\TEMP*","*Recycle.Bin*"], ignoreCase=true)
+  | match(file="falcon/investigate/forescout_apps.csv", field=CommandLine, glob=true, include=exclude, strict=false)
+  | match(file="falcon/investigate/forescout_apps.csv", field=FileName, glob=true, include=exclude, strict=false)
+  | exclude!="true"
+  | timestamp_UTC_readable := formatTime("%FT%T%z", field=@timestamp)
+  | groupBy([@timestamp, timestamp_UTC_readable, ComputerName, LocalAddressIP4, UserName, FileName, CommandLine, MD5HashData], limit=max)
+```
+
 ### <a name='logscale-fs-io'></a>logscale-fs-io
 #### <a name='fs-conns-usb'></a>fs-conns-usb
 ```
@@ -196,11 +213,11 @@ ExternalApiType=Event_DetectionSummaryEvent
   | in(field=SHA256HashData,values=?{SHA256HashData="*"})
   | in(field=FileName,values=?{FileName="*"})
   | in(field=UserName,values=?{UserName="*"})  
-},field=[aid, TargetProcessId], include=[ProcessStartTime,SHA256HashData,FileName,UserName])
+},field=[aid, TargetProcessId], include=[ProcessStartTime,SHA256HashData,UserName,CommandLine,FileName,ParentBaseFileName,GrandParentBaseFileName])
 | default(field=[RemoteAddressIP4,RemotePort,LocalAddressIP4,Version, OU, MachineDomain, SiteName, ProductType], value="--", replaceEmpty=true)
 | ProcessStartTime := ProcessStartTime * 1000
 | ProcessStartTime_UTC_readable := formatTime("%FT%T%z", field=ProcessStartTime)
-| groupBy([ProcessStartTime, ProcessStartTime_UTC_readable, RemoteAddressIP4, RemotePort, ComputerName, LocalAddressIP4, MAC, UserName, FileName, TargetProcessId], limit=max)
+| groupBy([ProcessStartTime, ProcessStartTime_UTC_readable, RemoteAddressIP4, RemotePort, ComputerName, LocalAddressIP4, MAC, UserName, CommandLine,FileName,ParentBaseFileName,GrandParentBaseFileName], limit=max)
 ```
 
 #### <a name='net-conns-krb'></a>net-conns-krb
