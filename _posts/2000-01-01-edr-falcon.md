@@ -181,6 +181,28 @@ ExternalApiType=Event_DetectionSummaryEvent
 
 ### <a name='logscale-net'></a>logscale-net
 
+#### <a name='net-conns-krb'></a>net-conns-process
+```
+#repo=base_sensor #event_simpleName=NetworkConnectIP4
+| in(field=cid,values=?{cid="*"}) 
+| default(field=[aid,cid,RemoteAddressIP4,RemotePort,LocalAddressIP4,LocalPort,ContextProcessId], value="--", replaceEmpty=true) 
+| in(field=RemoteAddressIP4,values=?RemoteAddressIP4)
+| in(field=RemotePort,values=?{RemotePort="*"})
+| rename(field=ContextProcessId,as=TargetProcessId)
+| join({
+  #repo=base_sensor (#event_simpleName=ProcessRollup2 OR #event_simpleName=SyntheticProcessRollup2)
+  | in(field=cid,values=?{cid="*"})
+  | in(field=ComputerName,values=?{ComputerName="*"})
+  | in(field=SHA256HashData,values=?{SHA256HashData="*"})
+  | in(field=FileName,values=?{FileName="*"})
+  | in(field=UserName,values=?{UserName="*"})  
+},field=[aid, TargetProcessId], include=[ProcessStartTime,SHA256HashData,FileName,UserName])
+| default(field=[RemoteAddressIP4,RemotePort,LocalAddressIP4,Version, OU, MachineDomain, SiteName, ProductType], value="--", replaceEmpty=true)
+| ProcessStartTime := ProcessStartTime * 1000
+| ProcessStartTime_UTC_readable := formatTime("%FT%T%z", field=ProcessStartTime)
+| groupBy([ProcessStartTime, ProcessStartTime_UTC_readable, RemoteAddressIP4, RemotePort, ComputerName, LocalAddressIP4, MAC, UserName, FileName, TargetProcessId], limit=max)
+```
+
 #### <a name='net-conns-krb'></a>net-conns-krb
 ```
 #event_simpleName=UserLogon* UserName!="DWM*"  UserName!="UMFD*"  UserName!="lenovo*" 
