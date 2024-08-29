@@ -179,6 +179,13 @@ ExternalApiType=Event_DetectionSummaryEvent
   | groupBy([@timestamp, timestamp_UTC_readable, ComputerName, LocalAddressIP4, UserName, FileName, CommandLine, MD5HashData], limit=max)
 ```
 
+
+#### <a name='exe-lnk-folder'></a>exe-lnk-folder
+```
+lnk ComputerName=""
+|groupBy([ContextImageFileName],function=collect([TargetFileName]))
+```
+
 ### <a name='logscale-fs-io'></a>logscale-fs-io
 #### <a name='fs-conns-usb'></a>fs-conns-usb
 ```
