@@ -1,4 +1,4 @@
-![image](https://github.com/jomivz/jomivz.github.io/assets/22774233/146a3cc7-0ac3-40fa-b934-6acb63f0d213)---
+---
 layout: post
 title: dev / regex
 category: dev

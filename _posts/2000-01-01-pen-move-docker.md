@@ -44,9 +44,6 @@ while read cve; do toto=`echo $cve | tr -d \"`; grep -i $toto /usr/share/exploit
 Here's what the csv.tmpl file might look like:
 ```
 "Package","Version Installed","Vulnerability ID","Severity"
-{{- range .Matches}}
-"{{.Artifact.Name}}","{{.Artifact.Version}}","{{.Vulnerability.ID}}","{{.Vulnerability.Severity}}"
-{{- end}}
 ```
 
 ## <a name='Administration'></a>Administration

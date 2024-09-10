@@ -1,6 +1,6 @@
 ---
 layout: post
-title: dfir
+title: dfir / bookmarks
 category: dfir
 parent: cheatsheets
 modified_date: 2023-09-20

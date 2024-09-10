@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  recon
+title:  recon / shodan
 parent: cheatsheets
 category: recon
 permalink: /recon/shodan

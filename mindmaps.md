@@ -3,80 +3,30 @@ layout: page
 title: Cyber Wow Mindmaps
 permalink: /mindmaps/
 nav_order: 3
-modified_date: 2023-07-12
+modified_date: 2024-09-09
 ---
 
-## <a name='wowmindmapcybersysadmin'></a> #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️
+### Mindmaps & Cheatsheets 🧠 
 
-**MENU**
-
-<!-- vscode-markdown-toc -->
-* [ #wow 👀 #mindmap 🧠 #cyber 🔫 #sysadmin 🛠️](#wowmindmapcybersysadmin)
-	* [101_AD](#AD)
-	* [101_OSINT](#OSINT)
-	* [101_WEB](#WEB)
-	* [101_NET](#WEB)
-	* [007_hacktools](#hacktools)
-	* [sources](#sources)
-	* [_OLD_STUFFS_ 🥱](#OLD_STUFFS_)
-
-<!-- vscode-markdown-toc-config
-	numbering=false
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
-
-### <a name='AD'></a>101_AD
-
-Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
-
-* [/pen/goad2.svg](/pen/goad2.svg) / the original mindmap made by [mayfly277](mayfly277.github.io).
-* [/pen/goad2.pdf](/pen/goad2.pdf) / a printabe version of the orginal v2 / 21 pages (A3 format).
-
-```sh
-# -w -h : inspect the svg with a web browser to export with a readable size 
-# -b : keep the black background
-inkscape -w 9900 -h 6224 -b "#000000" goad2.svg -o ad.goad2.png
-
-# invert the colors to save black ink
-convert goad2.png -channel RGB -negate goad2negat.png
-
-# split the final PNG to 21 pages (A3 format)  
-posterazor goad2negat.png
-```
-![](/assets/images/goad2-svg-2-pdf-1.png)
-![](/assets/images/goad2-svg-2-pdf-2.png)
-![](/assets/images/goad2-svg-2-pdf-3.png)
-![](/assets/images/goad2-svg-2-pdf-4.png)
-![](/assets/images/goad2-svg-2-pdf-5.png)
-
-
+* [/dfir/macosx](https://github.com/jomivz/cybrary/blob/master/dfir_mac_sans_0823.pdf)
+* [/dfir/macosx-apps](https://github.com/jomivz/cybrary/blob/master/dfir_mac_apps_sans_v1.3_04-24.pdf)
+* [/dfir/mem](https://github.com/jomivz/cybrary/blob/master/dfir_mem_sans_v3.0.pdf)
+* [/dfir/sift](https://github.com/jomivz/cybrary/blob/master/dfir_sift_sans_v4.0.pdf)
+* [/dfir/win-apps](https://github.com/jomivz/cybrary/blob/master/dfir_win_apps_sans_v1.5_0624.pdf)
+* [/dfir/win-eventlogs-mdecrevoisier](/assets/images/for-win-logs-auditing-baseline-map.png)
+* [/dfir/win-eventlogs-uws](https://github.com/jomivz/cybrary/blob/master/uws_securitylog_cheatsheet.pdf)
+* [/dfir/win-eztools](https://github.com/jomivz/cybrary/blob/master/dfir_win_eztools_sans_v1.6_02-23.pdf)
+* [/dfir/win-pstree-latmov](https://github.com/jomivz/cybrary/blob/master/dfir_win_pstree_latmov_sans_v4.11.0624.pdf)
+* [/dfir/win07-artifacts](https://github.com/jomivz/cybrary/blob/master/dfir_win_07_artifacts_sans.pdf)
+* [/dfir/win11-artifacts](https://github.com/jomivz/cybrary/blob/master/dfir_win_11_artifacts_sans_v4.17_02-23.pdf)
+* [/net/ipv6](https://github.com/jomivz/cybrary/blob/master/net_ipv6_sans_202401.pdf)
+* [/pen/ad](/pen/goad2.svg) / by [mayfly277](https://mayfly277.github.io/categories/goad/) / [print the SVG](/mindmaps/goad)
 * [/pen/cloud](/pen/cloud)
 * [/pen/web](/pen/web)
-
-### <a name='OSINT'></a>101_OSINT
-
-#### <a name='dorks'></a>👀🧠 dorks
-
 * [/pen/web/dorks-github.png](/pen/web/dorks-github.png)
 * [/pen/web/dorks-google.png](/pen/web/dorks-google.png)
-
-### <a name='WEB'></a>101_WEB
-
-![](/pen/web#attacks)
-
-### <a name='WEB'></a>101_NET
-
-* DNS
-* DNSsec
-* SSL 
-
-### <a name='hacktools'></a>007_hacktools 
-
-Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
-
-* [/tool/burp.png](/tool/cme.png)
-* [/tool/burp-extensions.png](/tool/cme.png)
+* [/tool/burp](/tool/burp.png)
+* [/tool/burp-extensions.png](/tool/burp-ext.png)
 * [/tool/cme.png](/tool/cme.png)
 * [/tool/gobuster.png](/tool/gobuster.png)
 * [/tool/hashcat.png](/tool/hashcat.png)
@@ -89,7 +39,7 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 * [/tool/tcpdump.png](/tool/tcpdump.png)
 * [/tool/wireshark.pdf](/tool//wireshark.pdf)
 
-### <a name='sources'></a>007_sources
+### Sources
 
 * [Ignitetechnologies](https://github.com/Ignitetechnologies/Mindmap)
 * [Pentest AD by OCD](https://orange-cyberdefense.github.io/ocd-mindmaps/)
@@ -101,7 +51,7 @@ Here are the URL shortcuts you can type in your browser prefixed by ```https://w
 * [Sysadmin Windows Server 2012](https://xmind.app/m/eZ7i/)
 * [Windows Event Logs](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap) 📃
 
-### <a name='OLD_STUFFS_'></a>_OLD_STUFFS_ 🥱
+### Old Stuffs 🥱
 
 * [Forensics for NTFS](/mindmaps/svg/win-for-ntfs.svg)
 * [Forensics for Windows](/mindmaps/svg/win-for-invest-roadmap.svg)

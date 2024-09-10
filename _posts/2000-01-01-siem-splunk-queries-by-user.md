@@ -1,6 +1,6 @@
 ---
 layout: post
-title: SIEM Splunk queries by user
+title: siem / splunk / queries / user account
 category: siem
 parent: cheatsheets 
 modified_date: 2021-02-05

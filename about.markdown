@@ -2,7 +2,7 @@
 layout: page
 title: About
 permalink: /about/
-navi_order: 6
+nav_order: 8
 ---
 
 About me and this website, my name Jonathan aka **j0mivz**. I work as Cybersecurity Specialist. **This website is my selfish IT notebook.**

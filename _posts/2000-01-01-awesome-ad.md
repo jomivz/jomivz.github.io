@@ -1,6 +1,6 @@
 ---
 layout: post
-title: awesome-ad
+title: ad / bookmarks 
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-06
