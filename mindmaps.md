@@ -20,7 +20,7 @@ modified_date: 2024-09-09
 * [/dfir/win07-artifacts](https://github.com/jomivz/cybrary/blob/master/dfir_win_07_artifacts_sans.pdf)
 * [/dfir/win11-artifacts](https://github.com/jomivz/cybrary/blob/master/dfir_win_11_artifacts_sans_v4.17_02-23.pdf)
 * [/net/ipv6](https://github.com/jomivz/cybrary/blob/master/net_ipv6_sans_202401.pdf)
-* [/pen/ad](/pen/goad2.svg) / by [mayfly277](https://mayfly277.github.io/categories/goad/) / [print the SVG](/mindmaps/goad)
+* [/pen/ad](/pen/goad2.svg) / by [mayfly277](https://mayfly277.github.io/categories/goad/) / [print the SVG](/mindmaps/mindmap_goad.md)
 * [/pen/cloud](/pen/cloud)
 * [/pen/web](/pen/web)
 * [/pen/web/dorks-github.png](/pen/web/dorks-github.png)
