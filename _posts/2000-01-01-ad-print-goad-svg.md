@@ -3,7 +3,7 @@ layout: post
 title: ad / print GOAD.svg 
 category: pen
 parent: cheatsheets
-modified_date: 2023-07-06
+modified_date: 2024-09-11
 permalink: /mindmaps/goad
 ---
 
