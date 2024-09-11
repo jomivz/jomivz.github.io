@@ -24,7 +24,7 @@ modified_date: 2024-09-09
 | 📘 [securityblue.team](https://securityblue.team) | 
 | 📘 [dfir.training](https://www.dfir.training/training) | 
 | 📘 [cyberdefenders.org](https://cyberdefenders.org/) | 
-| 📕 [hackthebox.eu CDSA](https://academy.hackthebox.com/preview/certifications/htb-certified-defensive-security-analyst) |
+| 📘 [hackthebox.eu CDSA](https://academy.hackthebox.com/preview/certifications/htb-certified-defensive-security-analyst) |
 | 📕 [hackthebox.eu](https://hackthebox.eu/) |
 | 📕 [tryhackme.com](https://tryhackme.com) |
 | 📕 [rootme](https://hackthebox.eu/) |
