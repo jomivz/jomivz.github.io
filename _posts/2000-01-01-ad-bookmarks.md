@@ -4,7 +4,7 @@ title: ad / bookmarks
 category: pen
 parent: cheatsheets
 modified_date: 2023-07-06
-permalink: /awesome-ad
+permalink: /ad
 ---
 
 <!-- vscode-markdown-toc -->
