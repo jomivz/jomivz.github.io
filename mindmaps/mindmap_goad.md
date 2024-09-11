@@ -1,3 +1,12 @@
+---
+layout: post
+title: ad / print GOAD.svg 
+category: pen
+parent: cheatsheets
+modified_date: 2023-07-06
+permalink: /mindmaps/goad
+---
+
 ## Printable GOAD.SVG 
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
