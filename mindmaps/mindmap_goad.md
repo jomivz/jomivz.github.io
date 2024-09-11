@@ -2,7 +2,7 @@
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
-* [/pen/goad2.svg](/pen/goad2.svg) / the original mindmap made by [mayfly277](mayfly277.github.io).
+* [/pen/goad2.svg](/pen/goad2.svg) / the original mindmap made by [mayfly277](https://mayfly277.github.io/about/).
 * [/pen/goad2.pdf](/pen/goad2.pdf) / a printabe version of the orginal v2 / 21 pages (A3 format).
 
 ```sh
