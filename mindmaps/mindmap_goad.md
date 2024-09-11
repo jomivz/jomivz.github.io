@@ -4,7 +4,7 @@ permalink: /mindmaps/goad
 modified_date: 2024-09-09
 ---
 
-## Printable GOAD.SVG 
+### Printable GOAD.SVG 
 
 Here are the URL shortcuts you can type in your browser prefixed by ```https://www.jmvwork.xyz```:
 
