@@ -23,7 +23,8 @@ nav_order: 1
 > **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
 There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
 
-> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/ressources). I recommend you to [refer to it first](/ressources) and **do not take my notes for granted**.
+> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/ressources). 
+I recommend you to [refer to it first](/ressources) and **do not take my notes for granted**.
 
 
 ##  <a name='WhyhavingaproperITnotebook'></a> Why having a proper IT notebook? 
