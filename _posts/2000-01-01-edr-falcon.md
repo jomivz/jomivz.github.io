@@ -323,7 +323,7 @@ in(#event_simpleName, values=["*smb*"], ignoreCase=true) AND UserName=""
 
 #### <a name='regkey-changed'></a>regkey-changed
 ```
-(regedit DetectName="*Tamper*") 
+(regedit DetectName="*Tamper*") RegStringValue is not null AND RegStringValue!=""
 | table([@timestamp, ComputerName, #event_simpleName,DetectName,PatternDispositionDescription,RegObjectName,RegStringValue ,RegValueName,AsepClassName,AsepClassName])
 ```
 
