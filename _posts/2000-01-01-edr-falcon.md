@@ -325,6 +325,9 @@ in(#event_simpleName, values=["*smb*"], ignoreCase=true) AND UserName=""
 ```
 (regedit DetectName="*Tamper*") RegStringValue is not null AND RegStringValue!=""
 | table([@timestamp, ComputerName, #event_simpleName,DetectName,PatternDispositionDescription,RegObjectName,RegStringValue ,RegValueName,AsepClassName,AsepClassName])
+
+#event_simplename="AsepValueUpdate"
+| table([@timestamp, ComputerName, #event_simpleName,DetectName,PatternDispositionDescription,RegObjectName,RegStringValue ,RegValueName,AsepClassName,AsepClassName])
 ```
 
 #### <a name='schtask-created'></a>schtask-created
