@@ -3,7 +3,7 @@ layout: post
 title: edr / falcon / logscale
 parent: cheatsheets
 category: edr
-modified_date: 2024-08-21
+modified_date: 2024-09-26
 permalink: /edr/falcon
 ---
 
@@ -42,7 +42,7 @@ permalink: /edr/falcon
 * [jq](#jq)
 	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
 	* [jq-over-detections-by-machine-export](#jq-over-detections-by-machine-export) 
-	* [jq-over-detections-by-machine-export](#jq-over-detections-by-user-export) 
+	* [jq-over-detections-by-user-export](#jq-over-detections-by-user-export) 
 
 <!-- vscode-markdown-toc-config
 	numbering=false
