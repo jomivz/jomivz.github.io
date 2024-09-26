@@ -41,7 +41,8 @@ permalink: /edr/falcon
 		* [regkey-changed](#regkey-changed)
 * [jq](#jq)
 	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
-	* [jq-over-detections-export](#jq-over-detections-export) 
+	* [jq-over-detections-by-machine-export](#jq-over-detections-by-machine-export) 
+	* [jq-over-detections-by-machine-export](#jq-over-detections-by-user-export) 
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -353,7 +354,7 @@ cat scheduled_tasks.json | jq -r '.result[] | select(.Scheduled_Task_State=="Ena
 cat scheduled_tasks.json | jq -c '.result[] | select(.Scheduled_Task_State=="Enabled")' | wc -l
 ```
 
-### <a name='jq-over-detections-export'></a>jq-over-detections-export
+### <a name='jq-over-detections-export'></a>jq-over-detections-by-machine-export
 ```
 # get IOC DOMAINS
 cat detections.json | jq -r '.result."DnsRequests{}.DomainName"' | sed '/^\[$/d' | sed '/^\]$/d' | sed '/^null$/d' | tr -d \" | tr -d , | sed 's/^[[:space:]]*//g' > ioc_doms.txt
@@ -386,4 +387,11 @@ cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.Fil
 cat detections.json | jq -r '.result.MD5String,.result."ExecutablesWritten{}.FilePath"' | grep '.*".*' | cut -d\" -f2 | sort -u > ioc_exes_paths.txt
 ```
 
+### <a name='jq-over-detections-export'></a>jq-over-detections-by-user-export
+```
+# get global user activities
+detection_1yr.json | jq -r '.[] | [.timestamp,.ComputerName,.UserName,.DetectName,.Technique,.FileName,.CommandLine] | @csv' > detection_1yr.csv
+powershell
+Import-Csv detection_1yr.csv | Out-GridView
+```
 
