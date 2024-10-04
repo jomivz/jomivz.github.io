@@ -73,9 +73,9 @@ grep -Eiorh '([[:alnum:]_.-]+@[[:alnum:]_.-]+?\.[[:alpha:].]{2,6})'
 ```
 
 ## <a name='password'></a>password 
-greater than 8 characters...
 ```sh
-^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$
+#greater than 4 characters... tested on rockyou.txt
+[A-Za-z0-9$*!@:_\-#\.+?]{4,}
 ```
 
 ## <a name='phone'></a>phone
