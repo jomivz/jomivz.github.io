@@ -3,7 +3,7 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2024-06-19
+modified_date: 2024-11-07
 permalink: /sys/win
 ---
 
@@ -545,7 +545,13 @@ netsh advfirewall set allprofiles state off
 
 ### <a name='unset-defender'></a>unset-defender
 ```batch
+# requires local admin privilege
 powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true
+
+# local privilege escalation
+https://github.com/anonymous300502/Nuke-AMSI
+https://github.com/OmerYa/Invisi-Shell
+https://amsi.fail/
 ```
 
 ### <a name='unset-cred-guard'></a>unset-cred-guard 
