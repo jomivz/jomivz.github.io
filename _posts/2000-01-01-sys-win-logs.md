@@ -76,6 +76,13 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 # recent entries of security logs
 # Get-EventLog -LogName Security -Newest 5
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/EXE and DLL'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -MaxEvents 10
+
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-WinRM/Operational'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
 ```
 
 ## <a name='accountlogon'></a>account-logon
