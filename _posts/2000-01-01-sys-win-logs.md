@@ -22,11 +22,11 @@ permalink: /sys/win/logs
 	* [applocker](#applocker)
 	* [defender](#defender)
 	* [powershell](#powershell)
-	* [scheduled tasks](#scheduledtasks)
+	* [scheduled-tasks](#scheduled-tasks)
 	* [services](#services)
 	* [sysmon](#sysmon)
-* [filesystem](#fs-io)
-	* [filesystem](#fs-io)
+* [filesystem-io](#filesystem-io)
+	* [fs-io](#fs-io)
 	* [fs-io-usb](#fs-io-usb)
 	* [fs-io-registry](#fs-io-registry)
 * [logs](#logs)
@@ -34,7 +34,7 @@ permalink: /sys/win/logs
 	* [activate-dns-debug-logs](#activate-dns-debug-logs)
 	* [activate-firewall-logs](#activate-firewall-logs)
 	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
- 	* [tampering-logs](#cleared-logs) 
+ 	* [tampering-logs](#tampering-logs) 
 * [network](#network)
 	* [net-share](#net-share)
 	* [net-rdp](#net-rdp)
@@ -172,7 +172,9 @@ Client = $event.UserData.EventXML.Param3
 
 ## <a name='executions'></a>executions
 
-### <a name='Applocker'></a>applocker
+df
+
+### <a name='applocker'></a>applocker
 ```powershell
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/EXE and DLL'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -MaxEvents 10
@@ -203,7 +205,7 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational
 
 ![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
-### <a name='scheduledtasks'></a>scheduled-tasks
+### <a name='scheduled-tasks'></a>scheduled-tasks
 ```powershell
 ```
 
@@ -216,6 +218,10 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational
 ```
 
 ## <a name='filesystem-io'></a>filesystem-io
+
+### <a name='fs-io'></a>fs-io
+```powershell
+```
 
 ### <a name='fs-io-registry'></a>fs-io-registry
 ```powershell
@@ -319,18 +325,18 @@ eventvwr.msc
 Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
 ```
 
-### <a name='netrdp'></a>net-rdp
+### <a name='net-rdp'></a>net-rdp
 ```powershell
 ```
 
-### <a name='netshare'></a>net-share
+### <a name='net-share'></a>net-share
 ```powershell
 ```
-### <a name='netsmb'></a>net-smb
+### <a name='net-smb'></a>net-smb
 ```powershell
 ```
 
-### <a name='netwinrm'></a>net-winrm
+### <a name='net-winrm'></a>net-winrm
 ```powershell
 ```
 
