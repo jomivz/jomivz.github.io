@@ -176,8 +176,8 @@ Client = $event.UserData.EventXML.Param3
 
 ### <a name='accountchanges'></a>account-changes
 
-![windows_account_changes](/assets/images/sys-win-logs-account-changes.png)
-![windows_group_changes](/assets/images/sys-win-logs-account-changes-groups.png)
+![windows_account_changes](/assets/images/sys-win-logs-account-changes.png =855x441)
+![windows_group_changes](/assets/images/sys-win-logs-account-changes-groups.png =1713x562)
 
 ```powershell
 # 4720 | account created
