@@ -180,10 +180,7 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -
 ```
 
 ### <a name='defender'></a>defender
-[windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
-- [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
-- [EID 1116 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1116)
-- [EID 1117 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
+[windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs
 
 Below is a powershell snippet to get EID 1006 within a timeframe :
 ```powershell
