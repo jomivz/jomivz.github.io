@@ -69,10 +69,10 @@ permalink: /sys/win/logs
 
 ## <a name='wow-sources'></a>wow-sources
 
-[SANS | working-with-the-event-log-part-1](https://www.sans.org/blog/working-with-the-event-log-part-1)
-[SANS | working-with-the-event-log-part-2](https://www.sans.org/blog/working-with-event-log-part-2-threat-hunting-with-event-logs/)
-[SANS | working-with-the-event-log-part-3](https://www.sans.org/blog/working-with-the-event-log-part-3-accessing-message-elements/)
-[SANS | working-with-the-event-log-part-4](https://www.sans.org/blog/working-with-the-event-log-part-4-tweaking-event-log-settings/)
+- [SANS | working-with-the-event-log-part-1](https://www.sans.org/blog/working-with-the-event-log-part-1)
+- [SANS | working-with-the-event-log-part-2](https://www.sans.org/blog/working-with-event-log-part-2-threat-hunting-with-event-logs/)
+- [SANS | working-with-the-event-log-part-3](https://www.sans.org/blog/working-with-the-event-log-part-3-accessing-message-elements/)
+- [SANS | working-with-the-event-log-part-4](https://www.sans.org/blog/working-with-the-event-log-part-4-tweaking-event-log-settings/)
 
 | Reference | Description |
 |-----------|-------------|
@@ -83,15 +83,22 @@ permalink: /sys/win/logs
 
 ## <a name='providers'></a>providers
 ```powershell
-# listing categories sort descending by recordcount
+# 01 # listing categories sort descending by recordcount
 Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object LogName, RecordCount, IsClassicLog, IsEnabled, LogMode, LogType | Sort-Object -Descending -Property RecordCount | FT -autosize
 
-# recent entries of security logs
+# 02 # list the evtx files not empty
+Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0}
+dir $env:systemroot"\System32\winevt\logs" | Sort-Object -Descending -Property LastWriteTime
+
+# 03 # get the first and the last security log
+Get-WinEvent -Path $env:systemroot"\System32\winevt\logs\Security.evtx" -MaxEvents 1
+Get-WinEvent -Path $env:systemroot"\System32\winevt\logs\Security.evtx" -Oldest -MaxEvents 1
+
+# 04 # recent entries of security logs
 # Get-EventLog -LogName Security -Newest 5
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational'} -MaxEvents 10
 
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-WinRM/Operational'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
 ```
@@ -117,7 +124,10 @@ $XPATH=(*[System[TimeCreated[@SystemTime >= '%FROM%' and @SystemTime < '%TO%'] a
 
 ### <a name='logon-interactive'></a>logon-interactive
 ```powershell
-# 'C:\Windows\System32\winevt\logs\Security.evtx'
+# 01 # list interactive logon
+Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
+
+# 02 # TO DEBUG
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']]]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
     $xml = [xml]$_.ToXml()
@@ -128,6 +138,7 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
     [pscustomobject]$hash
 }
 
+# 02 # TO DEBUG
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM'] and TimeCreated[timediff(@SystemTime) <= 300000]]]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path 'C:\Windows\System32\winevt\logs\Security.evtx' |
 # Where-Object { ($_.TimeCreated.AddTicks(-$_.TimeCreated.Ticks % [timespan]::TicksPerSecond)) -eq $time } | Foreach-Object { 
@@ -143,6 +154,7 @@ Where-Object {$_.TimeCreated -gt $date1 -and $_.TimeCreated -lt $date2} | Foreac
 
 ### <a name='logon-network'></a>logon-network
 ```powershell
+# 02 # TO DEBUG
 $xpath = "*[System[(EventID=4624)]] and *[EventData[Data[@Name='TargetUserName']!='SYSTEM']] and *[EventData[Data[@Name='LogonType']='3']]"
 Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Foreach-Object {
     $xml = [xml]$_.ToXml()
@@ -156,6 +168,7 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
 
 ### <a name='logon-rdp'></a>logon-rdp
 ```powershell
+# 02 # TO DEBUG
 # EventID 1149: Remote Desktop Services: User authentication succeeded
 # Eventvwr.msc > Applications and Services Logs -> Microsoft -> Windows -> Terminal-Services-RemoteConnectionManager > Operational
 $RDPAuths = Get-WinEvent -LogName 'Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational' -FilterXPath '<QueryList><Query Id="0"><Select>*[System[EventID=1149]]</Select></Query></QueryList>'
@@ -285,7 +298,7 @@ $secevt | Foreach-Object {
 
 ### <a name='powershell'></a>powershell
 ```powershell
-# base64 encoded commands 
+# 01 # base64 encoded commands 
 Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-PowerShell/Operational'; Id='4104';} | Where-object -Property Message -Match "[A-Za-z0-9+/=]{200}" | Format-List -Property Message
 
 Message : Creating Scriptblock text (1 of 1):
@@ -298,8 +311,12 @@ Message : Creating Scriptblock text (1 of 1):
           ScriptBlock ID: 9998ff14-4851-45e4-8aca-8b08753a2f42
           Path:
 
-# catch PowerView 
+# 02 # catch PowerView 
 Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-PowerShell/Operational'; Id='4104';} | Where-object -Property Message -Match "dcsync" | Select-Obecjt -First 1 | FL *
+
+# 03 # get last 24h powershell logs
+$Yesterday = (Get-Date) - (New-TimeSpan -Day 1)
+Get-WinEvent -LogName 'Windows PowerShell' | Where-Object { $_.TimeCreated -ge $Yesterday }
 ```
 
 ### <a name='scheduled-tasks'></a>scheduled-tasks
@@ -508,6 +525,7 @@ Message     : BITS started the Font Download transfer job that is associated wit
 
 ### <a name='net-winrm'></a>net-winrm
 ```powershell
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-WinRM/Operational'} -MaxEvents 10
 ```
 
 ### <a name='sysmon'></a>sysmon
@@ -596,18 +614,6 @@ Get-WinEvent -Path 'C:\Windows\System32\winevt\logs\Security.evtx' | Group-Objec
 
 ```powershell
 
-# list the evtx files not empty
-Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0}
-dir $env:systemroot"\System32\winevt\logs" | Sort-Object -Descending -Property LastWriteTime
-
-# get the first and the last security log
-Get-WinEvent -Path $env:systemroot"\System32\winevt\logs\Security.evtx" -MaxEvents 1
-Get-WinEvent -Path $env:systemroot"\System32\winevt\logs\Security.evtx" -Oldest -MaxEvents 1
-
-# get last 24h powershell logs
-$Yesterday = (Get-Date) - (New-TimeSpan -Day 1)
-Get-WinEvent -LogName 'Windows PowerShell' | Where-Object { $_.TimeCreated -ge $Yesterday }
-
 # filter security logs on eventId 4905
 Get-WinEvent -FilterHashtable @{Path=$env:systemroot+'\System32\winevt\logs\Security.evtx';ID=4905}
 
@@ -630,9 +636,6 @@ Get-WinEvent -FilterHashtable @{
   StartTime=$StartTime
 }
 
-# list interactive logon
-Get-winevent -FilterHashtable @{logname='security'; id=4624; starttime=(get-date).date} | where {$_.properties[8].value -eq 2}
-
 # get eventdata properties
 $events = Get-WinEvent -FilterHashtable @{ProviderName="Microsoft-Windows-Security-Auditing"; id=4624}
 $event = [xml]$events[0].ToXml()
@@ -651,7 +654,6 @@ sed 's\t\+/,/g' sourcelog2.tsv > formatted_sourcelog.csv
 
 # Windows EVTX logs to XML
 evtx_dump.py Security.evtx > security.xml
- 
 ```
 
 ### <a name='FormattingtheMFTentriestoCSV'></a>Formatting the MFT entries to CSV
