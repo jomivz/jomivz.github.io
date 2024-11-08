@@ -3,7 +3,7 @@ layout: post
 title: sys / win / logs
 category: sys
 parent: cheatsheets
-modified_date: 2024-01-12
+modified_date: 2024-11-18
 permalink: /sys/win/logs
 ---
 
@@ -12,34 +12,41 @@ permalink: /sys/win/logs
 <!-- vscode-markdown-toc -->
 * [wow-sources](#wow-sources)
 * [providers](#providers)
-* [account logon](#accountlogon)
+* [account](#account)
 	* [logon-interactive](#logon-interactive)
 	* [logon-network](#logon-network)
-	* [rdp](#rdp)
-* [account changes](#accountchanges)
-* [proc-execs](#proc-execs)
-* [net-conns](#net-conns)
-* [Files access](#Filesaccess)
-* [Network share](#Networkshare)
-* [Services](#Services)
-* [Scheduled tasks](#Scheduledtasks)
-* [firewall](#firewall)
-* [AMSI](#AMSI)
-* [Applocker](#Applocker)
-* [Audit log](#Auditlog)
-* [USB](#USB)
-* [Registry](#Registry)
+	* [logon-rdp](#logon-rdp)
+	* [logon-runas](#logon-runas)
+	* [account-changes](#account-changes)
+* [executions](#executions)
+	* [applocker](#applocker)
+	* [defender](#defender)
+	* [powershell](#powershell)
+	* [scheduled tasks](#scheduledtasks)
+	* [services](#services)
+	* [sysmon](#sysmon)
+* [filesystem](#fs-io)
+	* [filesystem](#fs-io)
+	* [fs-io-usb](#fs-io-usb)
+	* [fs-io-registry](#fs-io-registry)
+* [logs](#logs)
+  	* [activate-amsi-logs](#activate-amsi-logs)
+	* [activate-dns-debug-logs](#activate-dns-debug-logs)
+	* [activate-firewall-logs](#activate-firewall-logs)
+	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
+ 	* [tampering-logs](#cleared-logs) 
+* [network](#network)
+	* [net-share](#net-share)
+	* [net-rdp](#net-rdp)
+	* [net-smb](#net-smb)
+   	* [net-winrm](#net-winrm)
+	* [sysmon](#sysmon)
 * [ad](#ad)
 	* [ad-abuse-of-delegation](#ad-abuse-of-delegation)
 	* [ad-ds-replication](#ad-ds-replication)
 	* [windows-defender](#windows-defender)
 	* [logs-tampering](#logs-tampering)
 	* [email-compromise](#email-compromise)
-* [logs-activation](#logs-activation)
-	* [activate-amsi-logs](#activate-amsi-logs)
-	* [activate-dns-debug-logs](#activate-dns-debug-logs)
-	* [activate-firewall-logs](#activate-firewall-logs)
-	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
 * [extras](#extras)
 	* [artifacts](#artifacts)
 	* [MindMap for Windows OS](#MindMapforWindowsOS)
@@ -56,8 +63,6 @@ permalink: /sys/win/logs
 	autoSave=true
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
-
-
 
 ## <a name='wow-sources'></a>wow-sources
 
@@ -77,19 +82,16 @@ Get-WinEvent -ListLog * | Where-Object {$_.RecordCount -gt 0} | Select-Object Lo
 # Get-EventLog -LogName Security -Newest 5
 $secevt = Get-WinEvent @{logname='security'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational'} -MaxEvents 10
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/EXE and DLL'} -MaxEvents 10
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -MaxEvents 10
 
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-WinRM/Operational'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -MaxEvents 10
 ```
 
-## <a name='accountlogon'></a>account-logon
+## <a name='account'></a>account
 
 ![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
 
-### logon
 ```powershell
 #TO DEBUG
 cd C:\Windows\SysWOW64
@@ -144,7 +146,7 @@ Get-WinEvent -MaxEvents 1000 -FilterXPath $xpath -Path '.\Security.evtx' | Forea
 }
 ```
 
-### <a name='rdp'></a>logon-rdp
+### <a name='logon-rdp'></a>logon-rdp
 ```powershell
 # EventID 1149: Remote Desktop Services: User authentication succeeded
 # Eventvwr.msc > Applications and Services Logs -> Microsoft -> Windows -> Terminal-Services-RemoteConnectionManager > Operational
@@ -160,94 +162,26 @@ Client = $event.UserData.EventXML.Param3
 } $EventData | FT
 ```
 
-## <a name='accountchanges'></a>account-changes
-
-## <a name='AMSI'></a>amsi
+### <a name='logon-runas'></a>logon-runas
 ```powershell
 ```
 
-## <a name='Applocker'></a>applocker
+### <a name='accountchanges'></a>account-changes
 ```powershell
 ```
 
-## <a name='Auditlog'></a>audit-log
+## <a name='executions'></a>executions
+
+### <a name='Applocker'></a>applocker
 ```powershell
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/EXE and DLL'} -MaxEvents 10
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -MaxEvents 10
 ```
 
-## <a name='Filesaccess'></a>files-access
-```powershell
-```
-
-## <a name='firewall'></a>firewall
-```powershell
-```
-
-## <a name='net-conns'></a>net-conns
-
-![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
-![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
-
-```powershell
-# cisco anyconnect
-Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
-```
-
-## <a name='Networkshare'></a>network-share
-```powershell
-```
-
-## <a name='proc-execs'></a>proc-execs
-
-![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
-
-## <a name='Services'></a>services
-```powershell
-```
-
-## <a name='Scheduledtasks'></a>scheduled-tasks
-```powershell
-```
-
-## <a name='Registry'></a>registry
-```powershell
-```
-
-## <a name='USB'></a>usb
-```powershell
-```
-
-## <a name='ad'></a>ad
-### <a name='ad-abuse-of-delegation'></a>ad-abuse-of-delegation
-
-```powershell
-# hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
-# hunting for a CD abuse 2
-Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
-
-# hunting for a RBCD abuse 1: pivot on GUID in theEID 4662 (Properties: Write Property) + 5136 (attribute: msDS-AllowedToActOnBehalfOfOtherIdentity)
-# hunting for a RBCD abuse 2
-Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
-Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
-```
-
-### <a name='ad-ds-replication'></a>ad-ds-replication
-
-* hunting for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
-
-| Entry | CN | Display-Name | Rights-GUID |
-|----------------|--------------|--------------|-----------------|
-| Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
-| Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
-
-* hunting for DCsync permission added to an account 2
-```powershell
-(Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
-```
-
-### <a name='windows-defender'></a>windows-defender
-
+### <a name='defender'></a>defender
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs:
 - [EID 1006 - The antimalware engine found malware or other potentially unwanted software.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1006)
+- [EID 1116 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1116)
 - [EID 1117 - The antimalware platform performed an action to protect your system from malware.](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1117)
 
 Below is a powershell snippet to get EID 1006 within a timeframe :
@@ -256,19 +190,42 @@ $date1 = [datetime]"11/08/2021"
 $date2 = get-date "08/17/2021"
 Get-WinEvent –FilterHashtable @{'logname'='application'; 'id'=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
+
+# Windows-Windows Defender # detection
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1116'} | fl * 
+# Windows-Windows Defender # protection
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1117'} | fl * 
 ```
 
-### <a name='logs-tampering'></a>logs-tampering
+### <a name='powershell'></a>powershell
+```powershell
+```
 
-- [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
-- [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
-- [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
+![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
-### <a name='email-compromise'></a>email-compromise
+### <a name='scheduledtasks'></a>scheduled-tasks
+```powershell
+```
 
-- [Microsoft-eventlog-mindmap \ windows-email-compromise-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
+### <a name='services'></a>services
+```powershell
+```
 
-## <a name='logs-activation'></a>logs-activation
+### <a name='sysmon'></a>sysmon
+```powershell
+```
+
+## <a name='filesystem-io'></a>filesystem-io
+
+### <a name='fs-io-registry'></a>fs-io-registry
+```powershell
+```
+
+### <a name='fs-io-usb'></a>fs-io-usb
+```powershell
+```
+
+## <a name='logs'></a>logs
 
 ### <a name='activate-amsi-logs'></a>activate-amsi-logs
 ```powershell
@@ -345,6 +302,73 @@ eventvwr.msc
 
 - Filter event IDs 5152,5156,5158 :
 [Firewall EIDs | 4949 to 4958](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/)
+
+### <a name='tampering-logs'></a>tampering-logs
+
+- [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
+- [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
+- [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
+  
+## <a name='network'></a>network
+
+![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
+![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
+
+```powershell
+# cisco anyconnect
+Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Client'} | Group-Object Id -NoElement | sort count
+```
+
+### <a name='netrdp'></a>net-rdp
+```powershell
+```
+
+### <a name='netshare'></a>net-share
+```powershell
+```
+### <a name='netsmb'></a>net-smb
+```powershell
+```
+
+### <a name='netwinrm'></a>net-winrm
+```powershell
+```
+
+### <a name='sysmon'></a>sysmon
+```powershell
+```
+
+## <a name='ad'></a>ad
+### <a name='ad-abuse-of-delegation'></a>ad-abuse-of-delegation
+```powershell
+# hunting for a CD abuse 1: look for theEID 4742, computer object 'AllowedToDelegateTo' set on DC
+# hunting for a CD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToDelegateTo -like '*') -and (UserAccountControl -band 0x1000000)} -properties samAccountName, ServicePrincipalName, msDs-AllowedDelegateTo, userAccountControl
+
+# hunting for a RBCD abuse 1: pivot on GUID in theEID 4662 (Properties: Write Property) + 5136 (attribute: msDS-AllowedToActOnBehalfOfOtherIdentity)
+# hunting for a RBCD abuse 2
+Get-ADObject -Filter {(msDS-AllowedToActOnBehalfOfOtherIdentity -like '*')}
+Get-ADComputer <ServiceB> -properties * | FT Name, PrincipalsAllowedToDelegateToAccount
+```
+
+### <a name='ad-ds-replication'></a>ad-ds-replication
+
+* hunting for DCsync permission added to an account 1: 4662 ('Properties: Control Access') with DS-Replication GUID
+
+| Entry | CN | Display-Name | Rights-GUID |
+|----------------|--------------|--------------|-----------------|
+| Value | DS-Replication-Get-Changes | Replicating Directory Changes |1131f6aa-9c07-11d1-f79f-00c04fc2dcd2
+| Value | DS-Replication-Get-Changes-All | Replicating Directory Changes All |1131f6ad-9c07-11d1-f79f-00c04fc2dcd2
+
+* hunting for DCsync permission added to an account 2
+```powershell
+(Get-Acl "ad:\dc=DC01,dc=local").Access | where-object {$_.ObjectType -eq "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2" -or $_.objectType -eq 
+```
+
+### <a name='email-compromise'></a>email-compromise
+
+- [Microsoft-eventlog-mindmap \ windows-email-compromise-map](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap/blob/main/windows-auditing-baseline-map/windows-auditing-baseline-map.png)
+
 
 ## <a name='extras'></a>extras
 
