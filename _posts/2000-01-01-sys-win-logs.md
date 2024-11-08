@@ -90,7 +90,7 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -
 
 ## <a name='account'></a>account
 
-![winevent_accounts](/assets/images/win_20_audit_events6_accounts.jpg)
+![winevent_accounts](/assets/images/win_20_audit_events4_accounts.jpg)
 
 ```powershell
 #TO DEBUG
@@ -210,7 +210,7 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational
 
 ### <a name='services'></a>services
 
-![winevent_services](/assets/images/win_20_audit_events6_svcs.jpg)
+![winevent_services](/assets/images/win_20_audit_events5_svcs.jpg)
 
 ```powershell
 ```
