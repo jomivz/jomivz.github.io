@@ -183,6 +183,8 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -
 ### <a name='defender'></a>defender
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs
 
+![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
+
 Below is a powershell snippet to get EID 1006 within a timeframe :
 ```powershell
 $date1 = [datetime]"11/08/2021"
