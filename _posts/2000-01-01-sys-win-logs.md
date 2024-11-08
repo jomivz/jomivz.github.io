@@ -183,20 +183,41 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -
 ### <a name='defender'></a>defender
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs
 
-![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
-
-Below is a powershell snippet to get EID 1006 within a timeframe :
+B- EID 1006 :
 ```powershell
 $date1 = [datetime]"11/08/2021"
 $date2 = get-date "08/17/2021"
 Get-WinEvent –FilterHashtable @{'logname'='application'; 'id'=1006} |
 Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gridview
-
-# Windows-Windows Defender # detection
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1116'} | fl * 
-# Windows-Windows Defender # protection
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1117'} | fl * 
 ```
+
+- EID 1116 / 1117 :
+```powershell
+# Windows-Windows Defender # 1116 # detection
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1116'} | fl * 
+
+
+![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
+
+# Windows-Windows Defender # 1117 # protection
+$secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1117'} | fl *
+
+```
+![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
+
+- Output in Format Table :
+```powershell
+# Windows-Windows Defender # XML parsing
+$secevt | Foreach-Object {
+    $xml = [xml]$_.ToXml()
+    $hash = [ordered]@{ 'TimeCreated' = $xml.Event.System.TimeCreated.SystemTime }
+    $xml.Event.EventData.Data | where Name -in 'Threat Name','Process Name','Detection User','Path' | Foreach-Object {
+    	$hash[$_.Name] = $_.'#text'
+    }
+    [pscustomobject]$hash
+} | ft *
+```
+![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116_ft.png)
 
 ### <a name='powershell'></a>powershell
 ```powershell
@@ -312,9 +333,26 @@ eventvwr.msc
 ### <a name='tampering-logs'></a>tampering-logs
 
 - [EID 1100](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1100)
+
+```powershell
+tbd
+```
+
 - [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
 - [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
   
+```powershell
+Get-WinEvent -FilterHashtable @{LogName='Security'; ID=1102 } | Format-List -Property TimeCreated,Message
+
+TimeCreated : 6/26/2022 10:34:08 AM
+Message     : The audit log was cleared.
+              Subject:
+                Security ID:    S-1-5-21-2977773840-2930198165-1551093962-1000
+                Account Name:   Sec504
+                Domain Name:    SEC504STUDENT
+                Logon ID:       0x1BD38
+```
+	
 ## <a name='network'></a>network
 
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
