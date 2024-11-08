@@ -90,7 +90,7 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-WMI-Activity/Operational'} -
 
 ## <a name='account'></a>account
 
-![winevent_4624_xml](/assets/images/winevent_4624_xml.png)
+![winevent_accounts](/assets/images/win_20_audit_events6_accounts.jpg)
 
 ```powershell
 #TO DEBUG
@@ -172,7 +172,6 @@ Client = $event.UserData.EventXML.Param3
 
 ## <a name='executions'></a>executions
 
-df
 
 ### <a name='applocker'></a>applocker
 ```powershell
@@ -210,6 +209,9 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational
 ```
 
 ### <a name='services'></a>services
+
+![winevent_services](/assets/images/win_20_audit_events6_svcs.jpg)
+
 ```powershell
 ```
 
@@ -330,6 +332,9 @@ Get-WinEvent -FilterHashtable @{'Logname'='Cisco AnyConnect Secure Mobility Clie
 ```
 
 ### <a name='net-share'></a>net-share
+
+![winevent_shares](/assets/images/win_20_audit_events6_shares.jpg)
+
 ```powershell
 ```
 ### <a name='net-smb'></a>net-smb
