@@ -66,6 +66,11 @@ permalink: /sys/win/logs
 
 ## <a name='wow-sources'></a>wow-sources
 
+[SANS | working-with-the-event-log-part-1](https://www.sans.org/blog/working-with-the-event-log-part-1)
+[SANS | working-with-the-event-log-part-2](https://www.sans.org/blog/working-with-event-log-part-2-threat-hunting-with-event-logs/)
+[SANS | working-with-the-event-log-part-3](https://www.sans.org/blog/working-with-the-event-log-part-3-accessing-message-elements/)
+[SANS | working-with-the-event-log-part-4](https://www.sans.org/blog/working-with-the-event-log-part-4-tweaking-event-log-settings/)
+
 | Reference | Description |
 |-----------|-------------|
 | [UWS securitylog encyclopedia](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx) | Full Security logs listing (format, fields, values). |
@@ -176,14 +181,26 @@ Client = $event.UserData.EventXML.Param3
 
 ### <a name='applocker'></a>applocker
 ```powershell
-$secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/EXE and DLL'} -MaxEvents 10
+# EXE and DLL | applocker denied
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-AppLocker/EXE and DLL'; Id=8004 } | Format-List -Property TimeCreated,Message
+
+TimeCreated : 7/12/2022 12:36:06 PM
+Message     : %OSDRIVE%\USERS\SEC504\APPDATA\LOCAL\TEMP\CALCACHE.EXE was prevented from running.
+
+TimeCreated : 7/12/2022 11:37:45 AM
+Message     : %OSDRIVE%\TOOLS\SHARPVIEW.EXE was prevented from running.
+
+TimeCreated : 7/12/2022 11:37:45 AM
+Message     : %OSDRIVE%\TOOLS\SHARPVIEW.EXE was prevented from running.
+
+# WMI and Script
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-AppLocker/WMI and Script'} -MaxEvents 10
 ```
 
 ### <a name='defender'></a>defender
 [windows defender](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide) logs
 
-B- EID 1006 :
+- EID 1006 :
 ```powershell
 $date1 = [datetime]"11/08/2021"
 $date2 = get-date "08/17/2021"
@@ -196,12 +213,8 @@ Where-Object {$_.TimeCreated -gt $date1 -and $_.timecreated -lt $date2} | out-gr
 # Windows-Windows Defender # 1116 # detection
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1116'} | fl * 
 
-
-![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
-
 # Windows-Windows Defender # 1117 # protection
 $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational';id='1117'} | fl *
-
 ```
 ![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116.png)
 
