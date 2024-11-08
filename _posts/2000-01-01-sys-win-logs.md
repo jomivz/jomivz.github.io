@@ -172,6 +172,7 @@ Client = $event.UserData.EventXML.Param3
 
 ## <a name='executions'></a>executions
 
+![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
 ### <a name='applocker'></a>applocker
 ```powershell
@@ -198,8 +199,6 @@ $secevt = Get-WinEvent @{logname='Microsoft-Windows-Windows Defender/Operational
 ### <a name='powershell'></a>powershell
 ```powershell
 ```
-
-![windows log for process executions](/assets/images/for-win-logs-proc-exec.png)
 
 ### <a name='scheduled-tasks'></a>scheduled-tasks
 ```powershell
