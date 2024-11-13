@@ -21,6 +21,7 @@ permalink: /sys/win/logs
 * [executions](#executions)
 	* [applocker](#applocker)
 	* [defender](#defender)
+ 	* [msinstaller](#msinstaller)
 	* [powershell](#powershell)
 	* [scheduled-tasks](#scheduled-tasks)
 	* [services](#services)
@@ -295,6 +296,13 @@ $secevt | Foreach-Object {
 } | ft *
 ```
 ![windows log defender_1116](/assets/images/sys-win-logs-exe-defender-1116_ft.png)
+
+### <a name='msinstaller'></a>msinstaller
+
+![msinstaller](/assets/images/sys-win-logs-msi.png)
+
+```powershell
+```
 
 ### <a name='powershell'></a>powershell
 ```powershell
