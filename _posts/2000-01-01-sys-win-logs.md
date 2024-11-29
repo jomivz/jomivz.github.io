@@ -3,7 +3,7 @@ layout: post
 title: sys / win / logs
 category: sys
 parent: cheatsheets
-modified_date: 2024-11-18
+modified_date: 2024-11-28
 permalink: /sys/win/logs
 ---
 
@@ -37,12 +37,12 @@ permalink: /sys/win/logs
 	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
  	* [tampering-logs](#tampering-logs) 
 * [network](#network)
-  	* [firewall](#firewall)	
+  * [firewall](#firewall)	
 	* [net-bits](#net-bits)	
 	* [net-rdp](#net-rdp)
 	* [net-share](#net-share)
 	* [net-smb](#net-smb)
-   	* [net-winrm](#net-winrm)
+  * [net-winrm](#net-winrm)
 	* [sysmon](#sysmon)
 	* [vpn-anyconnect](#vpn-anyconnect)
 * [ad](#ad)
@@ -403,6 +403,7 @@ netsh advfirewall show allprofiles
 netsh advfirewall show allprofiles | Select-String Filename
 
 # Enable the logging on drop for the firewall profiles: {Domain, Public, Private}
+# C:\windows\system32\LogFiles\Firewall\pfirewall.log
 Set-NetFirewallProfile -Name Domain -LogBlocked True
 Set-NetFirewallProfile -Name Public -LogBlocked True
 Set-NetFirewallProfile -Name Private -LogBlocked True
@@ -472,9 +473,34 @@ Message     : The audit log was cleared.
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-1.png)
 ![windows log for network connections](/assets/images/for-win-logs-net-conn-2.png)
 
-### <a name='firewall'></a>firewall
+
+
+### <a name='firewall'></a>firewall-count
 ```powershell
-Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; Id=2004,2006 } | Format-List
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'} | Group-Object -Property Id | Sort-Object Name
+Count Name
+----- ----
+   17 2002
+   12 2003
+  285 2004
+   34 2005
+  106 2006
+   10 2008
+   29 2010
+    5 2011
+   10 2047
+  307 2097
+```
+
+### <a name='firewall'></a>firewall-action
+```powershell
+
+```
+
+### <a name='firewall'></a>firewall-crud-rules
+```powershell
+# 2004 : A rule has been added
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; Id=2004 } | Format-List
 
 TimeCreated  : 7/13/2022 12:46:11 AM
 ProviderName : Microsoft-Windows-Windows Firewall With Advanced Security
@@ -496,6 +522,21 @@ Message      : A rule has been added to the Windows Defender Firewall exception 
                 Edge Traversal: None
                 Modifying User: S-1-5-21-2977773840-2930198165-1551093962-1000
                 Modifying Application:  C:\Windows\System32\dllhost.exe
+
+# 2006 : A rule has been deleted
+Get-WinEvent -FilterHashtable @{ LogName='Microsoft-Windows-Windows Firewall With Advanced Security/Firewall'; Id=2006 } | Format-List
+
+TimeCreated  : 3/2/2023 5:36:19 AM
+ProviderName : Microsoft-Windows-Windows Firewall With Advanced Security
+Id           : 2006
+Message      : A rule has been deleted in the Windows Defender Firewall exception list.
+
+               Deleted Rule:
+                Rule ID:        {3E7C41F7-BC55-43B6-9AA7-4DEC3AFB689E}
+                Rule Name:
+               @{Microsoft.Win32WebViewHost_10.0.20348.1_neutral_neutral_cw5n1h2txyewy?ms-resource://Windows.Win32WebViewHost/resources/DisplayName}
+                Modifying User: S-1-5-80-3088073201-1464728630-1879813800-1107566885-823218052
+                Modifying Application:  C:\Windows\System32\svchost.exe
 ```
 		
 ### <a name='net-bits'></a>net-bits

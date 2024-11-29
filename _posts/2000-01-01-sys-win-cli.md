@@ -3,7 +3,7 @@ layout: post
 title: sys / win 
 category: sys
 parent: cheatsheets
-modified_date: 2024-11-07
+modified_date: 2024-11-28
 permalink: /sys/win
 ---
 
@@ -15,29 +15,32 @@ permalink: /sys/win
 	* [copy-file](#copy-file)
 * [enum](#enum)
 	* [get-kb](#get-kb)
+	* [get-logs](#get-logs)
 	* [get-gpo](#get-gpo)
 	* [get-os](#get-os)
 	* [get-products](#get-products)
 	* [get-processes](#get-processes)
-	* [get-path](#get-path)
-	* [get-pipes](#get-pipes)
 	* [get-scheduled-tasks](#get-scheduled-tasks)
 	* [get-services](#get-services)
 	* [get-sessions](#get-sessions)
+	* [get-path](#get-path)
+	* [get-pipes](#get-pipes)
 	* [get-usb-devices](#get-usb-devices)
 	* [get-users](#get-users)
 	* [get-vss](#get-vss)
 * [enum-net](#enum-net)
 	* [get-ca](#get-ca)
- 	* [get-dc](#get-dc) 	
+	* [get-dc](#get-dc)
 	* [get-neighbors](#get-neighbors)
 	* [get-net-settings](#get-net-settings)
 	* [get-routes](#get-routes)
 	* [get-shares](#get-shares)
 * [enum-sec](#enum-sec)
-	* [get-certificate-info](get-certificate-info) 	
+	* [get-acls](#get-acls)
+	* [get-certificate-info](#get-certificate-info)
 	* [get-file-hash](#get-file-hash)
-	* [get-status-fw](#get-status-fw)
+	* [get-fw-status](#get-fw-status)
+	* [get-fw-rules](#get-fw-rules)
 	* [get-status-proxy](#get-status-proxy)
 	* [get-status-defender](#get-status-defender)
 	* [get-status-cred-guard](#get-status-cred-guard)
@@ -50,11 +53,11 @@ permalink: /sys/win
 	* [network-capture](#network-capture)
 * [tamper](#tamper)
 	* [add-account](#add-account)
-	* [add-regkey](#del-regkey)
- 	* [del-regkey](#del-regkey)
- 	* [set-fs-perms](set-fs-perms)
+	* [add-regkey](#add-regkey)
+	* [del-regkey](#del-regkey)
+	* [set-fs-perms](#set-fs-perms)
 	* [set-kb](#set-kb)
-	* [set-network](#set-network)	
+	* [set-network](#set-network)
 	* [set-proxy](#set-proxy)
 	* [set-rdp](#set-rdp)
 	* [set-winrm](#set-winrm)
@@ -76,7 +79,7 @@ permalink: /sys/win
 	* [bypass-lsaprotection](#bypass-lsaprotection)
 	* [bypass-sources](#bypass-sources)
 * [misc](#misc)
-	* [run](#run)
+	* [run](#run-1)
 	* [dism](#dism)
 	* [wsl](#wsl)
 
@@ -91,7 +94,7 @@ permalink: /sys/win
 * [windows logs](/sys/logs-win/)
 
 ## <a name='copy'></a>copy
-### <a name='copy-file'></a>copy-dir
+### <a name='copy-dir'></a>copy-dir
 ```
 robocopy.exe "C:\windows\system32\winevt\logs\" "C:\windows\temp\logs"
 ```
@@ -114,7 +117,7 @@ powershell -Command "systeminfo /FO CSV" | out-file C:\Windows\Temp\systeminfo.c
 import-csv C:\Windows\Temp\systeminfo.csv | ForEach-Object{$_."Correctif(s)"}
 ```
 
-### <a name='get-kb'></a>get-logs
+### <a name='get-logs'></a>get-logs
 ```powershell
 Get-WmiObject win32_nteventlogfile
 ```
@@ -252,7 +255,7 @@ vssadmin list volumes
 vssadmin create shadow /for=c:
 ```
 
-## <a name='enum-sec'></a>enum-net
+## <a name='enum-net'></a>enum-net
 
 ### <a name='get-ca'></a>get-ca
 ```powershell
@@ -290,7 +293,7 @@ route -n
 netstat -ano
 ```
 
-### <a name='get-net-settings'></a>get-routes
+### <a name='get-routes'></a>get-routes
 ```
 # Display all routing tables
 route print
@@ -317,6 +320,11 @@ nltest /dclist:dom.corp
 
 ## <a name='enum-sec'></a>enum-sec
 
+### get-acls
+```batch
+
+```
+
 ### <a name='get-certificate-info'></a>get-certificate-info
 ```batch
 # certificates local stores: https://adamtheautomator.com/windows-certificate-manager/
@@ -330,11 +338,32 @@ certutil -hashfile X SHA256
 get-filehash X
 ```
 
-### <a name='get-status-fw'></a>get-status-fw
+### <a name='get-fw-status'></a>get-fw-status
 ```batch
 # logfile: %systemroot%\system32\LogFiles\Firewall\pfirewall.log
 netsh advfirewall show allprofiles
 netsh firewall show portopening
+```
+
+### <a name='get-fw-rules'></a>get-fw-rules
+```powershell
+# IN
+Get-NetFirewallRule -Action Allow -Enabled True -Direction Inbound |
+Format-Table -Property Name,
+@{Name='Protocol';Expression={($PSItem | Get-NetFirewallPortFilter).Protocol}},
+@{Name='LocalPort';Expression={($PSItem | Get-NetFirewallPortFilter).LocalPort}},
+@{Name='RemotePort';Expression={($PSItem | Get-NetFirewallPortFilter).RemotePort}},
+@{Name='RemoteAddress';Expression={($PSItem | Get-NetFirewallAddressFilter).RemoteAddress}},
+Enabled,Profile,Direction,Action
+
+# OUT
+Get-NetFirewallRule -Action Allow -Enabled True -Direction Outbound |
+Format-Table -Property Name,
+@{Name='Protocol';Expression={($PSItem | Get-NetFirewallPortFilter).Protocol}},
+@{Name='LocalPort';Expression={($PSItem | Get-NetFirewallPortFilter).LocalPort}},
+@{Name='RemotePort';Expression={($PSItem | Get-NetFirewallPortFilter).RemotePort}},
+@{Name='RemoteAddress';Expression={($PSItem | Get-NetFirewallAddressFilter).RemoteAddress}},
+Enabled,Profile,Direction,Action
 ```
 
 ### <a name='get-status-proxy'></a>get-status-proxy
@@ -636,7 +665,7 @@ powershell .\mimikatz.exe
 
 ## <a name='misc'></a>misc
 
-### <a name='run'></a>run
+### <a name='run-1'></a>run
 
 | Name	 | Function |
 |--------|-------------|
