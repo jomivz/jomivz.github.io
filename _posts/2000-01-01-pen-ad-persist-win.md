@@ -186,8 +186,8 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 ### <a name='DCOM'></a>DCOM
 
 - [DEMO DCOM backdoor](https://www.youtube.com/watch?v=e-tYtfmcoWk)
-![](ad-persist-sd-DCOM-invoke-dcombackdoor.png)
-![](ad-persist-sd-DCOM-invoke-dcombackdoortrigger.png)
+![200](/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoor.png)
+![200](/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoortrigger.png)
 
 ```powershell
 # set-RemoteDCOM
@@ -195,7 +195,7 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 
 ### <a name='Powershell'></a>Powershell
 
-![](ad-persist-sd-PS-set-remotePSRemoting.png)
+![300](ad-persist-sd-PS-set-remotePSRemoting.png)
 
 ```powershell
 # grant PS remote execution to a user
@@ -209,11 +209,11 @@ Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Remove
 
 - [DEMO remote registry](https://www.youtube.com/watch?v=pOHO3hdTKyw)
 
-![](ad-persist-sd-REG-add-regbackdoor2.png)
-![](ad-persist-sd-REG-add-regbackdoor.png)
-![](ad-persist-sd-REG-get-machinehash2.png)
-![](ad-persist-sd-REG-get-machinehash.png)
-![](ad-persist-sd-REG-invoke-remoteregbackdoor.png)
+![200](/assets/images/ad-persist-sd-REG-add-regbackdoor2.png)
+![200](/assets/images/ad-persist-sd-REG-add-regbackdoor.png)
+![200](/assets/images/ad-persist-sd-REG-get-machinehash2.png)
+![200](/assets/images/ad-persist-sd-REG-get-machinehash.png)
+![200](/assets/images/ad-persist-sd-REG-invoke-remoteregbackdoor.png)
 
 ```powershell
 # allows for the remote retrieval of a system's machine and local account hashes, as well as its domain cached credentials.
@@ -233,9 +233,9 @@ Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 
 - [DEMO SCM backdoor](https://www.youtube.com/watch?v=tETNO22zVKM) / service creation
 
-![](/assets/images/ad-persist-sd-SCM-add-scmsd.png)
-![](/assets/images/ad-persist-sd-SCM-sc-create.png)
-![](/assets/images/ad-persist-sd-SCM-services.msc.png)
+![400](/assets/images/ad-persist-sd-SCM-add-scmsd.png)
+![400](/assets/images/ad-persist-sd-SCM-sc-create.png)
+![400](/assets/images/ad-persist-sd-SCM-services.msc.png)
 
 ```powershell
 ```
@@ -244,9 +244,9 @@ Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 
 - [DEMO WMI backdoor](https://www.youtube.com/watch?v=C1OpX_n7HlY)
 
-![](/assets/images/ad-persist-sd-WMI-invoke-wmimethod.png)
-![](/assets/images/ad-persist-sd-WMI-set-remotewmi.png)
-![](/assets/images/ad-persist-sd-WMI-set-wmipersist.png)
+![300](/assets/images/ad-persist-sd-WMI-invoke-wmimethod.png)
+![300](/assets/images/ad-persist-sd-WMI-set-remotewmi.png)
+![300](/assets/images/ad-persist-sd-WMI-set-wmipersist.png)
 
 ```powershell
 # grant WMI remote execution to a user
