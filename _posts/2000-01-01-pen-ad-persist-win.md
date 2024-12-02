@@ -32,12 +32,14 @@ permalink: /pen/ad/persist
 
 ## <a name='adminsdholder'></a>adminsdholder
 
+🔑 KEYPOINTS :
 - special AD container with some "default" security permissions that is used as a template for protected AD accounts and groups
 - roll backs the security permissions for protected accounts and group every 60 minutes, aka the Security Descriptor Propagator Update (SDProp) process.
 
-READ MORE at [thehacker.recipes/ad/persistence/adminsdholder](https://www.thehacker.recipes/ad/persistence/adminsdholder).
-READ MORE at [ired.team/abuse-adminsdholder](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)
-READ MORE AT [adsecurity.org/adminsdholder](https://adsecurity.org/?p=1906)
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/adminsdholder](https://www.thehacker.recipes/ad/persistence/adminsdholder).
+- [ired.team/abuse-adminsdholder](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence)
+- [adsecurity.org/adminsdholder](https://adsecurity.org/?p=1906)
 
 **play**
 ```powershell
@@ -70,12 +72,14 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 
 ## <a name='dacl-abuse'></a>dacl-abuse
 
-[acerespond / win_00_sys_sd_ace](/assets/images/win_00_sys_sd_ace.jpg)
-[thehackerrecipes / ad-persist-dacl-abuse-mindmap](/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png)
+🔑 KEYPOINTS :
+![acerespond / win_00_sys_sd_ace](/assets/images/win_00_sys_sd_ace.jpg)
+![thehackerrecipes / ad-persist-dacl-abuse-mindmap](/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png)
 
-READ MORE at [thehacker.recipes/ad/movement/dacl](https://www.thehacker.recipes/ad/movement/dacl/).
-READ MORE at [thehacker.recipes/ad/persistence/dacl](https://www.thehacker.recipes/ad/persistence/dacl/).
-READ MORE AT [ired.team/abusing-active-directory-acls-aces](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces)
+🕮 READ MORE at :
+- [thehacker.recipes/ad/movement/dacl](https://www.thehacker.recipes/ad/movement/dacl/).
+- [thehacker.recipes/ad/persistence/dacl](https://www.thehacker.recipes/ad/persistence/dacl/).
+- [ired.team/abusing-active-directory-acls-aces](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces)
 
 **play**
 **detect**
@@ -83,8 +87,12 @@ READ MORE AT [ired.team/abusing-active-directory-acls-aces](https://www.ired.tea
 
 ## <a name='dc-shadow'></a>dc-shadow
 
-READ MORE at [thehacker.recipes/ad/persistence/dcshadow](https://www.thehacker.recipes/ad/persistence/dcshadow/).
-READ MORE AT [ired.team/dcshadow](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/t1207-creating-rogue-domain-controllers-with-dcshadow)
+🔑 KEYPOINTS :
+- tbd 
+
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/dcshadow](https://www.thehacker.recipes/ad/persistence/dcshadow/).
+- [ired.team/dcshadow](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/t1207-creating-rogue-domain-controllers-with-dcshadow)
 
 **play**
 ```powershell
@@ -96,11 +104,13 @@ READ MORE AT [ired.team/dcshadow](https://www.ired.team/offensive-security-exper
 
 **play**
 
+🔑 KEYPOINTS :
 - DSRM stands for 'Directory Services Restore Mode'
 - allows remote access to the DC for the local admin accounts
 - dump of local admins hash is required + activation of the feature in the **registry** 
 
-READ MORE at [hacktricks.xyz/dsrm-credentials](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/dsrm-credentials)
+🕮 READ MORE at :
+- [hacktricks.xyz/dsrm-credentials](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/dsrm-credentials)
 
 ```powershell
 # check if the key exists and get the value
@@ -120,11 +130,13 @@ Set-ItemProperty "HKLM:\SYSTEM\CURRENTCONTROLSET\CONTROL\LSA" -name DsrmAdminLog
 
 **play**
 
+🔑 KEYPOINTS :
 - Group Managed Service Accounts (gMSA), which are managed directly by AD, with a strong password and a regular password rotation
 - password are computed based on KDS root keys + gMSA account 'msDS-ManagedPassword' attribute value
 - hack implemented by [semperis/goldenGMSA](https://github.com/Semperis/GoldenGMSA) tool 
 
-READ MORE at [thehacker.recipes/ad/persistence/goldengmsa](https://www.thehacker.recipes/ad/persistence/goldengmsa).
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/goldengmsa](https://www.thehacker.recipes/ad/persistence/goldengmsa).
 
 ```powershell
 # enumerate KDS root keys,  SID, RootKeyGuid, Password ID
@@ -145,7 +157,11 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 
 ## <a name='security-descriptors'></a>security-descriptors
 
-READ MORE at [hacktricks/security-descriptors](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/security-descriptors)
+🔑 KEYPOINTS :
+- 
+
+🕮 READ MORE at :
+- [hacktricks/security-descriptors](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/security-descriptors)
 
 ### <a name='set-remoteWMI'></a>set-remoteWMI
 
@@ -201,11 +217,13 @@ Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 
 **play**
 
+🔑 KEYPOINTS :
 - hack that injects a master password into the lsass process on a DC
 - enables the adversary to authenticate as any user without password
 - does not persist to reboot
 
-READ MORE at [thehacker.recipes/ad/persistence/skeleton-key](https://www.thehacker.recipes/ad/persistence/skeleton-key/).
+🕮 READ MORE at :
+- [thehacker.recipes/ad/persistence/skeleton-key](https://www.thehacker.recipes/ad/persistence/skeleton-key/).
 
 ```powershell
 # execution on a DC
