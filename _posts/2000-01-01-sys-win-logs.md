@@ -21,7 +21,7 @@ permalink: /sys/win/logs
 * [executions](#executions)
 	* [applocker](#applocker)
 	* [defender](#defender)
- 	* [msinstaller](#msinstaller)
+	* [msinstaller](#msinstaller)
 	* [powershell](#powershell)
 	* [scheduled-tasks](#scheduled-tasks)
 	* [services](#services)
@@ -31,11 +31,11 @@ permalink: /sys/win/logs
 	* [fs-io-usb](#fs-io-usb)
 	* [fs-io-registry](#fs-io-registry)
 * [logs](#logs)
-  	* [activate-amsi-logs](#activate-amsi-logs)
+  * [activate-amsi-logs](#activate-amsi-logs)
 	* [activate-dns-debug-logs](#activate-dns-debug-logs)
 	* [activate-firewall-logs](#activate-firewall-logs)
 	* [activate-firewall-logs-managed](#activate-firewall-logs-managed)
- 	* [tampering-logs](#tampering-logs) 
+	* [tampering-logs](#tampering-logs) 
 * [network](#network)
   * [firewall](#firewall)	
 	* [net-bits](#net-bits)	
@@ -453,8 +453,14 @@ eventvwr.msc
 tbd
 ```
 
-- [EID 1102](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
-- [unprotect - clear windows logs](https://search.unprotect.it/technique/clear-windows-event-logs/)
+- [EID 1100 - Event logging service shutdown]()
+- [EID 1101 - Audit events dropped by transport]()
+- [EID 1102 - Audit log cleared](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=1102)
+- [EID 1102 - unprotect.it](https://search.unprotect.it/technique/clear-windows-event-logs/)
+- [EID 1104 - Security log is full]()
+- [EID 1105 - Event log automatic backup]()
+- [EID 1108 - Event logging service error]()
+- [EID 4715 - Object audit policy (SACL) changed]()
   
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName='Security'; ID=1102 } | Format-List -Property TimeCreated,Message

