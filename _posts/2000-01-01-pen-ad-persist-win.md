@@ -73,7 +73,7 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 
 🔑 KEYPOINTS :
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/win_00_sys_sd_ace.jpg" width="450"> <img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png" width="600">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/win_00_sys_sd_ace.jpg" width="600"> <img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png" width="400">
 
 ▶️ PLAY :
 ```powershell
@@ -179,7 +179,6 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 ## <a name='security-descriptors'></a>security-descriptors
 
 🔑 KEYPOINTS :
-- 
 
 ▶️ PLAY :
 
