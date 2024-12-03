@@ -73,9 +73,7 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 
 🔑 KEYPOINTS :
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/win_00_sys_sd_ace.jpg" width="200">
-
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/win_00_sys_sd_ace.jpg" width="400"> <img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-dacl-abuse-mindmap-thehackerrecipes.png" width="400">
 
 ▶️ PLAY :
 ```powershell
@@ -189,8 +187,8 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 
 - [DEMO DCOM backdoor](https://www.youtube.com/watch?v=e-tYtfmcoWk)
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoor.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoortrigger.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoor.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-DCOM-invoke-dcombackdoortrigger.png" width="400">
 
 ```powershell
 # set-RemoteDCOM
@@ -198,7 +196,7 @@ GoldenGMSA.exe gmsainfo --sid "S-1-5-21-[...]1586295871-1112"
 
 ### <a name='Powershell'></a>Powershell
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-PS-set-remotePSRemoting.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-PS-set-remotePSRemoting.png" width="400">
 
 ```powershell
 # grant PS remote execution to a user
@@ -212,11 +210,11 @@ Set-RemotePSRemoting -UserName student1 -ComputerName <remotehost> -Remove
 
 - [DEMO remote registry](https://www.youtube.com/watch?v=pOHO3hdTKyw)
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-add-regbackdoor2.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-add-regbackdoor.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-get-machinehash2.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-get-machinehash.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-invoke-remoteregbackdoor.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-add-regbackdoor2.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-add-regbackdoor.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-get-machinehash2.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-get-machinehash.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-REG-invoke-remoteregbackdoor.png" width="400">
 
 ```powershell
 # allows for the remote retrieval of a system's machine and local account hashes, as well as its domain cached credentials.
@@ -236,9 +234,9 @@ Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 
 - [DEMO SCM backdoor](https://www.youtube.com/watch?v=tETNO22zVKM) / service creation
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-add-scmsd.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-sc-create.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-services.msc.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-add-scmsd.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-sc-create.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-SCM-services.msc.png" width="400">
 
 ```powershell
 ```
@@ -247,9 +245,9 @@ Get-RemoteCachedCredential -ComputerName <remotehost> -Verbose
 
 - [DEMO WMI backdoor](https://www.youtube.com/watch?v=C1OpX_n7HlY)
 
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-invoke-wmimethod.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-set-remotewmi.png" width="200">
-<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-set-wmipersist.png" width="200">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-invoke-wmimethod.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-set-remotewmi.png" width="400">
+<img src="https://github.com/jomivz/jomivz.github.io/blob/master/assets/images/ad-persist-sd-WMI-set-wmipersist.png" width="400">
 
 ```powershell
 # grant WMI remote execution to a user
