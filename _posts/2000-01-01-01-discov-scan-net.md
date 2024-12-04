@@ -1,7 +1,7 @@
 ---
 layout: post
 title: discovery / scan / net
-category: discovery
+category: 01-discovery
 parent: cheatsheets
 modified_date: 2023-07-20
 permalink: /discov/scan/net

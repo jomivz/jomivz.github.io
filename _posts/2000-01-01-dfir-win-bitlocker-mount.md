@@ -1,6 +1,6 @@
 ---
 layout: post
-title: difr / win / bitlocker
+title: dfir / win / bitlocker
 category: dfir
 parent: cheatsheets
 modified_date: 2021-02-06

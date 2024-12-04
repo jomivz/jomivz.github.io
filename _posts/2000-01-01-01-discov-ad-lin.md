@@ -1,7 +1,7 @@
 ---
 layout: post
 title: discovery / ad / lin
-category: discovery
+category: 01-discovery
 parent: cheatsheets
 modified_date: 2023-09-07
 permalink: /discov/ad/lin

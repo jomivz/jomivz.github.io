@@ -1,8 +1,8 @@
 ---
 layout: post
 title: dfir / win / artifacts
-parent: cheatsheets
 category: dfir
+parent: cheatsheets
 modified_date: 2024-05-15
 permalink: /dfir/win
 ---

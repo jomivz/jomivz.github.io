@@ -1,7 +1,7 @@
 ---
 layout: post
 title: privesc / net / mitm
-category: privesc
+category: 02-privesc
 parent: cheatsheets
 modified_date: 2023-07-16
 permalink: /privesc/net/mitm

@@ -2,7 +2,7 @@
 layout: post
 title:  recon / shodan
 parent: cheatsheets
-category: recon
+category: 00-recon
 permalink: /recon/shodan
 modified_date: 2023-09-21
 ---

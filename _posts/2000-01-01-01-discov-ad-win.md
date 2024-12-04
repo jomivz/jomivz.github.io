@@ -1,7 +1,7 @@
 ---
 layout: post
 title: discovery / ad 
-category: discovery
+category: 01-discovery
 parent: cheatsheets
 modified_date: 2023-09-18
 permalink: /discov/ad
