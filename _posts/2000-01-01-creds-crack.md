@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / crack
-category: pen
-parent: pen
+title: credentials / crack
+category: credentials
+parent: cheatsheets
 modified_date: 2023-07-17
-permalink: /pen/crack
+permalink: /creds/crack
 ---
 
 <!-- vscode-markdown-toc -->

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: net / cisco / logs
-category: net
+title: sys / net / cisco / logs
+category: sys
 parent: cheatsheets
 modified_date: 2023-01-10
-permalink: /net/cisco/logs
+permalink: /sys/net/cisco/logs
 ---
 
 <!-- vscode-markdown-toc -->

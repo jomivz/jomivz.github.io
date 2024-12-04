@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / edr / evasion
-category: pen
+title: evasion / edr
+category: evasion
 parent: cheatsheets
 modified_date: 2023-07-19
-permalink: /pen/edr/evasion
+permalink: /evasion/edr
 ---
 
 **MENU**

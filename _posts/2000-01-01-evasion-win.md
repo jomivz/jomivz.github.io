@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / win / evasion
-category: pen
+title: evasion / win
+category: evasion
 parent: cheatsheets
 modified_date: 2023-03-16
-permalink: /pen/win/evasion
+permalink: evasion/win
 ---
 
 **Mitre Att&ck Entreprise**: [TA0005 - Defense Evasion](https://attack.mitre.org/tactics/TA0005/)

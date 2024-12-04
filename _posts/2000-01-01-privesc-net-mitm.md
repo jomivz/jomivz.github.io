@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / net / mitm
-category: pen
+title: privesc / net / mitm
+category: privesc
 parent: cheatsheets
 modified_date: 2023-07-16
-permalink: /pen/net/mitm
+permalink: /privesc/net/mitm
 tags: discovery  mitm scan nmap TA0007 T1595 T1046
 ---
 

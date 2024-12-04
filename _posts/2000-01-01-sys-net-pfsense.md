@@ -1,10 +1,10 @@
 ---
 layout: post
-title: net / pfsense
-category: net
+title: sys / net / pfsense
+category: sys
 parent: cheatsheets
 modified_date: 2021-02-06
-permalink: /net/pfsense
+permalink: /sys/net/pfsense
 ---
 
 ## Install

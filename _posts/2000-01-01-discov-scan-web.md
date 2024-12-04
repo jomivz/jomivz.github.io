@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / web / scan
-category: pen
+title: discovery / scan / web
+category: discovery
 parent: cheatsheets
 modified_date: 2023-03-16
-permalink: /pen/web/scan
+permalink: /discov/scan/web
 tags: discovery scan nikto nuclei bypass-waf dirbuster
 ---
 

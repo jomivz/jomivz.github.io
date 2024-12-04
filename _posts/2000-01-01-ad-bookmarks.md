@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ad / bookmarks 
-category: pen
+category: misc
 parent: cheatsheets
 modified_date: 2023-07-06
 permalink: /ad

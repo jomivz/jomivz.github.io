@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  pen / setup / debian11
-category: pen
+title:  misc / setup / debian11
+category: misc
 parent: cheatsheets
 modified_date: 2022-12-09
-permalink: /pen/setup/debian11
+permalink: /misc/setup/debian11
 ---
 
 <!-- vscode-markdown-toc -->

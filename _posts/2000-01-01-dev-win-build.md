@@ -1,7 +1,7 @@
 ---
 layout: post
-title: pen / win / build
-category: pen
+title: dev / win / build
+category: dev
 parent: cheatsheets
 modified_date: 2023-07-17
 permalink: /pen/win/build
