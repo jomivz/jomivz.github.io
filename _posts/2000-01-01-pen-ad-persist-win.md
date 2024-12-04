@@ -29,6 +29,19 @@ permalink: /pen/ad/persist
 <!-- /vscode-markdown-toc -->
 
 
+🕮 [thehacker.recipes / ad / persistence](https://www.thehacker.recipes/ad/persistence/dcshadow/)
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var mm = ["https://api.github.com/repos/last-byte/PersistenceSniper","https://api.github.com/repos/samratashok/RACE","https://api.github.com/repos/HarmJ0y/DAMP"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="mm">
+    <table id="mm_list" class="sortable">
+      <tr><th>_repo</th><th>_last_pushed</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
+    </table>
+</div>
+
 ## <a name='adminsdholder'></a>adminsdholder
 
 🔑 KEYPOINTS :
@@ -45,6 +58,7 @@ Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | ?{$_.IdentityRefer
 
 # add the user back to the 'Domain Admins' group
 net group "domain admins" spotless /add /domain
+Add-NetGroupUser -UserName spotless -GroupName "domain admins" -Domain "offense.local"
 ```
 
 🔎️ DETECT :
@@ -79,9 +93,7 @@ Get-ADObject -LDAPFilter “(&(admincount=1)(|(objectcategory=person)(objectcate
 ```powershell
 ```
 
-🔎️ DETECT :
-```powershell
-```
+🔎️ [DETECT](https://github.com/jomivz/jomivz.github.io/blob/master/_posts/2000-01-01-pen-ad-discov-win.md#shoot-dacl)
 
 🛟 MITIGATE :
 ```powershell

