@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / move
+title: pen / move / rce 2
 category: pen
 parent: cheatsheets
 modified_date: 2024-11-28
-permalink: /pen/move
+permalink: /pen/move/rce2
 ---
 
 **Mitre Att&ck Entreprise**: 

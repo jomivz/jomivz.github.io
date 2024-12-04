@@ -30,3 +30,5 @@ end
 gem "just-the-docs"
 
 gem "jemoji"
+
+gem "webrick", "~> 1.9"
