@@ -1,15 +1,15 @@
 ---
 layout: post
-title: dfir / rules / sigma
-category: dfir
+title: siem / rules / snort
+category: siem
 parent: cheatsheets
 modified_date: 2023-06-08
-permalink: /dfir/rules/sigma
+permalink: /siem/rules/snort
 ---
 
 
 <!-- vscode-markdown-toc -->
-* [hello](#hello)
+* [et](#et)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -17,6 +17,6 @@ permalink: /dfir/rules/sigma
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='hello'></a>hello
+## <a name='et'></a>et
 
-* [SigmaHQ](https://github.com/SigmaHQ/sigma) 
+* [rules.emergingthreats.net](https://rules.emergingthreats.net/)

@@ -1,11 +1,13 @@
 ---
 layout: post
-title: pen / ad / persist
-category: pen
+title: persist / ad
+category: persistence
 parent: cheatsheets
-modified_date: 2024-12-02
-permalink: /pen/ad/persist
+modified_date: 2024-12-04
+permalink: /persist/ad
 ---
+
+**Technics** detailed @ [thehacker.recipes / ad / persistence](https://www.thehacker.recipes/ad/persistence/dcshadow/)
 
 **Menu**
 <!-- vscode-markdown-toc -->
@@ -28,8 +30,7 @@ permalink: /pen/ad/persist
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-
-🕮 [thehacker.recipes / ad / persistence](https://www.thehacker.recipes/ad/persistence/dcshadow/)
+**Tools**
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>$(window).load(function() {var mm = ["https://api.github.com/repos/last-byte/PersistenceSniper","https://api.github.com/repos/samratashok/RACE","https://api.github.com/repos/HarmJ0y/DAMP"]; for (rep in mm) {$.ajax({type: "GET", url: mm[rep], dataType: "json", success: function(result) {$("#mm_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>

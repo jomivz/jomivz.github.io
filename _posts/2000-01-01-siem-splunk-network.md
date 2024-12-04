@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / splunk / net
-category: dfir
+title: siem / splunk / net
+category: siem
 parent: cheatsheets
 modified_date: 2023-09-21
-permalink: /dfir/splunk/net
+permalink: /siem/splunk/net
 ---
 
 <!-- vscode-markdown-toc -->

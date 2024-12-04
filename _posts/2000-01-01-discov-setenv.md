@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / setenv
-category: pen
+title: discovery / setenv
+category: discovery
 parent: cheatsheets
 modified_date: 2023-09-18
-permalink: /pen/setenv
+permalink: /discov/setenv
 ---
 
 **Setting variables for copy/paste**

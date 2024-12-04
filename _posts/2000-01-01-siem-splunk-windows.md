@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / splunk / win
-category: dfir
+title: siem / splunk / win
+category: siem
 parent: cheatsheets
 modified_date: 2023-09-21
-permalink: /dfir/splunk/win
+permalink: /siem/splunk/win
 ---
 
 <!-- vscode-markdown-toc -->

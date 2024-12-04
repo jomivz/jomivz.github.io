@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / splunk / suricata
-category: dfir
+title: siem / splunk / suricata
+category: siem
 parent: cheatsheets
 modified_date: 2023-09-21
-permalink: /dfir/splunk/suricata
+permalink: /siem/splunk/suricata
 ---
 
 <!-- vscode-markdown-toc -->

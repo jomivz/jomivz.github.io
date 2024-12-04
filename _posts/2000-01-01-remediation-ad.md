@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / ad
-category: dfir
+title:  remediation / ad
+category: remediation
 parent: cheatsheets
 modified_date: 2023-07-26
-permalink: /dfir/ad
+permalink: /dfir/remed/ad
 ---
 
 **Menu**

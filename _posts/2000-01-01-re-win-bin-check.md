@@ -1,10 +1,10 @@
 ---
 layout: post
-title: dfir / win / pe 
+title: reverse / win / pe 
 parent: cheatsheets
-category: dfir
+category: reverse
 modified_date: 2023-06-07
-permalink: /dfir/win/pe
+permalink: /re/win/pe
 ---
 
 ```

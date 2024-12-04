@@ -1,10 +1,10 @@
 ---
 layout: post
-title: pen / ad / privesc
-category: pen
+title: privesc / ad
+category: privesc
 parent: cheatsheets
 modified_date: 2023-07-04
-permalink: /pen/ad/privesc
+permalink: /privesc/ad
 ---
 
 **Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
