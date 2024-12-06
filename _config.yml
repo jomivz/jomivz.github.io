@@ -7,14 +7,14 @@ favicon: "assets/images/favicon.ico"
 
 
 ## local method ##
-# theme: just-the-docs
-# debug:
-#  compress: false
-#  dist: true
-#  shortcodes: true
+theme: just-the-docs
+debug:
+  compress: false
+  dist: true
+  shortcodes: true
 
 ## remote method ##
-remote_theme: pmarsceill/just-the-docs
+#remote_theme: pmarsceill/just-the-docs
 
 readme_index:
   with_frontmatter: true
