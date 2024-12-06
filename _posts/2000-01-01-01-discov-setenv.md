@@ -3,7 +3,7 @@ layout: post
 title: discovery / setenv
 category: 01-discovery
 parent: cheatsheets
-modified_date: 2023-09-18
+modified_date: 2024-12-04
 permalink: /discov/setenv
 ---
 
@@ -88,4 +88,32 @@ $zz=$zdom_fqdn/$ztarg_user_name:$ztarg_user_pass
 To verify the variables use the command:
 ```powershell
 Get-Variable | Out-String
+```
+
+## <a name='win'></a>win2
+```powershell
+$zcase="xxx"
+$zforest="moneycorp.local"
+$zdom="dollarcorp"
+$zdom_fqdn=$zdom+"."+$zforest
+$zdom_dn="DC=moneycorp,DC=dollarcorp,DC=local"
+$zdom_dc_ip="172.16.2.1"
+$zdom_dc_name="dcorp-dc"
+$zdom_dc_fqdn=$zdom_dc_name+"."+$zdom_fqdn
+$zdom_dc_san=$zdom_dc_name+"$"
+$zdom_dc_dn="OU=Domain Controllers,"+$zdom_dn
+$zpki_dn="CN=Public Key Services,CN=Services,CN=Configuration,"+$zdom_dn
+$zpki_ca_server=""
+$zpki_ca_name=""
+$ztarg_computer_name="dcorp-dc"
+$ztarg_computer_fqdn=$ztarg_computer+"."+$zdom_fqdn
+$ztarg_computer_ip="172.16.2.1"
+$ztarg_computer_san=$ztarg_computer+"$"
+$ztarg_group_name="Domain Admins"
+$ztarg_user_name="svcadmin"
+$ztarg_user_name="admin"
+$ztarg_user_pass="admin"
+$ztarg_user_next="admin"
+$zy=$zdom_fqdn+"/"+$ztarg_user_name
+$zz=$zdom_fqdn+"/"+$ztarg_user_name+":"+$ztarg_user_pass
 ```
