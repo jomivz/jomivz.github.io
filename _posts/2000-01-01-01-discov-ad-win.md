@@ -19,10 +19,9 @@ permalink: /discov/ad
 	* [load-env](#load-env)
 	* [spawn-cmd](#spawn-cmd)
 	* [run-powershell](#run-powershell)
-		* [bypass-exec-powershell](#bypass-exec-powershell)
+		* [bypass-amsi](#bypass-amsi)
 		* [load-powersploit](#load-powersploit)
 		* [no-errors](#no-errors)
-		* [bypass-amsi](#bypass-amsi)
 	* [run-bloodhound](#run-bloodhound)
 * [collect](#collect)
 * [shoot](#shoot)
@@ -114,13 +113,18 @@ Spawn an AD account with CMD.exe:
 
 ```powershell
 # using a cleartext password
-runas /netonly /user:adm_x@dom.corp powershell
+runas /netonly /user:adm_x@dom.corp powershell -ep bypass
+# switch to FullLanguage
+$ExecutionContext.SessionState.LanguageMode
+$ExecutionContext.SessionState.LanguageMode FullLanguage
 ```
 
 ### <a name='run-powershell'></a>run-powershell
 
-
-#### <a name='bypass-exec-powershell'></a>bypass-amsi
+#### <a name='bypass-amsi'></a>bypass-amsi
+- [amsi.fails](https://amsi.fails)
+- [S3cur3Th1sSh1t](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
+- [notes.offsec-journey.com](https://notes.offsec-journey.com/evasion/amsi-bypass)
 
 #### <a name='load-powersploit'></a>load-powersploit
 
@@ -151,11 +155,6 @@ Handling console errors
 $ErrorActionPreference = 'SilentlyContinue' # hide errors on out console
 $ErrorActionPreference = 'Continue' # set back the display of the errors
 ```
-
-#### <a name='bypass-amsi'></a>bypass-amsi
-- [amsi.fails](https://amsi.fails)
-- [S3cur3Th1sSh1t](https://github.com/S3cur3Th1sSh1t/Amsi-Bypass-Powershell)
-- [notes.offsec-journey.com](https://notes.offsec-journey.com/evasion/amsi-bypass)
 
 ### <a name='run-bloodhound'></a>run-bloodhound 
 ```powershell
@@ -454,6 +453,16 @@ Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainCont
 
 ### <a name='iter-gpos'></a>iter-gpos
 ```powershell
+# get the default domain policy
+Get-DomainGPO
+displayname = "Default Domain Policy"
+
+# get the gpos for a group
+Get-DomainGPO
+displayname = $ztarg_group
+
+# get the gpos for an OU
+Get-DomainGPO -Identity (Get-DomainOU -Identity $ztarg_ou).gplink.substring(11,(Get-DomainOU -Identity $ztarg_ou).gplink.length-72)
 ```
 
 ## <a name='refresh'></a>refresh
