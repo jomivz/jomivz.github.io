@@ -182,21 +182,24 @@ Refresh sessions:
 
 ## <a name='shoot'></a>shoot
 
-SHOOT General Properties:
-
 ### <a name='shoot-forest'></a>shoot-forest
 
-Forest properties:
-
 ```powershell
+# get forest verbose information
+Get-ForestDomain -Verbose
+
 # get the trusts of the current domain/forest
 nltest /domain_trusts
-Get-NetDomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ft -autosize TargetName, TrustDirection 
-# TO DEBUG
-Get-NetForestTrust -Forest $zforest
+Get-DomainTrust -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ft -autosize TargetName, TrustDirection 
+
+# get the external trusts
+Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq "FILTER_SIDS"}
 
 # find users with sidHistory set
 Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+
+# get the trust of a targeted forest
+Get-ForestDomain -Forest $ztarg_forest_name | %{Get-DomainTrust -Domain $_.Name}
 ```
 
 ### <a name='shoot-dns'></a>shoot-dns
@@ -392,12 +395,14 @@ Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $zta
 
 # STEP 3: gather info on security groups
 #$ztarg_group="Domain Computers"
-$ztarg_group="RDP Users"
-Get-ObjectAcl -SamAccountName $ztarg_group -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group}
+$ztarg_group_name="RDP Users"
+Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group_name}
+# ObjectAceType = User-Account-Restrictions
+Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { $_.ObjectAceType -match 'User-Account-Restrictions'}
 
 # STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
-Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'WriteProperty|GenericAll|GenericWrite|WriteDacl|WriteOwner')}
+Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
 ```
 
 sources:
@@ -448,7 +453,7 @@ get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -Doma
 $(Get-ADUser anakin -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
 
 # enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
-Get-DomainObjectAcl -Identity $user -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+Get-DomainObjectAcl -Identity $ztarg_user_name -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
 ### <a name='iter-gpos'></a>iter-gpos
@@ -459,7 +464,7 @@ displayname = "Default Domain Policy"
 
 # get the gpos for a group
 Get-DomainGPO
-displayname = $ztarg_group
+displayname = $ztarg_group_name
 
 # get the gpos for an OU
 Get-DomainGPO -Identity (Get-DomainOU -Identity $ztarg_ou).gplink.substring(11,(Get-DomainOU -Identity $ztarg_ou).gplink.length-72)
@@ -490,17 +495,15 @@ get-wmiobject -Class win32_operatingsystem -Computername $ztarg_computer_fqdn
 
 ### <a name='last-logons'></a>last-logons
 
-Last Logons for DA, EA, ...
-
 ```powershell
-$ztarg_grp="Domain Admins"
-#$ztarg_grp="Enterprise Admins"
-#$ztarg_grp="Backup Operators"
-#$ztarg_grp="Remote Desktop Users"
-#$ztarg_grp="DNSAdmins"
+$ztarg_group_name="Domain Admins"
+#$ztarg_group_name="Enterprise Admins"
+#$ztarg_group_name="Backup Operators"
+#$ztarg_group_name="Remote Desktop Users"
+#$ztarg_group_name="DNSAdmins"
 
-# get the priviledge users (from above the DA) sorted by last logon
-Get-NetGroupMember $ztarg_grp -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
+# get the privileged users (from above the DA) sorted by last logon
+Get-NetGroupMember $ztarg_group_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Recurse | %{Get-NetUser $_.membername -domain $zdom_fqdn -domaincontroller $zdom_dc_fqdn | select samAccountName,LogonCount,LastLogon,mail} | Sort-Object -Descending -Property lastlogon
 
 # find admin groups based on "adm" keyword
 Get-NetGroup -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn *adm* 

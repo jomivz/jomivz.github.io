@@ -106,9 +106,10 @@ $zpki_dn="CN=Public Key Services,CN=Services,CN=Configuration,"+$zdom_dn
 $zpki_ca_server=""
 $zpki_ca_name=""
 $ztarg_computer_name="dcorp-dc"
-$ztarg_computer_fqdn=$ztarg_computer+"."+$zdom_fqdn
+$ztarg_computer_fqdn=$ztarg_computer_name+"."+$zdom_fqdn
 $ztarg_computer_ip="172.16.2.1"
 $ztarg_computer_san=$ztarg_computer+"$"
+$ztarg_forest_name="eurocorp.local"
 $ztarg_group_name="Domain Admins"
 $ztarg_user_name="svcadmin"
 $ztarg_user_name="admin"
