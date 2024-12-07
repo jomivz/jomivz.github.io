@@ -7,6 +7,5 @@ _draft/
 _site/
 .jekyll-cache
 .*.sw*
-.gitignore
 .*.env
 _config.yml
