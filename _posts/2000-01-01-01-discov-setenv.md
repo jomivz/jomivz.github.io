@@ -13,6 +13,7 @@ permalink: /discov/setenv
 <!-- vscode-markdown-toc -->
 * [lin](#lin)
 * [win](#win)
+* [win2](#win2)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -90,15 +91,31 @@ To verify the variables use the command:
 Get-Variable | Out-String
 ```
 
-## <a name='win'></a>win2
+## <a name='win2'></a>win2
 ```powershell
 $zcase="xxx"
 $zforest="moneycorp.local"
 $zdom="dollarcorp"
+#$zdom="us.dollarcorp"
+#$zforest="eurocorp.local"
+#$zdom="eu"
 $zdom_fqdn=$zdom+"."+$zforest
+#zdom_fqdn=$zforest
+$zdom_dn="DC=dollarcorp,DC=local"
 $zdom_dn="DC=moneycorp,DC=dollarcorp,DC=local"
+$zdom_dn="DC=us,DC=moneycorp,DC=dollarcorp,DC=local"
+$zdom_dn="DC=eurocorp,DC=local"
+$zdom_dn="DC=eu,DC=eurocorp,DC=local"
 $zdom_dc_ip="172.16.2.1"
+#$zdom_dc_ip="172.16.15.1"
+#$zdom_dc_ip="172.16.15.2"
+#$zdom_dc_ip="172.16.1.1"
+#$zdom_dc_ip="172.16.9.1"
 $zdom_dc_name="dcorp-dc"
+#$zdom_dc_name="eurocorp-dc"
+#$zdom_dc_name="eu-dc"
+#$zdom_dc_name="mcorp-dc"
+#$zdom_dc_name="us-dc"
 $zdom_dc_fqdn=$zdom_dc_name+"."+$zdom_fqdn
 $zdom_dc_san=$zdom_dc_name+"$"
 $zdom_dc_dn="OU=Domain Controllers,"+$zdom_dn
@@ -106,12 +123,34 @@ $zpki_dn="CN=Public Key Services,CN=Services,CN=Configuration,"+$zdom_dn
 $zpki_ca_server=""
 $zpki_ca_name=""
 $ztarg_computer_name="dcorp-dc"
+#$ztarg_computer_name="dcorp-adminsrv"
+#$ztarg_computer_name="dcorp-appsrv"
+#$ztarg_computer_name="dcorp-ci"
+#$ztarg_computer_name="dcorp-mgmt"
+#$ztarg_computer_name="dcorp-mssql"
+#$ztarg_computer_name="dcorp-sql1"
+#$ztarg_computer_name="eurocorp-dc"
+#$ztarg_computer_name="eu-dc"
+#$ztarg_computer_name="eu-sql"
+#$ztarg_computer_name="mcorp-dc"
+#$ztarg_computer_name="us-dc"
 $ztarg_computer_fqdn=$ztarg_computer_name+"."+$zdom_fqdn
 $ztarg_computer_ip="172.16.2.1"
+#$ztarg_computer_ip="172.16.4.101"
+#$ztarg_computer_ip="172.16.4.217"
+#$ztarg_computer_ip="172.16.3.11"
+#$ztarg_computer_ip="172.16.4.44"
+#$ztarg_computer_ip="172.16.3.21"
+#$ztarg_computer_ip="172.16.3.81"
+#$ztarg_computer_ip="172.16.15.1"
+#$ztarg_computer_ip="172.16.15.2"
+#$ztarg_computer_ip="172.16.15.3"
+#$ztarg_computer_ip="172.16.1.1"
+#$ztarg_computer_ip="172.16.9.1"
 $ztarg_computer_san=$ztarg_computer+"$"
-$ztarg_forest_name="eurocorp.local"
 $ztarg_group_name="Domain Admins"
 $ztarg_user_name="svcadmin"
+#ztarg_user_name="ciadmin"
 $ztarg_user_name="admin"
 $ztarg_user_pass="admin"
 $ztarg_user_next="admin"

