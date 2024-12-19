@@ -1,50 +1,64 @@
 ---
-layout: page
-title: Homepage
-description: JMVWORK IT notebook
-nav_order: 1
+layout: post
+title: Yet Cyber Cheatsheets
+nav_order: 5
+category: cheatsheets
+has_children: true
 ---
 
-<!-- vscode-markdown-toc -->
-* [What's this website's content about?](#Whatsthiswebsitescontentabout)
-* [Why having a proper IT notebook?](#WhyhavingaproperITnotebook)
-* [How can we get in contact?](#Howcanwegetincontact)
-* [Copyleft](#Copyleft)
+<h3>Play and Detect cheatsheets</h3>
+<ul>
+{% assign categories_list = site.categories %}
+  {% if categories_list.first[0] == null %}
+    {% for category in categories_list limit: 7 %}
+      {% assign cate = category[0] | downcase | downcase | url_escape | strip | split: "-" %}
+      <li><a href="{{ cate[1] }}">{{ category | camelcase }} ({{ site.tags[category].size}})</a></li>
+    {% endfor %}
+  {% else %}
+    {% for category in categories_list  limit: 7 %}
+      {% assign cate = category[0] | downcase | downcase | url_escape | strip | split: "-" %}
+      <li><a href="{{ cate[1] }}">{{ cate[1] | camelcase }} ({{ category[1].size }})</a></li>
+    {% endfor %}
+</ul>
 
-<!-- vscode-markdown-toc-config
-	numbering=true
-	autoSave=true
-	/vscode-markdown-toc-config -->
-<!-- /vscode-markdown-toc -->
+<h3>Other cheatsheets categories</h3>
+<ul>
+    {% for category in categories_list offset:7 continue %}
+      {% assign cate = category[0] | downcase | downcase | url_escape | strip | split: "-" %}
+      <li><a href="{{ cate[1] }}">{{ cate[1] | camelcase }} ({{ category[1].size }})</a></li>
+    {% endfor %}
 
-##  <a name='Whatsthiswebsitescontentabout'></a>What's this website's content about?
-
-
-> **This website is my selfish IT notebook** containing [cheatsheets](/cheatsheets) and [mindmaps](/mindmaps).
-There is mostly raw commands / without explanations. For all IT operational people, using markdowns is a common methodology. 
-
-> There is no room here to challenge [hacktricks.xyz](https://book.hacktricks.xyz) nor [other awesome repositories](/ressources). 
-I recommend you to [refer to it first](/ressources) and **do not take my notes for granted**.
-
-
-##  <a name='WhyhavingaproperITnotebook'></a> Why having a proper IT notebook? 
-
-* If we are **mates**, there is a chance I share you my **HOWTO** through **jmvwork.xyz**.
-On your appreciation, feel free to pull requests through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
-
-* As **Cybersecurity Recruiter / Talent Acquisition**, my cheatsheets will let you appreciate my technical skills.
-
-* For O/B/B (BFS) reasons: Ordering stuffs / Building my own methodology (tables of content, variables) / Being BETTER, FASTER, STRONGER (BFS).
-
-##  <a name='Howcanwegetincontact'></a>How can we get in contact? 
-
-> You are welcome to visit the [about](/about/) page where you can find my contact.  
+{% endif %}
+{% assign categories_list = nil %}
+</ul>
 
 
-##  <a name='Copyleft'></a>Copyleft
+<h3>Cheatsheets full-listing</h3>
 
+<table class="sortable">
+<col width="20%">
+<col width="80%">
+<thead>
+<tr>
+<th>Last updated</th>
+<th>Cheatsheet</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody>
+{% assign timeframe = 5184000 %}
 
-* Sources files are available at the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io). 
-* It relies on the [sortable javascript project](https://githubhelp.com/tofsjonas/sortable) to sort the cheatsheets
-* This website is propulsed by [github pages](https://pages.github.com/), empowering jekyll to convert the markdowns into HTML.
-* There is no copyright. Most of the content is aggregation of online sources. 
+{% for post in site.posts %}
+	{% if post.title != null %}
+<tr>
+<td><time datetime="{{ post.modified_date | date_to_xmlschema }}" itemprop="datePublished">{{ post.modified_date | date: "%Y-%m-%d" }}</time></td>
+<td><a href="{{ site.url }}{{ post.url }}"> {{ post.title }} </a></td>
+<td>{{ post.category }}</td>
+	{% endif %}
+  </tr>
+{% endfor %}
+</tbody>
+
+</table>
+<link href="/sortable.css" rel="stylesheet" />
+<script src="/sortable.js"></script>

@@ -1,7 +1,7 @@
 ---
 layout: category
 title: Recon
-category: recon
+category: 00-recon
 parent: cheatsheets
-permalink: /cheatsheets/recon
+permalink: /recon
 ---

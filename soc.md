@@ -1,7 +1,7 @@
 ---
 layout: category
-title: sys
-category: 10-sys
+title: soc
+category: 20-soc
 parent: cheatsheets
-permalink: /sys
+permalink: /soc
 ---
