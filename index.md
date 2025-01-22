@@ -1,12 +1,12 @@
 ---
 layout: post
 title: Yet Cyber Cheatsheets
-nav_order: 5
+nav_order: 2
 category: cheatsheets
 has_children: true
 ---
 
-<h3>Play and Detect cheatsheets</h3>
+<h3>▶️ Play 🔎️ Detect</h3>
 <ul>
 {% assign categories_list = site.categories %}
   {% if categories_list.first[0] == null %}
@@ -21,7 +21,7 @@ has_children: true
     {% endfor %}
 </ul>
 
-<h3>Other cheatsheets categories</h3>
+<h3>▶️ Play 🔁 Again</h3>
 <ul>
     {% for category in categories_list offset:7 continue %}
       {% assign cate = category[0] | downcase | downcase | url_escape | strip | split: "-" %}

@@ -2,6 +2,6 @@
 layout: category
 title: move
 category: 05-move
-parent: home
+parent: index
 permalink: /move
 ---

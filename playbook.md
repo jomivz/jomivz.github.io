@@ -2,7 +2,7 @@
 layout: page
 title: Yet Cyber Playbooks
 permalink: /playbooks/
-nav_order: 7
+nav_order: 3
 ---
 
 ## Jupyter Notebooks

@@ -3,6 +3,6 @@ layout: category
 title: Pentesting
 category: pen
 parent: cheatsheets
-permalink: /cheatsheets/pen
+permalink: /pen
 has_children: true
 ---

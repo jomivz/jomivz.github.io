@@ -62,7 +62,7 @@ To run github.io locally:
 docker pull jekyll/jekyll
 
 #? run docker jekyll
-sudo docker run --rm --volume="$HOME/git/jomivz.github.io:/srv/jekyll" --publish 127.0.0.1:4000:4000 jekyll/jekyll jekyll serve
+docker run --rm --volume="$HOME/git/jomivz.github.io:/srv/jekyll" --publish 127.0.0.1:4000:4000 jekyll/jekyll jekyll serve
 # open your browser https://127.0.0.1:4000
 ```
 
@@ -84,7 +84,7 @@ snapshot=$zdom"_"`date +"%Y%m%d"`
 mkdir /neo4j/data/$snapshot
 mkdir /neo4j/logs/$snapshot
 
-sudo docker run \
+docker run \
     --publish=7474:7474 --publish=7687:7687 \
     --volume=/neo4j/data/$snapshot:/data \
     --volume=/neo4j/logs/$snapshot:/logs \
@@ -93,8 +93,8 @@ sudo docker run \
 
 * check at the configuration:
 ```sh
-sudo docker exec -it $snapshot /bin/grep -v ^$ conf/neo4j.conf | grep -v "^#"
-sudo docker exec -it $snapshot /bin/grep dbms.memory conf/neo4j.conf
+docker exec -it $snapshot /bin/grep -v ^$ conf/neo4j.conf | grep -v "^#"
+docker exec -it $snapshot /bin/grep dbms.memory conf/neo4j.conf
 ```
 
 * [optimize the memory setting](https://neo4j.com/developer/memory-management/):
@@ -240,21 +240,18 @@ docker run --rm -ti projectdiscovery/nuclei -u https://jmvwork.xyz
 ```
 ### <a name='spiderfoot'></a>spiderfoot
 ```sh
-#? install docker spiderfoot
-# (OPTIONAL): for Kali distrib embedding spiderfoot
-cd /usr/share
-sudo mv spiderfoot spiderfoot.old
-#? build docker spiderfoot image
-cd /usr/share
-sudo git clone https://github.com/smicallef/spiderfoot.git
+cd 
+git clone https://github.com/smicallef/spiderfoot.git
 cd spiderfoot
+python3-pip -m venv env
+source env/bin/activate
 docker build -t spiderfoot .
-pip3 install -r requirements.txt
 #? run docker spiderfoot
 docker run -p 5002:5001 -d spiderfoot
 # open your browser https://127.0.0.1:5002
 ```
-Go to the [spiderfoot cheatsheet](/_posts/2000-01-01-osint-spiderfoot-cheatsheet.md).
+Go to the [spiderfoot cheatsheet](/recon/spiderfoot#run).
+
 ### <a name='testssl'></a>testssl
 ```sh
 #? install docker testssl.sh

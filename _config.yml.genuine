@@ -25,7 +25,6 @@ description: >- # this means to ignore newlines until "baseurl:"
   consultant. I am sharing here my sysadmin, certifications, research cheatsheets.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-#linkedin_username: jmichelvillaz
 github_username: jomivz 
 
 # Build settings

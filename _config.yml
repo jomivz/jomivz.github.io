@@ -7,14 +7,14 @@ favicon: "assets/images/favicon.ico"
 
 
 ## local method ##
-#theme: just-the-docs
-#debug:
-#  compress: false
-#  dist: true
-#  shortcodes: true
+theme: just-the-docs
+debug:
+  compress: false
+  dist: true
+  shortcodes: true
 
 ## remote method ##
-remote_theme: pmarsceill/just-the-docs
+#remote_theme: pmarsceill/just-the-docs
 
 readme_index:
   with_frontmatter: true
@@ -25,7 +25,7 @@ exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "pac
 
 # Enable or disable the site search
 # Supports true (default) or false
-search_enabled: true
+search_enabled: false
 search:
   # Split pages into sections that can be searched individually
   # Supports 1 - 6, default: 2
@@ -54,9 +54,9 @@ search:
 heading_anchors: true
 
 # Aux links for the upper right navigation
-aux_links:
-  "GitHub repository":
-    - "//github.com/jomivz/jomivz.github.io"
+#aux_links:
+#  "GitHub repository":
+#    - "//github.com/jomivz/jomivz.github.io"
 
 # Makes Aux links open in a new tab. Default is false
 aux_links_new_tab: false
@@ -72,7 +72,7 @@ nav_sort: case_sensitive # Capital letters sorted before lowercase
 back_to_top: true
 back_to_top_text: "Back to top"
 
-footer_content: "Copyleft &copy; 2022 j0mivz. Distributed by an <a href=\"https://github.com/pmarsceill/just-the-docs/tree/master/LICENSE.txt\">MIT license.</a>"
+footer_content: "Copyright &copy; 2022 j0mivz.</a>"
 
 # Footer last edited timestamp
 #last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
