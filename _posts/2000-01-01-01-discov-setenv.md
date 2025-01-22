@@ -47,6 +47,7 @@ export ztarg_user_name="xxx"
 export ztarg_user_nthash="xxx"
 export ztarg_user_pass="xxx"
 export ztarg_user_next="xxx"
+export zx=$zdom\\$ztarg_user_name
 export zy=$zdom_fqdn/$ztarg_user_name
 export zz=$zdom_fqdn/$ztarg_user_name:$ztarg_user_pass
 ```
@@ -83,6 +84,7 @@ $ztarg_group_name="PC001"
 $ztarg_user_name="admin"
 $ztarg_user_pass="admin"
 $ztarg_user_next="admin"
+$zx=$zdom+"\"+$ztarg_user_name
 $zy=$zdom_fqdn/$ztarg_user_name
 $zz=$zdom_fqdn/$ztarg_user_name:$ztarg_user_pass
 ```
@@ -156,6 +158,7 @@ $ztarg_user_name="svcadmin"
 #$ztarg_user_name="websvc"
 $ztarg_user_pass="admin"
 $ztarg_user_next="admin"
+$zx=$zdom+"\"+$ztarg_user_name
 $zy=$zdom_fqdn+"/"+$ztarg_user_name
 $zz=$zdom_fqdn+"/"+$ztarg_user_name+":"+$ztarg_user_pass
 ```
