@@ -98,6 +98,7 @@ Get-Variable | Out-String
 $zcase="xxx"
 $zforest="moneycorp.local"
 $zdom="dollarcorp"
+$znbss="dcorp"
 #$zdom="us.dollarcorp"
 #$zforest="eurocorp.local"
 #$zdom="eu"
@@ -158,7 +159,7 @@ $ztarg_user_name="svcadmin"
 #$ztarg_user_name="websvc"
 $ztarg_user_pass="admin"
 $ztarg_user_next="admin"
-$zx=$zdom+"\"+$ztarg_user_name
+$zx=$znbss+"\"+$ztarg_user_name
 $zy=$zdom_fqdn+"/"+$ztarg_user_name
 $zz=$zdom_fqdn+"/"+$ztarg_user_name+":"+$ztarg_user_pass
 ```
