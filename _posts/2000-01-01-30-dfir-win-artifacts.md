@@ -11,35 +11,32 @@ permalink: /dfir/win
 * [account_usage](#account_usage)
 * [activity_browser](#activity_browser)
 * [activity_network](#activity_network)
-   	* [logs-anydesk](#logs-anydesk)
-  	* [logs-dns](#logs-dns)
-  	* [logs-firewall](#logs-firewall)
-   	* [logs-teamviewer](#logs-teamviewer)
+	* [logs-anydesk](#logs-anydesk)
+	* [logs-dns](#logs-dns)
+	* [logs-firewall](#logs-firewall)
+	* [logs-teamviewer](#logs-teamviewer)
 	* [named-pipes](#named-pipes)
+* [ntfs](#ntfs)
 * [app_exec](#app_exec)
 	* [amcache](#amcache)
 	* [bam](#bam)
 	* [jumplist](#jumplist)
-   	* [prefetch](#prefetch)
-   	* [shimcache](#shimcache)
-   	* [srum](#srum)
+	* [prefetch](#prefetch)
+	* [shimcache](#shimcache)
+	* [srum](#srum)
 	* [userassist](#userassist)
 * [del_items_file_exist](#del_items_file_exist)
 	* [mft](#mft)
 	* [recycle_bin](#recycle_bin)
 * [external_device](#external_device)
 * [file_folder_opening](#file_folder_opening)
-	* [mru_open_save](#mru_open_save)
-   	* [mru_last_visited](#mru_last_visited)
- 	* [shellbags](#shellbags)
-* [system_information](#system_information)  
+	* [shellbags](#shellbags)
+* [system_information](#system_information)
 	* [autoruns](#autoruns)
 	* [temp](#temp)
-   
 * [logs](#logs)
-	* [logs-all](#logs-all)
-   	* [logs-ps](#logs-ps)
- 	* [logs-svcs](#logs-svcs)
+	* [logs-ps](#logs-ps)
+	* [logs-svcs](#logs-svcs)
 	* [logs-wmi](#logs-wmi)
 * [mplogs](#mplogs)
 * [ntds-dit](#ntds-dit)
@@ -48,7 +45,6 @@ permalink: /dfir/win
 	* [regripper](#regripper)
 	* [reg-history](#reg-history)
 	* [reg-extra](#reg-extra)
-
 * [wer](#wer)
 	* [wer-persist](#wer-persist)
 	* [lsass-shtinkering](#lsass-shtinkering)
@@ -516,7 +512,7 @@ EvtxECmd.exe -f "samples/123456/Microsoft-Windows-WMI-Activity%4Operational.evtx
 ```powershell
 ```
 
-### <a name='logs-svcs'></a>logs-wmi
+### <a name='logs-wmi'></a>logs-wmi
 
 🩺 **Status**:
 ```powershell
@@ -705,7 +701,7 @@ C:\ProgramData\Microsoft\Windows\WER\ReportQueue\*.wer
 werfault.dll
 ```
 
-### lsass-shtinkering
+### <a name='lsass-shtinkering'></a>lsass-shtinkering
 
 **Keypoints:**
 * Artifact / Event Log

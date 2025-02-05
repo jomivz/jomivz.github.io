@@ -22,8 +22,10 @@ permalink: /discov/ad
 		* [bypass-amsi](#bypass-amsi)
 		* [load-powersploit](#load-powersploit)
 		* [no-errors](#no-errors)
-	* [run-bloodhound](#run-bloodhound)
+	* [run-neo4j](#run-neo4j)
 * [collect](#collect)
+	* [run-shadowhound](#run-shadowhound)
+	* [run-sharphound](#run-sharphound)
 * [shoot](#shoot)
 	* [shoot-forest](#shoot-forest)
 	* [shoot-dns](#shoot-dns)
@@ -157,23 +159,25 @@ $ErrorActionPreference = 'SilentlyContinue' # hide errors on out console
 $ErrorActionPreference = 'Continue' # set back the display of the errors
 ```
 
-### <a name='run-bloodhound'></a>run-bloodhound 
+### <a name='run-neo4j'></a>run-neo4j
 ```powershell
 # Path for VM Mandiant Commando
 # Start the Neo4J database
 C:\Tools\neo4j-community\neo4j-community-3.5.1\bin>./neo4j.bat console
 ```
 
-## <a name='collect'></a>collect
+## <a name='collect'></a>collect 
 
-Data Collection with SharpHound:
+### <a name='run-shadowhound'></a>run-shadowhound
+```powershell
+```
 
+### <a name='run-sharphound'></a>run-sharphound
 ![SharpHound Cheatsheet](/assets/images/pen-win-ad-enum-sharphound-cheatsheet.png)
-
 Image credit: [https://twitter.com/SadProcessor](https://twitter.com/SadProcessor)
 
-Refresh sessions:
 ```powershell
+# refresh sessions:
 # STEP 1 : go to bloodhound GUI / database statistics / clear session data
 # STEP 2 : collect sessions again # e.g. every 15 minutes for 2 hours
  ./sharphound.exe -c session --Loop --LoopDuration 2:00:00 --LoopInterval 00:15:00 --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
@@ -187,7 +191,7 @@ Refresh sessions:
 
 ```powershell
 # get forest verbose information
-Get-ForestDomain -Verbose
+Get-ForestDomain -Verbose $zforest
 
 # get the trusts of the current domain/forest
 nltest /domain_trusts
@@ -200,7 +204,7 @@ Get-ForestDomain | %{Get-DomainTrust -Domain $_.Name} | ?{$_.TrustAttributes -eq
 Get-DomainUser -LDAPFilter '(sidHistory=*)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # get the trust of a targeted forest
-Get-ForestDomain -Forest $ztarg_forest_name | %{Get-DomainTrust -Domain $_.Name}
+Get-ForestDomain -Forest $ztarg_forest | %{Get-DomainTrust -Domain $_.Name}
 ```
 
 ### <a name='shoot-dns'></a>shoot-dns
@@ -211,6 +215,7 @@ Get-ForestDomain -Forest $ztarg_forest_name | %{Get-DomainTrust -Domain $_.Name}
 ```powershell
 # get the domain properties: fsmo, DCs, ntds replication, dns servers, machineaccountquota
 Get-DomainObject -identity $zdom_dn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
+Netdom Query FSMO /Domain:$zdom_fqdn
 ```
 
 #### <a name='shoot-dcs'></a>shoot-dcs
@@ -350,8 +355,16 @@ References:
 # Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
 # sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
 # get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
-
  Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
+
+# Crawling SQL server links
+ Get-SQLServerLinkCrawl -Instance $ztarg_computer_name -Verbose
+```
+
+![connection to mssql with heidisql](/assets/images/ad_heidisql_connection.png)
+```sql
+ /* list the databases linked to the MSSQL instance */
+ select * from master..sysservers 
 ```
 
 #### <a name='shoot-spns'></a>shoot-spns
@@ -431,9 +444,15 @@ Find-WMILocalAdminAccess
 
 ITER(ated) Enumeration:
 
-To ITERate when owning new privileges (aka new account with new user groups): 
+To ITERate when owning new privileges (new reverse-shell, new account with new user groups): 
 - powershell: spawn a shell, [generate PS Credential object](/sysadmin/sys-win-ps-useful-queries/#PSCredentialinitialization), Rubeus PTT
 - impacket : PTH, PTT, clear password
+
+```powershell
+# rshell variables
+iex ($zdom_fqdn="")
+iex ($zdom_dc_fqdn="")
+```
 
 ### <a name='iter-sid'></a>iter-sid
 ```powershell
@@ -454,6 +473,7 @@ get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainControlle
 ### <a name='iter-scope'></a>iter-scope
 ```powershell
 # STEP 1: if new groups, find where the account is local admin
+Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn >> .\owned_machines.csv
 
 # STEP 2.1: get the DNs of the owned machines 
@@ -465,7 +485,7 @@ get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -Doma
 
 ### <a name='iter-dacl'></a>iter-dacl
 ```powershell
-$(Get-ADUser anakin -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
+$(Get-ADUser $ztarg_user_name -Properties nTSecurityDescriptor).nTSecurityDescriptor.Access[0]
 
 # enumerate who has rights to the $user in $zdom_fqdn, resolving rights GUIDs to names
 Get-DomainObjectAcl -Identity $ztarg_user_name -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
@@ -496,6 +516,9 @@ klist
 
 # check smb admin share access 
 dir \\$ztarg_computer_fqdn\c$
+
+# check user sessions
+Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
 
 # check local admin
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn -ComputerName $ztarg_computer_fqdn
@@ -548,9 +571,16 @@ Get-DomainOU -Identity $ztarg_computer -Domain $zdom_fqdn -DomainController $zdo
 ### <a name='whereis-user'></a>whereis-user
 Where targeted user is connected
 ```powershell
+# invoke-sessionhunter with invishell
+C:\AD\Tools\InviShell\RunWithRegistryNonAdmin.bat
+. C:\AD\Tools\Invoke-SessionHunter.ps1
+Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
+Invoke-SessionHunter -NoPortScan -RawResults -Targets .\owned_machines.txt | select Hostname,UserSession,Access
+
+# invoke-userhunter
 Invoke-UserHunter $ztarg_user_name -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 Invoke-UserHunter $ztarg_user_name -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-Invoke-UserHunter $ztarg_user_name -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select username, computername, IPAddress
+Invoke-UserHunter $ztarg_user_name -CheckAccess -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | select computername,username,IPAddress
 ```
 
 ### <a name='whereis-group'></a>whereis-group
