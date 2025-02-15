@@ -100,13 +100,24 @@ Invoke-Mimi -Command '"sekurlsa::ekeys"'
 
 ### <a name='golden'></a>diamond
 
+* TGT modification, avoid detection of forged TGT without PREAUTH 
+* requires the KRBTGT$ account hash
+
 ### <a name='golden'></a>golden
+
+* TGT forging, there is no PREAUTH / Kerberos AS-REQ, AS-REP exchanges with the DC
+* requires the KRBTGT$ account hash
+
 ```powershell
 # contains secrets for the: scheduled tasks, ...
 Rubeus.exe -args golden /aes256:$ztarg_user_hash /sid:$ztarg_user_sid /ldap /user:$ztarg_user_name /printcmd
 ```
 
 ### <a name='silver'></a>silver
+
+* service account hash required to forgort a TGS
+* it is mostly the machine account hash, valid for 30 days by default
+* more silent than the golden ticket, no kerberos interaction with the DC (aka no AS-REQ, TGS-REQ)
 
 | Service Type 				| 	Service Silver Tickets 	|
 |---------------------------|---------------------------|
@@ -117,6 +128,7 @@ Rubeus.exe -args golden /aes256:$ztarg_user_hash /sid:$ztarg_user_sid /ldap /use
 | Windows File Share (CIFS) | CIFS 						|
 | LDAP operations (DCSync)  | LDAP 						|	
 | Windows RSAT 				| RPCSS LDAP CIFS 			|	
+
 
 ### <a name='vault'></a>vault
 ```powershell

