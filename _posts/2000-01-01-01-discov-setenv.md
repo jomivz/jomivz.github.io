@@ -95,42 +95,75 @@ Get-Variable | Out-String
 
 ## <a name='win2'></a>win2
 ```powershell
+# ZCASE
+$zcase="xxx"
+
+# ZC2SRV
 $zc2srv_ip="172.16.100.83"
 $zc2srv_name="dcorp-std483"
-$zcase="xxx"
+$zpayload=".\Loader.exe"
+
+# ZFOREST 1
 $zforest="moneycorp.local"
+#
+# ZFOREST 1 / ZDOM 1
 $zdom="dollarcorp"
 $znbss="dcorp"
-#$zdom="us.dollarcorp"
-$ztarg_forest="eurocorp.local"
-#$zdom="eu"
+$zdom_dn="DC=dollarcorp,DC=moneycorp,DC=local"
 $zdom_fqdn=$zdom+"."+$zforest
-#zdom_fqdn=$zforest
-$zdom_dn="DC=moneycorp,DC=local"
-#$zdom_dn="DC=dollarcorp,DC=moneycorp,DC=local"
-#$zdom_dn="DC=us,DC=dollarcorp,DC=moneycorp,DC=local"
-#$zdom_dn="DC=eurocorp,DC=local"
-#$zdom_dn="DC=eu,DC=eurocorp,DC=local"
-$zdom_dc_ip="172.16.2.1"
-#$zdom_dc_ip="172.16.15.1"
-#$zdom_dc_ip="172.16.15.2"
-#$zdom_dc_ip="172.16.1.1"
-#$zdom_dc_ip="172.16.9.1"
 $zdom_dc_name="dcorp-dc"
-#$zdom_dc_name="eurocorp-dc"
-#$zdom_dc_name="eu-dc"
+$zdom_dc_ip="172.16.2.1"
+#
+# ZFOREST 1 / ZDOM 2
+#$zdom="moneycorp"
+#$znbss="mcorp"
+#$zdom_dn="DC=moneycorp,DC=local"
+#$zdom_fqdn=$zforest
 #$zdom_dc_name="mcorp-dc"
+#$zdom_dc_ip="172.16.1.1"
+#
+# ZFOREST 1 / ZDOM 3
+#$zdom="us"
+#$znbss="us"
+#$zdom_dn="DC=us,DC=dollarcorp,DC=moneycorp,DC=local"
+#$zdom_fqdn=$zdom+"."+$zforest
 #$zdom_dc_name="us-dc"
+#$zdom_dc_ip="172.16.9.1"
+#
 $zdom_dc_fqdn=$zdom_dc_name+"."+$zdom_fqdn
 $zdom_dc_san=$zdom_dc_name+"$"
 $zdom_dc_dn="OU=Domain Controllers,"+$zdom_dn
+
+# ZFOREST 2
+#$zforest="eurocorp.local"
+#
+# ZFOREST 2 / DOM 1
+#$zdom="eurocorp"
+#$znbss="eurocorp"
+#$zdom_fqdn=$zdom+"."+$zforest
+#$zdom_dc_name="eurocorp-dc"
+#$zdom_dc_ip="172.16.15.1"
+#$zdom_dn="DC=eurocorp,DC=local"
+#
+# ZFOREST 2 / DOM 2
+#$zdom="eu"
+#$znbss="eu"
+#$zdom_fqdn=$zdom+"."+$zforest
+#$zdom_dc_name="eu-dc"
+#$zdom_dc_ip="172.16.15.2"
+#$zdom_dn="DC=eu,DC=eurocorp,DC=local"
+#
+$zdom_dc_fqdn=$zdom_dc_name+"."+$zdom_fqdn
+$zdom_dc_san=$zdom_dc_name+"$"
+$zdom_dc_dn="OU=Domain Controllers,"+$zdom_dn
+
+# ZPKI
 $zpki_dn="CN=Public Key Services,CN=Services,CN=Configuration,"+$zdom_dn
 $zpki_ca_server=""
 $zpki_ca_name=""
-$ztarg_computer_name="dcorp-dc"
-$ztarg_computer_ip="172.16.2.1"
-$ztarg_nexthop_name="dcorp-mgmt"
-$ztarg_nexthop_ip="172.16.4.44"
+$ztarg_forest="eurocorp.local"
+
+# ZTARG_COMPUTER
 #$ztarg_computer_name="dcorp-adminsrv"
 #$ztarg_computer_ip="172.16.4.101"
 #$ztarg_computer_name="dcorp-appsrv"
@@ -153,20 +186,32 @@ $ztarg_nexthop_ip="172.16.4.44"
 #$ztarg_computer_ip="172.16.1.1"
 #$ztarg_computer_name="us-dc"
 #$ztarg_computer_ip="172.16.9.1"
+$ztarg_computer_name="dcorp-dc"
+$ztarg_computer_ip="172.16.2.1"
 $ztarg_computer_fqdn=$ztarg_computer_name+"."+$zdom_fqdn
 $ztarg_computer_san=$ztarg_computer+"$"
+
+# ZTARG_NEXTHOP
+$ztarg_nexthop_name="dcorp-mgmt"
+$ztarg_nexthop_ip="172.16.4.44"
+
+# ZTARG_GROUP
 $ztarg_group_name="Domain Admins"
-$ztarg_user_name="student483"
+
+# ZTARG_USER
 #$ztarg_user_name="svcadmin"
 #$ztarg_user_name="ciadmin"
 #$ztarg_user_name="appadmin"
 #$ztarg_user_name="srvadmin"
 #$ztarg_user_name="websvc"
+$ztarg_user_name="student483"
 $ztarg_user_pass="admin"
 $ztarg_user_nthash=""
 $ztarg_user_aes256k=""
-$ztarg_user_next="admin"
+$ztarg_user_sid=""
 $zx=$znbss+"\"+$ztarg_user_name
 $zy=$zdom_fqdn+"/"+$ztarg_user_name
 $zz=$zdom_fqdn+"/"+$ztarg_user_name+":"+$ztarg_user_pass
+#$ztarg_user_next="admin"
+$ztarg_ou="DevOps"
 ```

