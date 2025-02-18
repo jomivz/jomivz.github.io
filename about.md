@@ -6,7 +6,7 @@ nav_order: 8
 ---
 
 <!-- vscode-markdown-toc -->
-* [About](#About)
+* [Content](#Content)
 * [Participating](#Participating)
 * [Licensing](#Licensing)
 
@@ -16,7 +16,7 @@ nav_order: 8
 	/vscode-markdown-toc-config -->
 <!-- /vscode-markdown-toc -->
 
-## <a name='About'></a>About
+## <a name='Content'></a>Content
 
 My name Jonathan aka **j0mivz**. I work as Cybersecurity Specialist. **This website is my selfish IT notebook.**
 There is no room here to challenge those **golden** contents:
@@ -38,13 +38,11 @@ There is no room here to challenge those **golden** contents:
 
 **If we are mates**, there is a chance I share you few **HOWTOs** via my [cheatsheets](/).
 
-There is no room here to challenge [other awesome repositories](/ressources). 
-I recommend you to [refer to it first](/ressources) and **do not take my notes for granted**.
-
-Still willing to send me a pull request through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
 Below a kind selfish reminder for PR 101 :)
 
 ![PR 101](/assets/images/about-gh-pull-request.jpg)
+
+Still willing to send me a pull request through the github repository [jomivz.github.io](https://github.com/jomivz/jomivz.github.io).
 
 ## <a name='Licensing'></a>Licensing
 

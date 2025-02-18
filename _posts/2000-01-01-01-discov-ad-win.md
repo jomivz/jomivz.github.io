@@ -514,6 +514,9 @@ get-content pwned_accounts.txt | get-netuser -Domain $zdom_fqdn -DomainControlle
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn
 Find-LocalAdminAccess -ComputerDomain $zdom_fqdn -Server $zdom_dc_fqdn >> .\owned_machines.csv
 
+. .\Find-PSRemotingLocalAdminAccess.ps1
+Find-PSRemotingLocalAdminAccess -Domain $zdom_fqdn -Verbose
+
 # STEP 2.1: get the DNs of the owned machines 
 get-content .\owned_machines.csv | %{get-netcomputer $_ -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn} | select-object -Property distinguishedname | ft -autosize >> .\owned_machines_w_ou.csv
 

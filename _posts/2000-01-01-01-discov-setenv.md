@@ -113,6 +113,8 @@ $zdom_dn="DC=dollarcorp,DC=moneycorp,DC=local"
 $zdom_fqdn=$zdom+"."+$zforest
 $zdom_dc_name="dcorp-dc"
 $zdom_dc_ip="172.16.2.1"
+$zdom_krbtgt_aes256k=""
+$zdom_krbtgt_norid="" # SID without the trailing RID "-502"
 #
 # ZFOREST 1 / ZDOM 2
 #$zdom="moneycorp"
@@ -209,6 +211,7 @@ $ztarg_user_pass="admin"
 $ztarg_user_nthash=""
 $ztarg_user_aes256k=""
 $ztarg_user_sid=""
+$ztarg_user_norid=""
 $zx=$znbss+"\"+$ztarg_user_name
 $zy=$zdom_fqdn+"/"+$ztarg_user_name
 $zz=$zdom_fqdn+"/"+$ztarg_user_name+":"+$ztarg_user_pass
