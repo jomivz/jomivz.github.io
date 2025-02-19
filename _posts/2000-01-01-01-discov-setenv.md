@@ -101,13 +101,23 @@ $zcase="xxx"
 # ZC2SRV
 $zc2srv_ip="172.16.100.83"
 $zc2srv_name="dcorp-std483"
+$zc2srv_aes256k=""
 $zpayload=".\Loader.exe"
 
 # ZFOREST 1
+$znbss="mcorp"
 $zforest="moneycorp.local"
+$zforest_krbtgt_nthash=""
+$zforest_dc_ip="172.16.1.1"
+$zforest_dc_name="mcorp-dc"
+$zforest_dc_fqdn=$zforest_dc_name+"."+$zforest
+$zforest_dn="DC=moneycorp,DC=local"
+$zea_sid="xxx-519"
+
 #
 # ZFOREST 1 / ZDOM 1
 $zdom="dollarcorp"
+$zdom_sid=""
 $znbss="dcorp"
 $zdom_dn="DC=dollarcorp,DC=moneycorp,DC=local"
 $zdom_fqdn=$zdom+"."+$zforest
@@ -117,14 +127,6 @@ $zdom_krbtgt_aes256k=""
 $zdom_krbtgt_norid="" # SID without the trailing RID "-502"
 #
 # ZFOREST 1 / ZDOM 2
-#$zdom="moneycorp"
-#$znbss="mcorp"
-#$zdom_dn="DC=moneycorp,DC=local"
-#$zdom_fqdn=$zforest
-#$zdom_dc_name="mcorp-dc"
-#$zdom_dc_ip="172.16.1.1"
-#
-# ZFOREST 1 / ZDOM 3
 #$zdom="us"
 #$znbss="us"
 #$zdom_dn="DC=us,DC=dollarcorp,DC=moneycorp,DC=local"
@@ -138,6 +140,13 @@ $zdom_dc_dn="OU=Domain Controllers,"+$zdom_dn
 
 # ZFOREST 2
 #$zforest="eurocorp.local"
+#$znbss="eurocorp"
+#$zforest_krbtgt_nthash=""
+#$zforest_dc_ip="172.16.1.1"
+#$zforest_dc_name="eurocorp-dc"
+#$zforest_dc_fqdn=$zforest_dc_name+"."+$zforest
+#$zforest_dn="DC=eurocorp,DC=local"
+#$zea_sid="xxx-519"
 #
 # ZFOREST 2 / DOM 1
 #$zdom="eurocorp"
@@ -192,6 +201,7 @@ $ztarg_computer_name="dcorp-dc"
 $ztarg_computer_ip="172.16.2.1"
 $ztarg_computer_fqdn=$ztarg_computer_name+"."+$zdom_fqdn
 $ztarg_computer_san=$ztarg_computer+"$"
+$ztarg_computer_aes256k=""
 
 # ZTARG_NEXTHOP
 $ztarg_nexthop_name="dcorp-mgmt"

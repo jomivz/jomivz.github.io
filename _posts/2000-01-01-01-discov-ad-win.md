@@ -233,6 +233,9 @@ certify.exe find /vulnerable /domain:$zdom_fqdn /path:$zpki_dn
 #### <a name='shoot-dacl'></a>shoot-dacl
 ```powershell
 
+# STEP 0: list ACLs at the DOM root level 
+Get-DomainObjectAcl -SearchBase ${zdom_dn} -SearchScope Base -ResolveGUIDs | Group-Object -Property ObjectAceType
+
 # STEP 1: global gathering
 Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn 
 sharphound.exe --CollectionMethod ACL --domain $zdom_fqdn --domaincontroller $zdom_dc_fqdn
@@ -251,6 +254,9 @@ Invoke-ACLScanner -ResolveGUIDs -Domain $zdom_fqdn -DomainController $zdom_dc_fq
 # ObjectAceType = User-Account-Restrictions
 Get-ObjectAcl -SamAccountName $ztarg_group_name -ResolveGUIDs -Verbose -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn | ? { $_.ObjectAceType -match 'User-Account-Restrictions'}
 
+# STEP 4 : WHO CAN DCSYNC
+Get-DomainObjectAcl -SearchBase ${zdom_dn} -SearchScope Base -ResolveGUIDs | ?{($_.ObjectAceType -match 'replication-get') -or ($_.ActiveDirectoryRights -match 'GenericAll')} | ForEach-Object {$_ | Add-Member NoteProperty 'IdentityName' $(Convert-SidToName $_.SecurityIdentifier);$_} | ft AceType, ObjectDN, ActiveDirectoryRights, IdentityName
+
 # STEP 4: enumerate permissions for GPOs where users with RIDs of > -1000 have some kind of modification/control rights
 Get-DomainObjectAcl -LDAPFilter '(objectCategory=groupPolicyContainer)' -Domain $zdom_fqdn -DomainController $zdom_dc_fqdn  | ? { ($_.SecurityIdentifier -match '^S-1-5-.*-[1-9]\d{3,}$') -and ($_.ActiveDirectoryRights -match 'GenericAll|GenericWrite|WriteDacl|WriteOwner|WriteProperty')}
 ```
@@ -262,10 +268,16 @@ sources:
 
 #### <a name='shoot-delegations'></a>shoot-delegations
 ```powershell
-# with password in the CLI
+# POWERVIEW / KUD
+Get-DomainComputer -Unconstrained | select -ExpandProperty name
+
+# POWERVIEW / KCD
+Get-DomainUser -TrustedToAuth
+
+# IMPACKET / with password in the CLI
 $zz = $zdom_fqdn + '/' + $ztarg_user_name + ':' + $ztarg_user_pass
 .\findDelegation.py  $zz
-# with kerberos auth / password not in the CLI
+# IMPACKET / with kerberos auth / password not in the CLI
 $zz = $zdom_fqdn + '/' + $ztarg_user_user
 .\findDelegation.py  $zz -k -no-pass
 ```

