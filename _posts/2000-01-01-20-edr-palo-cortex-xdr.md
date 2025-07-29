@@ -3,7 +3,7 @@ layout: post
 title: edr / xdr
 parent: cheatsheets
 category: 20-soc
-modified_date: 2023-06-27
+modified_date: 2025-07-29
 permalink: /edr/xdr
 ---
 
@@ -13,17 +13,19 @@ permalink: /edr/xdr
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
 	* [lin-ps](#lin-ps)
+* [lin-files](#lin-files)
 * [xql](#xql)
-	* [get-pub-ip](#get-pub-ip)
+	* [get-creds](#get-creds)
+	* [get-data-uploads](#get-data-uploads)
 	* [get-flow](#get-flow)
 	* [get-flow-wan](#get-flow-wan)
 	* [get-flow-lan](#get-flow-lan)
 	* [get-flow-smb](#get-flow-smb)
 	* [get-flow-origin](#get-flow-origin)
-	* [get-data-uploads](#get-data-uploads)
-	* [get-sensitive-services](#get-sensitive-services)
+	* [get-proc-from-flow](#get-proc-from-flow)
+	* [get-pub-ip](#get-pub-ip)
 	* [get-registry-activity](#get-registry-activity)
-	* [get-creds](#get-creds)
+	* [get-sensitive-services](#get-sensitive-services)
 * [xql-4-ir](#xql-4-ir)
 	* [find-data-leak](#find-data-leak)
 	* [find-rogue-auths](#find-rogue-auths)
@@ -76,7 +78,7 @@ ps -aux | grep cortex
 ```
 ![ps aux](/assets/images/xdr-psaux.png)
 
-## <a name='files'></a>lin-files
+## <a name='lin-files'></a>lin-files
 
 * palo xdr 7.9.1 file ```ltee_decryptor.json```:
 ```bash
@@ -93,10 +95,43 @@ jq /opt/traps/python/scripts/service_main.json
 
 ## <a name='xql'></a>xql
 
-### <a name='get-pub-ip'></a>get-pub-ip
+### <a name='get-creds'></a>get-creds
+- Looking for the process executions:
+```sh
+dataset = xdr_data 
+| filter event_type = ENUM.PROCESS and action_process_image_command_line contains "kubectl" and  action_process_image_command_line contains $_KEYWORD_$
+| comp count(agent_hostname) as hits by agent_hostname, agent_ip_addresses, action_process_image_command_line, agent_version, host_metadata_domain 
 ```
-dataset = endpoints
-| filter last_origin_ip = "8.8.8.8"
+
+| loots | $_KEYWORD_$ |
+|-------|----------------------------|
+| Kubernetes | "kubectl config set-credentials" |
+| Container Registry X | "docker login" |  
+| Container Registry Azure | "azucr." |
+| DB sysdba | "sysdba" |
+| DB x | "sqlplus -s " |
+| password | " -pass" |
+| password | " -p " |
+| password | " -cred" |
+| psexec | "psexec " |
+
+* Looking for the Windows registry ([T1552.002](https://attack.mitre.org/techniques/T1552/002/)):
+```sh
+preset = xdr_registry 
+| alter privrange = incidr( agent_ip_addresses,"10.0.0.0/24")
+| filter privrange = true and action_registry_key_name contains "Password"
+```
+
+### <a name='get-data-uploads'></a>get-data-uploads
+
+Top uploads by remote port:
+```
+preset = network_story 
+| filter agent_hostname = "PC001" AND action_remote_ip != null
+| comp sum(action_total_upload) as uploads by agent_hostname, action_local_ip, action_remote_ip, action_remote_port, actor_process_command_line 
+| alter MB_uploads = divide(uploads, 1048576)
+| fields MB_uploads, agent_hostname, action_local_ip, action_remote_ip, action_remote_port, actor_process_command_line
+| sort desc MB_uploads
 ```
 
 
@@ -156,16 +191,30 @@ preset=network_story
 | fields _time, agent_hostname, action_local_port, action_remote_ip, action_remote_port, dst_actor_process_image_name, dst_actor_process_image_path 
 ```
 
-### <a name='get-data-uploads'></a>get-data-uploads
+### <a name='get-proc-from-flow'></a>get-proc-from-flow
 
-Top uploads by remote port:
+- Find the process doing SMB scan.
 ```
-preset = network_story 
-| filter agent_hostname = "PC001" AND action_remote_ip != null
-| comp sum(action_total_upload) as uploads by agent_hostname, action_local_ip, action_remote_ip, action_remote_port, actor_process_command_line 
-| alter MB_uploads = divide(uploads, 1048576)
-| fields MB_uploads, agent_hostname, action_local_ip, action_remote_ip, action_remote_port, actor_process_command_line
-| sort desc MB_uploads
+dataset = xdr_data
+| filter action_remote_port in (445) AND agent_hostname="xxx"
+```
+
+- Click on 'actor_process_image_name' after executing the search.
+
+![](/assets/images/edr_xdr_net_port_2_proc.png)
+
+- Here is a network scan made with 'advanced_ip_scanner'. 
+
+### <a name='get-pub-ip'></a>get-pub-ip
+```
+dataset = endpoints
+| filter last_origin_ip = "8.8.8.8"
+```
+
+### <a name='get-registry-activity'></a>get-registry-activity
+Get actions over the windows registry for PC001:
+```
+preset = xdr_registry | filter agent_hostname = "PC001"
 ```
 
 ### <a name='get-sensitive-services'></a>get-sensitive-services
@@ -180,39 +229,6 @@ dataset = xdr_data
 | comp count(_time) as hits by agent_hostname, action_local_ip, action_local_port, action_remote_ip
 | sort desc hits
 ```
-### <a name='get-registry-activity'></a>get-registry-activity
-Get actions over the windows registry for PC001:
-```
-preset = xdr_registry | filter agent_hostname = "PC001"
-```
-
-### <a name='get-creds'></a>get-creds
-* Looking for the process executions:
-```sh
-dataset = xdr_data 
-| filter event_type = ENUM.PROCESS and action_process_image_command_line contains "kubectl" and  action_process_image_command_line contains $_KEYWORD_$
-| comp count(agent_hostname) as hits by agent_hostname, agent_ip_addresses, action_process_image_command_line, agent_version, host_metadata_domain 
-```
-
-| loots | $_KEYWORD_$ |
-|-------|----------------------------|
-| Kubernetes | "kubectl config set-credentials" |
-| Container Registry X | "docker login" |  
-| Container Registry Azure | "azucr." |
-| DB sysdba | "sysdba" |
-| DB x | "sqlplus -s " |
-| password | " -pass" |
-| password | " -p " |
-| password | " -cred" |
-| psexec | "psexec " |
-
-* Looking for the Windows registry ([T1552.002](https://attack.mitre.org/techniques/T1552/002/)):
-```sh
-preset = xdr_registry 
-| alter privrange = incidr( agent_ip_addresses,"10.0.0.0/24")
-| filter privrange = true and action_registry_key_name contains "Password"
-```
-
 
 ## <a name='xql-4-ir'></a>xql-4-ir
 
