@@ -12,10 +12,10 @@
   </defs>
 
   <!-- Fenêtre avec fond noir et contour blanc -->
-  <rect width="140" height="128" rx="8" ry="8" fill="black" stroke="white" stroke-width="4" filter="url(#shadow)"/>
+  <rect width="140" height="128" rx="8" ry="8" fill="black" stroke="white" stroke-width="2" filter="url(#shadow)"/>
 
   <!-- Barre d'en-tête -->
-  <rect x="0" y="0" width="140" height="22" rx="8" ry="8" fill="url(#barFluo)" stroke="white" stroke-width="2"/>
+  <rect x="0" y="0" width="140" height="22" rx="8" ry="8" fill="url(#barFluo)"/>
 
   <!-- Boutons -->
   <!-- Minimiser -->

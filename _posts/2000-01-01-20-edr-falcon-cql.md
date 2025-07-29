@@ -10,26 +10,30 @@ permalink: /edr/falcon/cql
 <!-- vscode-markdown-toc -->
 * [api](#api)
 	* [psfalcon](#psfalcon)
+		* [get-hosts-info](#get-hosts-info)
+		* [get-hosts-regkey](#get-hosts-regkey)
 	* [falconpy](#falconpy)
 * [enum](#enum)
+	* [timepicker](#timepicker)
 	* [win-enum](#win-enum)
 	* [lin-enum](#lin-enum)
- 	* [timepicker](#timepicker)
-* [events-cql](#events)
+* [events-cql](#events-cql)
 	* [cql-detections](#cql-detections)
 	* [cql-enum](#cql-enum)
 		* [enum-configbuild](#enum-configbuild)
 	* [cql-exe](#cql-exe)
 		* [exe-lolbas-1](#exe-lolbas-1)
 		* [exe-lolbas-2](#exe-lolbas-2)
+		* [exe-lsass](#exe-lsass)
 		* [exe-pe](#exe-pe)
 		* [exe-pe-randomized](#exe-pe-randomized)
 		* [exe-powershell-1](#exe-powershell-1)
 		* [exe-powershell-2](#exe-powershell-2)
- 		* [exe-rollup](#exe-rollup)
-  		* [exe-rollup-dc](#exe-rollup-dc)
+		* [exe-rollup](#exe-rollup)
+		* [exe-rollup-dc](#exe-rollup-dc)
+		* [exe-svchost](#exe-svchost)
 		* [exe-utilman-abuse](#exe-utilman-abuse)
- 		* [exe-webbrowser](#exe-webbrowser) 
+		* [exe-webbrowser](#exe-webbrowser)
 	* [cql-fs-io](#cql-fs-io)
 		* [fs-conns-usb](#fs-conns-usb)
 		* [fs-deleted-exe](#fs-deleted-exe)
@@ -43,14 +47,15 @@ permalink: /edr/falcon/cql
 		* [net-conns-www](#net-conns-www)
 		* [net-dns-req-1](#net-dns-req-1)
 		* [net-dns-req-2](#net-dns-req-2)
- 		* [net-scans-internal](#net-scans-internal)
-   		* [net-smb-sessions](#net-smb-sessions)
+		* [net-scans-internal](#net-scans-internal)
+		* [net-smb-sessions](#net-smb-sessions)
 	* [cql-tamper](#cql-tamper)
 		* [added-local-admin](#added-local-admin)
 		* [added-scheduled-tasks](#added-scheduled-tasks)
+		* [registry-io](#registry-io)
 * [jq](#jq)
 	* [jq-over-rtr-scripts](#jq-over-rtr-scripts)
-	* [jq-over-detections-export](#jq-over-detections-export) 
+	* [jq-over-detections-export](#jq-over-detections-export)
 
 <!-- vscode-markdown-toc-config
 	numbering=false
@@ -60,11 +65,11 @@ permalink: /edr/falcon/cql
 
 ## <a name='api'></a>api
 
-### <a name='falconpy'></a>psfalcon
+### <a name='psfalcon'></a>psfalcon
 
 * [psfalcon/samples](https://github.com/CrowdStrike/psfalcon/tree/master/samples)
 
-#### <a name='falconpy'></a>get-hosts-info
+#### <a name='get-hosts-info'></a>get-hosts-info
 ```
 # This script is used to contain a list of hostnames found in Crowdstrike
 # Fill in the API credentials authorised to use the Crowdstrike API 
@@ -163,8 +168,8 @@ ExternalApiType=Event_DetectionSummaryEvent
 | where like (ComputerName,”UK%”)
 ```
 
-### <a name='cql-exe'></a>cql-enum
-#### <a name='exe-lolbas-1'></a>enum-configbuild
+### <a name='cql-enum'></a>cql-enum
+#### <a name='enum-configbuild'></a>enum-configbuild
 ```
 earliest=-7d event_platform=win event_simpleName=SensorHeartbeat ComputerName=
 | fields timestamp aid ComputerName ConfigBuild
@@ -243,7 +248,7 @@ NOT ActiveDirectory* NOT IdpDcPerf* event_simpleName=ProcessRollup2  ComputerNam
 | stats count by FileName, FilePath, ParentBaseFileName
 ```
 
-#### <a name='exe-lolbas-1'></a>exe-svchost
+#### <a name='exe-svchost'></a>exe-svchost
 ```
 event_simpleName=ProcessRollup2 "svchost.exe"
 | table _time, ComputerName, ParentBaseFileName, ImageFileName, CommandLine 
@@ -260,7 +265,7 @@ ComputerName= Utilman ImageFileName!="*conhost.exe"
 ![](/assets/images/edr_falcon_cql_utilman.png)
 
 
-#### <a name='exe-webrbowser'></a>exe-webbrowser
+#### <a name='exe-webbrowser'></a>exe-webbrowser
 ```
 ComputerName= event_simpleName=ProcessRollup2 AND( FileName="msedge.exe" OR FileName="chrome.exe"  OR FileName="firefox.exe")
 | table aid, ComputerName, ParentBaseFileName, ImageFileName, CommandLine
@@ -383,7 +388,7 @@ ComputerName=  sourcetype="DnsRequest*"
 | table DomainName 
 ```
 
-#### <a name='net-dns-req-2'></a>net-scans-internal
+#### <a name='net-scans-internal'></a>net-scans-internal
 ```
 event_simpleName=networkConnectIP4 NOT ContextBaseFileName IN ("Ntrtscan.exe", "ACCS FTP.exe", "CSFalcon*", "rpcbind") RemoteAddressIP4 IN ("10.*", "172.*", "192.168.*")
 | where RPort < 1024
@@ -392,7 +397,7 @@ event_simpleName=networkConnectIP4 NOT ContextBaseFileName IN ("Ntrtscan.exe", "
 | where number_rport > 5
 ```
 
-#### <a name='net-dns-req-2'></a>net-smb-sessions
+#### <a name='net-smb-sessions'></a>net-smb-sessions
 ```
 index=main ComputerName=XXXXXXXXXX *smb*
 | eval real_time=strftime(_time,"%Y-%m-%dT%H:%M:%S.%Q") 
